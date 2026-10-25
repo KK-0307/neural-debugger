@@ -1,0 +1,69 @@
+.PHONY: install lint format typecheck test test-backend test-frontend check \
+        dev-db dev-backend dev-frontend up down \
+        corpus verify-urls dataset eval-bm25 eval-ablation freeze-verify demo
+
+install:
+	uv sync --extra data
+	npm --prefix frontend ci
+
+lint:
+	uv run ruff check .
+	uv run ruff format --check .
+	npm --prefix frontend run lint
+
+format:
+	uv run ruff check --fix .
+	uv run ruff format .
+
+typecheck:
+	uv run mypy -p neural_debugger
+	uv run mypy tests
+	npm --prefix frontend run typecheck
+
+test-backend:
+	uv run pytest
+
+test-frontend:
+	npm --prefix frontend test
+
+test: test-backend test-frontend
+
+# --- Milestone 2: corpus, labeled dataset, BM25 evaluation -------------------------------------
+corpus:  ## fetch (cached, polite) + parse + chunk + dedupe the pinned documentation corpus
+	uv run python -m neural_debugger.data.ingest build
+
+verify-urls:  ## check every cited page and anchor resolves on the published site
+	uv run python -m neural_debugger.data.ingest verify-urls
+
+dataset:  ## merge YAML label sources -> queries.jsonl, run integrity + leakage checks
+	uv run python -m neural_debugger.data.dataset build
+
+eval-bm25:  ## re-score the frozen BM25 baseline on train+val (test is protected; see protocol.py)
+	uv run python -m neural_debugger.ml.evaluation.evaluate --retriever bm25
+
+freeze-verify:  ## fail if the frozen Milestone 2 baseline (data, labels, results) drifted
+	uv run python -m neural_debugger.ml.evaluation.freeze verify
+
+eval-ablation:  ## dev-only (train+val) BM25 configuration study
+	uv run python -m neural_debugger.ml.evaluation.bm25_ablation
+
+demo:  ## BM25 search over the real docs: make demo Q="KeyError"
+	uv run python -m neural_debugger.ml.retrieval.demo $(Q)
+
+# Everything CI runs (minus Docker builds).
+check: lint typecheck test
+
+dev-db:
+	docker compose up -d db
+
+dev-backend:
+	uv run uvicorn neural_debugger.backend.main:app --reload --port 8000
+
+dev-frontend:
+	npm --prefix frontend run dev
+
+up:
+	docker compose up --build
+
+down:
+	docker compose down

@@ -1,0 +1,26 @@
+{
+ "fastapi": {
+  "anchors": 989,
+  "anchors_found": 989,
+  "missing_anchors": [],
+  "page_failures": [],
+  "pages": 112,
+  "pages_ok": 112
+ },
+ "python": {
+  "anchors": 2707,
+  "anchors_found": 2707,
+  "missing_anchors": [],
+  "page_failures": [],
+  "pages": 49,
+  "pages_ok": 49
+ },
+ "pytorch": {
+  "anchors": 458,
+  "anchors_found": 458,
+  "missing_anchors": [],
+  "page_failures": [],
+  "pages": 46,
+  "pages_ok": 46
+ }
+}

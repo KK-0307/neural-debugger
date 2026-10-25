@@ -1,0 +1,222 @@
+# FastAPI queries. Section ids use the prefix fa: = fastapi/0.162.0/ (expanded by the loader and
+# validated against the corpus). See docs/evaluation.md for how relevance was judged.
+- id: fa001
+  query: '{"detail":[{"type":"missing","loc":["body"],"msg":"Field required","input":null}]} 422 Unprocessable Entity when I POST to my endpoint'
+  slice: error_message
+  relevant: [fa:tutorial/body#declare-it-as-a-parameter, fa:tutorial/handling-errors#override-request-validation-exceptions]
+- id: fa002
+  query: "Access to fetch at 'http://localhost:8000/items' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present"
+  slice: error_message
+  relevant: [fa:tutorial/cors#use-corsmiddleware, fa:tutorial/cors#cors-cross-origin-resource-sharing]
+- id: fa003
+  query: 'RuntimeError: Form data requires "python-multipart" to be installed.'
+  slice: error_message
+  relevant: [fa:tutorial/request-forms#form-data]
+- id: fa004
+  query: "sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread"
+  slice: error_message
+  relevant: [fa:tutorial/sql-databases#create-an-engine]
+- id: fa005
+  query: "TypeError: Object of type datetime is not JSON serializable when saving my pydantic model to a database"
+  slice: error_message
+  relevant: [fa:tutorial/encoder#using-the-jsonable-encoder, fa:tutorial/encoder#json-compatible-encoder]
+- id: fa006
+  query: 'Error loading ASGI app. Could not import module "main".'
+  slice: error_message
+  relevant: [fa:deployment/manually#run-the-server-program, fa:fastapi-cli#configure-the-app-entrypoint-in-pyproject-toml]
+- id: fa007
+  query: "bash: fastapi: command not found"
+  slice: error_message
+  relevant: [fa:virtual-environments#virtual-environments, fa:tutorial/index#install-fastapi]
+- id: fa008
+  query: "RuntimeWarning: coroutine 'read_items' was never awaited"
+  slice: error_message
+  relevant: [fa:async#coroutines, fa:async#async-and-await]
+- id: fa009
+  query: "starlette.websockets.WebSocketDisconnect raised when the client closes the browser tab"
+  slice: error_message
+  relevant: [fa:advanced/websockets#handling-disconnections-and-multiple-clients]
+- id: fa010
+  query: "fastapi.exceptions.FastAPIError: Invalid args for response field! Hint: check that starlette.responses.Response is a valid Pydantic field type"
+  slice: error_message
+  relevant: [fa:tutorial/response-model#invalid-return-type-annotations, fa:tutorial/response-model#return-a-response-directly]
+- id: fa011
+  query: "RuntimeError: Directory 'static' does not exist"
+  slice: error_message
+  relevant: [fa:tutorial/static-files#use-staticfiles]
+- id: fa012
+  query: "ResponseValidationError: 1 validation error: Field required ('response', 'name') returning an object from my endpoint"
+  slice: error_message
+  relevant: [fa:tutorial/response-model#response-model-return-type, fa:tutorial/response-model#response-model-parameter]
+- id: fa013
+  query: "swagger docs page loads blank and openapi.json returns 404 when the API is served by nginx under /api prefix"
+  slice: error_message
+  relevant: [fa:advanced/behind-a-proxy#providing-the-root-path, fa:advanced/behind-a-proxy#proxy-with-a-stripped-path-prefix]
+- id: fa014
+  query: "RuntimeError: Task got Future attached to a different loop when testing async endpoint with TestClient"
+  slice: error_message
+  relevant: [fa:advanced/async-tests#in-detail, fa:advanced/async-tests#async-tests]
+- id: fa015
+  query: 'ModuleNotFoundError: No module named "pydantic_settings"'
+  slice: error_message
+  relevant: [fa:advanced/settings#install-pydantic-settings]
+- id: fa016
+  query: "AssertionError: jinja2 must be installed to use Jinja2Templates"
+  slice: error_message
+  relevant: [fa:advanced/templates#install-dependencies]
+- id: fa017
+  query: "how do I run some code when the application starts and clean up when it shuts down"
+  slice: question
+  relevant: [fa:advanced/events#lifespan, fa:advanced/events#lifespan-function]
+- id: fa018
+  query: "send a notification email after returning the response so the client doesn't have to wait"
+  slice: question
+  relevant: [fa:tutorial/background-tasks#using-backgroundtasks, fa:tutorial/background-tasks#create-a-task-function]
+- id: fa019
+  query: "make a query parameter optional with a default value"
+  slice: question
+  relevant: [fa:tutorial/query-params#defaults, fa:tutorial/query-params#optional-parameters]
+- id: fa020
+  query: "validate that an id in the URL path is greater than zero and less than 1000"
+  slice: question
+  relevant: [fa:tutorial/path-params-numeric-validations#number-validations-greater-than-and-less-than-or-equal]
+- id: fa021
+  query: "limit the maximum length of a string query parameter and require a minimum length"
+  slice: question
+  relevant: [fa:tutorial/query-params-str-validations#add-more-validations]
+- id: fa022
+  query: "accept the same query parameter multiple times like ?tag=a&tag=b as a list"
+  slice: question
+  relevant: [fa:tutorial/query-params-str-validations#query-parameter-list-multiple-values]
+- id: fa023
+  query: "return 201 Created instead of 200 from a POST endpoint"
+  slice: question
+  relevant: [fa:tutorial/response-status-code#response-status-code, fa:tutorial/response-status-code#about-http-status-codes]
+- id: fa024
+  query: "add a custom header to the response from inside a path operation function"
+  slice: question
+  relevant: [fa:advanced/response-headers#use-a-response-parameter, fa:advanced/response-headers#custom-headers]
+- id: fa025
+  query: "set a cookie on the response when the user logs in"
+  slice: question
+  relevant: [fa:advanced/response-cookies#use-a-response-parameter]
+- id: fa026
+  query: "read a cookie sent by the browser inside an endpoint"
+  slice: question
+  relevant: [fa:tutorial/cookie-params#declare-cookie-parameters]
+- id: fa027
+  query: "let users upload a file to my API without loading all of it in memory"
+  slice: question
+  relevant: [fa:tutorial/request-files#file-parameters-with-uploadfile, fa:tutorial/request-files#uploadfile]
+- id: fa028
+  query: "my header is called user_agent in python but the client sends User-Agent, how does fastapi map them"
+  slice: question
+  relevant: [fa:tutorial/header-params#automatic-conversion]
+- id: fa029
+  query: "organise a big project into several files instead of one main.py"
+  slice: question
+  relevant: [fa:tutorial/bigger-applications#bigger-applications-multiple-files, fa:tutorial/bigger-applications#apirouter]
+- id: fa030
+  query: "write a pytest test that calls my endpoint"
+  slice: question
+  relevant: [fa:tutorial/testing#using-testclient, fa:tutorial/testing#testing]
+- id: fa031
+  query: "replace a dependency with a fake one while running tests"
+  slice: question
+  relevant: [fa:advanced/testing-dependencies#use-the-app-dependency-overrides-attribute, fa:advanced/testing-dependencies#overriding-dependencies-during-testing]
+- id: fa032
+  query: "package my app in a docker container"
+  slice: question
+  relevant: [fa:deployment/docker#dockerfile, fa:deployment/docker#build-a-docker-image-for-fastapi]
+- id: fa033
+  query: "run several worker processes to use all CPU cores in production"
+  slice: question
+  relevant: [fa:deployment/server-workers#multiple-workers, fa:deployment/server-workers#server-workers-uvicorn-with-workers]
+- id: fa034
+  query: "load configuration values like database url from environment variables or a .env file"
+  slice: question
+  relevant: [fa:advanced/settings#reading-a-env-file, fa:advanced/settings#read-settings-from-env, fa:advanced/settings#pydantic-settings]
+- id: fa035
+  query: "add middleware that measures how long each request takes and puts it in a header"
+  slice: question
+  relevant: [fa:tutorial/middleware#before-and-after-the-response, fa:tutorial/middleware#create-a-middleware]
+- id: fa036
+  query: "send a large generated response chunk by chunk"
+  slice: question
+  relevant: [fa:advanced/custom-response#streamingresponse, fa:advanced/stream-data#stream-data]
+- id: fa037
+  query: "return an HTML page from an endpoint instead of JSON"
+  slice: question
+  relevant: [fa:advanced/custom-response#htmlresponse, fa:advanced/custom-response#html-response]
+- id: fa038
+  query: "group endpoints under sections in the Swagger UI"
+  slice: question
+  relevant: [fa:tutorial/path-operation-configuration#tags, fa:tutorial/metadata#metadata-for-tags]
+- id: fa039
+  query: "hide one internal endpoint from the generated documentation"
+  slice: question
+  relevant: [fa:advanced/path-operation-advanced-configuration#exclude-from-openapi]
+- id: fa040
+  query: "mark an old endpoint as deprecated in the docs"
+  slice: question
+  relevant: [fa:tutorial/path-operation-configuration#deprecate-a-path-operation]
+- id: fa041
+  query: "don't return fields that were never set from the response model"
+  slice: question
+  relevant: [fa:tutorial/response-model#use-the-response-model-exclude-unset-parameter]
+- id: fa042
+  query: "verify passwords with hashing and issue JWT access tokens"
+  slice: question
+  relevant: [fa:tutorial/security/oauth2-jwt#hash-and-verify-the-passwords, fa:tutorial/security/oauth2-jwt#handle-jwt-tokens]
+- id: fa043
+  query: "protect an endpoint with a username and password sent by HTTP basic auth"
+  slice: question
+  relevant: [fa:advanced/security/http-basic-auth#simple-http-basic-auth]
+- id: fa044
+  query: "when should I use async def and when plain def for my endpoints"
+  slice: question
+  relevant: [fa:async#path-operation-functions, fa:tutorial/dependencies/index#to-async-or-not-to-async, fa:async#in-a-hurry]
+- id: fa045
+  query: "give every request its own database session and close it afterwards"
+  slice: question
+  relevant: [fa:tutorial/dependencies/dependencies-with-yield#a-database-dependency-with-yield, fa:tutorial/sql-databases#create-a-session-dependency]
+- id: fa046
+  query: "reuse the same query parameters across many endpoints"
+  slice: question
+  relevant: [fa:tutorial/dependencies/index#what-is-dependency-injection, fa:tutorial/dependencies/index#create-a-dependency-or-dependable]
+- id: fa047
+  query: "turn off the interactive docs when running in production"
+  slice: question
+  relevant: [fa:how-to/conditional-openapi#conditional-openapi-from-settings-and-env-vars]
+- id: fa048
+  query: "update only some fields of an item with PATCH without overwriting the rest"
+  slice: question
+  relevant: [fa:tutorial/body-updates#partial-updates-with-patch, fa:tutorial/body-updates#using-pydantics-exclude-unset-parameter]
+- id: fa049
+  query: "accept a JSON body that contains a list of nested objects"
+  slice: question
+  relevant: [fa:tutorial/body-nested-models#attributes-with-lists-of-submodels, fa:tutorial/body-nested-models#nested-models]
+- id: fa050
+  query: "restrict a path parameter to a fixed set of allowed values"
+  slice: question
+  relevant: [fa:tutorial/path-params#predefined-values, fa:tutorial/path-params#create-an-enum-class]
+- id: fa051
+  query: "add a websocket endpoint that echoes messages"
+  slice: question
+  relevant: [fa:advanced/websockets#create-a-websocket, fa:advanced/websockets#await-for-messages-and-send-messages]
+- id: fa052
+  query: "mount an existing Flask application inside my FastAPI app"
+  slice: question
+  relevant: [fa:advanced/wsgi#using-wsgimiddleware, fa:advanced/wsgi#including-wsgi-flask-django-others]
+- id: fa053
+  query: "serve a React build from the same server as the API"
+  slice: question
+  relevant: [fa:tutorial/frontend#serve-a-frontend, fa:tutorial/static-files#use-staticfiles]
+- id: fa054
+  query: "step through my fastapi code with the debugger in vscode"
+  slice: question
+  relevant: [fa:tutorial/debugging#call-uvicorn, fa:tutorial/debugging#run-your-code-with-your-debugger]
+- id: fa055
+  query: "raise an error with a 404 status when an item does not exist"
+  slice: question
+  relevant: [fa:tutorial/handling-errors#use-httpexception, fa:tutorial/handling-errors#raise-an-httpexception-in-your-code]

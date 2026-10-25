@@ -1,0 +1,33 @@
+{
+ "baseline_id": "bm25-v1",
+ "bm25_config": {
+  "b": 0.75,
+  "k1": 1.2,
+  "tokenizer": {
+   "keep_compounds": true,
+   "mode": "identifiers",
+   "remove_stopwords": true,
+   "stem": false
+  }
+ },
+ "files": {
+  "data/corpus/chunks.jsonl": "3d3ae6ff3ac8eccda14f3d87179679dad5ed5f82fe2b829cb01df6b0d33874e0",
+  "data/corpus/documents.jsonl": "e355c6f6f5802c7e7fa463640d1cf9b8c26c8bf1e0d5c700dc8aa352e8267bed",
+  "data/eval/label_review.yaml": "fbd3f44361d31fa3e8bc9f0c9cbf032da1ec4c1dbf1312a2191d66c26f36d1a5",
+  "data/eval/queries.jsonl": "91927925123570f957b1f72215aaf67d9ee0d13ba888d05449416d74840d58a1",
+  "data/eval/results/bm25_ablation_dev.json": "459a927254f81aefe21c9a3cadba90dce158c57d084f05a8be706333bdda54ee",
+  "data/eval/results/bm25_default.json": "f1b5ec1a95bb55aeea42fc3aceff62aaa5ce2f66e63eb579426df8559bab05ca",
+  "data/eval/results/bm25_default_fwfilter.json": "ff93322c27d65f067b10128bb2f8975b36fe2990faccfa0b5bedeaa89f8596dc",
+  "data/eval/results/bm25_default_per_query.jsonl": "0c8266272bc7e0e9c2ac64a0aea0071a1a218cf7abdf766cb2e6d0043afdab5d",
+  "data/eval/results/random_seed0.json": "f9e7d609d19fff869d56d726380765e44d7cf4b2dab27c02d0a4d627d91297c9",
+  "data/manifests/corpus_manifest.json": "1041bec10906c8ce1eae198a8674c89cd468bb710e0dae6f9cee6e201e7683e0",
+  "data/manifests/eval_dataset_manifest.json": "be59d6611832f27216fb04d64d28e33f59615b461318130db28bc62ed8b21e64"
+ },
+ "policy": "The test split is used only for final evaluation of frozen configurations (see ml/evaluation/protocol.py and data/eval/results/test_access_log.jsonl).",
+ "split_assignment_sha256": "db1c3b3d3b21dba56883d332712821540309a9d36a72d5bb0ecc5eaf284d1039",
+ "split_counts": {
+  "test": 42,
+  "train": 122,
+  "val": 39
+ }
+}

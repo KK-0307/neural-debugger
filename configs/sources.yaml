@@ -1,0 +1,139 @@
+# Fixed initial corpus ("nd-corpus-v1"). Every entry is pinned: changing a page list or a
+# version produces a different corpus and must bump corpus_id.
+corpus_id: nd-corpus-v1
+user_agent: "NeuralDebuggerResearch/0.1 (portfolio project; contact kayanm7302@gmail.com)"
+request_delay_seconds: 1.0
+
+sources:
+  - name: python
+    framework: python
+    version: "3.12"
+    kind: sphinx_html
+    base_url: https://docs.python.org/3.12/
+    license: "Python Software Foundation License v2 (https://docs.python.org/3.12/license.html)"
+    pages:
+      - tutorial/errors.html
+      - tutorial/classes.html
+      - tutorial/modules.html
+      - tutorial/datastructures.html
+      - tutorial/controlflow.html
+      - tutorial/inputoutput.html
+      - tutorial/venv.html
+      - library/exceptions.html
+      - library/functions.html
+      - library/stdtypes.html
+      - library/json.html
+      - library/pathlib.html
+      - library/asyncio-task.html
+      - library/asyncio-dev.html
+      - library/logging.html
+      - library/unittest.html
+      - library/unittest.mock.html
+      - library/traceback.html
+      - library/pdb.html
+      - library/collections.html
+      - library/dataclasses.html
+      - library/re.html
+      - library/threading.html
+      - library/multiprocessing.html
+      - library/concurrent.futures.html
+      - library/subprocess.html
+      - library/os.path.html
+      - library/argparse.html
+      - library/datetime.html
+      - library/functools.html
+      - library/typing.html
+      - library/pickle.html
+      - library/enum.html
+      - library/io.html
+      - library/contextlib.html
+      - reference/executionmodel.html
+      - reference/import.html
+      - reference/compound_stmts.html
+      - reference/simple_stmts.html
+      - reference/lexical_analysis.html
+      - reference/datamodel.html
+      - faq/programming.html
+      - faq/library.html
+      - faq/design.html
+      - howto/logging.html
+      - howto/unicode.html
+      - howto/argparse.html
+      - installing/index.html
+      - using/cmdline.html
+
+  - name: pytorch
+    framework: pytorch
+    version: "2.14"
+    kind: sphinx_html
+    base_url: https://docs.pytorch.org/docs/2.14/
+    license: "BSD-3-Clause (pytorch/pytorch LICENSE; documentation is built from that repository)"
+    pages:
+      - notes/cuda.html
+      - notes/autograd.html
+      - notes/broadcasting.html
+      - notes/faq.html
+      - notes/serialization.html
+      - notes/modules.html
+      - notes/multiprocessing.html
+      - notes/randomness.html
+      - notes/extending.html
+      - notes/amp_examples.html
+      - notes/ddp.html
+      - notes/mps.html
+      - notes/windows.html
+      - notes/numerical_accuracy.html
+      - tensor_attributes.html
+      - tensors.html
+      - autograd.html
+      - cuda.html
+      - amp.html
+      - optim.html
+      - data.html
+      - generated/torch.nn.Module.html
+      - generated/torch.nn.Linear.html
+      - generated/torch.nn.Conv2d.html
+      - generated/torch.nn.CrossEntropyLoss.html
+      - generated/torch.nn.Embedding.html
+      - generated/torch.nn.BatchNorm2d.html
+      - generated/torch.nn.MultiheadAttention.html
+      - generated/torch.nn.utils.clip_grad_norm_.html
+      - generated/torch.nn.functional.softmax.html
+      - generated/torch.load.html
+      - generated/torch.save.html
+      - generated/torch.Tensor.backward.html
+      - generated/torch.Tensor.view.html
+      - generated/torch.Tensor.reshape.html
+      - generated/torch.Tensor.to.html
+      - generated/torch.Tensor.item.html
+      - generated/torch.Tensor.detach.html
+      - generated/torch.Tensor.contiguous.html
+      - generated/torch.matmul.html
+      - generated/torch.cat.html
+      - generated/torch.stack.html
+      - generated/torch.no_grad.html
+      - generated/torch.manual_seed.html
+      - generated/torch.optim.Optimizer.zero_grad.html
+      - generated/torch.optim.Adam.html
+
+  - name: fastapi
+    framework: fastapi
+    version: "0.162.0"
+    kind: git_markdown
+    repo: https://github.com/fastapi/fastapi
+    ref: "0.162.0"
+    commit: 7a0a3f0b286c6c865cf4398ea0e957a87b8bffa4
+    docs_dir: docs/en/docs
+    site_url: https://fastapi.tiangolo.com/
+    license: "MIT (https://github.com/fastapi/fastapi/blob/0.162.0/LICENSE)"
+    include:
+      - "tutorial/**/*.md"
+      - "advanced/**/*.md"
+      - "how-to/**/*.md"
+      - "deployment/**/*.md"
+      - "async.md"
+      - "python-types.md"
+      - "environment-variables.md"
+      - "virtual-environments.md"
+      - "fastapi-cli.md"
+    exclude: []

@@ -1,0 +1,39 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Env / secrets (never commit)
+.env
+.env.*
+!.env.example
+
+# Local DBs and generated artifacts
+*.db
+data/raw/
+data/processed/
+checkpoints/
+runs/
+*.pt
+*.pth
+
+# Node
+node_modules/
+.next/
+frontend/tsconfig.tsbuildinfo
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Local assistant settings
+.claude/settings.local.json

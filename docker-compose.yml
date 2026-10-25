@@ -1,0 +1,46 @@
+# Full local stack. For hot-reload development run only the database here
+# (`make dev-db`) and the backend/frontend on the host (`make dev-backend`, `make dev-frontend`).
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-neural_debugger}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-neural_debugger}
+      POSTGRES_DB: ${POSTGRES_DB:-neural_debugger}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./scripts/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    environment:
+      ND_ENVIRONMENT: development
+      ND_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-neural_debugger}:${POSTGRES_PASSWORD:-neural_debugger}@db:5432/${POSTGRES_DB:-neural_debugger}
+      ND_CORS_ORIGINS: '["http://localhost:3000"]'
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

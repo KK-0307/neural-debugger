@@ -1,0 +1,241 @@
+# Python 3.12 queries. py: = python/3.12/ (expanded by the loader and validated against the corpus).
+- id: py001
+  query: "ModuleNotFoundError: No module named 'requests'"
+  slice: error_message
+  relevant: [py:library/exceptions#ModuleNotFoundError, py:installing/index#basic-usage, py:tutorial/venv#managing-packages-with-pip]
+- id: py002
+  query: "KeyError: 'username' when reading from a dictionary"
+  slice: error_message
+  relevant: [py:library/exceptions#KeyError]
+- id: py003
+  query: "IndentationError: unexpected indent"
+  slice: error_message
+  relevant: [py:reference/lexical_analysis#indentation, py:library/exceptions#IndentationError]
+- id: py004
+  query: "UnboundLocalError: cannot access local variable 'count' where it is not associated with a value"
+  slice: error_message
+  relevant: [py:faq/programming#why-am-i-getting-an-unboundlocalerror-when-the-variable-has-a-value, py:library/exceptions#UnboundLocalError]
+- id: py005
+  query: "RecursionError: maximum recursion depth exceeded in comparison"
+  slice: error_message
+  relevant: [py:library/exceptions#RecursionError]
+- id: py006
+  query: "ValueError: invalid literal for int() with base 10: 'abc'"
+  slice: error_message
+  relevant: [py:library/functions#int, py:faq/programming#how-do-i-convert-a-string-to-a-number]
+- id: py007
+  query: "TypeError: unhashable type: 'list'"
+  slice: error_message
+  relevant: [py:faq/design#why-must-dictionary-keys-be-immutable]
+- id: py008
+  query: "AttributeError: 'str' object has no attribute 'append'"
+  slice: error_message
+  relevant: [py:library/exceptions#AttributeError]
+- id: py009
+  query: "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+  slice: error_message
+  relevant: [py:library/exceptions#UnicodeDecodeError, py:howto/unicode#reading-and-writing-unicode-data]
+- id: py010
+  query: "FileNotFoundError: [Errno 2] No such file or directory: 'data.csv'"
+  slice: error_message
+  relevant: [py:library/exceptions#FileNotFoundError]
+- id: py011
+  query: "RuntimeWarning: coroutine 'main' was never awaited"
+  slice: error_message
+  relevant: [py:library/asyncio-dev#detect-never-awaited-coroutines, py:library/asyncio-task#coroutines]
+- id: py012
+  query: "ZeroDivisionError: division by zero"
+  slice: error_message
+  relevant: [py:library/exceptions#ZeroDivisionError]
+- id: py013
+  query: 'TypeError: can only concatenate str (not "int") to str'
+  slice: error_message
+  relevant: [py:faq/programming#how-do-i-convert-a-number-to-a-string]
+- id: py014
+  query: "SyntaxError: invalid syntax"
+  slice: error_message
+  relevant: [py:tutorial/errors#syntax-errors, py:library/exceptions#SyntaxError]
+- id: py015
+  query: "RuntimeError: dictionary changed size during iteration"
+  slice: error_message
+  relevant: [py:library/stdtypes#dictionary-view-objects]
+- id: py016
+  query: "PermissionError: [Errno 13] Permission denied: '/etc/hosts'"
+  slice: error_message
+  relevant: [py:library/exceptions#PermissionError]
+- id: py017
+  query: "ImportError: cannot import name 'helper' from partially initialized module 'utils' (most likely due to a circular import)"
+  slice: error_message
+  relevant: [py:faq/programming#how-can-i-have-modules-that-mutually-import-each-other, py:library/exceptions#ImportError]
+- id: py018
+  query: "json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+  slice: error_message
+  relevant: [py:library/json#json.JSONDecodeError]
+- id: py019
+  query: "TypeError: Object of type datetime is not JSON serializable"
+  slice: error_message
+  relevant: [py:library/json#json.JSONEncoder.default, py:library/json#json.JSONEncoder]
+- id: py020
+  query: "subprocess.CalledProcessError: Command '['ls', '/nonexistent']' returned non-zero exit status 2."
+  slice: error_message
+  relevant: [py:library/subprocess#subprocess.CalledProcessError, py:library/subprocess#subprocess.run]
+- id: py021
+  query: "_pickle.PicklingError: Can't pickle <function <lambda>>: attribute lookup <lambda> on __main__ failed"
+  slice: error_message
+  relevant: [py:library/pickle#what-can-be-pickled-and-unpickled]
+- id: py022
+  query: "RuntimeError: An attempt has been made to start a new process before the current process has finished its bootstrapping phase."
+  slice: error_message
+  relevant: [py:library/multiprocessing#the-spawn-and-forkserver-start-methods]
+- id: py023
+  query: "ValueError: not enough values to unpack (expected 2, got 1)"
+  slice: error_message
+  relevant: [py:tutorial/datastructures#tuples-and-sequences]
+- id: py024
+  query: "RuntimeError: generator raised StopIteration"
+  slice: error_message
+  relevant: [py:library/exceptions#StopIteration]
+- id: py025
+  query: "NameError: name 'np' is not defined"
+  slice: error_message
+  relevant: [py:library/exceptions#NameError, py:reference/executionmodel#resolution-of-names]
+- id: py026
+  query: "ValueError: I/O operation on closed file."
+  slice: error_message
+  relevant: [py:tutorial/inputoutput#reading-and-writing-files]
+- id: py027
+  query: "concurrent.futures.process.BrokenProcessPool: A process in the process pool was terminated abruptly while the future was running or pending."
+  slice: error_message
+  relevant: [py:library/concurrent.futures#concurrent.futures.process.BrokenProcessPool]
+- id: py028
+  query: "AssertionError raised by assert with a custom message"
+  slice: error_message
+  relevant: [py:reference/simple_stmts#the-assert-statement, py:library/exceptions#AssertionError]
+- id: py029
+  query: "ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)"
+  slice: error_message
+  relevant: [py:library/asyncio-task#task-groups, py:library/exceptions#ExceptionGroup]
+- id: py030
+  query: "read a text file line by line and make sure it gets closed"
+  slice: question
+  relevant: [py:tutorial/inputoutput#reading-and-writing-files, py:tutorial/inputoutput#methods-of-file-objects]
+- id: py031
+  query: "what is the difference between is and == when comparing objects"
+  slice: question
+  relevant: [py:faq/programming#when-can-i-rely-on-identity-tests-with-the-is-operator]
+- id: py032
+  query: "copy a list so changing the copy doesn't change the original"
+  slice: question
+  relevant: [py:faq/programming#how-do-i-copy-an-object-in-python, py:faq/programming#why-did-changing-list-y-also-change-list-x]
+- id: py033
+  query: "create a virtual environment for my project"
+  slice: question
+  relevant: [py:tutorial/venv#creating-virtual-environments]
+- id: py034
+  query: "write log messages to a file with a timestamp on every line"
+  slice: question
+  relevant: [py:howto/logging#logging-to-a-file, py:howto/logging#displaying-the-date-time-in-messages]
+- id: py035
+  query: "replace a function with a mock in a unit test"
+  slice: question
+  relevant: [py:library/unittest.mock#unittest.mock.patch, py:library/unittest.mock#patch]
+- id: py036
+  query: "parse command line arguments with flags and defaults"
+  slice: question
+  relevant: [py:library/argparse#argumentparser-objects, py:howto/argparse#introducing-optional-arguments]
+- id: py037
+  query: "format a datetime object as a readable string"
+  slice: question
+  relevant: [py:library/datetime#datetime.datetime.strftime, py:library/datetime#strftime-and-strptime-behavior]
+- id: py038
+  query: "run a function in a background thread"
+  slice: question
+  relevant: [py:library/threading#threading.Thread]
+- id: py039
+  query: "dataclass field that defaults to an empty list"
+  slice: question
+  relevant: [py:library/dataclasses#mutable-default-values]
+- id: py040
+  query: "what does if __name__ == '__main__' do"
+  slice: question
+  relevant: [py:tutorial/modules#executing-modules-as-scripts, py:faq/programming#how-do-i-find-the-current-module-name]
+- id: py041
+  query: "cache the results of an expensive function so repeated calls are fast"
+  slice: question
+  relevant: [py:library/functools#functools.lru_cache, py:library/functools#functools.cache]
+- id: py042
+  query: "run a shell command from python and get its output as a string"
+  slice: question
+  relevant: [py:library/subprocess#subprocess.run, py:library/subprocess#using-the-subprocess-module]
+- id: py043
+  query: "load a json file into a python dictionary"
+  slice: question
+  relevant: [py:library/json#json.load, py:tutorial/inputoutput#saving-structured-data-with-json]
+- id: py044
+  query: "combine folder and file names into a path that works on windows and linux"
+  slice: question
+  relevant: [py:library/pathlib#basic-use, py:library/os.path#os.path.join]
+- id: py045
+  query: "annotate a function parameter that can be a string or None"
+  slice: question
+  relevant: [py:library/typing#typing.Optional]
+- id: py046
+  query: "run several coroutines at the same time and collect their results"
+  slice: question
+  relevant: [py:library/asyncio-task#asyncio.gather, py:library/asyncio-task#task-groups]
+- id: py047
+  query: "call blocking code from async code without freezing the event loop"
+  slice: question
+  relevant: [py:library/asyncio-task#asyncio.to_thread, py:library/asyncio-dev#running-blocking-code]
+- id: py048
+  query: "find all numbers in a string with a regular expression"
+  slice: question
+  relevant: [py:library/re#re.findall]
+- id: py049
+  query: "count how many times each item appears in a list"
+  slice: question
+  relevant: [py:library/collections#collections.Counter]
+- id: py050
+  query: "guarantee cleanup code runs even if an exception happens"
+  slice: question
+  relevant: [py:tutorial/errors#defining-clean-up-actions]
+- id: py051
+  query: "raise a new exception while keeping the original one as the cause"
+  slice: question
+  relevant: [py:tutorial/errors#exception-chaining]
+- id: py052
+  query: "define my own exception class"
+  slice: question
+  relevant: [py:tutorial/errors#user-defined-exceptions]
+- id: py053
+  query: "print the full traceback of an exception I caught"
+  slice: question
+  relevant: [py:library/traceback#traceback.print_exc]
+- id: py054
+  query: "drop into the debugger at a certain line"
+  slice: question
+  relevant: [py:library/pdb#module-pdb, py:library/functions#breakpoint]
+- id: py055
+  query: "format a float with two decimals inside an f-string"
+  slice: question
+  relevant: [py:tutorial/inputoutput#formatted-string-literals]
+- id: py056
+  query: "where does python look for modules when I import something"
+  slice: question
+  relevant: [py:tutorial/modules#the-module-search-path, py:reference/import#searching]
+- id: py057
+  query: "install a package only for my user without admin rights"
+  slice: question
+  relevant: [py:installing/index#install-packages-just-for-the-current-user]
+- id: py058
+  query: "make an enum of named constants"
+  slice: question
+  relevant: [py:library/enum#enum.Enum]
+- id: py059
+  query: "pass a list as separate positional arguments to a function"
+  slice: question
+  relevant: [py:tutorial/controlflow#unpacking-argument-lists]
+- id: py060
+  query: "ignore one specific exception without writing try except pass"
+  slice: question
+  relevant: [py:library/contextlib#contextlib.suppress]

@@ -1,0 +1,215 @@
+# Agent second-pass review of relevance labels. NOT human verification. Labels in queries.jsonl are frozen and unchanged.
+review_id: label-review-1
+reviewer: agent_second_pass
+independent: false
+human_verified: false
+scope: train and val splits only; test-split labels were NOT reviewed in this pass
+method: 'Re-read each judged section''s text against the query. Selection: queries with >=4 relevant sections, BM25 failures, pooled additions, random authored queries. Same assistant that authored the
+  labels, so this is a consistency check, not independent verification.'
+verdict_meaning:
+  confirmed: the section directly answers the query or holds the key diagnostic information
+  marginal: related and useful background; a stricter annotator might not label it relevant
+  uncertain: could go either way depending on interpretation of the query
+  weak: probably should not be labeled relevant (stub section or tangential)
+n_queries_reviewed: 38
+n_judgments_reviewed: 102
+verdicts:
+  fa003:
+    confirmed:
+    - fa:tutorial/request-forms#form-data
+    - fa:tutorial/request-files#request-files
+    - fa:tutorial/request-forms-and-files#request-forms-and-files
+    - fa:tutorial/request-form-models#form-models
+    marginal:
+    - fa:tutorial/security/first-steps#run-it
+  fa007:
+    uncertain:
+    - fa:virtual-environments#virtual-environments
+    - fa:tutorial/index#install-fastapi
+  fa017:
+    confirmed:
+    - fa:advanced/events#lifespan
+    - fa:advanced/events#lifespan-function
+    - fa:advanced/events#lifespan-events
+    marginal:
+    - fa:advanced/events#use-case
+  fa018:
+    confirmed:
+    - fa:tutorial/background-tasks#using-backgroundtasks
+    - fa:tutorial/background-tasks#create-a-task-function
+    - fa:tutorial/background-tasks#background-tasks
+    - fa:tutorial/background-tasks#add-the-background-task
+  fa020:
+    confirmed:
+    - fa:tutorial/path-params-numeric-validations#number-validations-greater-than-and-less-than-or-equal
+    - fa:tutorial/path-params-numeric-validations#number-validations-greater-than-or-equal
+  fa035:
+    confirmed:
+    - fa:tutorial/middleware#before-and-after-the-response
+    - fa:tutorial/middleware#create-a-middleware
+    marginal:
+    - fa:tutorial/middleware#middleware
+  fa037:
+    confirmed:
+    - fa:advanced/custom-response#html-response
+    marginal:
+    - fa:advanced/custom-response#htmlresponse
+  fa038:
+    confirmed:
+    - fa:tutorial/path-operation-configuration#tags
+    marginal:
+    - fa:tutorial/metadata#metadata-for-tags
+  fa042:
+    confirmed:
+    - fa:tutorial/security/oauth2-jwt#hash-and-verify-the-passwords
+    - fa:tutorial/security/oauth2-jwt#handle-jwt-tokens
+    - fa:tutorial/security/oauth2-jwt#password-hashing
+    - fa:tutorial/security/oauth2-jwt#oauth2-with-password-and-hashing-bearer-with-jwt-tokens
+    marginal:
+    - fa:tutorial/security/oauth2-jwt#install-pwdlib
+    - fa:tutorial/security/oauth2-jwt#install-pyjwt
+    - fa:tutorial/security/oauth2-jwt#why-use-password-hashing
+  fa043:
+    confirmed:
+    - fa:advanced/security/http-basic-auth#simple-http-basic-auth
+    - fa:advanced/security/http-basic-auth#http-basic-auth
+    - fa:advanced/security/http-basic-auth#check-the-username
+  fa048:
+    confirmed:
+    - fa:tutorial/body-updates#partial-updates-with-patch
+    - fa:tutorial/body-updates#using-pydantics-exclude-unset-parameter
+    - fa:tutorial/body-updates#partial-updates-recap
+    - fa:tutorial/body-updates#using-pydantics-update-parameter
+  fa049:
+    confirmed:
+    - fa:tutorial/body-nested-models#attributes-with-lists-of-submodels
+    - fa:tutorial/body-nested-models#nested-models
+    uncertain:
+    - fa:tutorial/body-nested-models#bodies-of-pure-lists
+  fa053:
+    confirmed:
+    - fa:tutorial/frontend#serve-a-frontend
+    - fa:tutorial/frontend#frontend
+    uncertain:
+    - fa:tutorial/static-files#use-staticfiles
+  pt002:
+    confirmed:
+    - pt:notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory
+    - pt:notes/cuda#memory-management
+    marginal:
+    - pt:notes/cuda#optimizing-memory-usage-with-pytorch-alloc-conf
+    - pt:cuda#memory-management
+  pt004:
+    confirmed:
+    - pt:generated/torch.Tensor.backward#torch.Tensor.backward
+    uncertain:
+    - pt:notes/autograd#saved-tensors
+  pt006:
+    marginal:
+    - pt:generated/torch.nn.Linear#torch.nn.Linear
+    - pt:generated/torch.matmul#torch.matmul
+  pt018:
+    confirmed:
+    - pt:generated/torch.Tensor.backward#torch.Tensor.backward
+  pt020:
+    uncertain:
+    - pt:notes/ddp#internal-design
+    weak:
+    - pt:notes/ddp#distributeddataparallel
+  pt026:
+    confirmed:
+    - pt:notes/randomness#reproducibility
+    - pt:generated/torch.manual_seed#torch.manual_seed
+    - pt:notes/randomness#pytorch-random-number-generator
+  pt031:
+    confirmed:
+    - pt:notes/autograd#evaluation-mode-nn-module-eval
+    - pt:notes/autograd#grad-modes
+    - pt:generated/torch.no_grad#torch.no_grad
+    - pt:generated/torch.nn.Module#torch.nn.Module.eval
+  pt034:
+    confirmed:
+    - pt:generated/torch.Tensor.detach#torch.Tensor.detach
+    marginal:
+    - pt:notes/autograd#locally-disabling-gradient-computation
+    - pt:notes/autograd#setting-requires-grad
+  pt037:
+    confirmed:
+    - pt:notes/mps#mps-backend
+  pt054:
+    confirmed:
+    - pt:generated/torch.nn.functional.softmax#torch.nn.functional.softmax
+  py001:
+    confirmed:
+    - py:library/exceptions#ModuleNotFoundError
+    - py:installing/index#basic-usage
+    marginal:
+    - py:tutorial/venv#managing-packages-with-pip
+    - py:tutorial/modules#the-module-search-path
+  py007:
+    confirmed:
+    - py:faq/design#why-must-dictionary-keys-be-immutable
+    marginal:
+    - py:reference/datamodel#object.__hash__
+  py015:
+    confirmed:
+    - py:library/stdtypes#dictionary-view-objects
+  py019:
+    confirmed:
+    - py:library/json#json.JSONEncoder.default
+    - py:library/json#json.JSONEncoder
+    marginal:
+    - py:library/json#json.dump
+  py023:
+    confirmed:
+    - py:tutorial/datastructures#tuples-and-sequences
+  py027:
+    confirmed:
+    - py:library/concurrent.futures#concurrent.futures.process.BrokenProcessPool
+    marginal:
+    - py:library/concurrent.futures#concurrent.futures.ProcessPoolExecutor
+  py030:
+    confirmed:
+    - py:tutorial/inputoutput#reading-and-writing-files
+    - py:tutorial/inputoutput#methods-of-file-objects
+    marginal:
+    - py:library/functions#open
+  py031:
+    confirmed:
+    - py:faq/programming#when-can-i-rely-on-identity-tests-with-the-is-operator
+  py036:
+    confirmed:
+    - py:howto/argparse#introducing-optional-arguments
+    - py:library/argparse#argparse.ArgumentParser.add_argument
+    - py:library/argparse#name-or-flags
+    - py:library/argparse#default
+    weak:
+    - py:library/argparse#argumentparser-objects
+  py042:
+    confirmed:
+    - py:library/subprocess#subprocess.run
+    - py:library/subprocess#subprocess.check_output
+    - py:library/subprocess#subprocess.getoutput
+    marginal:
+    - py:library/subprocess#using-the-subprocess-module
+  py043:
+    confirmed:
+    - py:library/json#json.load
+    - py:tutorial/inputoutput#saving-structured-data-with-json
+    marginal:
+    - py:library/json#json.loads
+  py044:
+    confirmed:
+    - py:library/os.path#os.path.join
+    marginal:
+    - py:library/pathlib#basic-use
+  py049:
+    confirmed:
+    - py:library/collections#collections.Counter
+  py050:
+    confirmed:
+    - py:tutorial/errors#defining-clean-up-actions
+  py056:
+    confirmed:
+    - py:tutorial/modules#the-module-search-path
+    - py:reference/import#searching

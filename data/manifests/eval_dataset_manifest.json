@@ -1,0 +1,35 @@
+{
+ "by_framework": {
+  "fastapi": 55,
+  "python": 88,
+  "pytorch": 60
+ },
+ "by_slice": {
+  "error_message": 70,
+  "official_faq": 33,
+  "question": 100
+ },
+ "by_split": {
+  "test": 42,
+  "train": 122,
+  "val": 39
+ },
+ "corpus_chunks_sha256": "3d3ae6ff3ac8eccda14f3d87179679dad5ed5f82fe2b829cb01df6b0d33874e0",
+ "corpus_id": "nd-corpus-v1",
+ "dataset_id": "nd-eval-v1",
+ "human_reviewed_queries": 0,
+ "label_provenance": {
+  "claude_authored / llm_authored_unreviewed": 170,
+  "official_faq_heading / official_source": 33
+ },
+ "n_pooled_additions": 109,
+ "n_queries": 203,
+ "queries_appearing_verbatim_in_corpus_text": {
+  "error_message": "5/70",
+  "official_faq": "33/33",
+  "question": "0/100"
+ },
+ "queries_sha256": "91927925123570f957b1f72215aaf67d9ee0d13ba888d05449416d74840d58a1",
+ "split_rule": "see neural_debugger/data/splits.py (salted sha256 buckets over near-duplicate groups)",
+ "test_relevant_sections_also_relevant_in_train": 0.171
+}

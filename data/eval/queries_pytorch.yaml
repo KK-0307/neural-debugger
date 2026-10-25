@@ -1,0 +1,221 @@
+# PyTorch queries. pt: = pytorch/2.14/ (expanded by the loader and validated against the corpus).
+- id: pt001
+  query: "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!"
+  slice: error_message
+  relevant: [pt:notes/cuda#device-agnostic-code, pt:tensor_attributes#torch-device, pt:generated/torch.Tensor.to#torch.Tensor.to, pt:generated/torch.nn.Module#torch.nn.Module.to]
+- id: pt002
+  query: "torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 GiB. GPU 0 has a total capacity of 15.77 GiB of which 1.20 GiB is free"
+  slice: error_message
+  relevant: [pt:notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory, pt:notes/cuda#memory-management]
+- id: pt003
+  query: "RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn"
+  slice: error_message
+  relevant: [pt:notes/autograd#setting-requires-grad, pt:notes/autograd#locally-disabling-gradient-computation, pt:notes/autograd#no-grad-mode]
+- id: pt004
+  query: "RuntimeError: Trying to backward through the graph a second time (or directly access saved tensors after they have already been freed)"
+  slice: error_message
+  relevant: [pt:generated/torch.Tensor.backward#torch.Tensor.backward, pt:notes/autograd#saved-tensors]
+- id: pt005
+  query: "RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation: [torch.FloatTensor [64, 128]] is at version 2; expected version 1 instead"
+  slice: error_message
+  relevant: [pt:notes/autograd#in-place-correctness-checks, pt:notes/autograd#in-place-operations-with-autograd]
+- id: pt006
+  query: "RuntimeError: mat1 and mat2 shapes cannot be multiplied (64x784 and 128x10)"
+  slice: error_message
+  relevant: [pt:generated/torch.nn.Linear#torch.nn.Linear, pt:generated/torch.matmul#torch.matmul]
+- id: pt007
+  query: "RuntimeError: shape '[-1, 784]' is invalid for input of size 5000"
+  slice: error_message
+  relevant: [pt:generated/torch.Tensor.view#torch.Tensor.view, pt:generated/torch.Tensor.reshape#torch.Tensor.reshape]
+- id: pt008
+  query: "RuntimeError: view size is not compatible with input tensor's size and stride (at least one dimension spans across two contiguous subspaces). Use .reshape(...) instead."
+  slice: error_message
+  relevant: [pt:generated/torch.Tensor.view#torch.Tensor.view, pt:generated/torch.Tensor.reshape#torch.Tensor.reshape, pt:generated/torch.Tensor.contiguous#torch.Tensor.contiguous]
+- id: pt009
+  query: "RuntimeError: expected scalar type Float but found Double"
+  slice: error_message
+  relevant: [pt:tensor_attributes#torch-dtype, pt:generated/torch.Tensor.to#torch.Tensor.to]
+- id: pt010
+  query: "RuntimeError: The size of tensor a (3) must match the size of tensor b (4) at non-singleton dimension 1"
+  slice: error_message
+  relevant: [pt:notes/broadcasting#general-semantics, pt:notes/broadcasting#broadcasting-semantics]
+- id: pt011
+  query: "ValueError: Expected input batch_size (32) to match target batch_size (16)."
+  slice: error_message
+  relevant: [pt:generated/torch.nn.CrossEntropyLoss#torch.nn.CrossEntropyLoss]
+- id: pt012
+  query: "IndexError: Target 10 is out of bounds."
+  slice: error_message
+  relevant: [pt:generated/torch.nn.CrossEntropyLoss#torch.nn.CrossEntropyLoss]
+- id: pt013
+  query: "RuntimeError: Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. If you are running on a CPU-only machine, please use torch.load with map_location=torch.device('cpu')"
+  slice: error_message
+  relevant: [pt:generated/torch.load#torch.load, pt:notes/serialization#saving-and-loading-torch-nn-modules]
+- id: pt014
+  query: "_pickle.UnpicklingError: Weights only load failed. In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`"
+  slice: error_message
+  relevant: [pt:notes/serialization#torch-load-with-weights-only-true, pt:notes/serialization#getting-unsafe-globals, pt:notes/serialization#weights-only-allowlist, pt:generated/torch.load#torch.load]
+- id: pt015
+  query: "RuntimeError: Error(s) in loading state_dict for ResNet: Missing key(s) in state_dict. Unexpected key(s) in state_dict: module.conv1.weight"
+  slice: error_message
+  relevant: [pt:generated/torch.nn.Module#torch.nn.Module.load_state_dict]
+- id: pt016
+  query: "RuntimeError: Cannot re-initialize CUDA in forked subprocess. To use CUDA with multiprocessing, you must use the 'spawn' start method"
+  slice: error_message
+  relevant: [pt:notes/multiprocessing#cuda-in-multiprocessing, pt:notes/multiprocessing#poison-fork-in-multiprocessing]
+- id: pt017
+  query: "RuntimeError: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same"
+  slice: error_message
+  relevant: [pt:generated/torch.nn.Module#torch.nn.Module.to, pt:notes/cuda#device-agnostic-code]
+- id: pt018
+  query: "RuntimeError: grad can be implicitly created only for scalar outputs"
+  slice: error_message
+  relevant: [pt:generated/torch.Tensor.backward#torch.Tensor.backward]
+- id: pt019
+  query: "RuntimeError: Function 'LogBackward0' returned nan values in its 0th output."
+  slice: error_message
+  relevant: [pt:autograd#debugging-and-anomaly-detection, pt:autograd#torch.autograd.detect_anomaly]
+- id: pt020
+  query: "RuntimeError: Expected to have finished reduction in the prior iteration before starting a new one. This error indicates that your module has parameters that were not used in producing loss."
+  slice: error_message
+  relevant: [pt:notes/ddp#internal-design, pt:notes/ddp#distributeddataparallel]
+- id: pt021
+  query: "NotImplementedError: The operator 'aten::_linalg_solve_ex.result' is not currently implemented for the MPS device"
+  slice: error_message
+  relevant: [pt:notes/mps#mps-backend]
+- id: pt022
+  query: "RuntimeError: Given groups=1, weight of size [64, 3, 3, 3], expected input[1, 1, 28, 28] to have 3 channels, but got 1 channels instead"
+  slice: error_message
+  relevant: [pt:generated/torch.nn.Conv2d#torch.nn.Conv2d]
+- id: pt023
+  query: "RuntimeError: stack expects each tensor to be equal size, but got [3, 224, 224] at entry 0 and [3, 256, 256] at entry 1"
+  slice: error_message
+  relevant: [pt:data#working-with-collate-fn, pt:data#torch.utils.data.default_collate, pt:generated/torch.stack#torch.stack]
+- id: pt024
+  query: "RuntimeError: An attempt has been made to start a new process before the current process has finished its bootstrapping phase (DataLoader with num_workers on Windows)"
+  slice: error_message
+  relevant: [pt:notes/windows#multiprocessing-error-without-if-clause-protection, pt:data#platform-specific-behaviors]
+- id: pt025
+  query: "ImportError: DLL load failed while importing _C: The specified module could not be found"
+  slice: error_message
+  relevant: [pt:notes/windows#import-error]
+- id: pt026
+  query: "make my training runs reproducible with the same results every time"
+  slice: question
+  relevant: [pt:notes/randomness#reproducibility, pt:generated/torch.manual_seed#torch.manual_seed]
+- id: pt027
+  query: "freeze the pretrained layers so they are not updated during fine-tuning"
+  slice: question
+  relevant: [pt:notes/autograd#setting-requires-grad]
+- id: pt028
+  query: "use mixed precision so training is faster and uses less GPU memory"
+  slice: question
+  relevant: [pt:notes/amp_examples#typical-mixed-precision-training, pt:amp#automatic-mixed-precision-package-torch-amp]
+- id: pt029
+  query: "stop exploding gradients by clipping them"
+  slice: question
+  relevant: [pt:generated/torch.nn.utils.clip_grad_norm_#torch.nn.utils.clip_grad_norm_, pt:notes/amp_examples#gradient-clipping]
+- id: pt030
+  query: "save a checkpoint and load it later to resume training"
+  slice: question
+  relevant: [pt:notes/serialization#saving-and-loading-torch-nn-modules, pt:generated/torch.save#torch.save, pt:generated/torch.load#torch.load]
+- id: pt031
+  query: "difference between model.eval() and torch.no_grad() during validation"
+  slice: question
+  relevant: [pt:notes/autograd#evaluation-mode-nn-module-eval, pt:notes/autograd#grad-modes]
+- id: pt032
+  query: "simulate a bigger batch size by accumulating gradients over several mini-batches"
+  slice: question
+  relevant: [pt:notes/amp_examples#gradient-accumulation]
+- id: pt033
+  query: "why do I have to reset gradients to zero before every backward pass"
+  slice: question
+  relevant: [pt:generated/torch.optim.Optimizer.zero_grad#torch.optim.Optimizer.zero_grad, pt:generated/torch.nn.Module#torch.nn.Module.zero_grad]
+- id: pt034
+  query: "cut a tensor out of the computation graph so no gradient flows through it"
+  slice: question
+  relevant: [pt:generated/torch.Tensor.detach#torch.Tensor.detach, pt:notes/autograd#locally-disabling-gradient-computation]
+- id: pt035
+  query: "convert a one element tensor into a python float"
+  slice: question
+  relevant: [pt:generated/torch.Tensor.item#torch.Tensor.item]
+- id: pt036
+  query: "move my model and data to the GPU"
+  slice: question
+  relevant: [pt:notes/cuda#device-agnostic-code, pt:generated/torch.nn.Module#torch.nn.Module.to, pt:generated/torch.nn.Module#torch.nn.Module.cuda]
+- id: pt037
+  query: "run training on the GPU of my Apple silicon Mac"
+  slice: question
+  relevant: [pt:notes/mps#mps-backend]
+- id: pt038
+  query: "which should I use for multi-GPU training, DataParallel or DistributedDataParallel"
+  slice: question
+  relevant: [pt:notes/cuda#use-nn-parallel-distributeddataparallel-instead-of-multiprocessing-or-nn-dataparallel, pt:notes/ddp#distributed-data-parallel]
+- id: pt039
+  query: "implement my own operation with a custom backward function"
+  slice: question
+  relevant: [pt:notes/extending#extending-torch-autograd, pt:autograd#torch.autograd.Function]
+- id: pt040
+  query: "make host to GPU data transfers faster in the data loader"
+  slice: question
+  relevant: [pt:data#memory-pinning, pt:notes/cuda#use-pinned-memory-buffers]
+- id: pt041
+  query: "check my hand written backward against numerical gradients"
+  slice: question
+  relevant: [pt:autograd#module-torch.autograd.gradcheck]
+- id: pt042
+  query: "how does adding tensors with different shapes work"
+  slice: question
+  relevant: [pt:notes/broadcasting#general-semantics, pt:notes/broadcasting#broadcasting-semantics]
+- id: pt043
+  query: "turn off dropout and batch norm updates when evaluating the model"
+  slice: question
+  relevant: [pt:generated/torch.nn.Module#torch.nn.Module.eval, pt:notes/autograd#evaluation-mode-nn-module-eval]
+- id: pt044
+  query: "loop over every parameter of my network"
+  slice: question
+  relevant: [pt:generated/torch.nn.Module#torch.nn.Module.parameters, pt:generated/torch.nn.Module#torch.nn.Module.named_parameters]
+- id: pt045
+  query: "capture the output of an intermediate layer with a hook"
+  slice: question
+  relevant: [pt:generated/torch.nn.Module#torch.nn.Module.register_forward_hook, pt:notes/modules#module-hooks]
+- id: pt046
+  query: "initialize the weights of my custom module in a specific way"
+  slice: question
+  relevant: [pt:notes/modules#module-initialization]
+- id: pt047
+  query: "what dtype do I get when I add an int tensor and a float tensor"
+  slice: question
+  relevant: [pt:tensor_attributes#torch-dtype]
+- id: pt048
+  query: "decay the learning rate during training"
+  slice: question
+  relevant: [pt:optim#how-to-adjust-learning-rate]
+- id: pt049
+  query: "write a Dataset class for my own files"
+  slice: question
+  relevant: [pt:data#map-style-datasets, pt:data#dataset-types]
+- id: pt050
+  query: "warning about non-deterministic operation when I enable deterministic algorithms"
+  slice: question
+  relevant: [pt:notes/randomness#avoiding-nondeterministic-algorithms]
+- id: pt051
+  query: "make matrix multiplications faster on Ampere GPUs by trading precision"
+  slice: question
+  relevant: [pt:notes/cuda#tensorfloat-32-tf32-on-ampere-and-later-devices]
+- id: pt052
+  query: "join a list of tensors along an existing dimension"
+  slice: question
+  relevant: [pt:generated/torch.cat#torch.cat]
+- id: pt053
+  query: "initialise an embedding layer from pretrained word vectors"
+  slice: question
+  relevant: [pt:generated/torch.nn.Embedding#torch.nn.Embedding.from_pretrained]
+- id: pt054
+  query: "which dimension should I pass to softmax"
+  slice: question
+  relevant: [pt:generated/torch.nn.functional.softmax#torch.nn.functional.softmax]
+- id: pt055
+  query: "keep an exponential moving average of the model weights"
+  slice: question
+  relevant: [pt:optim#weight-averaging-swa-and-ema, pt:optim#putting-it-all-together-ema]

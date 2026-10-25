@@ -1,0 +1,258 @@
+# Relevance judgments added by pooled review: for each non-FAQ query, the top-8 BM25 sections
+# not already labeled were read and judged by the dataset author (an LLM, unreviewed by a human).
+# Candidates not listed here were judged not relevant. See docs/evaluation.md.
+fa002:
+  added:
+  - fa:tutorial/cors#steps
+fa003:
+  added:
+  - fa:tutorial/request-files#request-files
+  - fa:tutorial/request-forms-and-files#request-forms-and-files
+  - fa:tutorial/request-form-models#form-models
+  - fa:tutorial/security/first-steps#run-it
+fa006:
+  added:
+  - fa:tutorial/bigger-applications#configure-the-entrypoint-in-pyproject-toml
+fa011:
+  added:
+  - fa:tutorial/static-files#static-files
+  - fa:tutorial/static-files#details
+fa014:
+  added:
+  - fa:advanced/async-tests#example
+  - fa:advanced/async-tests#httpx
+  - fa:advanced/async-tests#other-asynchronous-function-calls
+fa017:
+  added:
+  - fa:advanced/events#lifespan-events
+  - fa:advanced/events#use-case
+fa018:
+  added:
+  - fa:tutorial/background-tasks#background-tasks
+  - fa:tutorial/background-tasks#add-the-background-task
+fa019:
+  added:
+  - fa:tutorial/query-params#required-query-parameters
+fa020:
+  added:
+  - fa:tutorial/path-params-numeric-validations#number-validations-greater-than-or-equal
+fa021:
+  added:
+  - fa:tutorial/query-params-str-validations#add-query-to-annotated-in-the-q-parameter
+fa022:
+  added:
+  - fa:tutorial/query-params-str-validations#query-parameter-list-multiple-values-with-defaults
+  - fa:tutorial/query-params-str-validations#using-just-list
+fa023:
+  added:
+  - fa:tutorial/response-status-code#shortcut-to-remember-the-names
+fa025:
+  added:
+  - fa:advanced/response-cookies#return-a-response-directly
+fa027:
+  added:
+  - fa:tutorial/request-files#define-file-parameters
+fa029:
+  added:
+  - fa:tutorial/bigger-applications#an-example-file-structure
+fa031:
+  added:
+  - fa:advanced/testing-dependencies#use-cases-external-service
+fa032:
+  added:
+  - fa:deployment/docker#fastapi-in-containers-docker
+  - fa:deployment/docker#build-the-docker-image
+  - fa:deployment/docker#package-requirements
+fa033:
+  added:
+  - fa:deployment/concepts#multiple-processes-workers
+fa034:
+  added:
+  - fa:environment-variables#environment-variables
+  - fa:advanced/settings#the-env-file
+  - fa:advanced/settings#settings-and-environment-variables
+fa035:
+  added:
+  - fa:tutorial/middleware#middleware
+fa036:
+  added:
+  - fa:advanced/stream-data#a-streamingresponse-with-yield
+fa041:
+  added:
+  - fa:tutorial/response-model#data-with-values-for-fields-with-defaults
+fa042:
+  added:
+  - fa:tutorial/security/oauth2-jwt#password-hashing
+  - fa:tutorial/security/oauth2-jwt#install-pwdlib
+  - fa:tutorial/security/oauth2-jwt#install-pyjwt
+  - fa:tutorial/security/oauth2-jwt#oauth2-with-password-and-hashing-bearer-with-jwt-tokens
+  - fa:tutorial/security/oauth2-jwt#why-use-password-hashing
+fa043:
+  added:
+  - fa:advanced/security/http-basic-auth#http-basic-auth
+  - fa:advanced/security/http-basic-auth#check-the-username
+fa048:
+  added:
+  - fa:tutorial/body-updates#partial-updates-recap
+  - fa:tutorial/body-updates#using-pydantics-update-parameter
+fa049:
+  added:
+  - fa:tutorial/body-nested-models#bodies-of-pure-lists
+fa052:
+  added:
+  - fa:advanced/wsgi#check-it
+fa053:
+  added:
+  - fa:tutorial/frontend#frontend
+fa054:
+  added:
+  - fa:tutorial/debugging#debugging
+fa055:
+  added:
+  - fa:tutorial/handling-errors#import-httpexception
+  - fa:tutorial/handling-errors#the-resulting-response
+pt001:
+  added:
+  - pt:notes/cuda#cuda-semantics
+pt002:
+  added:
+  - pt:notes/cuda#optimizing-memory-usage-with-pytorch-alloc-conf
+  - pt:cuda#memory-management
+pt014:
+  added:
+  - pt:notes/serialization#weights-only-security
+  - pt:notes/serialization#environment-variables
+  - pt:notes/serialization#torch.serialization.safe_globals
+  - pt:notes/serialization#torch.serialization.add_safe_globals
+pt019:
+  added:
+  - pt:autograd#torch.autograd.set_detect_anomaly
+pt026:
+  added:
+  - pt:notes/randomness#pytorch-random-number-generator
+pt028:
+  added:
+  - pt:notes/amp_examples#automatic-mixed-precision-examples
+pt031:
+  added:
+  - pt:generated/torch.no_grad#torch.no_grad
+  - pt:generated/torch.nn.Module#torch.nn.Module.eval
+pt033:
+  added:
+  - pt:generated/torch.Tensor.backward#torch.Tensor.backward
+pt034:
+  added:
+  - pt:notes/autograd#setting-requires-grad
+pt039:
+  added:
+  - pt:notes/extending#when-to-use
+  - pt:autograd#function
+pt043:
+  added:
+  - pt:generated/torch.nn.Module#torch.nn.Module.train
+pt049:
+  added:
+  - pt:data#torch.utils.data.IterableDataset
+pt051:
+  added:
+  - pt:notes/numerical_accuracy#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices
+pt055:
+  added:
+  - pt:optim#custom-averaging-strategies
+  - pt:optim#torch.optim.swa_utils.get_ema_multi_avg_fn
+  - pt:optim#constructing-averaged-models
+py001:
+  added:
+  - py:tutorial/modules#the-module-search-path
+py002:
+  added:
+  - py:library/stdtypes#dict.get
+py003:
+  added:
+  - py:library/exceptions#TabError
+py004:
+  added:
+  - py:reference/executionmodel#resolution-of-names
+py007:
+  added:
+  - py:reference/datamodel#object.__hash__
+py009:
+  added:
+  - py:howto/unicode#converting-to-bytes
+  - py:faq/programming#what-does-unicodedecodeerror-or-unicodeencodeerror-error-mean
+py012:
+  added:
+  - py:tutorial/errors#exceptions
+py013:
+  added:
+  - py:tutorial/errors#exceptions
+py019:
+  added:
+  - py:library/json#json.dump
+py021:
+  added:
+  - py:library/pickle#pickle.PicklingError
+py025:
+  added:
+  - py:tutorial/errors#exceptions
+py026:
+  added:
+  - py:library/io#io.IOBase.close
+py027:
+  added:
+  - py:library/concurrent.futures#concurrent.futures.ProcessPoolExecutor
+py029:
+  added:
+  - py:tutorial/errors#raising-and-handling-multiple-unrelated-exceptions
+  - py:library/exceptions#BaseExceptionGroup
+  - py:reference/compound_stmts#except-star
+py030:
+  added:
+  - py:library/functions#open
+py033:
+  added:
+  - py:tutorial/venv#introduction
+py035:
+  added:
+  - py:library/unittest.mock#patch-object
+py036:
+  added:
+  - py:library/argparse#argparse.ArgumentParser.add_argument
+  - py:library/argparse#name-or-flags
+  - py:library/argparse#default
+py039:
+  added:
+  - py:library/dataclasses#dataclasses.field
+py041:
+  added:
+  - py:faq/programming#how-do-i-cache-method-calls
+py042:
+  added:
+  - py:library/subprocess#subprocess.check_output
+  - py:library/subprocess#subprocess.getoutput
+py043:
+  added:
+  - py:library/json#json.loads
+py047:
+  added:
+  - py:library/asyncio-dev#concurrency-and-multithreading
+py048:
+  added:
+  - py:library/re#finding-all-adverbs
+  - py:library/re#simulating-scanf
+py051:
+  added:
+  - py:library/exceptions#BaseException.__context__
+  - py:reference/simple_stmts#the-raise-statement
+py054:
+  added:
+  - py:faq/programming#is-there-a-source-code-level-debugger-with-breakpoints-single-stepping-etc
+py055:
+  added:
+  - py:reference/lexical_analysis#formatted-string-literals
+py057:
+  added:
+  - py:installing/index#basic-usage
+py059:
+  added:
+  - py:faq/programming#how-can-i-pass-optional-or-keyword-parameters-from-one-function-to-another
