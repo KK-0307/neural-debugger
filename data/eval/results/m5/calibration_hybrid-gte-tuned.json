@@ -1,0 +1,215 @@
+{
+ "rule": "max abstain on calib-unanswerable subject to false-abstain on train authored <= 0.05",
+ "chosen": {
+  "threshold": 0.375,
+  "false_abstain_train": 0.039,
+  "abstain_unanswerable_calib": 0.875
+ },
+ "table": [
+  {
+   "threshold": 0.0,
+   "false_abstain_train": 0.0,
+   "abstain_unanswerable_calib": 0.0
+  },
+  {
+   "threshold": 0.025,
+   "false_abstain_train": 0.0,
+   "abstain_unanswerable_calib": 0.125
+  },
+  {
+   "threshold": 0.05,
+   "false_abstain_train": 0.0,
+   "abstain_unanswerable_calib": 0.125
+  },
+  {
+   "threshold": 0.075,
+   "false_abstain_train": 0.0,
+   "abstain_unanswerable_calib": 0.125
+  },
+  {
+   "threshold": 0.1,
+   "false_abstain_train": 0.0,
+   "abstain_unanswerable_calib": 0.25
+  },
+  {
+   "threshold": 0.125,
+   "false_abstain_train": 0.0,
+   "abstain_unanswerable_calib": 0.25
+  },
+  {
+   "threshold": 0.15,
+   "false_abstain_train": 0.0,
+   "abstain_unanswerable_calib": 0.312
+  },
+  {
+   "threshold": 0.175,
+   "false_abstain_train": 0.0,
+   "abstain_unanswerable_calib": 0.438
+  },
+  {
+   "threshold": 0.2,
+   "false_abstain_train": 0.01,
+   "abstain_unanswerable_calib": 0.438
+  },
+  {
+   "threshold": 0.225,
+   "false_abstain_train": 0.01,
+   "abstain_unanswerable_calib": 0.5
+  },
+  {
+   "threshold": 0.25,
+   "false_abstain_train": 0.019,
+   "abstain_unanswerable_calib": 0.625
+  },
+  {
+   "threshold": 0.275,
+   "false_abstain_train": 0.019,
+   "abstain_unanswerable_calib": 0.688
+  },
+  {
+   "threshold": 0.3,
+   "false_abstain_train": 0.029,
+   "abstain_unanswerable_calib": 0.75
+  },
+  {
+   "threshold": 0.325,
+   "false_abstain_train": 0.039,
+   "abstain_unanswerable_calib": 0.875
+  },
+  {
+   "threshold": 0.35,
+   "false_abstain_train": 0.039,
+   "abstain_unanswerable_calib": 0.875
+  },
+  {
+   "threshold": 0.375,
+   "false_abstain_train": 0.039,
+   "abstain_unanswerable_calib": 0.875
+  },
+  {
+   "threshold": 0.4,
+   "false_abstain_train": 0.068,
+   "abstain_unanswerable_calib": 0.875
+  },
+  {
+   "threshold": 0.425,
+   "false_abstain_train": 0.068,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.45,
+   "false_abstain_train": 0.078,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.475,
+   "false_abstain_train": 0.117,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.5,
+   "false_abstain_train": 0.136,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.525,
+   "false_abstain_train": 0.175,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.55,
+   "false_abstain_train": 0.214,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.575,
+   "false_abstain_train": 0.243,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.6,
+   "false_abstain_train": 0.262,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.625,
+   "false_abstain_train": 0.301,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.65,
+   "false_abstain_train": 0.33,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.675,
+   "false_abstain_train": 0.369,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.7,
+   "false_abstain_train": 0.408,
+   "abstain_unanswerable_calib": 0.938
+  },
+  {
+   "threshold": 0.725,
+   "false_abstain_train": 0.456,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.75,
+   "false_abstain_train": 0.485,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.775,
+   "false_abstain_train": 0.534,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.8,
+   "false_abstain_train": 0.583,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.825,
+   "false_abstain_train": 0.631,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.85,
+   "false_abstain_train": 0.67,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.875,
+   "false_abstain_train": 0.709,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.9,
+   "false_abstain_train": 0.718,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.925,
+   "false_abstain_train": 0.718,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.95,
+   "false_abstain_train": 0.718,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 0.975,
+   "false_abstain_train": 0.718,
+   "abstain_unanswerable_calib": 1.0
+  },
+  {
+   "threshold": 1.0,
+   "false_abstain_train": 0.718,
+   "abstain_unanswerable_calib": 1.0
+  }
+ ]
+}

@@ -166,12 +166,60 @@ def verify_m4(root: Path = Path(".")) -> list[str]:
     return problems
 
 
+M5_FREEZE_PATH = Path("data/eval/m5_freeze.json")
+M5_FROZEN_FILES = [
+    "data/eval/rag/unanswerable.yaml",
+    "data/eval/results/m5/calibration_hybrid-gte-tuned.json",
+    "data/eval/results/m5/rag_extractive_hybrid-gte-tuned.json",
+    "data/eval/results/m5/rag_extractive_hybrid-custom-tiny.json",
+    "data/eval/results/m5/rag_extractive_bm25.json",
+]
+
+
+def compute_m5(root: Path = Path(".")) -> dict[str, Any]:
+    return {
+        "freeze_id": "rag-v1",
+        "depends_on": "custom-transformer-v1 (data/eval/m4_freeze.json)",
+        "note": (
+            "Dev-only RAG evaluation with the extractive test provider; abstention threshold 0.375 "
+            "calibrated on train + half of the out-of-scope set; test split untouched; no live LLM run."
+        ),
+        "files": {f: _sha(root / f) for f in M5_FROZEN_FILES},
+    }
+
+
+def verify_m5(root: Path = Path(".")) -> list[str]:
+    frozen = json.loads((root / M5_FREEZE_PATH).read_text())
+    now = compute_m5(root)
+    return [f + " changed" for f, h in frozen["files"].items() if now["files"].get(f) != h]
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument(
-        "command", choices=["create", "verify", "create-m3", "verify-m3", "create-m4", "verify-m4"]
+        "command",
+        choices=[
+            "create",
+            "verify",
+            "create-m3",
+            "verify-m3",
+            "create-m4",
+            "verify-m4",
+            "create-m5",
+            "verify-m5",
+        ],
     )
     args = ap.parse_args(argv)
+    if args.command == "create-m5":
+        M5_FREEZE_PATH.write_text(json.dumps(compute_m5(), indent=1, sort_keys=True) + "\n")
+        print(f"wrote {M5_FREEZE_PATH}")
+        return 0
+    if args.command == "verify-m5":
+        problems = verify_m5()
+        for p_ in problems:
+            print("DRIFT:", p_)
+        print("frozen M5 evaluation intact" if not problems else f"{len(problems)} drift(s)")
+        return 1 if problems else 0
     if args.command == "create-m4":
         M4_FREEZE_PATH.write_text(json.dumps(compute_m4(), indent=1, sort_keys=True) + "\n")
         print(f"wrote {M4_FREEZE_PATH}")

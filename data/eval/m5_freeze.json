@@ -1,0 +1,12 @@
+{
+ "depends_on": "custom-transformer-v1 (data/eval/m4_freeze.json)",
+ "files": {
+  "data/eval/rag/unanswerable.yaml": "e7925c45bea7ceb1065ac559c62706e24ae287396aa9450c86195361124f3ad6",
+  "data/eval/results/m5/calibration_hybrid-gte-tuned.json": "a9c01fa53f68ff5f074f30dd316470b09af0f5387df3a4acee649988186941e6",
+  "data/eval/results/m5/rag_extractive_bm25.json": "1a5ca17906d11ee44df7fff315aaa194342c4d0f6bb51f7d14283d9f8927ffee",
+  "data/eval/results/m5/rag_extractive_hybrid-custom-tiny.json": "31e8fcb8691a4145651657819e8e7e1ded8784d5b4101a412bfb1e599f509433",
+  "data/eval/results/m5/rag_extractive_hybrid-gte-tuned.json": "074b04351bfee748d813394d1a7e6b32989a0c75bba5c5b7f9657f95b7f1aa2e"
+ },
+ "freeze_id": "rag-v1",
+ "note": "Dev-only RAG evaluation with the extractive test provider; abstention threshold 0.375 calibrated on train + half of the out-of-scope set; test split untouched; no live LLM run."
+}

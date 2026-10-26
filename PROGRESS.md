@@ -1,9 +1,22 @@
 # Progress
 
-**Current milestone:** 4 - Custom transformer dual encoder: **implemented, tested, trained and evaluated
-once on the frozen test split; awaiting your review.** Not proceeding to RAG (Milestone 5) until then.
+**Current milestone:** 5 - RAG with validated citations: **implemented, tested and evaluated offline; live
+generation with a real LLM is BLOCKED (no credentials) and therefore UNVERIFIED, so the milestone's "works end
+to end with a configured real LLM provider" criterion is NOT met.** Awaiting your review; not proceeding to
+Milestone 6.
 
-**Milestone 4 in one paragraph (details: `docs/ml-model.md`).** A from-scratch transformer (0.58M
+**Milestone 5 in one paragraph (details: `docs/rag.md`).** `neural_debugger.rag` implements question
+preparation, retrieval with the pretrained hybrid (custom transformer selectable), evidence selection and
+sanitisation, a calibrated pre-LLM abstention gate, a provider interface (Anthropic Messages and
+OpenAI-compatible HTTP providers + deterministic test providers), JSON-contract prompting with one repair
+retry, citation *validity* and (separately) *support* checks, version/conflict caveats, injection defences,
+and `POST /api/v1/debug`. 97 new tests. Offline evaluation (dev queries only, extractive test provider, so
+plumbing not LLM quality): pre-LLM gate abstains on 84% of 32 out-of-scope questions (81% on the held-out half)
+with 3.7% false abstentions; fault injection: fabricated citations / uncited claims / unsupported identifiers /
+foreign links 0 of 132 survive, inverted-meaning claims 132 of 132 survive. Model-graded and human-verified
+evaluation rows are empty.
+
+**Milestone 4 (approved) in one paragraph (details: `docs/ml-model.md`).** A from-scratch transformer (0.58M
 parameters, mean-pooled, L2-normalised, shared towers) trained with InfoNCE on synthetic documentation
 pairs does **not** beat BM25: test NDCG@10 (authored, n=32, M4 labels) is 0.314 dense / 0.531 hybrid vs
 BM25 0.560 and the pretrained hybrid 0.621. Smaller models were better (0.58M > 1.5M > 5.3M); BM25 hard
@@ -20,7 +33,8 @@ and speed (~1 ms/query). Test pool expansion for the custom systems was post-hoc
 | 2 | Documentation retrieval (corpus, labels, BM25) | Done, **frozen** (labels LLM-authored; agent second-pass review only) |
 | 3 | Neural retrieval (dense, hybrid, rerank, framework filter) | **Done**; results below, with caveats |
 | 4 | Custom transformer + contrastive training | **Done**; negative result vs. baselines (`docs/ml-model.md`) |
-| - | RAG generation, debugging API/UI, performance, beta | Not started |
+| 5 | RAG with validated citations (API, providers, evaluation) | **Implemented; live LLM generation unverified (blocked)** |
+| - | Debugging UI, persistence, performance, beta | Not started |
 
 ## Step 1 - Milestone 2 finalised and committed
 
@@ -90,10 +104,11 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 
 | Check | Result |
 |---|---|
-| `uv run pytest` (full env, models cached) | **155 passed** (M4 added 37 tests: transformer 18, training 15, custom retrieval 4) |
-| CI-equivalent env (`--extra data --extra index`, no PyTorch) | ruff clean, strict mypy clean (72 src / 28 test files), **114 passed, 7 skipped** (model/PyTorch-dependent tests); GitHub Actions python, frontend and docker jobs green on `e37540c` |
-| `make freeze-verify` (M2 baseline + M3 + M4 configuration) | intact |
-| Frontend `lint`, `typecheck`, `npm test` (8), `npm run build` | clean (re-run at the end of this milestone) |
+| `uv run pytest` (full env, models cached) | **251 passed, 1 skipped** (M4: +37; M5: +97 collected, of which the live-LLM test is the 1 skip) |
+| CI-equivalent env (`--extra data --extra index`, no PyTorch) | ruff clean, strict mypy clean (93 src / 37 test files), **209 passed, 9 skipped** (model/PyTorch/live-LLM tests); GitHub Actions was green on M4 `aa1b0b2` (M5 push pending, see below) |
+| `make freeze-verify` (M2 baseline + M3 + M4 + M5 evaluation) | intact |
+| Frontend `lint`, `typecheck`, `npm test` (8) | clean (frontend untouched in M5; `npm run build` left to CI) |
+| Core-only environment (the Docker backend image's dependency set) | app imports; `/api/v1/debug` answers 503 `retrieval_unavailable` instead of crashing |
 | Wheel build + clean-venv install + `/health` on real PostgreSQL 16 | 200 `ok`, then 503 after stopping Postgres; retrieval modules import from the wheel without PyTorch |
 | CPU vs MPS | identical ranking metrics; embeddings cosine >= 0.9999; CPU bitwise deterministic |
 | Test access log | M3: 4 systems x 2 judgment sets = 8; M4: 6 systems x 2 judgment sets = 12; + 1 retroactive M2 entry (21 lines); asserted by a test |
@@ -111,9 +126,18 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 - Larger models / fine-tuning / HyDE / real-user queries not evaluated.
 - No database schema or API wiring for retrieval yet (RAG milestone).
 
+## Milestone 5 - blocked item and how to unblock it
+
+Live generation could not be verified: there is no `ANTHROPIC_API_KEY` (or other provider key or local LLM
+runtime) in this environment, and I did not use paid APIs or the harness' own endpoint. To close the gap,
+either export a key and run the three commands at the top of `docs/rag.md` section 2 (about a few cents), or
+point `--provider openai_compatible --base-url http://localhost:11434/v1` at a local model server (free). Until
+then the model-graded rows of the RAG evaluation, real abstention behaviour, JSON compliance and
+prompt-injection resistance of an actual model are **unmeasured**.
+
 ## Remaining work (needs your direction)
 
 1. Human review of a label sample (and optionally Stack Overflow-derived labels, which need approval).
 2. Decide whether to invest further in the custom model (more/LLM-generated training data, distillation
    from a pretrained model) or use the pretrained hybrid as the retrieval backbone for RAG.
-3. RAG generation with citation validation, API endpoints, UI.
+3. Live-LLM verification of Milestone 5 (above), then the debugging UI / persistence / retrieval extras in the Docker image.

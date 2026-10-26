@@ -5,11 +5,13 @@ explanation, troubleshooting steps, and citations to indexed documentation. Retr
 with a **custom transformer encoder written from scratch on PyTorch tensors**, evaluated against
 baselines, inside a RAG pipeline.
 
-> **Project status: early development (Milestones 1-4 of 8).** Built and verified: API skeleton, a
+> **Project status: early development (Milestones 1-5 of 8).** Built and verified: API skeleton, a
 > reproducible documentation corpus, a labeled evaluation set, BM25, **pretrained dense / hybrid / reranked
-> retrieval**, and a **from-scratch PyTorch transformer dual encoder trained with InfoNCE** whose measured
-> result is negative: it does not beat BM25 (see [docs/ml-model.md](docs/ml-model.md)). Not built yet: RAG
-> generation, the debugging UI.
+> retrieval**, a **from-scratch PyTorch transformer dual encoder** (negative result: it does not beat BM25,
+> see [docs/ml-model.md](docs/ml-model.md)), and a **RAG pipeline with validated citations, abstention and
+> prompt-injection defences** ([docs/rag.md](docs/rag.md)). **Live generation with a real LLM is NOT yet
+> verified** (no credentials were available); the providers are tested against mocked HTTP only. Not built
+> yet: the debugging UI, persistence, deployment hardening.
 > [PROGRESS.md](PROGRESS.md) lists exactly what is done and verified. No result is claimed that has
 > not been measured.
 
@@ -32,6 +34,13 @@ baselines, inside a RAG pipeline.
   tokenizer, InfoNCE trainer, trained on synthetic pairs from the docs (and, in one variant, real train
   queries). 0.58M parameters, ~1 ms/query. **Test NDCG@10 0.31 dense / 0.53 hybrid vs 0.56 BM25 and 0.62
   for the pretrained hybrid** (32 queries; intervals in [docs/ml-model.md](docs/ml-model.md)).
+
+* **RAG** (`src/neural_debugger/rag`, `POST /api/v1/debug`): hybrid-gte-small retrieval -> evidence selection ->
+  provider-agnostic generation (Anthropic and OpenAI-compatible providers) -> citation validity and support
+  checks. Evaluated offline with a deterministic test provider (not an LLM): the pre-LLM gate abstains on 84%
+  of out-of-scope questions with 3.7% false abstentions on dev answerable ones; synthetic fabricated citations,
+  uncited claims and foreign links never survive validation, but an inverted-meaning claim does (the lexical
+  support check cannot see negation). [docs/rag.md](docs/rag.md)
 
 **Measured results** (NDCG@10, authored queries; full tables, intervals and caveats in the docs):
 
@@ -93,7 +102,7 @@ Rebuild the corpus from the network (cached after the first run; ~24 MB, 1 reque
 
 Docs: [architecture](docs/architecture.md) · [data pipeline](docs/data-pipeline.md) ·
 [evaluation](docs/evaluation.md) · [neural retrieval](docs/neural-retrieval.md) ·
-[custom transformer](docs/ml-model.md) ·
+[custom transformer](docs/ml-model.md) · [RAG](docs/rag.md) ·
 [technical decisions](docs/technical-decisions.md).
 
 macOS note: if `import neural_debugger` fails inside `.venv`, run `chflags -R nohidden .venv` (see

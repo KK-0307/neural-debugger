@@ -163,3 +163,32 @@ checks M2, M3 and M4 manifests.
 
 **Shipped weights are seed 0**, fixed before evaluating the shipped files, to avoid picking the luckiest seed.
 Weights (2.3 MB each) are committed despite the `*.pt` ignore rule so a clone can run the evaluation.
+
+
+## M5 - RAG and citations
+
+**Provider interface, no vendor lock-in, nothing billed by default.** The pipeline sees only `LLMProvider.generate`.
+Two real HTTP providers (Anthropic Messages, OpenAI-compatible, which also covers free local servers) use plain
+`httpx` rather than vendor SDKs to keep the dependency surface small and testable with a mock transport. The
+default provider is `none`: no key means a 503 with the retrieved sources, never a silent fallback to a fake
+answer. The harness' `ANTHROPIC_BASE_URL` is deliberately not read.
+
+**Validity and support are separate checks.** Validity is exact (the id was shown); support is heuristic
+(lexical by default, optional LLM judge). Claims that fail either are removed, not "flagged and shown".
+
+**Abstain before generating when the evidence cannot cover the question.** IDF-weighted term coverage, threshold
+0.375 calibrated on dev train queries and half of a small out-of-scope set; the other half is held out. A cheap,
+inspectable gate that also saves LLM calls; its weakness (generic shared words) is documented and the model's own
+`insufficient_evidence` is the second line.
+
+**Retrieval query excludes code and instruction-like sentences.** Found by tests: pasted user code and injected
+sentences diluted the coverage signal and made answerable questions abstain.
+
+**`pretrained hybrid` is the production backbone.** Confirmed inside the RAG pipeline: gold evidence present for
+88% of authored dev questions (BM25 78%, custom hybrid 67%). The custom model stays selectable
+(`ND_RETRIEVER_SYSTEM=hybrid-custom-tiny`).
+
+**Test split untouched.** M5 evaluation uses train + val only; the frozen M2-M4 artifacts were not modified
+(`make freeze-verify`). httpx moved from dev/extra to a core dependency because the providers need it at runtime.
+
+**Mypy for RAG tests is relaxed on a few error codes** (duck-typed fakes); `src/` is still strict.

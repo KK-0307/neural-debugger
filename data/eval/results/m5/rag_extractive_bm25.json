@@ -1,0 +1,242 @@
+{
+ "automated": {
+  "answerable_authored": {
+   "all": {
+    "n": 138,
+    "abstained_rate": 0.0362,
+    "error_rate": 0.0,
+    "retrieval": {
+     "gold_in_retrieved_top12": 0.8623,
+     "gold_in_evidence": 0.7754,
+     "mean_evidence_recall": 0.4439
+    },
+    "citations": {
+     "answered_with_citations_rate": 0.9638,
+     "gold_cited_rate_of_all": 0.7101,
+     "gold_cited_rate_of_answered": 0.7368,
+     "pre_validation_citation_validity": 1.0,
+     "post_validation_citation_validity": 1.0
+    },
+    "claims": {
+     "total_claims_before_filtering": 663,
+     "unsupported_rate": 0.003,
+     "partial_rate": 0.0,
+     "dropped_no_valid_citation_rate": 0.0
+    },
+    "confidence": {
+     "high": 102,
+     "medium": 29,
+     "low": 2
+    }
+   },
+   "train": {
+    "n": 103,
+    "abstained_rate": 0.0388,
+    "error_rate": 0.0,
+    "retrieval": {
+     "gold_in_retrieved_top12": 0.8544,
+     "gold_in_evidence": 0.7573,
+     "mean_evidence_recall": 0.4298
+    },
+    "citations": {
+     "answered_with_citations_rate": 0.9612,
+     "gold_cited_rate_of_all": 0.6699,
+     "gold_cited_rate_of_answered": 0.697,
+     "pre_validation_citation_validity": 1.0,
+     "post_validation_citation_validity": 1.0
+    },
+    "claims": {
+     "total_claims_before_filtering": 493,
+     "unsupported_rate": 0.0041,
+     "partial_rate": 0.0,
+     "dropped_no_valid_citation_rate": 0.0
+    },
+    "confidence": {
+     "high": 79,
+     "medium": 18,
+     "low": 2
+    }
+   },
+   "val": {
+    "n": 35,
+    "abstained_rate": 0.0286,
+    "error_rate": 0.0,
+    "retrieval": {
+     "gold_in_retrieved_top12": 0.8857,
+     "gold_in_evidence": 0.8286,
+     "mean_evidence_recall": 0.4857
+    },
+    "citations": {
+     "answered_with_citations_rate": 0.9714,
+     "gold_cited_rate_of_all": 0.8286,
+     "gold_cited_rate_of_answered": 0.8529,
+     "pre_validation_citation_validity": 1.0,
+     "post_validation_citation_validity": 1.0
+    },
+    "claims": {
+     "total_claims_before_filtering": 170,
+     "unsupported_rate": 0.0,
+     "partial_rate": 0.0,
+     "dropped_no_valid_citation_rate": 0.0
+    },
+    "confidence": {
+     "high": 23,
+     "medium": 11,
+     "low": 0
+    }
+   }
+  },
+  "answerable_faq": {
+   "n": 23,
+   "abstained_rate": 0.0,
+   "error_rate": 0.0,
+   "retrieval": {
+    "gold_in_retrieved_top12": 1.0,
+    "gold_in_evidence": 1.0,
+    "mean_evidence_recall": 1.0
+   },
+   "citations": {
+    "answered_with_citations_rate": 1.0,
+    "gold_cited_rate_of_all": 0.9565,
+    "gold_cited_rate_of_answered": 0.9565,
+    "pre_validation_citation_validity": 1.0,
+    "post_validation_citation_validity": 1.0
+   },
+   "claims": {
+    "total_claims_before_filtering": 113,
+    "unsupported_rate": 0.0088,
+    "partial_rate": 0.0,
+    "dropped_no_valid_citation_rate": 0.0
+   },
+   "confidence": {
+    "high": 22,
+    "medium": 0,
+    "low": 1
+   }
+  },
+  "unanswerable": {
+   "all": {
+    "n": 32,
+    "abstained_rate": 0.5938,
+    "answered_with_citations_rate": 0.4062,
+    "abstain_by_reason": {
+     "insufficient_evidence": 19
+    }
+   },
+   "calib": {
+    "n": 16,
+    "abstained_rate": 0.625,
+    "answered_with_citations_rate": 0.375,
+    "abstain_by_reason": {
+     "insufficient_evidence": 10
+    }
+   },
+   "heldout": {
+    "n": 16,
+    "abstained_rate": 0.5625,
+    "answered_with_citations_rate": 0.4375,
+    "abstain_by_reason": {
+     "insufficient_evidence": 9
+    }
+   },
+   "out_of_scope_library": {
+    "n": 22,
+    "abstained_rate": 0.4545,
+    "answered_with_citations_rate": 0.5455,
+    "abstain_by_reason": {
+     "insufficient_evidence": 10
+    }
+   },
+   "off_topic": {
+    "n": 10,
+    "abstained_rate": 0.9,
+    "answered_with_citations_rate": 0.1,
+    "abstain_by_reason": {
+     "insufficient_evidence": 9
+    }
+   }
+  },
+  "abstention": {
+   "all": {
+    "precision": 0.7917,
+    "recall": 0.5938,
+    "f1": 0.6786,
+    "tp": 19,
+    "fp": 5,
+    "fn": 13
+   },
+   "heldout_only": {
+    "precision": 0.9,
+    "recall": 0.5625,
+    "f1": 0.6923,
+    "tp": 9,
+    "fp": 1,
+    "fn": 7
+   }
+  },
+  "latency_ms": {
+   "all": {
+    "retrieval_ms": {
+     "p50": 0.23,
+     "p95": 0.36,
+     "mean": 0.24
+    },
+    "generation_ms": {
+     "p50": 0.34,
+     "p95": 0.45,
+     "mean": 0.3
+    },
+    "validation_ms": {
+     "p50": 0.36,
+     "p95": 0.48,
+     "mean": 0.33
+    },
+    "total_ms": {
+     "p50": 3.29,
+     "p95": 6.5,
+     "mean": 3.6
+    }
+   },
+   "answered": {
+    "retrieval_ms": {
+     "p50": 0.24,
+     "p95": 0.36,
+     "mean": 0.24
+    },
+    "generation_ms": {
+     "p50": 0.35,
+     "p95": 0.45,
+     "mean": 0.34
+    },
+    "validation_ms": {
+     "p50": 0.38,
+     "p95": 0.49,
+     "mean": 0.37
+    },
+    "total_ms": {
+     "p50": 3.41,
+     "p95": 6.51,
+     "mean": 3.73
+    }
+   }
+  }
+ },
+ "config": {
+  "provider": "extractive",
+  "model": "extractive-v1",
+  "retriever": "bm25",
+  "abstain_below": 0.375,
+  "confident_above": 0.65,
+  "support": "lexical",
+  "n_items": 193,
+  "splits": "train+val dev queries only; test split untouched"
+ },
+ "human_verified": {
+  "n": 0,
+  "note": "no human reviewed any RAG output or label"
+ },
+ "model_graded": {
+  "status": "not run",
+  "reason": "requires --judge llm with a real provider (none was used)"
+ }
+}

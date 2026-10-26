@@ -1,0 +1,177 @@
+# Questions the indexed documentation (Python 3.12, PyTorch 2.14, FastAPI 0.162.0) should NOT be able to answer.
+# Authored by the assistant (not human-reviewed). `out_of_scope_library` items were kept only if the distinctive
+# term occurs <= 1 time in the corpus (word-boundary count); candidates the docs do mention (Django, Kubernetes, SQLAlchemy...)
+# were removed. `calibration` alternates calib/heldout: thresholds are tuned on `calib`, reported on `heldout`.
+questions:
+- id: un001
+  query: 'TensorFlow raises InvalidArgumentError: Incompatible shapes when I call model.fit with a Keras Sequential model'
+  kind: out_of_scope_library
+  absent_term: tensorflow
+  corpus_mentions: 1
+  calibration: calib
+- id: un002
+  query: JAX jit recompiles on every call even though my input shapes do not change, how do I stop that?
+  kind: out_of_scope_library
+  absent_term: jax
+  corpus_mentions: 1
+  calibration: heldout
+- id: un003
+  query: pandas SettingWithCopyWarning when I assign to a filtered dataframe slice, how do I avoid it?
+  kind: out_of_scope_library
+  absent_term: pandas
+  corpus_mentions: 1
+  calibration: calib
+- id: un004
+  query: Celery beat does not run my periodic task after a restart, what is wrong?
+  kind: out_of_scope_library
+  absent_term: celery
+  corpus_mentions: 1
+  calibration: heldout
+- id: un005
+  query: matplotlib savefig produces a blank white image when I call plt.show before saving
+  kind: out_of_scope_library
+  absent_term: matplotlib
+  corpus_mentions: 0
+  calibration: calib
+- id: un006
+  query: Selenium raises NoSuchElementException even though the element is visible in the browser
+  kind: out_of_scope_library
+  absent_term: selenium
+  corpus_mentions: 0
+  calibration: heldout
+- id: un007
+  query: LangChain ConversationalRetrievalChain returns an empty answer for my vector store
+  kind: out_of_scope_library
+  absent_term: langchain
+  corpus_mentions: 0
+  calibration: calib
+- id: un008
+  query: OpenCV cv2.imread returns None for my image path, how do I fix it?
+  kind: out_of_scope_library
+  absent_term: opencv
+  corpus_mentions: 0
+  calibration: heldout
+- id: un009
+  query: 'Hugging Face Trainer raises ValueError: expected sequence of length 128 at dim 1 when I fine tune bert'
+  kind: out_of_scope_library
+  absent_term: huggingface
+  corpus_mentions: 0
+  calibration: calib
+- id: un010
+  query: scikit-learn GridSearchCV is extremely slow with a RandomForest, how can I speed it up?
+  kind: out_of_scope_library
+  absent_term: scikit-learn
+  corpus_mentions: 0
+  calibration: heldout
+- id: un011
+  query: How do I deploy my FastAPI app to AWS Lambda using Mangum and API Gateway?
+  kind: out_of_scope_library
+  absent_term: mangum
+  corpus_mentions: 0
+  calibration: calib
+- id: un012
+  query: 'Flask-SQLAlchemy raises RuntimeError: working outside of application context in a background thread'
+  kind: out_of_scope_library
+  absent_term: flask-sqlalchemy
+  corpus_mentions: 0
+  calibration: heldout
+- id: un013
+  query: ONNX Runtime fails with INVALID_GRAPH when I load a model exported from my network
+  kind: out_of_scope_library
+  absent_term: onnx
+  corpus_mentions: 0
+  calibration: calib
+- id: un014
+  query: Terraform apply fails with Error acquiring the state lock on my S3 backend
+  kind: out_of_scope_library
+  absent_term: terraform
+  corpus_mentions: 0
+  calibration: heldout
+- id: un015
+  query: Kafka consumer keeps rebalancing and I see CommitFailedException in the logs
+  kind: out_of_scope_library
+  absent_term: kafka
+  corpus_mentions: 0
+  calibration: calib
+- id: un016
+  query: 'Webpack build fails with Module not found: Error: Can''t resolve ''fs'''
+  kind: out_of_scope_library
+  absent_term: webpack
+  corpus_mentions: 0
+  calibration: heldout
+- id: un017
+  query: PyTorch Lightning Trainer raises MisconfigurationException about the DDP strategy when I set accelerator gpu
+  kind: out_of_scope_library
+  absent_term: lightning
+  corpus_mentions: 0
+  calibration: calib
+- id: un018
+  query: Ansible playbook fails with UNREACHABLE! Failed to connect to the host via ssh
+  kind: out_of_scope_library
+  absent_term: ansible
+  corpus_mentions: 0
+  calibration: heldout
+- id: un019
+  query: Elasticsearch returns a circuit_breaking_exception when I run a large aggregation
+  kind: out_of_scope_library
+  absent_term: elasticsearch
+  corpus_mentions: 0
+  calibration: calib
+- id: un020
+  query: 'gRPC client fails with StatusCode.UNAVAILABLE: failed to connect to all addresses'
+  kind: out_of_scope_library
+  absent_term: grpc
+  corpus_mentions: 0
+  calibration: heldout
+- id: un021
+  query: Laravel throws a MassAssignmentException when I call create with request data
+  kind: out_of_scope_library
+  absent_term: laravel
+  corpus_mentions: 0
+  calibration: calib
+- id: un022
+  query: Cassandra read timeouts increase after I add a new node to the cluster
+  kind: out_of_scope_library
+  absent_term: cassandra
+  corpus_mentions: 0
+  calibration: heldout
+- id: un023
+  query: What is a good recipe for chocolate chip cookies?
+  kind: off_topic
+  calibration: calib
+- id: un024
+  query: What will the weather be like in Paris next weekend?
+  kind: off_topic
+  calibration: heldout
+- id: un025
+  query: asdf qwer zxcv uiop hjkl
+  kind: off_topic
+  calibration: calib
+- id: un026
+  query: Write me a short poem about autumn leaves
+  kind: off_topic
+  calibration: heldout
+- id: un027
+  query: Which stocks should I buy this month to maximise returns?
+  kind: off_topic
+  calibration: calib
+- id: un028
+  query: What is the capital city of Australia and when was it founded?
+  kind: off_topic
+  calibration: heldout
+- id: un029
+  query: What are the early symptoms of type 2 diabetes?
+  kind: off_topic
+  calibration: calib
+- id: un030
+  query: How can I find a cheap flight from London to Tokyo in March?
+  kind: off_topic
+  calibration: heldout
+- id: un031
+  query: Tell me a funny joke about programmers
+  kind: off_topic
+  calibration: calib
+- id: un032
+  query: How do I tune a guitar to drop D without an electronic tuner?
+  kind: off_topic
+  calibration: heldout

@@ -1,0 +1,276 @@
+{
+ "automated": {
+  "answerable_authored": {
+   "all": {
+    "n": 138,
+    "abstained_rate": 0.0435,
+    "error_rate": 0.0,
+    "retrieval": {
+     "gold_in_retrieved_top12": 0.9493,
+     "gold_in_evidence": 0.8768,
+     "mean_evidence_recall": 0.5433
+    },
+    "citations": {
+     "answered_with_citations_rate": 0.9565,
+     "gold_cited_rate_of_all": 0.7971,
+     "gold_cited_rate_of_answered": 0.8333,
+     "pre_validation_citation_validity": 1.0,
+     "post_validation_citation_validity": 1.0
+    },
+    "claims": {
+     "total_claims_before_filtering": 655,
+     "unsupported_rate": 0.0046,
+     "partial_rate": 0.0015,
+     "dropped_no_valid_citation_rate": 0.0
+    },
+    "confidence": {
+     "high": 88,
+     "medium": 41,
+     "low": 3
+    }
+   },
+   "train": {
+    "n": 103,
+    "abstained_rate": 0.0583,
+    "error_rate": 0.0,
+    "retrieval": {
+     "gold_in_retrieved_top12": 0.9515,
+     "gold_in_evidence": 0.8641,
+     "mean_evidence_recall": 0.5363
+    },
+    "citations": {
+     "answered_with_citations_rate": 0.9417,
+     "gold_cited_rate_of_all": 0.7573,
+     "gold_cited_rate_of_answered": 0.8041,
+     "pre_validation_citation_validity": 1.0,
+     "post_validation_citation_validity": 1.0
+    },
+    "claims": {
+     "total_claims_before_filtering": 482,
+     "unsupported_rate": 0.0041,
+     "partial_rate": 0.0021,
+     "dropped_no_valid_citation_rate": 0.0
+    },
+    "confidence": {
+     "high": 67,
+     "medium": 28,
+     "low": 2
+    }
+   },
+   "val": {
+    "n": 35,
+    "abstained_rate": 0.0,
+    "error_rate": 0.0,
+    "retrieval": {
+     "gold_in_retrieved_top12": 0.9429,
+     "gold_in_evidence": 0.9143,
+     "mean_evidence_recall": 0.5638
+    },
+    "citations": {
+     "answered_with_citations_rate": 1.0,
+     "gold_cited_rate_of_all": 0.9143,
+     "gold_cited_rate_of_answered": 0.9143,
+     "pre_validation_citation_validity": 1.0,
+     "post_validation_citation_validity": 1.0
+    },
+    "claims": {
+     "total_claims_before_filtering": 173,
+     "unsupported_rate": 0.0058,
+     "partial_rate": 0.0,
+     "dropped_no_valid_citation_rate": 0.0
+    },
+    "confidence": {
+     "high": 21,
+     "medium": 13,
+     "low": 1
+    }
+   }
+  },
+  "answerable_faq": {
+   "n": 23,
+   "abstained_rate": 0.0,
+   "error_rate": 0.0,
+   "retrieval": {
+    "gold_in_retrieved_top12": 1.0,
+    "gold_in_evidence": 1.0,
+    "mean_evidence_recall": 1.0
+   },
+   "citations": {
+    "answered_with_citations_rate": 1.0,
+    "gold_cited_rate_of_all": 0.9565,
+    "gold_cited_rate_of_answered": 0.9565,
+    "pre_validation_citation_validity": 1.0,
+    "post_validation_citation_validity": 1.0
+   },
+   "claims": {
+    "total_claims_before_filtering": 114,
+    "unsupported_rate": 0.0,
+    "partial_rate": 0.0,
+    "dropped_no_valid_citation_rate": 0.0
+   },
+   "confidence": {
+    "high": 23,
+    "medium": 0,
+    "low": 0
+   }
+  },
+  "unanswerable": {
+   "all": {
+    "n": 32,
+    "abstained_rate": 0.8438,
+    "answered_with_citations_rate": 0.1562,
+    "abstain_by_reason": {
+     "model_reported_insufficient_evidence": 1,
+     "insufficient_evidence": 26
+    }
+   },
+   "calib": {
+    "n": 16,
+    "abstained_rate": 0.875,
+    "answered_with_citations_rate": 0.125,
+    "abstain_by_reason": {
+     "insufficient_evidence": 14
+    }
+   },
+   "heldout": {
+    "n": 16,
+    "abstained_rate": 0.8125,
+    "answered_with_citations_rate": 0.1875,
+    "abstain_by_reason": {
+     "model_reported_insufficient_evidence": 1,
+     "insufficient_evidence": 12
+    }
+   },
+   "out_of_scope_library": {
+    "n": 22,
+    "abstained_rate": 0.7727,
+    "answered_with_citations_rate": 0.2273,
+    "abstain_by_reason": {
+     "model_reported_insufficient_evidence": 1,
+     "insufficient_evidence": 16
+    }
+   },
+   "off_topic": {
+    "n": 10,
+    "abstained_rate": 1.0,
+    "answered_with_citations_rate": 0.0,
+    "abstain_by_reason": {
+     "insufficient_evidence": 10
+    }
+   }
+  },
+  "abstention": {
+   "all": {
+    "precision": 0.8182,
+    "recall": 0.8438,
+    "f1": 0.8308,
+    "tp": 27,
+    "fp": 6,
+    "fn": 5
+   },
+   "heldout_only": {
+    "precision": 1.0,
+    "recall": 0.8125,
+    "f1": 0.8966,
+    "tp": 13,
+    "fp": 0,
+    "fn": 3
+   }
+  },
+  "latency_ms": {
+   "all": {
+    "retrieval_ms": {
+     "p50": 8.38,
+     "p95": 11.8,
+     "mean": 9.54
+    },
+    "generation_ms": {
+     "p50": 0.31,
+     "p95": 0.45,
+     "mean": 0.28
+    },
+    "validation_ms": {
+     "p50": 0.35,
+     "p95": 0.49,
+     "mean": 0.3
+    },
+    "total_ms": {
+     "p50": 11.95,
+     "p95": 16.54,
+     "mean": 13.01
+    }
+   },
+   "answered": {
+    "retrieval_ms": {
+     "p50": 8.46,
+     "p95": 11.83,
+     "mean": 9.36
+    },
+    "generation_ms": {
+     "p50": 0.33,
+     "p95": 0.45,
+     "mean": 0.33
+    },
+    "validation_ms": {
+     "p50": 0.38,
+     "p95": 0.49,
+     "mean": 0.37
+    },
+    "total_ms": {
+     "p50": 12.13,
+     "p95": 16.54,
+     "mean": 13.03
+    }
+   }
+  }
+ },
+ "config": {
+  "provider": "extractive",
+  "model": "extractive-v1",
+  "retriever": "hybrid-gte-tuned",
+  "abstain_below": 0.375,
+  "confident_above": 0.65,
+  "support": "lexical",
+  "n_items": 193,
+  "splits": "train+val dev queries only; test split untouched"
+ },
+ "human_verified": {
+  "n": 0,
+  "note": "no human reviewed any RAG output or label"
+ },
+ "model_graded": {
+  "status": "not run",
+  "reason": "requires --judge llm with a real provider (none was used)"
+ },
+ "fault_injection": {
+  "label": "synthetic fault injection into extractive answers; measures the validators, not any model",
+  "eligible_answers": 132,
+  "faults": {
+   "fabricated_citation": {
+    "description": "A step citing a source id that was never shown (E99).",
+    "survived": 0,
+    "survival_rate": 0.0
+   },
+   "uncited_claim": {
+    "description": "A confident factual claim with no citation.",
+    "survived": 0,
+    "survival_rate": 0.0
+   },
+   "unsupported_claim_valid_citation": {
+    "description": "A claim citing a real source but using identifiers the source does not contain.",
+    "survived": 0,
+    "survival_rate": 0.0
+   },
+   "injected_url": {
+    "description": "A claim carrying an exfiltration link not among the sources.",
+    "survived": 0,
+    "survival_rate": 0.0
+   },
+   "negated_claim_valid_citation": {
+    "description": "A real claim with its meaning inverted (lexically identical vocabulary).",
+    "survived": 132,
+    "survival_rate": 1.0
+   }
+  }
+ }
+}

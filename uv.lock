@@ -1087,6 +1087,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
+    { name = "httpx" },
     { name = "psycopg", extra = ["binary"] },
     { name = "pydantic" },
     { name = "pydantic-settings" },
@@ -1135,6 +1136,7 @@ requires-dist = [
     { name = "faiss-cpu", marker = "extra == 'index'", specifier = ">=1.8" },
     { name = "faiss-cpu", marker = "extra == 'neural'", specifier = ">=1.8" },
     { name = "fastapi", specifier = ">=0.115" },
+    { name = "httpx", specifier = ">=0.27" },
     { name = "httpx", marker = "extra == 'data'", specifier = ">=0.27" },
     { name = "lxml", marker = "extra == 'data'", specifier = ">=5.2" },
     { name = "numpy", marker = "extra == 'data'", specifier = ">=1.26" },
