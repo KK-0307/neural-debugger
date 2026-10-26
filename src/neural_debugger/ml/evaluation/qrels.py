@@ -24,8 +24,10 @@ from neural_debugger.data.queries import QueryRecord, expand_section_id
 from neural_debugger.ml.retrieval.bm25 import BM25Config, BM25Retriever
 
 NEURAL_POOL_FILES = ("pooled_judgments_neural.yaml", "pooled_judgments_neural_test.yaml")
+# Milestone 4 adds its own file so the M3-frozen judgments (and the numbers derived from them) stay as they were.
+M4_POOL_FILES = ("pooled_judgments_m4.yaml", "pooled_judgments_m4_test.yaml")
 BM25_POOL_DEPTH = 8
-Variant = Literal["original", "expanded"]
+Variant = Literal["original", "expanded", "m4"]
 
 
 @dataclass
@@ -60,8 +62,9 @@ def load_qrels(
 ) -> Qrels:
     relevant = {q.id: set(q.relevant) for q in queries}
     judged = bm25_pool_judged(corpus, queries)
-    if variant == "expanded":
-        for fname in NEURAL_POOL_FILES:
+    if variant in ("expanded", "m4"):
+        files = NEURAL_POOL_FILES + (M4_POOL_FILES if variant == "m4" else ())
+        for fname in files:
             path = eval_dir / fname
             if not path.exists():
                 continue

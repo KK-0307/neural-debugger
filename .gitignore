@@ -41,3 +41,6 @@ frontend/tsconfig.tsbuildinfo
 # Embeddings are regenerable; only the selected model's are committed (7.7 MB)
 data/embeddings/*
 !data/embeddings/gte-small/
+
+# shipped model weights (small; see models/*/summary.json)
+!models/**/*.pt

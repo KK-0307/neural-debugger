@@ -35,12 +35,11 @@ index = [
     "faiss-cpu>=1.8",
     "numpy>=1.26",
 ]
-# `ml`: custom transformer / training (later milestone).
+# `ml`: custom transformer + contrastive training (Milestone 4); independent of the pretrained stack.
 ml = [
     "torch>=2.4",
     "numpy>=1.26",
     "tokenizers>=0.20",
-    "scikit-learn>=1.5",
 ]
 
 [dependency-groups]
@@ -86,7 +85,7 @@ extend-exclude = ["frontend"]
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM", "N"]
 # Line length is enforced by `ruff format`; it cannot wrap long string literals/docstring examples.
-ignore = ["E501"]
+ignore = ["E501", "N812"]  # N812: `torch.nn.functional as F` is the universal convention
 
 [tool.ruff.lint.flake8-bugbear]
 # Frozen dataclasses: safe as default argument values.
@@ -108,3 +107,16 @@ plugins = ["pydantic.mypy"]
 module = ["torch.*", "sklearn.*", "tokenizers.*", "bs4.*", "lxml.*", "sentence_transformers.*", "faiss.*", "huggingface_hub.*"]
 ignore_missing_imports = true
 
+
+[[tool.mypy.overrides]]
+# torch.nn.Module.__call__ is typed Any in the stubs available here; tensors flow through unchanged.
+module = ["neural_debugger.ml.transformer.*", "neural_debugger.ml.training.*"]
+warn_return_any = false
+disallow_untyped_calls = false  # torch autograd entry points (e.g. Tensor.backward) are untyped
+# CI type-checks without PyTorch installed, where nn.Module and torch.no_grad() resolve to Any
+disallow_subclassing_any = false
+disallow_untyped_decorators = false
+
+[[tool.mypy.overrides]]
+module = ["tests.ml.test_transformer", "tests.ml.test_training"]
+disallow_untyped_calls = false  # Tensor.backward is untyped in the installed torch stubs

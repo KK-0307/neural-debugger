@@ -1108,7 +1108,6 @@ index = [
 ]
 ml = [
     { name = "numpy" },
-    { name = "scikit-learn" },
     { name = "tokenizers" },
     { name = "torch" },
 ]
@@ -1146,7 +1145,6 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.8" },
     { name = "pydantic-settings", specifier = ">=2.4" },
     { name = "pyyaml", specifier = ">=6.0" },
-    { name = "scikit-learn", marker = "extra == 'ml'", specifier = ">=1.5" },
     { name = "sentence-transformers", marker = "extra == 'neural'", specifier = ">=3.0" },
     { name = "sqlalchemy", specifier = ">=2.0" },
     { name = "tokenizers", marker = "extra == 'ml'", specifier = ">=0.20" },

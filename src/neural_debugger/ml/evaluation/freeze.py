@@ -113,10 +113,75 @@ def verify_m3(root: Path = Path(".")) -> list[str]:
     return problems
 
 
+M4_FREEZE_PATH = Path("data/eval/m4_freeze.json")
+M4_TEST_SYSTEMS = [
+    "bm25",
+    "hybrid-gte-tuned",
+    "dense-custom-tiny",
+    "hybrid-custom-tiny",
+    "dense-custom-tiny-real",
+    "hybrid-custom-tiny-real",
+]
+M4_FROZEN_FILES = [
+    "configs/m4.yaml",
+    "configs/train/tiny.yaml",
+    "configs/train/tiny-real.yaml",
+    *[
+        f"models/{m}/{f}"
+        for m in ("custom-tiny", "custom-tiny-real")
+        for f in ("best.pt", "tokenizer.json", "config.json", "summary.json")
+    ],
+    "data/eval/pooled_judgments_m4.yaml",
+    *[f"data/eval/results/m4/dev_m4/{s}.json" for s in M4_TEST_SYSTEMS],
+    *[f"data/eval/results/m4/dev_m4/{s}.rankings.jsonl" for s in M4_TEST_SYSTEMS],
+]
+
+
+def compute_m4(root: Path = Path(".")) -> dict[str, Any]:
+    import yaml
+
+    cfg = yaml.safe_load((root / "configs/m4.yaml").read_text())
+    return {
+        "freeze_id": "custom-transformer-v1",
+        "depends_on": "neural-retrieval-v1 (data/eval/m3_freeze.json)",
+        "test_systems": {
+            s: cfg["systems"].get(s, "frozen in configs/neural.yaml") for s in M4_TEST_SYSTEMS
+        },
+        "custom_models": cfg["custom_models"],
+        "selection": (
+            "Architecture/size chosen on dev (train+val) NDCG@10 averaged over 3 seeds (tiny > main > base); "
+            "negatives: in-batch (BM25 hard negatives were worse); shipped weights are seed 0 of each "
+            "config, fixed before any evaluation of the shipped files. tiny-real (real train queries) is "
+            "judged on val only: its train/dev numbers are in-sample."
+        ),
+        "files": {f: _sha(root / f) for f in M4_FROZEN_FILES},
+    }
+
+
+def verify_m4(root: Path = Path(".")) -> list[str]:
+    frozen = json.loads((root / M4_FREEZE_PATH).read_text())
+    now = compute_m4(root)
+    problems = [k + " changed" for k in ("test_systems", "custom_models") if frozen[k] != now[k]]
+    problems += [f + " changed" for f, h in frozen["files"].items() if now["files"].get(f) != h]
+    return problems
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-    ap.add_argument("command", choices=["create", "verify", "create-m3", "verify-m3"])
+    ap.add_argument(
+        "command", choices=["create", "verify", "create-m3", "verify-m3", "create-m4", "verify-m4"]
+    )
     args = ap.parse_args(argv)
+    if args.command == "create-m4":
+        M4_FREEZE_PATH.write_text(json.dumps(compute_m4(), indent=1, sort_keys=True) + "\n")
+        print(f"wrote {M4_FREEZE_PATH}")
+        return 0
+    if args.command == "verify-m4":
+        problems = verify_m4()
+        for p in problems:
+            print("DRIFT:", p)
+        print("frozen M4 configuration intact" if not problems else f"{len(problems)} drift(s)")
+        return 1 if problems else 0
     if args.command == "create-m3":
         M3_FREEZE_PATH.write_text(json.dumps(compute_m3(), indent=1, sort_keys=True) + "\n")
         print(f"wrote {M3_FREEZE_PATH}")

@@ -102,12 +102,19 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument("--system", required=True)
     ap.add_argument("--config", type=Path, default=Path("configs/neural.yaml"))
+    ap.add_argument(
+        "--extra-config",
+        type=Path,
+        nargs="*",
+        default=[],
+        help="additional system files merged on top of --config (e.g. configs/m4.yaml)",
+    )
     ap.add_argument("--corpus-dir", type=Path, default=Path("data/corpus"))
     ap.add_argument("--queries", type=Path, default=Path("data/eval/queries.jsonl"))
     ap.add_argument(
         "--splits", nargs="+", choices=["train", "val", "test"], default=["train", "val"]
     )
-    ap.add_argument("--qrels", choices=["original", "expanded"], default="original")
+    ap.add_argument("--qrels", choices=["original", "expanded", "m4"], default="original")
     ap.add_argument("--device", default="auto")
     ap.add_argument(
         "--framework-filter", action="store_true", help="oracle: use each query's true framework"
@@ -128,7 +135,7 @@ def main(argv: list[str] | None = None) -> int:
     all_queries = load_materialised(args.queries)
     queries = [q for q in all_queries if q.split in args.splits]
     qrels = load_qrels(queries, corpus, args.qrels)
-    cfg = load_neural_config(args.config)
+    cfg = load_neural_config(args.config, *args.extra_config)
     rss_before = current_rss_mb()
     factory = SystemFactory(corpus, cfg, device=args.device)
     started = time.perf_counter()

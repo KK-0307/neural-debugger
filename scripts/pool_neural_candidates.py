@@ -22,16 +22,16 @@ from neural_debugger.ml.evaluation.qrels import load_qrels
 POOLED = Path("data/eval/pooled_judgments_neural.yaml")
 
 
-def build(depth: int, pattern: str, out: Path, splits: tuple[str, ...]) -> None:
+def build(
+    depth: int, pattern: str, out: Path, splits: tuple[str, ...], variant: str = "expanded"
+) -> None:
     corpus = load_corpus(Path("data/corpus"))
     qs = [
         q
         for q in load_materialised(Path("data/eval/queries.jsonl"))
         if q.split in splits and q.slice != "official_faq"
     ]
-    qr = load_qrels(
-        qs, corpus, "expanded"
-    )  # already-judged = original pool + earlier neural rounds
+    qr = load_qrels(qs, corpus, variant)  # already-judged = original pool + earlier neural rounds
     cand: dict[str, list[str]] = {q.id: [] for q in qs}
     for f in sorted(glob.glob(pattern)):
         for line in Path(f).read_text().splitlines():
@@ -102,9 +102,10 @@ if __name__ == "__main__":
     ap.add_argument("--count", type=int, default=35)
     ap.add_argument("--judgments", type=Path)
     ap.add_argument("--target", type=Path, default=POOLED)
+    ap.add_argument("--variant", default="expanded", choices=["expanded", "m4"])
     a = ap.parse_args()
     if a.cmd == "build":
-        build(a.depth, a.rankings, a.out, tuple(a.splits))
+        build(a.depth, a.rankings, a.out, tuple(a.splits), a.variant)
     elif a.cmd == "show":
         show(a.pool, a.start, a.count)
     else:

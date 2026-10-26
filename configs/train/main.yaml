@@ -1,0 +1,29 @@
+# Milestone 4 configuration chosen from the dev-only sweep (augmentation + more ICT pairs); see docs/ml-model.md
+augment:
+  doc_token_dropout: 0.1
+  query_token_dropout: 0.2
+data:
+  ict_per_chunk: 8
+  regime: synthetic
+  vocab_size: 8000
+device: auto
+model:
+  dropout: 0.1
+  ffn_dim: 512
+  hidden_dim: 128
+  max_seq_len: 256
+  n_heads: 4
+  n_layers: 2
+  out_dim: 128
+name: main
+negatives:
+  strategy: in_batch
+optim:
+  batch_size: 128
+  epochs: 12
+  lr: 0.0005
+  temperature: 0.05
+out_dir: runs
+seed: 0
+stop:
+  patience: 3

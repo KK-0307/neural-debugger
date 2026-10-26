@@ -1,0 +1,1022 @@
+{
+"fa002": [
+"python/3.12/library/unittest#unittest.main",
+"python/3.12/library/unittest#setupmodule-and-teardownmodule",
+"python/3.12/library/unittest#signal-handling",
+"python/3.12/library/unittest#class-and-module-fixtures"
+],
+"fa003": [],
+"fa004": [
+"python/3.12/library/pathlib#pathlib.PurePath.is_reserved",
+"python/3.12/library/threading#threading.current_thread",
+"python/3.12/library/stdtypes#int.as_integer_ratio",
+"python/3.12/library/threading#threading.main_thread",
+"python/3.12/library/stdtypes#float.as_integer_ratio",
+"python/3.12/library/threading#threading.Thread.daemon",
+"python/3.12/library/asyncio-task#asyncio.to_thread",
+"python/3.12/library/threading#threading.Thread.ident",
+"python/3.12/library/threading#threading.get_ident",
+"python/3.12/library/threading#threading.Thread.native_id"
+],
+"fa005": [
+"fastapi/0.162.0/tutorial/sql-databases#create-multiple-models",
+"python/3.12/library/dataclasses#init-only-variables",
+"fastapi/0.162.0/advanced/stream-data#no-annotation"
+],
+"fa006": [
+"fastapi/0.162.0/tutorial/testing#fastapi-app-file"
+],
+"fa007": [
+"fastapi/0.162.0/virtual-environments#create-a-project",
+"fastapi/0.162.0/advanced/settings#install-pydantic-settings",
+"fastapi/0.162.0/tutorial/metadata#license-identifier",
+"fastapi/0.162.0/tutorial/metadata#metadata-for-api",
+"fastapi/0.162.0/advanced/settings#the-env-file",
+"python/3.12/library/subprocess#replacing-shell-pipeline"
+],
+"fa008": [
+"python/3.12/reference/compound_stmts#coroutine-function-definition",
+"python/3.12/library/unittest.mock#unittest.mock.AsyncMock.assert_awaited_once",
+"python/3.12/library/unittest.mock#unittest.mock.AsyncMock.assert_not_awaited"
+],
+"fa009": [
+"fastapi/0.162.0/advanced/websockets#websockets"
+],
+"fa010": [
+"fastapi/0.162.0/advanced/response-directly#return-a-response-directly",
+"fastapi/0.162.0/advanced/custom-response#json-responses",
+"fastapi/0.162.0/advanced/additional-responses#additional-media-types-for-the-main-response",
+"fastapi/0.162.0/tutorial/sql-databases#read-heroes-with-heropublic",
+"fastapi/0.162.0/tutorial/sql-databases#herobase-the-base-class",
+"fastapi/0.162.0/tutorial/sql-databases#create-a-hero",
+"fastapi/0.162.0/advanced/additional-responses#combining-information"
+],
+"fa011": [
+"python/3.12/library/exceptions#NotADirectoryError",
+"fastapi/0.162.0/tutorial/static-files#more-info",
+"python/3.12/howto/logging#logging-to-a-file",
+"python/3.12/library/functions#issubclass",
+"pytorch/2.14/autograd#torch.autograd.detect_anomaly",
+"pytorch/2.14/autograd#torch.autograd.set_detect_anomaly",
+"python/3.12/library/pathlib#pathlib.Path.walk"
+],
+"fa013": [
+"fastapi/0.162.0/advanced/behind-a-proxy#check-the-responses",
+"fastapi/0.162.0/advanced/behind-a-proxy#about-proxies-with-a-stripped-path-prefix",
+"fastapi/0.162.0/advanced/behind-a-proxy#additional-servers",
+"fastapi/0.162.0/how-to/custom-docs-ui-assets#disable-the-automatic-docs-for-static-files",
+"fastapi/0.162.0/tutorial/schema-extra-example#openapi-examples-in-the-docs-ui",
+"fastapi/0.162.0/advanced/behind-a-proxy#check-the-docs-ui",
+"fastapi/0.162.0/advanced/generate-clients#generate-a-typescript-client-with-the-preprocessed-openapi"
+],
+"fa014": [
+"python/3.12/library/asyncio-task#asyncio.timeout",
+"python/3.12/library/asyncio-task#asyncio.timeout_at",
+"python/3.12/library/unittest#unittest.TestCase.debug"
+],
+"fa016": [
+"fastapi/0.162.0/tutorial/handling-errors#override-request-validation-exceptions",
+"fastapi/0.162.0/advanced/templates#more-details",
+"fastapi/0.162.0/advanced/settings#lru-cache-technical-details",
+"fastapi/0.162.0/tutorial/handling-errors#install-custom-exception-handlers",
+"fastapi/0.162.0/how-to/authentication-error-status-code#use-old-403-authentication-error-status-codes"
+],
+"fa017": [
+"pytorch/2.14/notes/cuda#cuda-graphs",
+"pytorch/2.14/notes/cuda#why-cuda-graphs",
+"pytorch/2.14/notes/cuda#mixing-different-cuda-system-allocators-in-the-same-program",
+"fastapi/0.162.0/deployment/concepts#multiple-processes-workers",
+"fastapi/0.162.0/deployment/concepts#multiple-processes-an-example",
+"python/3.12/faq/programming#my-program-is-too-slow-how-do-i-speed-it-up",
+"fastapi/0.162.0/deployment/manually#deployment-concepts"
+],
+"fa018": [],
+"fa019": [
+"fastapi/0.162.0/tutorial/query-params-str-validations#using-just-list",
+"fastapi/0.162.0/tutorial/query-params-str-validations#add-query-to-annotated-in-the-q-parameter",
+"fastapi/0.162.0/tutorial/query-params-str-validations#query-parameter-list-multiple-values-with-defaults"
+],
+"fa020": [
+"fastapi/0.162.0/tutorial/path-params-numeric-validations#import-path"
+],
+"fa021": [],
+"fa022": [
+"fastapi/0.162.0/tutorial/query-params-str-validations#deprecating-parameters",
+"fastapi/0.162.0/tutorial/query-params-str-validations#alias-parameters",
+"fastapi/0.162.0/advanced/generate-clients#preprocess-the-openapi-specification-for-the-client-generator",
+"fastapi/0.162.0/advanced/generate-clients#custom-generate-unique-id-function",
+"fastapi/0.162.0/tutorial/path-operation-configuration#tags-with-enums",
+"fastapi/0.162.0/advanced/generate-clients#custom-operation-ids-and-better-method-names",
+"fastapi/0.162.0/advanced/path-operation-advanced-configuration#using-the-path-operation-function-name-as-the-operationid",
+"fastapi/0.162.0/tutorial/header-param-models#disable-convert-underscores"
+],
+"fa024": [
+"fastapi/0.162.0/tutorial/handling-errors#add-custom-headers",
+"fastapi/0.162.0/how-to/custom-request-and-route#custom-apiroute-class-in-a-router",
+"fastapi/0.162.0/advanced/path-operation-advanced-configuration#using-the-path-operation-function-name-as-the-operationid",
+"fastapi/0.162.0/advanced/generate-clients#custom-generate-unique-id-function"
+],
+"fa025": [
+"fastapi/0.162.0/tutorial/cookie-param-models#cookies-with-a-pydantic-model",
+"python/3.12/library/logging#logging.Logger.critical",
+"python/3.12/library/logging#logging.Logger.exception",
+"python/3.12/library/logging#logging.Logger.info",
+"python/3.12/library/logging#logging.raiseExceptions",
+"python/3.12/library/unittest#unittest.TestCase.assertNoLogs",
+"python/3.12/library/logging#logging.Logger.error"
+],
+"fa026": [
+"fastapi/0.162.0/tutorial/header-params#header-parameters",
+"fastapi/0.162.0/advanced/openapi-callbacks#the-normal-fastapi-app",
+"fastapi/0.162.0/advanced/openapi-callbacks#add-the-callback-router",
+"fastapi/0.162.0/deployment/https#tls-with-sni-extension",
+"fastapi/0.162.0/tutorial/security/index#openid-not-openid-connect",
+"fastapi/0.162.0/deployment/https#about-https",
+"fastapi/0.162.0/tutorial/cookie-param-models#cookie-parameter-models",
+"fastapi/0.162.0/tutorial/security/simple-oauth2#return-the-token"
+],
+"fa027": [
+"fastapi/0.162.0/tutorial/request-forms-and-files#import-file-and-form",
+"fastapi/0.162.0/tutorial/request-form-models#form-models-and-files",
+"fastapi/0.162.0/tutorial/request-forms-and-files#define-file-and-form-parameters"
+],
+"fa028": [
+"fastapi/0.162.0/tutorial/header-params#header-parameters",
+"fastapi/0.162.0/tutorial/header-params#duplicate-headers"
+],
+"fa030": [
+"fastapi/0.162.0/tutorial/testing#testing-extended-example",
+"fastapi/0.162.0/advanced/async-tests#other-asynchronous-function-calls",
+"python/3.12/faq/library#how-can-i-mimic-cgi-form-submission-method-post",
+"fastapi/0.162.0/advanced/testing-dependencies#use-cases-external-service"
+],
+"fa031": [
+"python/3.12/library/unittest#unittest.TestCase.assertGreater",
+"python/3.12/library/unittest#unittest.TextTestRunner.run",
+"fastapi/0.162.0/tutorial/dependencies/sub-dependencies#using-the-same-dependency-multiple-times",
+"fastapi/0.162.0/async#asynchronous-code",
+"fastapi/0.162.0/tutorial/bigger-applications#import-the-dependencies",
+"fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#a-database-dependency-with-yield",
+"fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#a-dependency-with-yield-and-try",
+"python/3.12/library/unittest#unittest.TestSuite",
+"python/3.12/library/unittest#unittest.TestSuite.debug",
+"fastapi/0.162.0/tutorial/dependencies/dependencies-in-path-operation-decorators#dependency-requirements"
+],
+"fa032": [
+"fastapi/0.162.0/deployment/docker#what-is-a-container-image"
+],
+"fa033": [],
+"fa034": [],
+"fa035": [
+"fastapi/0.162.0/advanced/middleware#adding-asgi-middlewares",
+"fastapi/0.162.0/tutorial/cors#cors-preflight-requests",
+"fastapi/0.162.0/tutorial/request-forms-and-files#recap",
+"fastapi/0.162.0/tutorial/cors#more-info"
+],
+"fa036": [
+"fastapi/0.162.0/tutorial/stream-json-lines#use-cases",
+"fastapi/0.162.0/advanced/generate-clients#preprocess-the-openapi-specification-for-the-client-generator",
+"fastapi/0.162.0/advanced/websockets#websockets",
+"fastapi/0.162.0/advanced/websockets#more-info",
+"python/3.12/faq/design#why-can-t-i-use-an-assignment-in-an-expression",
+"fastapi/0.162.0/advanced/websockets#using-depends-and-others"
+],
+"fa037": [
+"fastapi/0.162.0/advanced/custom-response#document-in-openapi-and-override-response",
+"pytorch/2.14/notes/cuda#tuning-nvlink-performance-with-custom-memory-allocator-on-h100-h200-gpus",
+"fastapi/0.162.0/advanced/templates#url-paths-in-templates",
+"fastapi/0.162.0/tutorial/frontend#fallback-auto",
+"fastapi/0.162.0/tutorial/static-files#static-files",
+"fastapi/0.162.0/advanced/websockets#create-a-websocket"
+],
+"fa038": [
+"fastapi/0.162.0/tutorial/header-param-models#check-the-docs",
+"fastapi/0.162.0/tutorial/path-params#check-the-docs",
+"python/3.12/library/stdtypes#configuring-the-limit",
+"pytorch/2.14/notes/ddp#processgroup",
+"fastapi/0.162.0/advanced/generate-clients#benefits",
+"fastapi/0.162.0/how-to/general#documentation-tags-openapi",
+"pytorch/2.14/notes/ddp#internal-design",
+"python/3.12/library/argparse#argparse.ArgumentParser.add_argument_group",
+"fastapi/0.162.0/how-to/configure-swagger-ui#disable-syntax-highlighting"
+],
+"fa039": [
+"fastapi/0.162.0/advanced/path-operation-advanced-configuration#openapi-operationid",
+"fastapi/0.162.0/how-to/general#documentation-summary-and-description-openapi",
+"fastapi/0.162.0/tutorial/response-model#response-model-include-and-response-model-exclude",
+"python/3.12/library/re#re.error.colno",
+"pytorch/2.14/notes/numerical_accuracy#reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa",
+"fastapi/0.162.0/tutorial/metadata#metadata-for-api",
+"fastapi/0.162.0/how-to/general#openapi-docs-urls",
+"python/3.12/library/stdtypes#frozenset.update",
+"fastapi/0.162.0/tutorial/metadata#metadata-for-tags",
+"fastapi/0.162.0/tutorial/security/oauth2-jwt#handle-jwt-tokens"
+],
+"fa040": [
+"fastapi/0.162.0/how-to/general#documentation-tags-openapi",
+"fastapi/0.162.0/tutorial/path-operation-configuration#recap",
+"fastapi/0.162.0/tutorial/metadata#metadata-and-docs-urls",
+"fastapi/0.162.0/how-to/general#documentation-summary-and-description-openapi",
+"pytorch/2.14/notes/serialization#module-torch.utils.serialization",
+"fastapi/0.162.0/tutorial/frontend#check-directory",
+"pytorch/2.14/notes/cuda#memory-management",
+"fastapi/0.162.0/advanced/opentelemetry#opentelemetry",
+"fastapi/0.162.0/deployment/concepts#memory-per-process",
+"fastapi/0.162.0/tutorial/metadata#check-the-docs",
+"fastapi/0.162.0/tutorial/cookie-param-models#check-the-docs",
+"fastapi/0.162.0/how-to/general#openapi-docs-urls",
+"python/3.12/howto/unicode#reading-and-writing-unicode-data",
+"fastapi/0.162.0/advanced/opentelemetry#trace-websocket-connections",
+"fastapi/0.162.0/tutorial/first-steps#path",
+"pytorch/2.14/notes/cuda#tensorfloat-32-tf32-on-ampere-and-later-devices",
+"python/3.12/tutorial/inputoutput#fancier-output-formatting"
+],
+"fa041": [
+"fastapi/0.162.0/tutorial/response-model#using-lists-instead-of-sets",
+"fastapi/0.162.0/tutorial/response-model#response-model-parameter",
+"fastapi/0.162.0/tutorial/response-model#response-model-or-return-type",
+"fastapi/0.162.0/advanced/response-cookies#use-a-response-parameter"
+],
+"fa042": [],
+"fa043": [],
+"fa044": [
+"fastapi/0.162.0/advanced/async-tests#in-detail",
+"fastapi/0.162.0/advanced/events#async-context-manager",
+"python/3.12/faq/library#why-don-t-my-signal-handlers-work",
+"fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#a-dependency-with-yield-and-try",
+"pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory",
+"python/3.12/library/asyncio-dev#detect-never-retrieved-exceptions",
+"python/3.12/library/asyncio-dev#detect-never-awaited-coroutines",
+"pytorch/2.14/notes/faq#my-recurrent-network-doesn-t-work-with-data-parallelism"
+],
+"fa046": [
+"fastapi/0.162.0/tutorial/dependencies/index#share-annotated-dependencies",
+"fastapi/0.162.0/tutorial/dependencies/index#declare-the-dependency-in-the-dependant",
+"fastapi/0.162.0/tutorial/dependencies/classes-as-dependencies#a-dict-from-the-previous-example",
+"fastapi/0.162.0/tutorial/query-params-str-validations#additional-validation",
+"fastapi/0.162.0/tutorial/sql-databases#update-the-app-with-multiple-models",
+"fastapi/0.162.0/tutorial/sql-databases#create-with-herocreate-and-return-a-heropublic",
+"fastapi/0.162.0/tutorial/sql-databases#run-the-app-again",
+"fastapi/0.162.0/tutorial/sql-databases#create-models",
+"fastapi/0.162.0/advanced/advanced-dependencies#parameterized-dependencies",
+"fastapi/0.162.0/tutorial/query-params-str-validations#custom-validation",
+"fastapi/0.162.0/tutorial/query-params-str-validations#use-annotated-in-the-type-for-the-q-parameter",
+"fastapi/0.162.0/tutorial/query-param-models#check-the-docs",
+"fastapi/0.162.0/tutorial/path-params#standards-based-benefits-alternative-documentation"
+],
+"fa047": [
+"fastapi/0.162.0/how-to/conditional-openapi#conditional-openapi",
+"fastapi/0.162.0/advanced/openapi-webhooks#check-the-docs",
+"fastapi/0.162.0/advanced/sub-applications#check-the-automatic-api-docs",
+"fastapi/0.162.0/advanced/websockets#try-the-websockets-with-dependencies",
+"fastapi/0.162.0/deployment/concepts#small-errors-automatically-handled",
+"fastapi/0.162.0/deployment/concepts#bigger-errors-crashes",
+"fastapi/0.162.0/advanced/generate-clients#benefits",
+"fastapi/0.162.0/advanced/websockets#try-it",
+"fastapi/0.162.0/tutorial/bigger-applications#check-the-automatic-api-docs"
+],
+"fa048": [
+"python/3.12/library/stdtypes#frozenset.symmetric_difference_update",
+"python/3.12/library/stdtypes#frozenset.update",
+"fastapi/0.162.0/tutorial/security/oauth2-jwt#advanced-usage-with-scopes",
+"python/3.12/library/stdtypes#frozenset.difference_update"
+],
+"fa049": [
+"fastapi/0.162.0/tutorial/body-multiple-params#recap",
+"python/3.12/faq/design#why-must-dictionary-keys-be-immutable",
+"python/3.12/tutorial/datastructures#using-lists-as-queues",
+"fastapi/0.162.0/tutorial/body#request-body"
+],
+"fa050": [
+"fastapi/0.162.0/tutorial/path-params#get-the-enumeration-value",
+"fastapi/0.162.0/tutorial/path-params#declare-a-path-parameter",
+"python/3.12/faq/programming#how-do-i-create-a-pyc-file",
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.train",
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.zero_grad",
+"pytorch/2.14/generated/torch.nn.Linear#torch.nn.Linear.reset_parameters",
+"python/3.12/library/stdtypes#frozenset.symmetric_difference",
+"fastapi/0.162.0/tutorial/query-params-str-validations#query-parameter-list-multiple-values",
+"python/3.12/library/pathlib#pathlib.PurePath.match"
+],
+"fa051": [
+"fastapi/0.162.0/advanced/testing-websockets#testing-websockets",
+"fastapi/0.162.0/advanced/wsgi#using-wsgimiddleware",
+"python/3.12/howto/logging#when-to-use-logging",
+"fastapi/0.162.0/advanced/security/http-basic-auth#simple-http-basic-auth",
+"fastapi/0.162.0/tutorial/bigger-applications#configure-the-entrypoint-in-pyproject-toml",
+"fastapi/0.162.0/advanced/websockets#try-the-websockets-with-dependencies"
+],
+"fa052": [
+"fastapi/0.162.0/tutorial/static-files#what-is-mounting"
+],
+"fa053": [
+"fastapi/0.162.0/tutorial/frontend#fallback-auto",
+"fastapi/0.162.0/tutorial/first-steps#first-steps",
+"fastapi/0.162.0/tutorial/static-files#static-files"
+],
+"fa055": [
+"fastapi/0.162.0/tutorial/response-status-code#about-http-status-codes",
+"fastapi/0.162.0/how-to/authentication-error-status-code#use-old-403-authentication-error-status-codes",
+"fastapi/0.162.0/advanced/additional-status-codes#additional-status-codes_1"
+],
+"pt002": [
+"pytorch/2.14/notes/faq#my-gpu-memory-isn-t-freed-properly",
+"pytorch/2.14/notes/randomness#cuda-scaled-dot-product-attention",
+"pytorch/2.14/notes/cuda#stream-semantics-of-backward-passes",
+"pytorch/2.14/notes/cuda#constraints",
+"pytorch/2.14/notes/randomness#filling-uninitialized-memory",
+"pytorch/2.14/autograd#torch.autograd.graph.save_on_cpu",
+"pytorch/2.14/notes/cuda#tuning-nvlink-performance-with-custom-memory-allocator-on-h100-h200-gpus",
+"pytorch/2.14/cuda#gpudirect-storage-prototype"
+],
+"pt003": [
+"pytorch/2.14/notes/autograd#default-mode-grad-mode",
+"pytorch/2.14/notes/extending#example",
+"pytorch/2.14/autograd#debugging-and-anomaly-detection",
+"pytorch/2.14/notes/autograd#multithreaded-autograd"
+],
+"pt004": [
+"pytorch/2.14/autograd#autograd-graph",
+"fastapi/0.162.0/advanced/websockets#using-depends-and-others",
+"pytorch/2.14/autograd#torch.autograd.graph.region_activation_memory_budget"
+],
+"pt005": [
+"pytorch/2.14/generated/torch.matmul#torch.matmul",
+"pytorch/2.14/tensors#torch-tensor",
+"pytorch/2.14/generated/torch.Tensor.to#torch.Tensor.to",
+"python/3.12/library/typing#user-defined-generic-types",
+"python/3.12/library/typing#typing.get_type_hints",
+"python/3.12/library/stdtypes#definition.__type_params__",
+"pytorch/2.14/notes/autograd#behavior-of-tensor-hooks-when-tensor-is-modified-in-place"
+],
+"pt006": [
+"python/3.12/library/asyncio-dev#developing-with-asyncio",
+"pytorch/2.14/notes/serialization#serialization-semantics",
+"python/3.12/tutorial/datastructures#data-structures",
+"python/3.12/faq/design#how-do-you-specify-and-enforce-an-interface-spec-in-python",
+"python/3.12/faq/design#why-can-t-i-use-an-assignment-in-an-expression",
+"python/3.12/faq/design#can-python-be-compiled-to-machine-code-c-or-some-other-language",
+"python/3.12/howto/unicode#encodings",
+"python/3.12/faq/design#why-does-python-use-indentation-for-grouping-of-statements",
+"python/3.12/tutorial/errors#handling-exceptions",
+"python/3.12/reference/lexical_analysis#lexical-analysis"
+],
+"pt007": [
+"pytorch/2.14/tensors#torch.Tensor.H",
+"python/3.12/library/typing#typing.TypeVar.__constraints__",
+"pytorch/2.14/autograd#torch.autograd.graph.region_activation_memory_budget"
+],
+"pt009": [
+"pytorch/2.14/tensors#torch.Tensor.__init__",
+"pytorch/2.14/tensor_attributes#torch.dtype",
+"pytorch/2.14/tensor_attributes#torch.device",
+"python/3.12/reference/compound_stmts#type-parameter-lists",
+"pytorch/2.14/notes/extending#subclassing-torch-tensor",
+"python/3.12/library/stdtypes#union-type",
+"python/3.12/library/typing#typing.Union",
+"pytorch/2.14/tensor_attributes#torch-device",
+"pytorch/2.14/notes/extending#how-to-use",
+"python/3.12/library/typing#typing.assert_never"
+],
+"pt013": [
+"pytorch/2.14/notes/cuda#mixing-different-cuda-system-allocators-in-the-same-program",
+"pytorch/2.14/autograd#torch.autograd.graph.save_on_cpu",
+"pytorch/2.14/notes/cuda#cuda-streams"
+],
+"pt014": [],
+"pt015": [
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.get_extra_state",
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.set_extra_state",
+"pytorch/2.14/optim#torch.optim.swap_in_optimizer_params_and_state"
+],
+"pt016": [
+"python/3.12/library/multiprocessing#multiprocessing.managers.BaseManager.start",
+"python/3.12/library/concurrent.futures#concurrent.futures.ProcessPoolExecutor"
+],
+"pt017": [
+"pytorch/2.14/tensor_attributes#torch.dtype",
+"pytorch/2.14/tensors#torch-tensor",
+"pytorch/2.14/tensor_attributes#torch.device",
+"pytorch/2.14/tensor_attributes#tensor-attributes",
+"pytorch/2.14/tensors#torch.Tensor.__init__",
+"pytorch/2.14/generated/torch.Tensor.to#torch.Tensor.to"
+],
+"pt018": [
+"pytorch/2.14/notes/extending#how-to-use",
+"pytorch/2.14/notes/extending#python-argument-binding-and-dispatcher-overloads",
+"pytorch/2.14/notes/extending#extending-torch-with-a-tensor-like-type",
+"pytorch/2.14/tensor_attributes#torch-device",
+"pytorch/2.14/notes/extending#subclassing-torch-tensor",
+"pytorch/2.14/notes/extending#extending-all-torch-api-with-modes"
+],
+"pt019": [
+"pytorch/2.14/tensor_attributes#torch-device",
+"pytorch/2.14/notes/extending#combined-or-separate-forward-and-setup-context",
+"python/3.12/howto/logging#configuring-logging",
+"python/3.12/library/multiprocessing#multiprocessing.log_to_stderr",
+"python/3.12/tutorial/errors#exception-chaining"
+],
+"pt020": [
+"pytorch/2.14/notes/ddp#processgroup",
+"pytorch/2.14/notes/ddp#torchdynamo-ddpoptimizer",
+"pytorch/2.14/notes/ddp#example",
+"python/3.12/library/exceptions#ProcessLookupError",
+"python/3.12/library/subprocess#subprocess.CREATE_BREAKAWAY_FROM_JOB",
+"python/3.12/library/exceptions#ChildProcessError",
+"python/3.12/library/exceptions#WindowsError",
+"python/3.12/library/multiprocessing#multiprocessing.ProcessError",
+"python/3.12/library/subprocess#subprocess.Popen",
+"fastapi/0.162.0/deployment/docker#multiple-containers",
+"python/3.12/library/multiprocessing#multiprocessing.set_start_method",
+"python/3.12/library/concurrent.futures#concurrent.futures.BrokenExecutor",
+"python/3.12/library/exceptions#RuntimeError"
+],
+"pt021": [
+"pytorch/2.14/notes/autograd#gradients-for-non-differentiable-functions",
+"pytorch/2.14/notes/extending#python-argument-binding-and-dispatcher-overloads",
+"pytorch/2.14/notes/extending#extending-torch-native-api",
+"pytorch/2.14/generated/torch.matmul#torch.matmul",
+"pytorch/2.14/generated/torch.nn.utils.clip_grad_norm_#torch.nn.utils.clip_grad_norm_",
+"python/3.12/library/argparse#argparse.ArgumentParser.parse_known_intermixed_args",
+"python/3.12/library/stdtypes#string-methods"
+],
+"pt022": [
+"pytorch/2.14/notes/multiprocessing#cpu-in-multiprocessing",
+"python/3.12/faq/library#how-do-i-access-the-serial-rs232-port",
+"python/3.12/faq/programming#my-program-is-too-slow-how-do-i-speed-it-up",
+"python/3.12/tutorial/inputoutput#input-and-output",
+"pytorch/2.14/generated/torch.nn.Linear#torch.nn.Linear",
+"pytorch/2.14/optim#per-parameter-options",
+"python/3.12/library/collections#counter-objects",
+"pytorch/2.14/generated/torch.Tensor.view#torch.Tensor.view",
+"pytorch/2.14/notes/serialization#saving-and-loading-torch-nn-modules"
+],
+"pt023": [
+"pytorch/2.14/data#torch.utils.data._utils.collate.collate",
+"pytorch/2.14/data#torch.utils.data.WeightedRandomSampler",
+"pytorch/2.14/notes/serialization#saving-and-loading-tensors",
+"pytorch/2.14/notes/serialization#torch.serialization.safe_globals",
+"python/3.12/library/stdtypes#memoryview.nbytes",
+"python/3.12/library/stdtypes#memoryview.__eq__",
+"pytorch/2.14/generated/torch.nn.CrossEntropyLoss#torch.nn.CrossEntropyLoss"
+],
+"pt024": [
+"python/3.12/library/multiprocessing#multiprocessing.freeze_support",
+"python/3.12/library/multiprocessing#contexts-and-start-methods",
+"python/3.12/library/multiprocessing#multiprocessing.Process.start",
+"python/3.12/library/concurrent.futures#concurrent.futures.ThreadPoolExecutor"
+],
+"pt025": [
+"python/3.12/tutorial/modules#the-module-search-path",
+"fastapi/0.162.0/how-to/custom-docs-ui-assets#download-the-files",
+"python/3.12/using/cmdline#interface-options",
+"fastapi/0.162.0/how-to/custom-docs-ui-assets#project-file-structure",
+"python/3.12/tutorial/modules#importing-from-a-package",
+"python/3.12/tutorial/modules#packages",
+"python/3.12/library/unittest#test-discovery",
+"python/3.12/library/exceptions#ImportError.name"
+],
+"pt026": [
+"pytorch/2.14/generated/torch.nn.CrossEntropyLoss#torch.nn.CrossEntropyLoss",
+"pytorch/2.14/autograd#torch.autograd.profiler.emit_nvtx",
+"pytorch/2.14/amp#prefer-binary-cross-entropy-with-logits-over-binary-cross-entropy",
+"python/3.12/faq/programming#my-program-is-too-slow-how-do-i-speed-it-up",
+"pytorch/2.14/notes/extending#example",
+"pytorch/2.14/data#torch.utils.data.dataset.random_split",
+"pytorch/2.14/notes/modules#a-simple-custom-module"
+],
+"pt027": [
+"python/3.12/library/multiprocessing#multiprocessing.set_executable",
+"python/3.12/library/exceptions#TypeError",
+"python/3.12/library/multiprocessing#multiprocessing.Process.exitcode",
+"pytorch/2.14/notes/autograd#evaluation-mode-nn-module-eval",
+"python/3.12/library/functions#compile",
+"python/3.12/library/multiprocessing#the-spawn-and-forkserver-start-methods",
+"python/3.12/reference/import#the-meta-path",
+"python/3.12/faq/programming#how-can-i-create-a-stand-alone-binary-from-a-python-script"
+],
+"pt028": [
+"pytorch/2.14/notes/amp_examples#dataparallel-in-a-single-process",
+"pytorch/2.14/data#working-with-collate-fn"
+],
+"pt029": [
+"pytorch/2.14/optim#optimizer-step-closure",
+"python/3.12/tutorial/controlflow#special-parameters",
+"python/3.12/reference/datamodel#special-writable-attributes",
+"python/3.12/library/functions#globals",
+"python/3.12/reference/datamodel#callable-types",
+"python/3.12/library/pdb#pdbcommand-args",
+"python/3.12/library/pdb#pdbcommand-step",
+"pytorch/2.14/autograd#module-torch.autograd.gradcheck",
+"python/3.12/library/functions#slice.stop",
+"pytorch/2.14/autograd#module-torch.autograd",
+"python/3.12/library/functions#slice.step"
+],
+"pt030": [
+"pytorch/2.14/notes/serialization#saving-and-loading-tensors-preserves-views"
+],
+"pt031": [
+"pytorch/2.14/notes/extending#extending-torch-python-api",
+"pytorch/2.14/notes/autograd#setting-requires-grad",
+"pytorch/2.14/notes/extending#forward-mode-ad",
+"pytorch/2.14/notes/extending#example",
+"pytorch/2.14/notes/autograd#saved-tensors"
+],
+"pt032": [
+"pytorch/2.14/data#memory-pinning",
+"pytorch/2.14/notes/amp_examples#automatic-mixed-precision-examples",
+"pytorch/2.14/amp#automatic-mixed-precision-package-torch-amp",
+"pytorch/2.14/notes/amp_examples#dataparallel-in-a-single-process",
+"pytorch/2.14/generated/torch.nn.MultiheadAttention#torch.nn.MultiheadAttention",
+"pytorch/2.14/data#working-with-collate-fn",
+"pytorch/2.14/notes/serialization#serialization-semantics",
+"pytorch/2.14/data#torch.utils.data.default_collate",
+"fastapi/0.162.0/tutorial/query-params-str-validations#recap",
+"pytorch/2.14/data#module-torch.utils.data",
+"pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory"
+],
+"pt034": [
+"pytorch/2.14/notes/autograd#default-mode-grad-mode",
+"pytorch/2.14/autograd#forward-mode-automatic-differentiation",
+"pytorch/2.14/notes/extending#how-to-use",
+"pytorch/2.14/autograd#torch.autograd.graph.register_multi_grad_hook"
+],
+"pt035": [
+"python/3.12/library/stdtypes#float.is_integer",
+"python/3.12/library/functions#float",
+"pytorch/2.14/tensors#torch.Tensor.__init__",
+"pytorch/2.14/notes/autograd#gradients-for-non-differentiable-functions",
+"python/3.12/tutorial/datastructures#more-on-lists",
+"python/3.12/library/stdtypes#union-type",
+"python/3.12/faq/design#why-are-python-strings-immutable",
+"fastapi/0.162.0/tutorial/extra-data-types#other-data-types",
+"python/3.12/faq/design#why-are-there-separate-tuple-and-list-data-types",
+"python/3.12/library/stdtypes#additional-methods-on-float"
+],
+"pt037": [
+"python/3.12/library/asyncio-dev#developing-with-asyncio",
+"pytorch/2.14/notes/windows#windows-faq",
+"python/3.12/faq/programming#how-can-i-create-a-stand-alone-binary-from-a-python-script",
+"pytorch/2.14/data#platform-specific-behaviors",
+"pytorch/2.14/notes/multiprocessing#cuda-in-multiprocessing",
+"pytorch/2.14/notes/randomness#reproducibility",
+"python/3.12/library/multiprocessing#contexts-and-start-methods"
+],
+"pt038": [],
+"pt039": [
+"fastapi/0.162.0/how-to/custom-request-and-route#accessing-the-request-body-in-an-exception-handler",
+"pytorch/2.14/notes/extending#forward-mode-ad"
+],
+"pt042": [
+"pytorch/2.14/notes/broadcasting#in-place-semantics",
+"pytorch/2.14/notes/serialization#serialization-semantics",
+"fastapi/0.162.0/deployment/docker#docker-compose",
+"python/3.12/faq/programming#my-program-is-too-slow-how-do-i-speed-it-up",
+"python/3.12/howto/unicode#definitions",
+"pytorch/2.14/notes/extending#extending-torch-native-api",
+"python/3.12/faq/design#how-does-python-manage-memory",
+"pytorch/2.14/notes/cuda#why-cuda-graphs",
+"pytorch/2.14/autograd#torch.autograd.profiler.emit_nvtx"
+],
+"pt043": [
+"pytorch/2.14/notes/modules#neural-network-training-with-modules",
+"pytorch/2.14/notes/autograd#grad-modes",
+"pytorch/2.14/amp#cpu-op-specific-behavior",
+"pytorch/2.14/amp#cuda-op-specific-behavior",
+"python/3.12/using/cmdline#envvar-PYTHONNODEBUGRANGES",
+"pytorch/2.14/optim#constructing-averaged-models",
+"pytorch/2.14/amp#op-eligibility",
+"python/3.12/using/cmdline#cmdoption-X",
+"fastapi/0.162.0/tutorial/body-updates#partial-updates-recap"
+],
+"pt044": [
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.buffers",
+"pytorch/2.14/optim#per-parameter-options",
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.named_buffers",
+"pytorch/2.14/optim#how-to-adjust-learning-rate",
+"python/3.12/faq/library#none-of-my-threads-seem-to-run-why",
+"pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory",
+"pytorch/2.14/data#single-process-data-loading-default",
+"python/3.12/reference/compound_stmts#the-for-statement"
+],
+"pt045": [
+"pytorch/2.14/notes/autograd#hooks-for-saved-tensors",
+"pytorch/2.14/notes/modules#module-state",
+"pytorch/2.14/generated/torch.optim.Adam#torch.optim.Adam.load_state_dict",
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.register_state_dict_post_hook"
+],
+"pt048": [
+"pytorch/2.14/optim#putting-it-all-together-swa",
+"pytorch/2.14/optim#per-parameter-options",
+"pytorch/2.14/notes/modules#distributed-training",
+"pytorch/2.14/optim#custom-averaging-strategies"
+],
+"pt049": [
+"pytorch/2.14/data#iterable-style-datasets",
+"fastapi/0.162.0/tutorial/static-files#static-files",
+"fastapi/0.162.0/tutorial/frontend#serve-a-frontend",
+"fastapi/0.162.0/how-to/custom-docs-ui-assets#test-the-static-files",
+"python/3.12/library/pickle#out-of-band-buffers",
+"fastapi/0.162.0/tutorial/static-files#use-staticfiles",
+"fastapi/0.162.0/tutorial/static-files#details"
+],
+"pt050": [
+"pytorch/2.14/notes/randomness#python",
+"pytorch/2.14/notes/windows#package-not-found-in-win-32-channel",
+"python/3.12/using/cmdline#cmdoption-OO",
+"python/3.12/using/cmdline#cmdoption-B",
+"python/3.12/library/stdtypes#integer-string-conversion-length-limitation"
+],
+"pt051": [
+"pytorch/2.14/notes/cuda#asynchronous-execution",
+"pytorch/2.14/amp#gradient-scaling"
+],
+"pt052": [],
+"pt054": [
+"pytorch/2.14/notes/broadcasting#backwards-compatibility",
+"pytorch/2.14/notes/multiprocessing#reuse-buffers-passed-through-a-queue",
+"pytorch/2.14/data#automatic-batching-default"
+],
+"pt055": [
+"pytorch/2.14/optim#taking-care-of-batch-normalization",
+"pytorch/2.14/optim#torch.optim.swa_utils.update_bn"
+],
+"py001": [
+"python/3.12/tutorial/modules#more-on-modules",
+"python/3.12/reference/import#loading",
+"python/3.12/reference/compound_stmts#except-clause",
+"python/3.12/reference/datamodel#module.__name__",
+"python/3.12/reference/import#loaders",
+"python/3.12/reference/datamodel#module.__package__",
+"python/3.12/reference/import#path-attributes-on-modules"
+],
+"py003": [
+"python/3.12/library/exceptions#exception-context",
+"python/3.12/library/exceptions#KeyboardInterrupt",
+"python/3.12/library/exceptions#RecursionError",
+"python/3.12/library/exceptions#EnvironmentError",
+"python/3.12/tutorial/errors#errors-and-exceptions",
+"pytorch/2.14/tensors#tensor-class-reference",
+"pytorch/2.14/notes/extending#subclassing-torch-tensor",
+"pytorch/2.14/notes/extending#extending-torch-with-a-tensor-like-type",
+"python/3.12/library/unittest#unittest.TestResult.errors"
+],
+"py005": [
+"pytorch/2.14/generated/torch.nn.Embedding#torch.nn.Embedding.from_pretrained",
+"python/3.12/reference/import#loading",
+"python/3.12/library/exceptions#exception-context",
+"python/3.12/library/pickle#pickle.PickleBuffer.release",
+"python/3.12/library/pickle#pickle.PickleBuffer.raw",
+"python/3.12/library/collections#collections.Counter.most_common",
+"python/3.12/library/pickle#pickle.Pickler.dispatch_table",
+"pytorch/2.14/generated/torch.nn.CrossEntropyLoss#torch.nn.CrossEntropyLoss",
+"python/3.12/library/json#json.dump",
+"python/3.12/library/multiprocessing#multiprocessing.RLock.acquire",
+"python/3.12/library/dataclasses#dataclasses.dataclass"
+],
+"py006": [
+"python/3.12/faq/programming#how-do-i-convert-a-number-to-a-string",
+"python/3.12/library/typing#typing.Annotated",
+"python/3.12/library/typing#typing.Literal",
+"python/3.12/library/typing#typing.Optional"
+],
+"py007": [
+"python/3.12/library/dataclasses#dataclasses.dataclass",
+"python/3.12/library/functions#hash",
+"python/3.12/faq/design#how-are-dictionaries-implemented-in-cpython",
+"python/3.12/library/stdtypes#genericalias.__args__",
+"python/3.12/library/stdtypes#generic-alias-type",
+"python/3.12/library/unittest.mock#attaching-mocks-as-attributes",
+"fastapi/0.162.0/python-types#list",
+"python/3.12/tutorial/errors#exceptions",
+"python/3.12/reference/datamodel#class-getitem-versus-getitem"
+],
+"py010": [
+"python/3.12/library/exceptions#OSError.filename",
+"python/3.12/library/pathlib#pathlib.Path.walk",
+"python/3.12/library/pathlib#pathlib.Path.touch",
+"python/3.12/library/exceptions#ImportError.path",
+"python/3.12/library/exceptions#exception-hierarchy"
+],
+"py013": [
+"fastapi/0.162.0/tutorial/request-files#optional-file-upload",
+"fastapi/0.162.0/tutorial/request-files#uploadfile-with-additional-metadata"
+],
+"py014": [
+"python/3.12/faq/programming#how-do-i-convert-a-string-to-a-number",
+"python/3.12/faq/programming#how-do-i-convert-a-number-to-a-string",
+"python/3.12/tutorial/errors#raising-exceptions",
+"python/3.12/library/re#checking-for-a-pair",
+"python/3.12/library/traceback#traceback.TracebackException.format_exception_only"
+],
+"py015": [
+"python/3.12/library/json#json.JSONEncoder",
+"pytorch/2.14/generated/torch.Tensor.view#torch.Tensor.view",
+"python/3.12/library/json#json.JSONDecodeError",
+"python/3.12/library/exceptions#OSError",
+"python/3.12/library/exceptions#UnicodeDecodeError",
+"python/3.12/library/threading#threading.BrokenBarrierError",
+"python/3.12/library/subprocess#subprocess.Popen",
+"python/3.12/tutorial/errors#enriching-exceptions-with-notes"
+],
+"py017": [
+"python/3.12/library/exceptions#os-exceptions",
+"python/3.12/reference/import#main-spec",
+"python/3.12/tutorial/errors#errors-and-exceptions",
+"python/3.12/reference/lexical_analysis#implicit-line-joining",
+"pytorch/2.14/autograd#torch.autograd.profiler.profile",
+"python/3.12/library/unittest.mock#autospeccing",
+"python/3.12/tutorial/modules#the-dir-function",
+"pytorch/2.14/notes/windows#speeding-cuda-build-for-windows",
+"python/3.12/library/exceptions#ImportError.path",
+"python/3.12/reference/import#module-specs",
+"python/3.12/tutorial/modules#packages",
+"python/3.12/tutorial/modules#packages-in-multiple-directories"
+],
+"py018": [
+"python/3.12/library/json#cmdoption-json.tool-arg-infile",
+"python/3.12/library/json#cmdoption-json.tool-json-lines",
+"python/3.12/tutorial/inputoutput#reading-and-writing-files",
+"python/3.12/library/subprocess#replacing-shell-pipeline",
+"python/3.12/library/json#cmdoption-json.tool-arg-outfile",
+"python/3.12/library/json#json.JSONDecoder.raw_decode"
+],
+"py019": [
+"python/3.12/library/json#json.dumps",
+"python/3.12/faq/programming#how-can-a-subclass-control-what-data-is-stored-in-an-immutable-instance",
+"python/3.12/library/dataclasses#descriptor-typed-fields",
+"python/3.12/reference/datamodel#type.__subclasscheck__",
+"python/3.12/reference/datamodel#object.__init_subclass__",
+"python/3.12/library/collections#collections.defaultdict.default_factory",
+"python/3.12/library/dataclasses#dataclasses.fields",
+"python/3.12/library/dataclasses#dataclasses.dataclass",
+"python/3.12/reference/datamodel#object.__lt__"
+],
+"py020": [
+"python/3.12/library/subprocess#subprocess.CompletedProcess.stdout"
+],
+"py021": [
+"python/3.12/library/pickle#object.__setstate__",
+"python/3.12/library/pickle#pickle.Pickler.dump",
+"python/3.12/tutorial/controlflow#lambda-expressions",
+"python/3.12/library/unittest.mock#quick-guide",
+"python/3.12/library/unittest.mock#autospeccing",
+"python/3.12/library/collections#collections.Counter.subtract",
+"python/3.12/library/stdtypes#dict",
+"python/3.12/faq/design#why-can-t-lambda-expressions-contain-statements"
+],
+"py022": [
+"python/3.12/library/multiprocessing#multiprocessing.freeze_support",
+"python/3.12/library/multiprocessing#multiprocessing.set_executable",
+"python/3.12/library/concurrent.futures#concurrent.futures.ProcessPoolExecutor"
+],
+"py023": [
+"python/3.12/tutorial/datastructures#comparing-sequences-and-other-types",
+"python/3.12/tutorial/datastructures#list-comprehensions",
+"python/3.12/faq/programming#how-do-i-convert-between-tuples-and-lists",
+"python/3.12/tutorial/controlflow#default-argument-values",
+"python/3.12/tutorial/controlflow#unpacking-argument-lists",
+"python/3.12/faq/programming#why-do-lambdas-defined-in-a-loop-with-different-values-all-return-the-same-result",
+"python/3.12/tutorial/errors#defining-clean-up-actions",
+"python/3.12/library/stdtypes#dict",
+"python/3.12/reference/compound_stmts#except-star",
+"pytorch/2.14/notes/extending#extending-torch-with-a-tensor-like-type"
+],
+"py024": [
+"python/3.12/library/exceptions#FloatingPointError",
+"python/3.12/library/exceptions#EnvironmentError",
+"python/3.12/library/exceptions#AssertionError",
+"python/3.12/library/exceptions#TabError"
+],
+"py025": [
+"python/3.12/reference/executionmodel#interaction-with-dynamic-features",
+"python/3.12/reference/executionmodel#exceptions",
+"fastapi/0.162.0/advanced/generate-clients#hey-api",
+"fastapi/0.162.0/advanced/generate-clients#generate-a-typescript-client-with-the-preprocessed-openapi",
+"fastapi/0.162.0/advanced/generate-clients#generating-sdks",
+"fastapi/0.162.0/advanced/generate-clients#generate-a-typescript-client-with-custom-operation-ids",
+"fastapi/0.162.0/tutorial/first-steps#data-schema",
+"python/3.12/reference/simple_stmts#the-import-statement",
+"python/3.12/tutorial/modules#packages",
+"pytorch/2.14/notes/serialization#weights-only-allowlist"
+],
+"py027": [
+"python/3.12/library/concurrent.futures#concurrent.futures.as_completed"
+],
+"py028": [
+"python/3.12/library/unittest#unittest.TestCase.assertRaises",
+"python/3.12/library/unittest.mock#unittest.mock.Mock.assert_any_call",
+"python/3.12/library/unittest#unittest.TestCase.assertIs",
+"python/3.12/library/unittest.mock#unittest.mock.Mock.assert_called"
+],
+"py029": [
+"python/3.12/library/exceptions#BaseExceptionGroup.exceptions",
+"python/3.12/library/exceptions#BaseExceptionGroup.derive"
+],
+"py030": [
+"python/3.12/library/io#io.FileIO",
+"python/3.12/library/pathlib#pathlib.Path.write_text",
+"python/3.12/library/io#io.open",
+"python/3.12/library/io#io.FileIO.mode",
+"python/3.12/library/io#io.TextIOBase.read"
+],
+"py031": [
+"python/3.12/faq/programming#is-there-an-equivalent-of-c-s-ternary-operator",
+"python/3.12/faq/library#what-kinds-of-global-value-mutation-are-thread-safe",
+"python/3.12/faq/programming#my-class-defines-del-but-it-is-not-called-when-i-delete-the-object",
+"python/3.12/faq/library#how-do-i-copy-a-file",
+"python/3.12/faq/design#why-does-python-use-methods-for-some-functionality-e-g-list-index-but-functions-for-other-e-g-len-list",
+"python/3.12/faq/design#can-python-be-compiled-to-machine-code-c-or-some-other-language",
+"python/3.12/library/unittest#unittest.TestCase.assertCountEqual",
+"python/3.12/library/unittest#unittest.TestCase.assertSequenceEqual"
+],
+"py033": [
+"fastapi/0.162.0/deployment/docker#package-requirements",
+"fastapi/0.162.0/advanced/settings#install-pydantic-settings"
+],
+"py034": [
+"python/3.12/library/logging#logging.Logger.findCaller",
+"python/3.12/library/logging#logging.Logger.debug",
+"python/3.12/library/logging#logging.Handler.handle",
+"python/3.12/library/logging#logging.Handler.handleError",
+"python/3.12/howto/logging#logging-levels",
+"python/3.12/howto/logging#configuring-logging-for-a-library",
+"python/3.12/library/logging#logging.Handler.emit",
+"python/3.12/library/logging#logging.LogRecord.getMessage"
+],
+"py036": [
+"python/3.12/library/argparse#arguments-containing",
+"python/3.12/library/argparse#option-value-syntax",
+"python/3.12/library/subprocess#frequently-used-arguments",
+"python/3.12/library/argparse#argparse.ArgumentParser.add_mutually_exclusive_group"
+],
+"py037": [
+"python/3.12/library/functions#format",
+"python/3.12/reference/datamodel#object.__format__"
+],
+"py038": [
+"python/3.12/library/threading#threading.current_thread",
+"python/3.12/library/threading#threading.Thread.daemon",
+"fastapi/0.162.0/tutorial/background-tasks#using-backgroundtasks",
+"fastapi/0.162.0/tutorial/background-tasks#recap"
+],
+"py039": [
+"python/3.12/library/dataclasses#dataclasses.Field"
+],
+"py040": [
+"python/3.12/faq/library#how-do-i-make-a-python-script-executable-on-unix"
+],
+"py041": [
+"fastapi/0.162.0/tutorial/security/oauth2-jwt#about-jwt",
+"python/3.12/library/functools#functools.cmp_to_key",
+"fastapi/0.162.0/advanced/security/oauth2-scopes#jwt-token-with-scopes",
+"fastapi/0.162.0/tutorial/security/oauth2-jwt#advanced-usage-with-scopes"
+],
+"py042": [
+"python/3.12/library/asyncio-dev#debug-mode",
+"python/3.12/library/subprocess#security-considerations"
+],
+"py043": [
+"python/3.12/library/json#json.JSONDecoder.raw_decode",
+"python/3.12/library/json#json.JSONDecoder.decode",
+"python/3.12/library/json#json.JSONDecodeError.colno",
+"python/3.12/library/json#implementation-limitations",
+"python/3.12/faq/library#how-do-i-read-or-write-binary-data",
+"python/3.12/library/pickle#examples"
+],
+"py044": [
+"python/3.12/library/os.path#os.path.isabs",
+"fastapi/0.162.0/advanced/settings#types-and-validation",
+"fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#execution-of-dependencies-with-yield",
+"fastapi/0.162.0/advanced/security/oauth2-scopes#more-details-about-securityscopes",
+"pytorch/2.14/notes/randomness#cuda-convolution-benchmarking",
+"python/3.12/using/cmdline#envvar-PYTHONPERFSUPPORT",
+"python/3.12/library/pathlib#module-pathlib",
+"fastapi/0.162.0/tutorial/dependencies/classes-as-dependencies#classes-as-dependencies",
+"python/3.12/library/asyncio-task#asyncio.eager_task_factory",
+"python/3.12/library/datetime#aware-and-naive-objects",
+"python/3.12/reference/import#the-path-based-finder",
+"python/3.12/library/os.path#os.path.normcase",
+"python/3.12/library/pathlib#pathlib.PurePath.relative_to",
+"python/3.12/library/os.path#os.path.expanduser"
+],
+"py046": [
+"python/3.12/library/asyncio-task#asyncio.TaskGroup",
+"python/3.12/library/asyncio-task#creating-tasks",
+"python/3.12/library/asyncio-task#asyncio.current_task",
+"fastapi/0.162.0/advanced/security/http-basic-auth#the-time-to-answer-helps-the-attackers",
+"fastapi/0.162.0/async#in-a-hurry",
+"fastapi/0.162.0/tutorial/security/first-steps#how-it-looks",
+"fastapi/0.162.0/tutorial/security/get-current-user#code-size",
+"fastapi/0.162.0/deployment/concepts#worker-processes-and-ports",
+"fastapi/0.162.0/tutorial/bigger-applications#dependencies",
+"fastapi/0.162.0/tutorial/path-params-numeric-validations#number-validations-greater-than-and-less-than-or-equal",
+"fastapi/0.162.0/deployment/https#certificate-renewal",
+"fastapi/0.162.0/tutorial/middleware#before-and-after-the-response"
+],
+"py047": [
+"python/3.12/library/asyncio-task#asyncio.eager_task_factory",
+"python/3.12/library/asyncio-task#asyncio.Task.uncancel",
+"python/3.12/library/pathlib#pathlib.Path.chmod",
+"python/3.12/library/asyncio-task#asyncio.shield",
+"pytorch/2.14/notes/cuda#asynchronous-execution"
+],
+"py048": [
+"python/3.12/howto/unicode#tips-for-writing-unicode-aware-programs",
+"python/3.12/reference/lexical_analysis#explicit-line-joining",
+"python/3.12/library/functions#chr",
+"python/3.12/library/exceptions#UnicodeError.end",
+"python/3.12/faq/programming#what-s-a-negative-index",
+"pytorch/2.14/notes/serialization#serialized-file-format-for-torch-save",
+"python/3.12/howto/unicode#id2",
+"python/3.12/library/exceptions#UnicodeError.start",
+"python/3.12/library/re#re.X",
+"python/3.12/library/re#checking-for-a-pair"
+],
+"py049": [
+"python/3.12/library/collections#collections.Counter.subtract",
+"python/3.12/library/stdtypes#list",
+"python/3.12/faq/design#why-must-dictionary-keys-be-immutable",
+"python/3.12/library/stdtypes#lists",
+"python/3.12/reference/simple_stmts#assignment-statements",
+"python/3.12/library/stdtypes#dict",
+"python/3.12/faq/design#how-are-lists-implemented-in-cpython",
+"python/3.12/library/stdtypes#list.sort"
+],
+"py050": [
+"python/3.12/reference/compound_stmts#else-clause",
+"python/3.12/reference/compound_stmts#except-clause",
+"python/3.12/tutorial/errors#handling-exceptions",
+"python/3.12/library/functools#functools.lru_cache",
+"python/3.12/library/exceptions#SystemExit",
+"fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#execution-of-dependencies-with-yield",
+"fastapi/0.162.0/tutorial/handling-errors#reuse-fastapis-exception-handlers",
+"python/3.12/tutorial/controlflow#else-clauses-on-loops",
+"fastapi/0.162.0/tutorial/handling-errors#override-the-httpexception-error-handler",
+"python/3.12/library/exceptions#built-in-exceptions"
+],
+"py051": [
+"python/3.12/library/exceptions#built-in-exceptions",
+"python/3.12/library/exceptions#TimeoutError",
+"python/3.12/library/exceptions#IOError",
+"python/3.12/reference/executionmodel#exceptions",
+"python/3.12/tutorial/errors#handling-exceptions"
+],
+"py052": [
+"python/3.12/library/typing#typing.reveal_type",
+"fastapi/0.162.0/tutorial/handling-errors#reuse-fastapis-exception-handlers",
+"python/3.12/library/typing#special-types",
+"python/3.12/library/exceptions#BaseException.__traceback__",
+"fastapi/0.162.0/tutorial/handling-errors#override-the-default-exception-handlers",
+"fastapi/0.162.0/tutorial/handling-errors#fastapis-httpexception-vs-starlettes-httpexception"
+],
+"py054": [
+"python/3.12/library/pdb#pdb.pm",
+"python/3.12/library/pdb#pdb.post_mortem",
+"python/3.12/library/pdb#pdbcommand-source",
+"python/3.12/faq/programming#how-do-you-make-an-array-in-python",
+"python/3.12/library/pdb#pdbcommand-clear"
+],
+"py055": [
+"python/3.12/library/functions#oct",
+"python/3.12/library/stdtypes#printf-style-bytes-formatting",
+"python/3.12/reference/lexical_analysis#escape-sequences",
+"python/3.12/library/stdtypes#str.isdecimal",
+"python/3.12/tutorial/controlflow#documentation-strings"
+],
+"py056": [
+"python/3.12/tutorial/modules#executing-modules-as-scripts",
+"python/3.12/faq/library#how-do-i-test-a-python-program-or-component",
+"python/3.12/tutorial/modules#more-on-modules",
+"python/3.12/tutorial/modules#modules",
+"python/3.12/faq/programming#how-do-i-find-the-current-module-name",
+"python/3.12/library/unittest.mock#where-to-patch",
+"python/3.12/faq/programming#how-can-i-create-a-stand-alone-binary-from-a-python-script"
+],
+"py057": [
+"fastapi/0.162.0/advanced/settings#install-pydantic-settings",
+"fastapi/0.162.0/tutorial/request-forms-and-files#request-forms-and-files",
+"fastapi/0.162.0/virtual-environments#create-a-project",
+"fastapi/0.162.0/tutorial/index#run-the-code",
+"fastapi/0.162.0/tutorial/first-steps#first-steps"
+],
+"py059": [
+"python/3.12/faq/programming#what-is-the-difference-between-arguments-and-parameters",
+"python/3.12/faq/programming#why-does-a-tuple-i-item-raise-an-exception-when-the-addition-works",
+"pytorch/2.14/notes/extending#extending-all-torch-api-with-modes",
+"python/3.12/faq/programming#is-there-an-equivalent-of-c-s-ternary-operator",
+"python/3.12/reference/simple_stmts#expression-statements",
+"python/3.12/reference/compound_stmts#finally-clause",
+"python/3.12/tutorial/controlflow#keyword-arguments",
+"python/3.12/library/typing#typing.TypeVarTuple",
+"python/3.12/library/stdtypes#list.sort"
+],
+"py060": [
+"python/3.12/faq/design#why-don-t-generators-support-the-with-statement",
+"python/3.12/using/cmdline#envvar-PYTHONSTARTUP",
+"python/3.12/library/io#io.FileIO",
+"python/3.12/reference/simple_stmts#the-yield-statement",
+"python/3.12/library/exceptions#BrokenPipeError",
+"python/3.12/reference/simple_stmts#the-raise-statement"
+]
+}

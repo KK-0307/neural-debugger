@@ -1,0 +1,161 @@
+{
+ "best_epoch": 6,
+ "best_epoch_metrics": {
+  "dev_mrr": 0.8134287275946066,
+  "dev_ndcg@10": 0.7895437905214514,
+  "dev_recall@1": 0.3520818955601564,
+  "dev_recall@10": 0.8653899240855762,
+  "epoch": 6,
+  "epoch_seconds": 12.0,
+  "lr": 0.0002935010446113391,
+  "steps": 984,
+  "synth_mrr": 0.6374288821903917,
+  "synth_pool": 1218.0,
+  "synth_recall@1": 0.5870279146141215,
+  "synth_recall@10": 0.7397372742200329,
+  "train_loss": 1.162495015234482,
+  "val_mrr": 0.421518983087306,
+  "val_ndcg@10": 0.3919027355214706,
+  "val_recall@1": 0.1438095238095238,
+  "val_recall@10": 0.5238095238095237
+ },
+ "best_score": 0.3919027355214706,
+ "config": {
+  "augment": {
+   "doc_token_dropout": 0.1,
+   "query_token_dropout": 0.2
+  },
+  "data": {
+   "errors": true,
+   "heading": true,
+   "holdout_fraction": 0.05,
+   "ict_per_chunk": 8,
+   "keep_prob": 0.1,
+   "leakage_threshold": 0.6,
+   "max_doc_len": 256,
+   "max_query_len": 64,
+   "real_repeat": 3,
+   "regime": "synthetic+real",
+   "vocab_size": 8000
+  },
+  "device": "auto",
+  "model": {
+   "dropout": 0.1,
+   "ffn_dim": 256,
+   "hidden_dim": 64,
+   "max_seq_len": 256,
+   "n_heads": 2,
+   "n_layers": 1,
+   "out_dim": 64,
+   "pooling": "mean",
+   "shared_towers": true
+  },
+  "name": "tiny-real",
+  "negatives": {
+   "n_hard": 1,
+   "pool_top": 30,
+   "skip_top": 0,
+   "strategy": "in_batch"
+  },
+  "optim": {
+   "batch_size": 128,
+   "epochs": 12,
+   "grad_clip": 1.0,
+   "lr": 0.0005,
+   "min_lr_frac": 0.1,
+   "symmetric_loss": true,
+   "temperature": 0.05,
+   "warmup_frac": 0.05,
+   "weight_decay": 0.01
+  },
+  "out_dir": "runs",
+  "seed": 0,
+  "stop": {
+   "min_delta": 0.002,
+   "patience": 3
+  }
+ },
+ "data": {
+  "heldout": {
+   "by_source": {
+    "synthetic_error": 2,
+    "synthetic_heading": 207,
+    "synthetic_ict": 1009
+   },
+   "n_pairs": 1218,
+   "n_sections": 207,
+   "sha256": "6dcd9e83d2d39f9422977d40d647fa70ba4471537cc60de9066ed0de864391d9"
+  },
+  "leakage": {
+   "dropped": 35,
+   "dropped_by_source": {
+    "synthetic_error": 12,
+    "synthetic_heading": 14,
+    "synthetic_ict": 9
+   },
+   "examples": [
+    [
+     "ZeroDivisionError: division by zero",
+     "ZeroDivisionError: division by zero"
+    ],
+    [
+     "FileNotFoundError: [Errno 2] No such file or directory: 'database.sqlite'",
+     "FileNotFoundError: [Errno 2] No such file or directory: 'data.csv'"
+    ],
+    [
+     "FileNotFoundError: [Errno 2] No such file or directory: 'database.sqlite'",
+     "FileNotFoundError: [Errno 2] No such file or directory: 'data.csv'"
+    ],
+    [
+     "division by zero!",
+     "ZeroDivisionError: division by zero"
+    ],
+    [
+     "ValueError: I/O operation on closed file.",
+     "ValueError: I/O operation on closed file."
+    ],
+    [
+     "ValueError: I/O operation on closed file.",
+     "ValueError: I/O operation on closed file."
+    ],
+    [
+     "ZeroDivisionError: division by zero",
+     "ZeroDivisionError: division by zero"
+    ],
+    [
+     "ZeroDivisionError: division by zero",
+     "ZeroDivisionError: division by zero"
+    ]
+   ]
+  },
+  "n_train_pairs_total": 21073,
+  "real": {
+   "n_pairs": 419,
+   "n_queries": 103,
+   "repeat": 3
+  },
+  "synthetic": {
+   "by_source": {
+    "synthetic_error": 105,
+    "synthetic_heading": 3932,
+    "synthetic_ict": 15779
+   },
+   "n_pairs": 19816,
+   "n_sections": 3947,
+   "sha256": "3ff675eaef1c8f98a943a51d29ed72ae4535ba187ffe5debc7c2f9193ca4fe4a"
+  }
+ },
+ "device": "mps",
+ "epochs_run": 9,
+ "hardware": {
+  "machine": "arm64",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "torch": "2.14.1"
+ },
+ "n_parameters": 582592,
+ "name": "tiny-real",
+ "seed": 0,
+ "selection_metric": "val_ndcg@10",
+ "tokenizer_sha256": "1a4ce6684f43e5c6adcff3d10de502b71777345f426c28ef7aab84b8557a5ad3",
+ "train_seconds": 122.6
+}

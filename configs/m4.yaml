@@ -1,0 +1,22 @@
+# Milestone 4: the from-scratch transformer as retrieval systems. Merged on top of configs/neural.yaml
+# (which is hashed by the M3 freeze manifest and therefore not edited). See docs/ml-model.md.
+#
+# custom-tiny       regime A: trained on synthetic pairs generated from the documentation only
+# custom-tiny-real  regime B: A's data + the real *train-split* queries (checkpoint chosen on val)
+# Shipped weights are seed 0 of each config (fixed in advance, not the best seed).
+custom_models:
+  custom-tiny:
+    model_dir: models/custom-tiny
+    max_query_len: 64
+    max_doc_len: 256
+  custom-tiny-real:
+    model_dir: models/custom-tiny-real
+    max_query_len: 64
+    max_doc_len: 256
+
+systems:
+  dense-custom-tiny: {kind: dense, model: custom-tiny}
+  dense-custom-tiny-real: {kind: dense, model: custom-tiny-real}
+  # default fusion (k=60, equal weights), the same recipe as hybrid-gte-small
+  hybrid-custom-tiny: {kind: hybrid, components: [bm25, dense-custom-tiny], weights: [1.0, 1.0], rrf_k: 60}
+  hybrid-custom-tiny-real: {kind: hybrid, components: [bm25, dense-custom-tiny-real], weights: [1.0, 1.0], rrf_k: 60}

@@ -1,0 +1,30 @@
+# Regime B: synthetic pretraining pairs + real train-split queries (checkpoint chosen on val NDCG@10)
+augment:
+  doc_token_dropout: 0.1
+  query_token_dropout: 0.2
+data:
+  ict_per_chunk: 8
+  regime: synthetic+real
+  vocab_size: 8000
+  real_repeat: 3
+device: auto
+model:
+  dropout: 0.1
+  ffn_dim: 256
+  hidden_dim: 64
+  max_seq_len: 256
+  n_heads: 2
+  n_layers: 1
+  out_dim: 64
+name: tiny-real
+negatives:
+  strategy: in_batch
+optim:
+  batch_size: 128
+  epochs: 12
+  lr: 0.0005
+  temperature: 0.05
+out_dir: runs
+seed: 0
+stop:
+  patience: 3

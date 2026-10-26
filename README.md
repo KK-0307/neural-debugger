@@ -5,10 +5,11 @@ explanation, troubleshooting steps, and citations to indexed documentation. Retr
 with a **custom transformer encoder written from scratch on PyTorch tensors**, evaluated against
 baselines, inside a RAG pipeline.
 
-> **Project status: early development (Milestones 1-3 of 8; the original brief's custom-transformer
-> milestone is still ahead).** Built and verified: API skeleton, a reproducible documentation corpus,
-> a labeled evaluation set, BM25, and now **pretrained dense / hybrid / reranked retrieval with measured
-> results**. Not built yet: the custom-trained transformer, RAG generation, the debugging UI.
+> **Project status: early development (Milestones 1-4 of 8).** Built and verified: API skeleton, a
+> reproducible documentation corpus, a labeled evaluation set, BM25, **pretrained dense / hybrid / reranked
+> retrieval**, and a **from-scratch PyTorch transformer dual encoder trained with InfoNCE** whose measured
+> result is negative: it does not beat BM25 (see [docs/ml-model.md](docs/ml-model.md)). Not built yet: RAG
+> generation, the debugging UI.
 > [PROGRESS.md](PROGRESS.md) lists exactly what is done and verified. No result is claimed that has
 > not been measured.
 
@@ -25,6 +26,12 @@ baselines, inside a RAG pipeline.
   versioned embeddings with an exact vector index; hybrid BM25 + dense via reciprocal-rank fusion; an
   optional cross-encoder reranker; framework filtering; CPU/MPS/CUDA with CPU fallback.
   [docs/neural-retrieval.md](docs/neural-retrieval.md)
+
+* **Custom transformer** (`src/neural_debugger/ml/{transformer,training}`): attention, LayerNorm, encoder
+  blocks and dual encoder written from scratch (tested against PyTorch's own implementations), BPE
+  tokenizer, InfoNCE trainer, trained on synthetic pairs from the docs (and, in one variant, real train
+  queries). 0.58M parameters, ~1 ms/query. **Test NDCG@10 0.31 dense / 0.53 hybrid vs 0.56 BM25 and 0.62
+  for the pretrained hybrid** (32 queries; intervals in [docs/ml-model.md](docs/ml-model.md)).
 
 **Measured results** (NDCG@10, authored queries; full tables, intervals and caveats in the docs):
 
@@ -86,6 +93,7 @@ Rebuild the corpus from the network (cached after the first run; ~24 MB, 1 reque
 
 Docs: [architecture](docs/architecture.md) · [data pipeline](docs/data-pipeline.md) ·
 [evaluation](docs/evaluation.md) · [neural retrieval](docs/neural-retrieval.md) ·
+[custom transformer](docs/ml-model.md) ·
 [technical decisions](docs/technical-decisions.md).
 
 macOS note: if `import neural_debugger` fails inside `.venv`, run `chflags -R nohidden .venv` (see

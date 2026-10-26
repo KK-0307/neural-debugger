@@ -49,6 +49,7 @@ eval-bm25:  ## re-score the frozen BM25 baseline on train+val (test is protected
 freeze-verify:  ## fail if the frozen baseline (M2) or neural configuration (M3) drifted
 	uv run python -m neural_debugger.ml.evaluation.freeze verify
 	uv run python -m neural_debugger.ml.evaluation.freeze verify-m3
+	uv run python -m neural_debugger.ml.evaluation.freeze verify-m4
 
 embed:  ## (re)generate chunk embeddings: make embed M=gte-small
 	uv run python -m neural_debugger.ml.retrieval.embed --model $(M)

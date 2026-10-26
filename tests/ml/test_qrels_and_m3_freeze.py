@@ -101,12 +101,29 @@ def test_test_split_access_is_fully_logged() -> None:
         for x in (ROOT / "data/eval/results/test_access_log.jsonl").read_text().splitlines()
     ]
     assert rows[0]["purpose"].startswith("RETROACTIVE")
-    m3 = [r for r in rows[1:] if r["purpose"].startswith("system_eval:")]
+    evals = [r for r in rows[1:] if r["purpose"].startswith("system_eval:")]
+    m3 = [r for r in evals if "results/m3/" in " ".join(r["argv"])]
+    m4 = [r for r in evals if "results/m4/" in " ".join(r["argv"])]
+    assert len(m3) + len(m4) == len(evals)  # every test access belongs to a documented milestone
     # frozen systems scored on test exactly twice each: original, then expanded judgments
     systems = {"bm25", "dense-gte-small", "hybrid-gte-tuned", "rerank-l12-n30-rrf"}
     for variant in ("original", "expanded"):
         assert {r["purpose"].split(":")[1] for r in m3 if r["purpose"].endswith(variant)} == systems
     assert len(m3) == 8
+    # M4: the six frozen systems, once per judgment set (original labels, then M4-expanded labels)
+    m4_systems = {
+        "bm25",
+        "hybrid-gte-tuned",
+        "dense-custom-tiny",
+        "hybrid-custom-tiny",
+        "dense-custom-tiny-real",
+        "hybrid-custom-tiny-real",
+    }
+    for variant in ("original", "m4"):
+        assert {
+            r["purpose"].split(":")[1] for r in m4 if r["purpose"].endswith(variant)
+        } == m4_systems
+    assert len(m4) == 12
 
 
 @pytest.mark.skipif(

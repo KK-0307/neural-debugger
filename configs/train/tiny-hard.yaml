@@ -1,0 +1,29 @@
+# Negative-strategy ablation: tiny + one BM25 hard negative per pair
+augment:
+  doc_token_dropout: 0.1
+  query_token_dropout: 0.2
+data:
+  ict_per_chunk: 8
+  regime: synthetic
+  vocab_size: 8000
+device: auto
+model:
+  dropout: 0.1
+  ffn_dim: 256
+  hidden_dim: 64
+  max_seq_len: 256
+  n_heads: 2
+  n_layers: 1
+  out_dim: 64
+name: tiny-hard
+negatives:
+  strategy: bm25_hard
+optim:
+  batch_size: 128
+  epochs: 12
+  lr: 0.0005
+  temperature: 0.05
+out_dir: runs
+seed: 0
+stop:
+  patience: 3

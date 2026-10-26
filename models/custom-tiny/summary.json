@@ -1,0 +1,156 @@
+{
+ "best_epoch": 10,
+ "best_epoch_metrics": {
+  "dev_mrr": 0.3434637435734328,
+  "dev_ndcg@10": 0.2972937267874869,
+  "dev_recall@1": 0.1029071773636991,
+  "dev_recall@10": 0.3750431331953071,
+  "epoch": 10,
+  "epoch_seconds": 6.6,
+  "lr": 8.330334162874039e-05,
+  "steps": 1540,
+  "synth_mrr": 0.6922157837163642,
+  "synth_pool": 1146.0,
+  "synth_recall@1": 0.6448516579406631,
+  "synth_recall@10": 0.7897033158813264,
+  "train_loss": 0.9037792338179303,
+  "val_mrr": 0.35760718670935737,
+  "val_ndcg@10": 0.31158958116993085,
+  "val_recall@1": 0.11904761904761903,
+  "val_recall@10": 0.38571428571428573
+ },
+ "best_score": 0.6922157837163642,
+ "config": {
+  "augment": {
+   "doc_token_dropout": 0.1,
+   "query_token_dropout": 0.2
+  },
+  "data": {
+   "errors": true,
+   "heading": true,
+   "holdout_fraction": 0.05,
+   "ict_per_chunk": 8,
+   "keep_prob": 0.1,
+   "leakage_threshold": 0.6,
+   "max_doc_len": 256,
+   "max_query_len": 64,
+   "real_repeat": 4,
+   "regime": "synthetic",
+   "vocab_size": 8000
+  },
+  "device": "auto",
+  "model": {
+   "dropout": 0.1,
+   "ffn_dim": 256,
+   "hidden_dim": 64,
+   "max_seq_len": 256,
+   "n_heads": 2,
+   "n_layers": 1,
+   "out_dim": 64,
+   "pooling": "mean",
+   "shared_towers": true
+  },
+  "name": "tiny",
+  "negatives": {
+   "n_hard": 1,
+   "pool_top": 30,
+   "skip_top": 0,
+   "strategy": "in_batch"
+  },
+  "optim": {
+   "batch_size": 128,
+   "epochs": 12,
+   "grad_clip": 1.0,
+   "lr": 0.0005,
+   "min_lr_frac": 0.1,
+   "symmetric_loss": true,
+   "temperature": 0.05,
+   "warmup_frac": 0.05,
+   "weight_decay": 0.01
+  },
+  "out_dir": "runs",
+  "seed": 0,
+  "stop": {
+   "min_delta": 0.002,
+   "patience": 3
+  }
+ },
+ "data": {
+  "heldout": {
+   "by_source": {
+    "synthetic_error": 1,
+    "synthetic_heading": 204,
+    "synthetic_ict": 941
+   },
+   "n_pairs": 1146,
+   "n_sections": 207,
+   "sha256": "f5f59ff9566c212f43a801a17facbfdf2c89c55d7c8c9de90ddcd4b627f5665c"
+  },
+  "leakage": {
+   "dropped": 90,
+   "dropped_by_source": {
+    "synthetic_error": 17,
+    "synthetic_heading": 34,
+    "synthetic_ict": 39
+   },
+   "examples": [
+    [
+     "SyntaxError: invalid syntax",
+     "SyntaxError: invalid syntax"
+    ],
+    [
+     "SyntaxError: invalid syntax",
+     "SyntaxError: invalid syntax"
+    ],
+    [
+     "TypeError: can only concatenate str (not \"int\") to str",
+     "TypeError: can only concatenate str (not \"int\") to str"
+    ],
+    [
+     "NameError: name 'spam' is not defined",
+     "NameError: name 'np' is not defined"
+    ],
+    [
+     "ZeroDivisionError: division by zero",
+     "ZeroDivisionError: division by zero"
+    ],
+    [
+     "NameError: name 'spam' is not defined",
+     "NameError: name 'np' is not defined"
+    ],
+    [
+     "TypeError: can only concatenate str (not \"int\") to str",
+     "TypeError: can only concatenate str (not \"int\") to str"
+    ],
+    [
+     "FileNotFoundError: [Errno 2] No such file or directory: 'database.sqlite'",
+     "FileNotFoundError: [Errno 2] No such file or directory: 'data.csv'"
+    ]
+   ]
+  },
+  "n_train_pairs_total": 19833,
+  "synthetic": {
+   "by_source": {
+    "synthetic_error": 101,
+    "synthetic_heading": 3915,
+    "synthetic_ict": 15817
+   },
+   "n_pairs": 19833,
+   "n_sections": 3945,
+   "sha256": "c44972ac9e04008a6c9656373fecaa3b65acc0b6c66eb21bc001953b91c58a35"
+  }
+ },
+ "device": "mps",
+ "epochs_run": 12,
+ "hardware": {
+  "machine": "arm64",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "torch": "2.14.1"
+ },
+ "n_parameters": 582592,
+ "name": "tiny",
+ "seed": 0,
+ "selection_metric": "synth_mrr",
+ "tokenizer_sha256": "1a4ce6684f43e5c6adcff3d10de502b71777345f426c28ef7aab84b8557a5ad3",
+ "train_seconds": 88.2
+}

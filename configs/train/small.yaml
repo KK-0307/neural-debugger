@@ -1,0 +1,11 @@
+# Brief's CPU-friendly size: hidden 128, 4 heads, 2 layers, FFN 512, max length 256, output 128.
+# Regime "synthetic": trains only on pairs generated from the documentation; never sees an eval query.
+name: small
+seed: 0
+device: auto
+out_dir: runs
+model: {hidden_dim: 128, n_heads: 4, n_layers: 2, ffn_dim: 512, max_seq_len: 256, out_dim: 128, dropout: 0.1}
+data: {vocab_size: 8000, regime: synthetic}
+negatives: {strategy: in_batch}
+optim: {lr: 0.0005, epochs: 12, batch_size: 128, temperature: 0.05}
+stop: {patience: 3}

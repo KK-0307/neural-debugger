@@ -1,0 +1,21 @@
+# M4 pool round 1 (assistant-judged; not human-verified). "qid: n m" = candidates n, m judged relevant.
+fa013: 2 6
+fa026: 7
+fa030: 1
+fa031: 4
+fa036: 1
+fa038: 6
+fa046: 1
+fa047: 1
+fa050: 2
+fa053: 1 3
+pt002: 1
+pt009: 2
+pt017: 3 4 6
+pt023: 1
+pt024: 2
+pt048: 4
+pt049: 1
+py019: 1
+py044: 7
+py046: 1

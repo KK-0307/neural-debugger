@@ -1,19 +1,25 @@
 # Progress
 
-**Current milestone:** 3 - Neural retrieval: **implemented, tested and evaluated; awaiting your review.**
-Not proceeding beyond Milestone 3 until then.
+**Current milestone:** 4 - Custom transformer dual encoder: **implemented, tested, trained and evaluated
+once on the frozen test split; awaiting your review.** Not proceeding to RAG (Milestone 5) until then.
+
+**Milestone 4 in one paragraph (details: `docs/ml-model.md`).** A from-scratch transformer (0.58M
+parameters, mean-pooled, L2-normalised, shared towers) trained with InfoNCE on synthetic documentation
+pairs does **not** beat BM25: test NDCG@10 (authored, n=32, M4 labels) is 0.314 dense / 0.531 hybrid vs
+BM25 0.560 and the pretrained hybrid 0.621. Smaller models were better (0.58M > 1.5M > 5.3M); BM25 hard
+negatives hurt; adding real train queries helped on val but not on test. Its advantages are size (2.3 MB)
+and speed (~1 ms/query). Test pool expansion for the custom systems was post-hoc and is disclosed.
 
 > **Roadmap note.** Milestone 3 was redefined at your request from "custom PyTorch transformer" to
-> "neural retrieval" built on *pretrained* models. The custom-trained transformer / contrastive
-> training from the original brief is **not built** and is the natural next milestone: its results
-> will be compared against the baselines measured here.
+> "neural retrieval" built on *pretrained* models; the custom transformer from the original brief was
+> built in Milestone 4 and compared against those baselines.
 
 | # | Milestone | Status |
 |---|---|---|
 | 1 | Project foundation | Done (Docker builds and CI runs not yet verified) |
 | 2 | Documentation retrieval (corpus, labels, BM25) | Done, **frozen** (labels LLM-authored; agent second-pass review only) |
 | 3 | Neural retrieval (dense, hybrid, rerank, framework filter) | **Done**; results below, with caveats |
-| - | Custom transformer + contrastive training (original brief) | Not started |
+| 4 | Custom transformer + contrastive training | **Done**; negative result vs. baselines (`docs/ml-model.md`) |
 | - | RAG generation, debugging API/UI, performance, beta | Not started |
 
 ## Step 1 - Milestone 2 finalised and committed
@@ -84,13 +90,13 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 
 | Check | Result |
 |---|---|
-| `uv run pytest` (full env, models cached) | **118 passed** (backend 12, data 47, ml 59) |
-| CI-equivalent env (`--extra data --extra index`, no PyTorch) | ruff clean, strict mypy clean (59 src / 25 test files), **114 passed, 4 skipped** (model-dependent tests) |
-| `make freeze-verify` (M2 baseline + M3 configuration) | intact |
+| `uv run pytest` (full env, models cached) | **155 passed** (M4 added 37 tests: transformer 18, training 15, custom retrieval 4) |
+| CI-equivalent env (`--extra data --extra index`, no PyTorch) | ruff clean, strict mypy clean (72 src / 28 test files), **114 passed, 7 skipped** (model/PyTorch-dependent tests); GitHub Actions python, frontend and docker jobs green on `e37540c` |
+| `make freeze-verify` (M2 baseline + M3 + M4 configuration) | intact |
 | Frontend `lint`, `typecheck`, `npm test` (8), `npm run build` | clean (re-run at the end of this milestone) |
 | Wheel build + clean-venv install + `/health` on real PostgreSQL 16 | 200 `ok`, then 503 after stopping Postgres; retrieval modules import from the wheel without PyTorch |
 | CPU vs MPS | identical ranking metrics; embeddings cosine >= 0.9999; CPU bitwise deterministic |
-| Test access log | 4 frozen systems x 2 judgment sets = 8 entries + 1 retroactive M2 entry |
+| Test access log | M3: 4 systems x 2 judgment sets = 8; M4: 6 systems x 2 judgment sets = 12; + 1 retroactive M2 entry (21 lines); asserted by a test |
 
 ## Known issues / limitations
 
@@ -98,12 +104,16 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
   measured against these labels. Human review of a sample is the main outstanding quality step.
 - **Test set is small** (32 authored): most comparisons inconclusive. Dev numbers carry selection
   optimism (best of 20 fusion settings, best of 4 rerank variants).
-- Docker is still not installed here (images unbuilt); CI has never run (no GitHub remote).
+- Docker is not installed locally; CI (GitHub Actions, private repo) builds both images and is green as of
+  the M3 push fixes.
+- M4: no mid-run training resume; one tokenizer size / temperature; no LR sweep; test pool expansion for
+  the custom systems was done after seeing test rankings; seed 0 weights are shipped, not the best seed.
 - Larger models / fine-tuning / HyDE / real-user queries not evaluated.
 - No database schema or API wiring for retrieval yet (RAG milestone).
 
 ## Remaining work (needs your direction)
 
 1. Human review of a label sample (and optionally Stack Overflow-derived labels, which need approval).
-2. The custom PyTorch transformer + contrastive training, to compare against these baselines.
+2. Decide whether to invest further in the custom model (more/LLM-generated training data, distillation
+   from a pretrained model) or use the pretrained hybrid as the retrieval backbone for RAG.
 3. RAG generation with citation validation, API endpoints, UI.

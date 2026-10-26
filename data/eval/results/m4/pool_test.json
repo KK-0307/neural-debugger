@@ -1,0 +1,263 @@
+{
+"fa001": [
+"fastapi/0.162.0/tutorial/first-steps#step-5-return-the-content",
+"fastapi/0.162.0/advanced/path-operation-advanced-configuration#custom-openapi-path-operation-schema",
+"fastapi/0.162.0/tutorial/metadata#metadata-for-api",
+"fastapi/0.162.0/tutorial/body#request-body",
+"fastapi/0.162.0/tutorial/testing#extended-testing-file",
+"fastapi/0.162.0/tutorial/request-forms-and-files#recap",
+"fastapi/0.162.0/advanced/websockets#handling-disconnections-and-multiple-clients",
+"fastapi/0.162.0/how-to/custom-request-and-route#accessing-the-request-body-in-an-exception-handler"
+],
+"fa012": [
+"fastapi/0.162.0/tutorial/response-model#return-a-response-directly",
+"fastapi/0.162.0/advanced/path-operation-advanced-configuration#custom-openapi-content-type",
+"fastapi/0.162.0/tutorial/response-model#disable-response-model",
+"fastapi/0.162.0/tutorial/path-params#data-validation",
+"fastapi/0.162.0/tutorial/sql-databases#create-with-herocreate-and-return-a-heropublic",
+"fastapi/0.162.0/tutorial/sql-databases#read-heroes-with-heropublic"
+],
+"fa015": [
+"python/3.12/reference/import#regular-packages",
+"python/3.12/reference/import#package-relative-imports",
+"python/3.12/tutorial/modules#intra-package-references",
+"python/3.12/reference/simple_stmts#the-import-statement",
+"python/3.12/reference/import#importlib",
+"python/3.12/tutorial/modules#packages",
+"python/3.12/tutorial/modules#importing-from-a-package",
+"python/3.12/reference/import#replacing-the-standard-import-system"
+],
+"fa023": [
+"fastapi/0.162.0/tutorial/response-model#response-model-parameter",
+"fastapi/0.162.0/tutorial/response-model#response-model-priority",
+"fastapi/0.162.0/tutorial/response-model#return-type-and-data-filtering",
+"fastapi/0.162.0/deployment/concepts#previous-steps-before-starting",
+"python/3.12/faq/programming#why-does-22-10-return-3",
+"fastapi/0.162.0/advanced/security/http-basic-auth#a-professional-attack",
+"pytorch/2.14/notes/cuda#sharing-memory-across-captures"
+],
+"fa029": [
+"pytorch/2.14/notes/windows#import-error",
+"python/3.12/faq/programming#how-can-i-create-a-stand-alone-binary-from-a-python-script",
+"fastapi/0.162.0/deployment/docker#build-a-docker-image-with-a-single-file-fastapi",
+"fastapi/0.162.0/virtual-environments#virtual-environments",
+"fastapi/0.162.0/fastapi-cli#fastapi-cli",
+"fastapi/0.162.0/tutorial/index#run-the-code",
+"fastapi/0.162.0/tutorial/first-steps#first-steps",
+"fastapi/0.162.0/how-to/custom-docs-ui-assets#download-the-files"
+],
+"fa045": [
+"fastapi/0.162.0/tutorial/sql-databases#sql-relational-databases"
+],
+"fa054": [
+"python/3.12/faq/programming#is-there-a-source-code-level-debugger-with-breakpoints-single-stepping-etc",
+"fastapi/0.162.0/deployment/docker#package-requirements",
+"fastapi/0.162.0/advanced/strict-content-type#csrf-risk",
+"fastapi/0.162.0/deployment/docker#use-cmd-exec-form",
+"fastapi/0.162.0/tutorial/debugging#more-details",
+"python/3.12/library/pdb#pdbcommand-jump"
+],
+"pt001": [
+"pytorch/2.14/tensors#torch-tensor",
+"pytorch/2.14/notes/randomness#cuda-convolution-determinism"
+],
+"pt008": [
+"pytorch/2.14/tensors#torch.Tensor.H",
+"pytorch/2.14/notes/randomness#filling-uninitialized-memory",
+"python/3.12/library/exceptions#UnicodeError",
+"python/3.12/library/datetime#datetime.timedelta.seconds",
+"python/3.12/library/datetime#datetime.timedelta.total_seconds"
+],
+"pt010": [
+"pytorch/2.14/tensor_attributes#torch-layout",
+"pytorch/2.14/tensors#torch.Tensor.T",
+"pytorch/2.14/tensors#torch.Tensor.mT"
+],
+"pt011": [
+"pytorch/2.14/notes/cuda#device-agnostic-code",
+"pytorch/2.14/notes/cuda#whole-network-capture",
+"pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory",
+"pytorch/2.14/generated/torch.Tensor.view#torch.Tensor.view",
+"pytorch/2.14/generated/torch.nn.Embedding#torch.nn.Embedding",
+"pytorch/2.14/tensors#initializing-and-basic-operations",
+"pytorch/2.14/notes/faq#my-recurrent-network-doesn-t-work-with-data-parallelism"
+],
+"pt012": [
+"pytorch/2.14/generated/torch.nn.Embedding#torch.nn.Embedding",
+"pytorch/2.14/notes/serialization#torch.serialization.safe_globals",
+"python/3.12/library/multiprocessing#introduction",
+"python/3.12/library/multiprocessing#module-multiprocessing.connection",
+"python/3.12/reference/simple_stmts#annotated-assignment-statements",
+"python/3.12/reference/simple_stmts#augmented-assignment-statements",
+"python/3.12/library/re#re.Match.group",
+"python/3.12/faq/library#none-of-my-threads-seem-to-run-why",
+"python/3.12/reference/compound_stmts#the-for-statement"
+],
+"pt033": [
+"pytorch/2.14/notes/extending#combined-or-separate-forward-and-setup-context",
+"pytorch/2.14/notes/autograd#multithreaded-autograd",
+"pytorch/2.14/notes/autograd#no-grad-mode",
+"pytorch/2.14/notes/numerical_accuracy#batched-computations-or-slice-computations",
+"pytorch/2.14/notes/extending#extending-all-torch-api-with-modes",
+"pytorch/2.14/notes/extending#when-to-use",
+"pytorch/2.14/notes/extending#forward-mode-ad",
+"pytorch/2.14/notes/extending#when-not-to-use",
+"pytorch/2.14/notes/autograd#setting-requires-grad",
+"pytorch/2.14/autograd#torch.autograd.graph.register_multi_grad_hook"
+],
+"pt036": [
+"pytorch/2.14/notes/amp_examples#distributeddataparallel-one-gpu-per-process",
+"pytorch/2.14/notes/amp_examples#distributeddataparallel-multiple-gpus-per-process",
+"pytorch/2.14/notes/cuda#memory-management"
+],
+"pt040": [
+"pytorch/2.14/data#loading-batched-and-non-batched-data",
+"pytorch/2.14/data#torch.utils.data.DataLoader",
+"pytorch/2.14/data#module-torch.utils.data",
+"pytorch/2.14/data#single-process-data-loading-default",
+"pytorch/2.14/data#single-and-multi-process-data-loading",
+"pytorch/2.14/data#platform-specific-behaviors"
+],
+"pt041": [
+"pytorch/2.14/notes/amp_examples#gradient-accumulation",
+"pytorch/2.14/data#working-with-collate-fn",
+"pytorch/2.14/notes/extending#python-argument-binding-and-dispatcher-overloads",
+"pytorch/2.14/notes/extending#extending-torch-native-api",
+"pytorch/2.14/autograd#module-torch.autograd"
+],
+"pt046": [
+"pytorch/2.14/notes/faq#my-recurrent-network-doesn-t-work-with-data-parallelism",
+"pytorch/2.14/notes/serialization#getting-unsafe-globals",
+"pytorch/2.14/generated/torch.nn.CrossEntropyLoss#torch.nn.CrossEntropyLoss",
+"pytorch/2.14/notes/modules#distributed-training",
+"pytorch/2.14/notes/ddp#example",
+"pytorch/2.14/data#working-with-collate-fn",
+"python/3.12/tutorial/modules#packages",
+"pytorch/2.14/notes/serialization#weights-only-security"
+],
+"pt047": [
+"pytorch/2.14/tensors#torch.Tensor.H",
+"pytorch/2.14/tensors#torch.Tensor.T",
+"pytorch/2.14/tensors#torch-tensor",
+"pytorch/2.14/tensor_attributes#tensor-attributes"
+],
+"pt053": [
+"pytorch/2.14/notes/cuda#partial-network-capture",
+"pytorch/2.14/notes/cuda#whole-network-capture",
+"pytorch/2.14/notes/cuda#constraints",
+"python/3.12/tutorial/datastructures#list-comprehensions",
+"pytorch/2.14/data#torch.utils.data.WeightedRandomSampler",
+"pytorch/2.14/data#torch.utils.data.Sampler",
+"python/3.12/faq/design#why-doesn-t-cpython-use-a-more-traditional-garbage-collection-scheme"
+],
+"py002": [
+"python/3.12/library/argparse#argparse.ArgumentParser.add_argument_group",
+"python/3.12/library/argparse#argparse.ArgumentParser.add_mutually_exclusive_group",
+"python/3.12/library/argparse#usage",
+"python/3.12/library/argparse#conflict-handler",
+"python/3.12/library/argparse#add-help",
+"fastapi/0.162.0/how-to/configure-swagger-ui#change-the-theme",
+"python/3.12/library/typing#newtype",
+"fastapi/0.162.0/how-to/configure-swagger-ui#disable-syntax-highlighting",
+"python/3.12/library/pathlib#pathlib.Path.group",
+"fastapi/0.162.0/advanced/security/http-basic-auth#http-basic-auth",
+"fastapi/0.162.0/advanced/security/oauth2-scopes#verify-the-username-and-data-shape"
+],
+"py004": [
+"python/3.12/reference/executionmodel#interaction-with-dynamic-features",
+"python/3.12/reference/simple_stmts#the-del-statement"
+],
+"py008": [
+"python/3.12/library/unittest.mock#calling",
+"python/3.12/library/unittest.mock#autospeccing",
+"python/3.12/library/stdtypes#str.split",
+"python/3.12/library/unittest.mock#mock-names-and-the-name-attribute",
+"python/3.12/library/unittest.mock#magic-mock",
+"python/3.12/library/typing#typing.TypeGuard",
+"python/3.12/faq/programming#how-do-i-convert-between-tuples-and-lists",
+"python/3.12/library/stdtypes#union-type",
+"python/3.12/library/stdtypes#generic-alias-type",
+"python/3.12/library/unittest.mock#unittest.mock.Mock",
+"python/3.12/library/unittest.mock#patch",
+"python/3.12/library/unittest.mock#attaching-mocks-as-attributes",
+"python/3.12/library/re#checking-for-a-pair"
+],
+"py009": [
+"python/3.12/library/stdtypes#int.from_bytes",
+"pytorch/2.14/tensor_attributes#torch-memory-format",
+"python/3.12/library/stdtypes#int.to_bytes",
+"python/3.12/howto/unicode#converting-between-file-encodings",
+"pytorch/2.14/generated/torch.load#torch.load"
+],
+"py011": [
+"python/3.12/library/asyncio-dev#detect-never-retrieved-exceptions",
+"python/3.12/library/unittest.mock#unittest.mock.AsyncMock.assert_awaited_once_with"
+],
+"py012": [
+"python/3.12/tutorial/errors#defining-clean-up-actions"
+],
+"py016": [
+"python/3.12/using/cmdline#interface-options",
+"python/3.12/library/exceptions#SyntaxError",
+"python/3.12/library/exceptions#ImportError",
+"python/3.12/tutorial/modules#the-module-search-path",
+"python/3.12/library/os.path#os.path.commonprefix",
+"python/3.12/tutorial/errors#handling-exceptions",
+"python/3.12/library/io#io.IncrementalNewlineDecoder",
+"python/3.12/library/exceptions#UnicodeTranslateError",
+"python/3.12/library/pathlib#pathlib.PurePath.parts",
+"fastapi/0.162.0/advanced/websockets#try-the-websockets-with-dependencies",
+"python/3.12/library/exceptions#ConnectionAbortedError",
+"python/3.12/library/exceptions#IsADirectoryError",
+"python/3.12/library/exceptions#NotADirectoryError",
+"python/3.12/library/pathlib#pathlib.PurePath.relative_to",
+"python/3.12/tutorial/modules#the-dir-function",
+"python/3.12/library/exceptions#BrokenPipeError",
+"python/3.12/library/pathlib#operators"
+],
+"py026": [
+"python/3.12/faq/library#i-can-t-seem-to-use-os-read-on-a-pipe-created-with-os-popen-why",
+"python/3.12/tutorial/inputoutput#methods-of-file-objects",
+"python/3.12/library/io#io.open"
+],
+"py032": [
+"python/3.12/library/stdtypes#str.isprintable",
+"python/3.12/faq/programming#how-do-i-get-a-list-of-all-instances-of-a-given-class",
+"fastapi/0.162.0/tutorial/background-tasks#background-tasks",
+"python/3.12/library/collections#collections.UserList",
+"python/3.12/faq/design#why-doesn-t-cpython-use-a-more-traditional-garbage-collection-scheme"
+],
+"py035": [
+"python/3.12/library/unittest.mock#any",
+"python/3.12/library/unittest.mock#unittest.mock.Mock.assert_called_with",
+"python/3.12/library/unittest#unittest.TestCase",
+"python/3.12/library/unittest.mock#unittest.mock.Mock.assert_has_calls",
+"python/3.12/library/unittest#unittest.TestCase.assertDictEqual",
+"python/3.12/library/unittest.mock#unittest.mock.DEFAULT",
+"python/3.12/library/unittest#unittest.TestCase.assertIsInstance",
+"python/3.12/library/unittest#unittest.TestCase.assertSetEqual"
+],
+"py045": [
+"fastapi/0.162.0/tutorial/body#request-body-path-query-parameters",
+"fastapi/0.162.0/tutorial/body-nested-models#declare-a-list-with-a-type-parameter",
+"fastapi/0.162.0/tutorial/query-params#optional-parameters",
+"fastapi/0.162.0/tutorial/response-model#response-model-return-type",
+"fastapi/0.162.0/tutorial/body#declare-it-as-a-parameter",
+"fastapi/0.162.0/tutorial/query-params#multiple-path-and-query-parameters"
+],
+"py053": [
+"python/3.12/reference/compound_stmts#except-clause",
+"python/3.12/library/traceback#examples-of-using-the-module-level-functions",
+"python/3.12/library/traceback#examples-of-using-tracebackexception",
+"python/3.12/tutorial/errors#handling-exceptions"
+],
+"py058": [
+"python/3.12/library/enum#enum.Enum._ignore_",
+"python/3.12/library/enum#enum.Enum._value_",
+"python/3.12/library/enum#enum.EnumCheck.CONTINUOUS",
+"python/3.12/library/enum#enum.Flag._numeric_repr_",
+"python/3.12/library/enum#enum.EnumCheck.UNIQUE",
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.named_children",
+"python/3.12/library/enum#enum.EnumType.__members__"
+]
+}

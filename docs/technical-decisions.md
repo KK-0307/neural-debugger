@@ -140,3 +140,26 @@ mode, framework router) are kept and reported rather than dropped.
 **macOS robustness.** Imports must not depend on the editable `.pth` alone (hidden-flag issue) and FAISS
 must not share a process with PyTorch on macOS; both are handled in code/config and documented in
 `docs/neural-retrieval.md`.
+
+
+## M4 - Custom transformer
+
+**Report the negative result.** The from-scratch encoder is trained only on documentation-derived pairs (and,
+in one variant, real *train* queries), with a leakage filter against every evaluation query. It loses to BM25
+and to pretrained hybrids; the project keeps it as a tested, documented component and a cheap hybrid signal,
+not as the retrieval backbone. Pretrained initialisation or distillation would likely help but would stop it
+being "from scratch".
+
+**Tiny over large.** Three sizes (0.58M / 1.5M / 5.3M) x 3 seeds: the smallest was best on dev, so it is the
+shipped model; the larger ones overfit ~20k synthetic pairs.
+
+**Synthetic pairs, same-section masking, in-batch negatives.** BM25 hard negatives were tried and were worse
+(likely false negatives from sibling chunks); the default is in-batch negatives with same-section masking.
+
+**Separate M4 config and judgment files.** `configs/neural.yaml` and `pooled_judgments_neural.yaml` are hashed
+by the M3 freeze, so M4 adds `configs/m4.yaml`, `pooled_judgments_m4.yaml` (dev) and
+`pooled_judgments_m4_test.yaml` (post-hoc test pool) and a new `m4` qrels variant; `make freeze-verify`
+checks M2, M3 and M4 manifests.
+
+**Shipped weights are seed 0**, fixed before evaluating the shipped files, to avoid picking the luckiest seed.
+Weights (2.3 MB each) are committed despite the `*.pt` ignore rule so a clone can run the evaluation.

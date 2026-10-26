@@ -32,6 +32,16 @@ class EmbeddingModelSpec(BaseModel):
     size_mb: float = 0
 
 
+class CustomModelSpec(BaseModel):
+    """A from-scratch transformer checkpoint produced by ``ml/training`` (see docs/ml-model.md)."""
+
+    model_dir: str
+    checkpoint: str = "best.pt"
+    max_query_len: int = 64
+    max_doc_len: int = 256
+    license: str = "MIT (this repository)"
+
+
 class RerankerSpec(BaseModel):
     hf_id: str
     revision: str | None = None
@@ -57,13 +67,31 @@ class SystemSpec(BaseModel):
 
 class NeuralConfig(BaseModel):
     embedding_dir: str = "data/embeddings"
-    embedding_models: dict[str, EmbeddingModelSpec]
+    embedding_models: dict[str, EmbeddingModelSpec] = Field(default_factory=dict)
+    custom_models: dict[str, CustomModelSpec] = Field(default_factory=dict)
     rerankers: dict[str, RerankerSpec] = Field(default_factory=dict)
     systems: dict[str, SystemSpec]
 
 
-def load_neural_config(path: str | Path = "configs/neural.yaml") -> NeuralConfig:
-    return NeuralConfig.model_validate(yaml.safe_load(Path(path).read_text(encoding="utf-8")))
+def load_neural_config(
+    path: str | Path = "configs/neural.yaml", *extra: str | Path
+) -> NeuralConfig:
+    """Load ``path`` and merge any ``extra`` files on top (later files add keys to each section).
+
+    ``configs/neural.yaml`` is hashed by the M3 freeze manifest, so later milestones add their models
+    and systems in separate files (``configs/m4.yaml``) instead of editing it.
+    """
+    merged: dict[str, Any] = {}
+    for f in (path, *extra):
+        for section, body in (yaml.safe_load(Path(f).read_text(encoding="utf-8")) or {}).items():
+            if isinstance(body, dict):
+                clash = set(merged.get(section, {})) & set(body)
+                if clash:
+                    raise ValueError(f"{f}: {section} redefines {sorted(clash)}")
+                merged.setdefault(section, {}).update(body)
+            else:
+                merged[section] = body
+    return NeuralConfig.model_validate(merged)
 
 
 @dataclass
@@ -101,6 +129,18 @@ class SystemFactory:
     def encoder(self, model: str) -> Encoder:
         if model in self._encoder_override:
             return self._encoder_override[model]
+        if model in self.config.custom_models:
+            from .custom_encoder import CustomEncoder
+
+            c = self.config.custom_models[model]
+            return CustomEncoder(
+                c.model_dir,
+                c.checkpoint,
+                c.max_query_len,
+                c.max_doc_len,
+                device="cpu" if self.device == "auto" else self.device,
+                name=model,
+            )
         spec = self.config.embedding_models[model]
         return SentenceTransformerEncoder(
             hf_id=spec.hf_id,

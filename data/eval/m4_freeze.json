@@ -1,0 +1,79 @@
+{
+ "custom_models": {
+  "custom-tiny": {
+   "max_doc_len": 256,
+   "max_query_len": 64,
+   "model_dir": "models/custom-tiny"
+  },
+  "custom-tiny-real": {
+   "max_doc_len": 256,
+   "max_query_len": 64,
+   "model_dir": "models/custom-tiny-real"
+  }
+ },
+ "depends_on": "neural-retrieval-v1 (data/eval/m3_freeze.json)",
+ "files": {
+  "configs/m4.yaml": "794180f1c1211aca4167ef505dd49d1c6eafda183f28664b756daf543c61f907",
+  "configs/train/tiny-real.yaml": "94c509b1974980b4524a547b412b5d6791d9c8cfddfd09547ad7aa456541f2b5",
+  "configs/train/tiny.yaml": "94b6444bbeec8b3946e44a033c7834c474ae17c9e93185c73af15532bd41b735",
+  "data/eval/pooled_judgments_m4.yaml": "3da181935f5f75ee8bd55aa42660f07abd6bf1573ca1ea8f2cc71617f5bd7150",
+  "data/eval/results/m4/dev_m4/bm25.json": "64c8bd5e76cc9ad64cfc9166d86358b278f9fd2f32c319a9f38e4b1b601c3b84",
+  "data/eval/results/m4/dev_m4/bm25.rankings.jsonl": "48eb94e87e6e679d395b07f1c949ea96109976cf9003ee0a8123f8abf81490e0",
+  "data/eval/results/m4/dev_m4/dense-custom-tiny-real.json": "1982b6cbb54c4637c75068d28c0dcb73c45b4e08ceea4fc9471b9e1d7ab9bc29",
+  "data/eval/results/m4/dev_m4/dense-custom-tiny-real.rankings.jsonl": "c4fa5dd22fb91709932ce2e34b8c7d76b81f0d3a733da23d534391165ff9bb2c",
+  "data/eval/results/m4/dev_m4/dense-custom-tiny.json": "ce983ca2873aabe1cbb5644a9561f73511135b3a4e0e8c5e3bba06203434158b",
+  "data/eval/results/m4/dev_m4/dense-custom-tiny.rankings.jsonl": "c28657156f785bad89b62045b86425f8164a84e1bda4ea683d5eab4dd863dbd5",
+  "data/eval/results/m4/dev_m4/hybrid-custom-tiny-real.json": "5ee2404cd81ca83667a7a70a28e00f0f9227d9488de6e1617b184b27817410c6",
+  "data/eval/results/m4/dev_m4/hybrid-custom-tiny-real.rankings.jsonl": "e33d5c81ec168a66a81d57bd651781b10f3938d17b7dedbb2c509f9c4b53135a",
+  "data/eval/results/m4/dev_m4/hybrid-custom-tiny.json": "939ebbe55540a5e2dde3b69b635739f9dfb2a6173edbab265a539117948c7a33",
+  "data/eval/results/m4/dev_m4/hybrid-custom-tiny.rankings.jsonl": "d8a51df5e5c39ccc4496eb9fefb466b084f22af1be34d7f264012c3abc6b106c",
+  "data/eval/results/m4/dev_m4/hybrid-gte-tuned.json": "05fba099339545a5c63756e9183d0580ea9405b6a03db25b1f06f17a8e157429",
+  "data/eval/results/m4/dev_m4/hybrid-gte-tuned.rankings.jsonl": "63e06343d221e01705499215c20f987c611350ef7eb2feaac353e9c319d135f8",
+  "models/custom-tiny-real/best.pt": "ffa9a6dee62f148331bc6af939a96b710b1f5e4c49693ff09f0d27c64bf81f3e",
+  "models/custom-tiny-real/config.json": "2cf9934dab33eaacd215f732f3b94e5843ede55da50a42399e0d822ad5a157c0",
+  "models/custom-tiny-real/summary.json": "689887f07a1e1f022ec7f876eddb2d8e7d3de975cfe57613bf072f592f539c3f",
+  "models/custom-tiny-real/tokenizer.json": "24a92a6273a26593bd9678d4ec3a06fd5922253109ebfcb7e011646e6f79ce2c",
+  "models/custom-tiny/best.pt": "3f1dbd952a50d998942f3b90341fdaab8473a482722ccb4bd19589809bd798b3",
+  "models/custom-tiny/config.json": "1def021f76cfc2c10ca18ef83be2eb3a2523ddf8debbcfab2e662260bfb1740c",
+  "models/custom-tiny/summary.json": "8b94e48317a1599de28f78967595d9e0ce8e7b03726beb5815951d6ffc72b4fc",
+  "models/custom-tiny/tokenizer.json": "24a92a6273a26593bd9678d4ec3a06fd5922253109ebfcb7e011646e6f79ce2c"
+ },
+ "freeze_id": "custom-transformer-v1",
+ "selection": "Architecture/size chosen on dev (train+val) NDCG@10 averaged over 3 seeds (tiny > main > base); negatives: in-batch (BM25 hard negatives were worse); shipped weights are seed 0 of each config, fixed before any evaluation of the shipped files. tiny-real (real train queries) is judged on val only: its train/dev numbers are in-sample.",
+ "test_systems": {
+  "bm25": "frozen in configs/neural.yaml",
+  "dense-custom-tiny": {
+   "kind": "dense",
+   "model": "custom-tiny"
+  },
+  "dense-custom-tiny-real": {
+   "kind": "dense",
+   "model": "custom-tiny-real"
+  },
+  "hybrid-custom-tiny": {
+   "components": [
+    "bm25",
+    "dense-custom-tiny"
+   ],
+   "kind": "hybrid",
+   "rrf_k": 60,
+   "weights": [
+    1.0,
+    1.0
+   ]
+  },
+  "hybrid-custom-tiny-real": {
+   "components": [
+    "bm25",
+    "dense-custom-tiny-real"
+   ],
+   "kind": "hybrid",
+   "rrf_k": 60,
+   "weights": [
+    1.0,
+    1.0
+   ]
+  },
+  "hybrid-gte-tuned": "frozen in configs/neural.yaml"
+ }
+}
