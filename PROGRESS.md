@@ -105,7 +105,7 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 | Check | Result |
 |---|---|
 | `uv run pytest` (full env, models cached) | **251 passed, 1 skipped** (M4: +37; M5: +97 collected, of which the live-LLM test is the 1 skip) |
-| CI-equivalent env (`--extra data --extra index`, no PyTorch) | ruff clean, strict mypy clean (93 src / 37 test files), **209 passed, 9 skipped** (model/PyTorch/live-LLM tests); GitHub Actions was green on M4 `aa1b0b2` (M5 push pending, see below) |
+| CI-equivalent env (`--extra data --extra index`, no PyTorch) | ruff clean, strict mypy clean (93 src / 37 test files), **209 passed, 9 skipped** (model/PyTorch/live-LLM tests); GitHub Actions python, frontend and docker jobs green on M5 `bd2cb61` |
 | `make freeze-verify` (M2 baseline + M3 + M4 + M5 evaluation) | intact |
 | Frontend `lint`, `typecheck`, `npm test` (8) | clean (frontend untouched in M5; `npm run build` left to CI) |
 | Core-only environment (the Docker backend image's dependency set) | app imports; `/api/v1/debug` answers 503 `retrieval_unavailable` instead of crashing |
