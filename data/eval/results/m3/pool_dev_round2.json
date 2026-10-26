@@ -1,0 +1,458 @@
+{
+"fa002": [
+"fastapi/0.162.0/tutorial/first-steps#check-it",
+"fastapi/0.162.0/tutorial/query-params-str-validations#query-parameter-list-multiple-values-with-defaults",
+"fastapi/0.162.0/advanced/wsgi#check-it"
+],
+"fa003": [
+"pytorch/2.14/notes/windows#multiprocessing-error-without-if-clause-protection",
+"pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory",
+"python/3.12/tutorial/errors#exception-chaining"
+],
+"fa004": [
+"python/3.12/library/threading#threading.Thread.name",
+"python/3.12/library/threading#threading.Barrier.wait",
+"python/3.12/library/asyncio-dev#concurrency-and-multithreading"
+],
+"fa005": [
+"python/3.12/library/json#json.JSONEncoder.default",
+"python/3.12/library/json#json.JSONEncoder",
+"fastapi/0.162.0/tutorial/body-nested-models#nested-models",
+"fastapi/0.162.0/advanced/response-directly#how-a-response-model-works",
+"python/3.12/library/datetime#examples-of-usage-datetime",
+"python/3.12/library/datetime#technical-detail",
+"python/3.12/library/datetime#datetime.datetime.isoformat",
+"python/3.12/library/datetime#datetime.datetime.utcfromtimestamp",
+"python/3.12/library/datetime#datetime-objects"
+],
+"fa006": [
+"python/3.12/reference/import#main-spec",
+"fastapi/0.162.0/tutorial/bigger-applications#the-main-fastapi"
+],
+"fa007": [
+"python/3.12/library/subprocess#replacing-bin-sh-shell-command-substitution",
+"python/3.12/tutorial/venv#managing-packages-with-pip",
+"fastapi/0.162.0/deployment/manually#use-the-fastapi-run-command"
+],
+"fa008": [
+"python/3.12/library/exceptions#RuntimeWarning",
+"python/3.12/library/unittest#unittest.TestCase.assertWarnsRegex",
+"python/3.12/library/asyncio-task#coroutines",
+"python/3.12/library/asyncio-dev#detect-never-retrieved-exceptions",
+"python/3.12/library/asyncio-task#asyncio.to_thread"
+],
+"fa009": [],
+"fa010": [
+"fastapi/0.162.0/tutorial/handling-errors#fastapis-httpexception-vs-starlettes-httpexception",
+"fastapi/0.162.0/tutorial/handling-errors#reuse-fastapis-exception-handlers",
+"fastapi/0.162.0/tutorial/handling-errors#install-custom-exception-handlers"
+],
+"fa011": [
+"python/3.12/tutorial/errors#exception-chaining",
+"python/3.12/library/exceptions#RuntimeError",
+"python/3.12/reference/simple_stmts#the-raise-statement",
+"python/3.12/library/exceptions#RecursionError",
+"python/3.12/library/exceptions#FileNotFoundError",
+"python/3.12/library/pathlib#pathlib.PurePath.with_stem"
+],
+"fa013": [],
+"fa014": [
+"python/3.12/library/asyncio-task#asyncio.Task.cancel",
+"python/3.12/library/asyncio-task#asyncio.wait",
+"python/3.12/library/asyncio-task#asyncio.wait_for",
+"python/3.12/library/asyncio-dev#detect-never-awaited-coroutines"
+],
+"fa016": [
+"python/3.12/library/exceptions#AssertionError"
+],
+"fa017": [
+"python/3.12/library/unittest#setupmodule-and-teardownmodule"
+],
+"fa018": [
+"fastapi/0.162.0/advanced/openapi-callbacks#add-the-callback-router",
+"fastapi/0.162.0/tutorial/body#request-body",
+"fastapi/0.162.0/advanced/openapi-callbacks#the-normal-fastapi-app"
+],
+"fa019": [],
+"fa020": [],
+"fa021": [
+"python/3.12/library/stdtypes#integer-string-conversion-length-limitation",
+"python/3.12/library/stdtypes#configuring-the-limit",
+"fastapi/0.162.0/tutorial/query-params-str-validations#add-regular-expressions"
+],
+"fa022": [],
+"fa024": [],
+"fa025": [
+"fastapi/0.162.0/advanced/response-change-status-code#use-a-response-parameter"
+],
+"fa026": [
+"fastapi/0.162.0/advanced/websockets#using-depends-and-others"
+],
+"fa027": [
+"pytorch/2.14/notes/cuda#using-custom-memory-allocators-for-cuda",
+"fastapi/0.162.0/tutorial/bigger-applications#include-the-apirouters-for-users-and-items",
+"fastapi/0.162.0/advanced/stream-data#simulate-a-file",
+"fastapi/0.162.0/tutorial/bigger-applications#include-an-apirouter-with-a-custom-prefix-tags-responses-and-dependencies",
+"fastapi/0.162.0/tutorial/bigger-applications#apirouter",
+"fastapi/0.162.0/tutorial/bigger-applications#path-operations-with-apirouter"
+],
+"fa028": [],
+"fa030": [
+"python/3.12/library/unittest#module-unittest"
+],
+"fa031": [
+"python/3.12/library/unittest#unittest.TestResult",
+"python/3.12/library/unittest#unittest.TestLoader.errors",
+"fastapi/0.162.0/tutorial/testing#extended-fastapi-app-file",
+"fastapi/0.162.0/tutorial/dependencies/classes-as-dependencies#classes-as-dependencies_1"
+],
+"fa032": [],
+"fa033": [],
+"fa034": [],
+"fa035": [],
+"fa036": [
+"python/3.12/library/multiprocessing#multiprocessing.connection.Connection.send",
+"python/3.12/library/multiprocessing#multiprocessing.connection.deliver_challenge"
+],
+"fa037": [
+"fastapi/0.162.0/tutorial/request-files#what-is-form-data",
+"fastapi/0.162.0/tutorial/security/simple-oauth2#return-the-token"
+],
+"fa038": [],
+"fa039": [
+"python/3.12/howto/unicode#tips-for-writing-unicode-aware-programs"
+],
+"fa040": [
+"python/3.12/library/pathlib#pathlib.PurePath.relative_to",
+"fastapi/0.162.0/how-to/custom-docs-ui-assets#include-the-custom-docs"
+],
+"fa041": [
+"fastapi/0.162.0/tutorial/response-model#fastapi-data-filtering"
+],
+"fa042": [],
+"fa043": [],
+"fa044": [
+"python/3.12/faq/programming#my-class-defines-del-but-it-is-not-called-when-i-delete-the-object"
+],
+"fa046": [
+"fastapi/0.162.0/tutorial/query-params#optional-parameters"
+],
+"fa047": [
+"fastapi/0.162.0/fastapi-cli#fastapi-run"
+],
+"fa048": [
+"fastapi/0.162.0/tutorial/sql-databases#update-a-hero-with-heroupdate"
+],
+"fa049": [
+"python/3.12/library/json#json.JSONEncoder",
+"python/3.12/library/json#module-json",
+"python/3.12/library/json#top-level-non-object-non-array-values",
+"python/3.12/library/json#json.JSONEncoder.default",
+"python/3.12/library/json#repeated-names-within-an-object"
+],
+"fa050": [
+"fastapi/0.162.0/tutorial/path-params#order-matters"
+],
+"fa051": [],
+"fa052": [],
+"fa053": [
+"python/3.12/library/multiprocessing#multiprocessing.managers.BaseManager.get_server",
+"fastapi/0.162.0/advanced/websockets#in-production",
+"fastapi/0.162.0/deployment/https#multiple-applications",
+"fastapi/0.162.0/deployment/concepts#deployments-concepts",
+"fastapi/0.162.0/how-to/custom-docs-ui-assets#custom-docs-ui-static-assets-self-hosting"
+],
+"fa055": [],
+"pt002": [
+"pytorch/2.14/notes/cuda#sharing-memory-across-captures"
+],
+"pt003": [
+"pytorch/2.14/notes/autograd#inference-mode"
+],
+"pt004": [
+"pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory"
+],
+"pt005": [
+"pytorch/2.14/notes/amp_examples#gradient-clipping"
+],
+"pt006": [
+"python/3.12/library/concurrent.futures#concurrent.futures.BrokenExecutor",
+"python/3.12/library/exceptions#RuntimeError",
+"python/3.12/reference/simple_stmts#the-raise-statement",
+"python/3.12/library/exceptions#RecursionError",
+"python/3.12/tutorial/errors#exception-chaining",
+"python/3.12/library/threading#threading.BrokenBarrierError"
+],
+"pt007": [
+"fastapi/0.162.0/tutorial/handling-errors#use-the-requestvalidationerror-body",
+"pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory",
+"pytorch/2.14/tensor_attributes#torch-device",
+"pytorch/2.14/data#torch.utils.data.datapipes.utils.common.validate_input_col"
+],
+"pt009": [
+"python/3.12/tutorial/errors#exception-chaining",
+"python/3.12/reference/simple_stmts#the-raise-statement",
+"python/3.12/library/exceptions#RuntimeError",
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.float"
+],
+"pt013": [
+"pytorch/2.14/notes/cuda#constraints",
+"pytorch/2.14/cuda#torch.cuda.use_mem_pool"
+],
+"pt014": [
+"python/3.12/library/pickle#pickle.UnpicklingError",
+"python/3.12/library/pickle#pickle.Unpickler.persistent_load",
+"python/3.12/library/pickle#restricting-globals"
+],
+"pt015": [
+"python/3.12/library/stdtypes#dict"
+],
+"pt016": [],
+"pt017": [],
+"pt018": [
+"python/3.12/reference/simple_stmts#the-raise-statement",
+"python/3.12/tutorial/errors#exception-chaining",
+"python/3.12/library/exceptions#RuntimeError",
+"python/3.12/library/exceptions#RecursionError",
+"pytorch/2.14/notes/autograd#inference-mode"
+],
+"pt019": [
+"python/3.12/library/exceptions#StopIteration",
+"python/3.12/library/exceptions#RuntimeError",
+"pytorch/2.14/notes/modules#module-hooks",
+"pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory"
+],
+"pt020": [
+"python/3.12/reference/datamodel#coroutine-objects",
+"python/3.12/tutorial/errors#exception-chaining",
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.load_state_dict"
+],
+"pt021": [
+"python/3.12/library/multiprocessing#multiprocessing.Queue.qsize"
+],
+"pt022": [
+"pytorch/2.14/data#multi-process-data-loading"
+],
+"pt023": [
+"python/3.12/library/threading#threading.stack_size",
+"pytorch/2.14/notes/broadcasting#backwards-compatibility"
+],
+"pt024": [
+"python/3.12/library/concurrent.futures#concurrent.futures.ProcessPoolExecutor",
+"python/3.12/library/multiprocessing#multiprocessing.set_forkserver_preload",
+"python/3.12/library/multiprocessing#the-spawn-and-forkserver-start-methods",
+"python/3.12/library/concurrent.futures#concurrent.futures.process.BrokenProcessPool"
+],
+"pt025": [
+"python/3.12/library/exceptions#ModuleNotFoundError",
+"python/3.12/library/pickle#examples",
+"python/3.12/reference/import#finders-and-loaders",
+"python/3.12/library/unittest#unittest.TestLoader.discover"
+],
+"pt026": [
+"python/3.12/library/multiprocessing#using-a-pool-of-workers",
+"python/3.12/faq/programming#my-class-defines-del-but-it-is-not-called-when-i-delete-the-object",
+"python/3.12/library/logging#logrecord-objects",
+"fastapi/0.162.0/tutorial/body-nested-models#declare-a-list-with-a-type-parameter",
+"pytorch/2.14/notes/randomness#cuda-convolution-determinism",
+"pytorch/2.14/notes/randomness#cuda-scaled-dot-product-attention",
+"pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory"
+],
+"pt027": [
+"python/3.12/library/re#module-re"
+],
+"pt028": [],
+"pt029": [],
+"pt030": [],
+"pt031": [
+"pytorch/2.14/autograd#locally-disabling-gradient-computation"
+],
+"pt032": [
+"pytorch/2.14/generated/torch.nn.CrossEntropyLoss#torch.nn.CrossEntropyLoss"
+],
+"pt034": [
+"pytorch/2.14/notes/extending#example"
+],
+"pt035": [
+"pytorch/2.14/notes/numerical_accuracy#extremal-values",
+"python/3.12/faq/programming#how-do-i-convert-a-string-to-a-number"
+],
+"pt037": [
+"python/3.12/tutorial/datastructures#more-on-lists",
+"python/3.12/tutorial/datastructures#looping-techniques"
+],
+"pt038": [],
+"pt039": [
+"pytorch/2.14/notes/extending#example",
+"pytorch/2.14/amp#torch.amp.custom_bwd"
+],
+"pt042": [
+"fastapi/0.162.0/deployment/https#recap"
+],
+"pt043": [],
+"pt044": [
+"python/3.12/library/asyncio-task#asyncio.sleep",
+"python/3.12/library/asyncio-task#asyncio.gather",
+"pytorch/2.14/notes/cuda#partial-network-capture"
+],
+"pt045": [],
+"pt048": [],
+"pt049": [
+"python/3.12/library/pathlib#pathlib.Path.write_text",
+"python/3.12/library/pathlib#pathlib.Path.read_bytes",
+"python/3.12/library/multiprocessing#customized-managers",
+"python/3.12/library/dataclasses#dataclasses.field"
+],
+"pt050": [],
+"pt051": [
+"pytorch/2.14/data#memory-pinning",
+"pytorch/2.14/amp#automatic-mixed-precision-package-torch-amp",
+"pytorch/2.14/notes/numerical_accuracy#tensorfloat-32-tf32-on-amd-instinct-mi300-devices"
+],
+"pt052": [],
+"pt054": [
+"pytorch/2.14/notes/randomness#cuda-scaled-dot-product-attention",
+"pytorch/2.14/amp#xpu-ops-that-can-autocast-to-float32",
+"pytorch/2.14/generated/torch.nn.MultiheadAttention#torch.nn.MultiheadAttention",
+"pytorch/2.14/amp#cuda-ops-that-can-autocast-to-float32"
+],
+"pt055": [
+"python/3.12/library/collections#deque-recipes"
+],
+"py001": [
+"pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.named_modules",
+"python/3.12/reference/simple_stmts#the-import-statement"
+],
+"py003": [
+"python/3.12/tutorial/errors#handling-exceptions"
+],
+"py005": [
+"python/3.12/library/stdtypes#comparisons"
+],
+"py006": [
+"python/3.12/library/typing#typing.LiteralString"
+],
+"py007": [
+"python/3.12/tutorial/datastructures#more-on-lists",
+"fastapi/0.162.0/tutorial/body-nested-models#declare-a-list-with-a-type-parameter",
+"python/3.12/library/typing#typing.TypeGuard",
+"python/3.12/library/stdtypes#memoryview"
+],
+"py010": [],
+"py013": [
+"python/3.12/library/stdtypes#bytes.join"
+],
+"py014": [],
+"py015": [
+"python/3.12/library/collections#ordereddict-objects"
+],
+"py017": [
+"python/3.12/reference/import#the-meta-path"
+],
+"py018": [],
+"py019": [
+"python/3.12/library/datetime#datetime.datetime.fromtimestamp"
+],
+"py020": [],
+"py021": [],
+"py022": [
+"python/3.12/library/subprocess#exceptions",
+"pytorch/2.14/notes/multiprocessing#poison-fork-in-multiprocessing"
+],
+"py023": [
+"pytorch/2.14/autograd#torch.autograd.graph.saved_tensors_hooks"
+],
+"py024": [
+"python/3.12/reference/datamodel#frame.clear",
+"python/3.12/library/exceptions#RecursionError"
+],
+"py025": [],
+"py027": [],
+"py028": [
+"fastapi/0.162.0/how-to/custom-request-and-route#accessing-the-request-body-in-an-exception-handler",
+"python/3.12/library/unittest.mock#the-mock-class"
+],
+"py029": [
+"python/3.12/tutorial/errors#exception-chaining",
+"python/3.12/tutorial/errors#handling-exceptions"
+],
+"py030": [
+"python/3.12/library/io#io.IOBase.close"
+],
+"py031": [
+"python/3.12/reference/datamodel#object.__lt__",
+"python/3.12/library/functions#hash"
+],
+"py033": [
+"fastapi/0.162.0/tutorial/index#install-fastapi",
+"fastapi/0.162.0/how-to/custom-docs-ui-assets#project-file-structure"
+],
+"py034": [
+"fastapi/0.162.0/tutorial/background-tasks#dependency-injection"
+],
+"py036": [],
+"py037": [],
+"py038": [
+"fastapi/0.162.0/tutorial/middleware#middleware"
+],
+"py039": [
+"fastapi/0.162.0/advanced/dataclasses#dataclasses-in-response-model",
+"python/3.12/library/collections#collections.UserList",
+"python/3.12/library/collections#defaultdict-examples"
+],
+"py040": [
+"pytorch/2.14/notes/windows#multiprocessing-error-without-if-clause-protection",
+"python/3.12/faq/library#how-do-i-test-a-python-program-or-component",
+"fastapi/0.162.0/deployment/docker#containers-and-processes"
+],
+"py041": [
+"fastapi/0.162.0/advanced/settings#creating-the-settings-only-once-with-lru-cache"
+],
+"py042": [],
+"py043": [
+"pytorch/2.14/cuda#graph-kernel-annotations-prototype",
+"pytorch/2.14/data#torch.utils.data.datapipes.utils.decoder.basichandlers"
+],
+"py044": [
+"python/3.12/library/pathlib#pathlib.Path.walk",
+"python/3.12/library/pathlib#pathlib.PurePath.joinpath",
+"python/3.12/library/os.path#os.path.relpath"
+],
+"py046": [
+"fastapi/0.162.0/deployment/concepts#replication-processes-and-memory"
+],
+"py047": [
+"python/3.12/faq/library#how-do-i-avoid-blocking-in-the-connect-method-of-a-socket"
+],
+"py048": [
+"python/3.12/library/re#re.Pattern.search"
+],
+"py049": [],
+"py050": [],
+"py051": [
+"python/3.12/library/exceptions#StopIteration"
+],
+"py052": [
+"python/3.12/library/exceptions#LookupError",
+"python/3.12/library/exceptions#ConnectionError"
+],
+"py054": [],
+"py055": [
+"python/3.12/library/stdtypes#float.hex"
+],
+"py056": [
+"fastapi/0.162.0/tutorial/bigger-applications#how-the-importing-works"
+],
+"py057": [
+"fastapi/0.162.0/tutorial/security/first-steps#run-it",
+"python/3.12/installing/index#install-scientific-python-packages",
+"fastapi/0.162.0/tutorial/bigger-applications#include-an-apirouter-with-a-custom-prefix-tags-responses-and-dependencies",
+"fastapi/0.162.0/tutorial/index#ai-agent-skills",
+"fastapi/0.162.0/tutorial/security/simple-oauth2#update-the-dependencies",
+"fastapi/0.162.0/tutorial/security/get-current-user#other-models"
+],
+"py059": [],
+"py060": [
+"python/3.12/library/exceptions#built-in-exceptions"
+]
+}

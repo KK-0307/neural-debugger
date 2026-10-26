@@ -1,0 +1,6 @@
+W1025 20:04:08.433000 29941 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 15244.21it/s]
+route-hard-99          authored      n=138 R@1 0.268 R@5 0.619 R@10 0.760 MRR 0.735 NDCG@10 0.664 unjudged@10 0.13
+route-hard-99          official_faq  n= 23 R@1 0.957 R@5 1.000 R@10 1.000 MRR 0.978 NDCG@10 0.984 unjudged@10 0.90
+build 7.85s  rss after build 530 MB  peak 665 MB  latency p50 9.11 ms p95 12.402 ms

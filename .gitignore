@@ -37,3 +37,7 @@ frontend/tsconfig.tsbuildinfo
 
 # Local assistant settings
 .claude/settings.local.json
+
+# Embeddings are regenerable; only the selected model's are committed (7.7 MB)
+data/embeddings/*
+!data/embeddings/gte-small/

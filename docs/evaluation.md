@@ -1,8 +1,9 @@
 # Evaluation: dataset, methodology and BM25 baseline (Milestone 2)
 
-Status: **only the BM25 baseline (plus a random floor) has been measured.** The pretrained-embedding
-baseline, the custom transformer and hybrid retrieval are Milestones 3-5; their rows do not exist
-yet and no claim about them is made anywhere.
+Status: this document covers the dataset, metrics and the **BM25 baseline (frozen in Milestone 2)**.
+Dense, hybrid and reranked retrieval (Milestone 3), the expanded relevance judgments, and the
+final test-split results for them are in [neural-retrieval.md](neural-retrieval.md). The custom-trained
+transformer is not built yet and no claim about it is made anywhere.
 
 Everything here is reproducible with:
 
@@ -49,8 +50,10 @@ What this does and does not establish:
   agreement exists. **The first thing to do before publishing numbers externally is human review**:
   `human_reviewed_queries` is 0 in `data/manifests/eval_dataset_manifest.json`.
 * Pooling used BM25 only. That inflates BM25 (its own top results were what got judged) and will
-  *under-count* later systems that retrieve relevant sections BM25 never surfaced. Milestone 4 must
-  re-pool with the neural systems before comparing them.
+  *under-count* later systems that retrieve relevant sections BM25 never surfaced. Milestone 3 re-pooled
+  with the neural systems (dev and, after freezing, test) and reports original, expanded and condensed
+  scores: see [neural-retrieval.md](neural-retrieval.md#3-method-and-why-the-numbers-can-be-trusted-within-limits). The tables
+  below are the original-judgment BM25 numbers and stay frozen.
 * Synthetic training queries (Milestone 4) will not be mixed into this set.
 
 ### Label review (agent second pass; not human verification)

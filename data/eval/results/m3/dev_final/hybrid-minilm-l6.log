@@ -1,0 +1,6 @@
+W1025 20:02:11.538000 29861 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 8257.92it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+hybrid-minilm-l6       authored      n=138 R@1 0.275 R@5 0.617 R@10 0.756 MRR 0.733 NDCG@10 0.656 unjudged@10 0.19
+hybrid-minilm-l6       official_faq  n= 23 R@1 0.957 R@5 1.000 R@10 1.000 MRR 0.978 NDCG@10 0.984 unjudged@10 0.90
+build 7.12s  rss after build 528 MB  peak 659 MB  latency p50 8.252 ms p95 9.427 ms

@@ -1,0 +1,7 @@
+W1025 20:10:02.323000 30532 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 23863.98it/s]
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 22984.68it/s]
+rerank-l12-n30-rrf     authored      n= 32 R@1 0.343 R@5 0.625 R@10 0.784 MRR 0.723 NDCG@10 0.666 unjudged@10 0.19
+rerank-l12-n30-rrf     official_faq  n= 10 R@1 1.000 R@5 1.000 R@10 1.000 MRR 1.000 NDCG@10 1.000 unjudged@10 0.90
+build 7.38s  rss after build 536 MB  peak 700 MB  latency p50 106.881 ms p95 122.985 ms

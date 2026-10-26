@@ -1,0 +1,6 @@
+W1025 20:08:37.067000 30427 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7777.94it/s]
+dense-gte-small        authored      n= 32 R@1 0.251 R@5 0.581 R@10 0.698 MRR 0.608 NDCG@10 0.580 unjudged@10 0.65
+dense-gte-small        official_faq  n= 10 R@1 1.000 R@5 1.000 R@10 1.000 MRR 1.000 NDCG@10 1.000 unjudged@10 0.90
+build 10.33s  rss after build 518 MB  peak 638 MB  latency p50 9.923 ms p95 11.42 ms

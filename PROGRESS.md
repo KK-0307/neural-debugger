@@ -1,109 +1,109 @@
 # Progress
 
-**Current milestone:** 2 - Documentation retrieval: **complete and verified, with caveats listed below.**
-Stopped for review before Milestone 3 (custom PyTorch transformer), as requested.
+**Current milestone:** 3 - Neural retrieval: **implemented, tested and evaluated; awaiting your review.**
+Not proceeding beyond Milestone 3 until then.
+
+> **Roadmap note.** Milestone 3 was redefined at your request from "custom PyTorch transformer" to
+> "neural retrieval" built on *pretrained* models. The custom-trained transformer / contrastive
+> training from the original brief is **not built** and is the natural next milestone: its results
+> will be compared against the baselines measured here.
 
 | # | Milestone | Status |
 |---|---|---|
-| 1 | Project foundation | Done (Docker builds and CI runs not yet verified, see Known issues) |
-| 2 | Documentation retrieval | **Done** (labels are LLM-authored and unreviewed by a human) |
-| 3 | Custom PyTorch transformer | Not started |
-| 4 | Training and evaluation | Not started |
-| 5 | RAG integration | Not started |
-| 6 | Full-stack application | Not started |
-| 7 | Performance and reliability | Not started |
-| 8 | Public beta and documentation | Not started |
+| 1 | Project foundation | Done (Docker builds and CI runs not yet verified) |
+| 2 | Documentation retrieval (corpus, labels, BM25) | Done, **frozen** (labels LLM-authored; agent second-pass review only) |
+| 3 | Neural retrieval (dense, hybrid, rerank, framework filter) | **Done**; results below, with caveats |
+| - | Custom transformer + contrastive training (original brief) | Not started |
+| - | RAG generation, debugging API/UI, performance, beta | Not started |
 
-## Baseline freeze and label review (before Milestone 3)
+## Step 1 - Milestone 2 finalised and committed
 
-- 102 judgments over 38 dev queries re-read by the same assistant (agent second pass, **not** independent, **not** human): 71 confirmed, 23 marginal, 6 uncertain, 2 weak; 6 queries flagged (`data/eval/label_review.yaml`). Labels were not edited. Test-split labels not reviewed.
-- `data/eval/baseline_freeze.json` + `make freeze-verify` + a test pin corpus, queries, splits, BM25 config and results.
-- Test split protected: scoring it needs `--final-test` and is logged (`protocol.py`, `test_access_log.jsonl`).
+- 38 dev queries / 102 judgments re-read by the same assistant (agent second pass; **not** independent,
+  **not** human): 71 confirmed, 23 marginal, 6 uncertain, 2 weak; 6 queries flagged
+  (`data/eval/label_review.yaml`). Labels not edited; test-split labels not reviewed.
+- BM25 configuration, splits, corpus and results frozen (`baseline_freeze.json`, `make freeze-verify`).
+- Test split guarded (`--final-test`) with an append-only access log; M2 BM25 test run recorded
+  retroactively.
+- Local commit `8f898a9` (not pushed).
 
-## Package-layout migration (requested before M2) - done
+## Step 2-3 - Milestone 3 deliverables
 
-Replaced the symlink layout with a conventional `src/neural_debugger/{backend,data,ml}` package
-(`hatchling`, editable install), tests in `tests/{backend,data,ml}`, Dockerfile in `docker/`.
-Verified: no symlinks remain in the repo; a built wheel installed in a clean venv serves `/health`
-from an unrelated directory (200 with PostgreSQL 16 up, 503 once it is stopped); the Dockerfile's
-two-step `uv sync` was replayed outside Docker; ruff, strict mypy, pytest and the frontend
-lint/typecheck/test/build all pass. Rationale: `docs/technical-decisions.md`.
+| Requested | Delivered | Where |
+|---|---|---|
+| Sentence-transformer dense retriever | `gte-small` (selected on dev from 3 candidates) | `ml/retrieval/{encoders,dense}.py` |
+| Batch embedding of all 4,995 chunks | 11 s on MPS; CPU fallback verified identical | `ml/retrieval/embed.py` |
+| Persistent embeddings + efficient index | versioned store (rebuild on any fingerprint change); exact index with per-framework sub-indexes; FAISS implemented but NumPy is used when FAISS is unsafe/slower (see findings) | `embedding_store.py`, `vector_index.py` |
+| Hybrid BM25 + dense with RRF | weighted RRF, tuned on dev | `fusion.py` |
+| Optional cross-encoder reranking | L6 and L12 MS-MARCO cross-encoders, replace / rrf modes | `reranker.py` |
+| Framework-aware filtering | explicit filter on every retriever + corpus-trained detector/router (rejected: no benefit) | `framework.py` |
+| Reproducible configs / versions / determinism | pinned HF revisions in `configs/neural.yaml`, embedding fingerprints, frozen M3 manifest, CPU bitwise deterministic | `systems.py`, `freeze.py` |
 
-`httpx` is kept. The Starlette `TestClient` warning was investigated and is documented in
-`docs/technical-decisions.md`; pytest now treats **all** warnings as errors except that one exact
-message/category/module.
+### Results (NDCG@10, authored queries; details, CIs and all metrics in `docs/neural-retrieval.md`)
 
-## Milestone 2 - Definition of Done
+| | dev n=138 (expanded judgments) | test n=32 original labels | test n=32 expanded labels |
+|---|---:|---:|---:|
+| BM25 | 0.552 | 0.597 | 0.569 |
+| Dense (gte-small) | 0.666 | 0.580 | 0.604 |
+| Hybrid (tuned RRF) | 0.680 | 0.601 | 0.626 |
+| Hybrid + cross-encoder (L12, rrf) | 0.685 | 0.653 | 0.666 |
 
-| Criterion | Result |
-|---|---|
-| Real documentation ingested | Yes: 207 pages (Python 3.12, PyTorch 2.14, FastAPI 0.162.0 @ `7a0a3f0b`), 4,154 sections, 4,995 chunks, 521k words; 97 requests, ~24 MB decompressed |
-| Documents searchable with BM25 | Yes: `make demo Q="..."`, 0.7 s index build, ~0.75 ms mean query |
-| Results carry valid source URLs + metadata | Yes: every chunk has doc id, title, URL+anchor, framework, version, heading path, content hash, ingestion time. **207/207 pages resolve and 4,154/4,154 anchors exist** on the published sites (`data/manifests/url_verification.json`) |
-| Labeled held-out evaluation set | Yes: 203 queries, train 122 / val 39 / test 42 (authored-only 103 / 35 / 32) |
-| Metrics calculated correctly | Hand-computed unit tests + cross-check against scikit-learn `ndcg_score` on 60 random cases + property tests |
-| Dataset leakage checks pass | Yes: no near-duplicate/identical query across splits, splits equal the deterministic rule, no empty split, all labels reference real sections |
-| M1 functionality intact | Yes (see migration section) |
-| Tests, lint, types pass | Yes (below) |
-| README / PROGRESS updated | Yes |
-| Actual baseline results recorded | Yes: `data/eval/results/*.json`, `docs/evaluation.md` |
+- **Dev:** dense/hybrid beat BM25 significantly (hybrid +0.128, 95% CI [+0.090, +0.169]; 79 queries
+  better, 23 worse). The cross-encoder adds nothing significant over the hybrid (+0.005, CI spans 0).
+- **Test (final, scored once per judgment set):** same direction, smaller gains; only hybrid+rerank vs
+  BM25 under expanded judgments excludes zero (+0.097, CI [+0.013, +0.190]).
+- **Verbatim FAQ queries** (query = indexed heading): saturated; every system ~1.0.
+- Cost (M4 Max): index build 0.8 s (BM25) / ~7 s incl. model load (hybrid); p50 query 0.8 ms (BM25),
+  10-11 ms (dense/hybrid), 106 ms (+reranker, MPS) / 460 ms (CPU); RSS 161 MB (BM25) vs ~520 MB (neural),
+  up to ~1.1 GB peak with reranker on CPU; embeddings 7.7 MB.
 
-### Measured BM25 results (test split, authored queries only, n=32; 95% bootstrap CI)
+### Incomplete judgments (handled explicitly)
 
-| | R@1 | R@5 | R@10 | MRR | NDCG@10 |
-|---|---:|---:|---:|---:|---:|
-| BM25 (default) | 0.329 [0.21, 0.45] | 0.567 [0.42, 0.71] | 0.692 [0.56, 0.82] | 0.666 [0.52, 0.80] | 0.597 [0.47, 0.72] |
-| random floor (seed 0) | 0.000 | 0.000 | 0.000 | 0.002 | 0.000 |
+Under the original BM25-pooled labels 46-65% of the neural systems' top-10 sections had never been
+judged. Two pool-expansion rounds on dev (1,094 candidates read, 77 relevant) and, after freezing, one on
+test (118 read, 10 relevant) were done by the assistant (not human-verified). Every table reports
+`unjudged@10`, original/expanded judgments, and condensed-list NDCG. Test pooling was done after the
+frozen systems' rankings existed (disclosed; original-label test results are unaffected by it).
 
-Including the official-FAQ slice (n=42): R@1 0.465, R@10 0.765, NDCG@10 0.684 - inflated, because
-those queries are the indexed headings. By framework (all splits, authored+FAQ): Python NDCG@10
-0.71, PyTorch 0.64, FastAPI 0.56. Full tables, slices, latency and failure analysis:
-[docs/evaluation.md](docs/evaluation.md). No other retriever (pretrained, custom, hybrid) has been
-measured; none is claimed.
+### Error analysis
 
-Notable finding: the code-aware tokenizer is **not shown** to beat plain word tokens
-(dev paired difference +0.005 NDCG@10, 95% CI [-0.027, +0.018]).
+`docs/neural-retrieval.md` section 7: tuned hybrid vs BM25 improved 79 / regressed 23 / tied 36 dev
+queries; improvements concentrate in vocabulary mismatch, natural-language paraphrase and
+cross-framework confusion; regressions are mostly exact-identifier cases where BM25 was lucky or
+precise (e.g. `LogBackward0`, `datetime.strftime`).
+
+### Findings that change how the system should be used
+
+- **FAISS + PyTorch abort on macOS** (duplicate `libomp`) and NumPy exact search is faster at this
+  scale, so the default backend is NumPy unless FAISS is safe; FAISS is implemented and tested.
+- **Framework routing did not help** (even a perfect framework filter adds <= +0.014): dense retrieval
+  already handles most cross-framework confusion; the user-selected framework filter is kept.
+- **The reranker is optional and off by default:** no significant gain, 10x latency, MS MARCO licence caveat.
+- macOS can hide `.venv` files and Python then skips the editable `.pth`; the repo no longer depends on it.
 
 ## Verification actually performed
 
-| Command | Result |
+| Check | Result |
 |---|---|
-| `uv run pytest` | **92 passed** (backend 12, data 47, ml 33) |
-| `uv run ruff check .` / `ruff format --check .` | clean (75 files) |
-| `uv run mypy -p neural_debugger` / `mypy tests` (strict) | no issues (44 / 21 files) |
-| `npm run lint`, `typecheck`, `npm test`, `npm run build` (frontend) | clean; 8 tests passed; production build ok |
-| `python -m neural_debugger.data.ingest build` (twice) | first run 97 requests; re-run 0 requests, byte-identical corpus |
-| `python -m neural_debugger.data.ingest verify-urls` | pages 207/207, anchors 4,154/4,154 |
-| `python -m neural_debugger.data.dataset build` | OK (integrity + leakage) |
-| `python -m neural_debugger.ml.evaluation.bm25_ablation` | dev only (train+val); test untouched |
-| `python -m neural_debugger.ml.evaluation.evaluate --retriever bm25 / --framework-filter / random` | results in `data/eval/results/` |
-| `python -m neural_debugger.ml.retrieval.demo` | real queries return ranked sections with URLs |
-| Built wheel in clean venv + real PostgreSQL 16 | `/health` 200, then 503 after stopping Postgres |
+| `uv run pytest` (full env, models cached) | **118 passed** (backend 12, data 47, ml 59) |
+| CI-equivalent env (`--extra data --extra index`, no PyTorch) | ruff clean, strict mypy clean (59 src / 25 test files), **114 passed, 4 skipped** (model-dependent tests) |
+| `make freeze-verify` (M2 baseline + M3 configuration) | intact |
+| Frontend `lint`, `typecheck`, `npm test` (8), `npm run build` | clean (re-run at the end of this milestone) |
+| Wheel build + clean-venv install + `/health` on real PostgreSQL 16 | 200 `ok`, then 503 after stopping Postgres; retrieval modules import from the wheel without PyTorch |
+| CPU vs MPS | identical ranking metrics; embeddings cosine >= 0.9999; CPU bitwise deterministic |
+| Test access log | 4 frozen systems x 2 judgment sets = 8 entries + 1 retroactive M2 entry |
 
-Bugs found and fixed by the new tests during M2: anchorless API definitions produced duplicate
-section/chunk ids (33 colliding chunks); code-block language detection and Markdown table cell
-formatting in the parsers; all-numeric tokens (`3.12`) were split; the pipeline now fails loudly on
-duplicate section ids.
+## Known issues / limitations
 
-## Known issues / not verified
+- **Labels are not human-verified**; pooling and expansion were done by the same assistant. Gains are
+  measured against these labels. Human review of a sample is the main outstanding quality step.
+- **Test set is small** (32 authored): most comparisons inconclusive. Dev numbers carry selection
+  optimism (best of 20 fusion settings, best of 4 rerank variants).
+- Docker is still not installed here (images unbuilt); CI has never run (no GitHub remote).
+- Larger models / fine-tuning / HyDE / real-user queries not evaluated.
+- No database schema or API wiring for retrieval yet (RAG milestone).
 
-- **Labels are not human-verified** (`human_reviewed_queries: 0`). 170 of 203 queries and all pooled
-  additions were written/judged by the assistant; only the 33 FAQ queries have independent
-  provenance (and are lexically trivial). Pooling used BM25 only, so BM25 is favoured and later
-  systems must be re-pooled before comparison. Test n is 32-42 (wide intervals).
-- **Docker is not installed on this machine**: `docker build` / `docker compose up` still have not
-  been run (their steps were replayed outside Docker). **CI has never run** (no GitHub remote).
-- Local PostgreSQL has no pgvector (deferred to M4 as instructed); no database schema exists yet
-  (deviation from the original M2 bullet; see technical-decisions).
-- Published pages change over time; the committed corpus + raw cache are the reproducibility anchor.
-- The corpus is small (46 PyTorch pages); real-user queries do not exist yet.
-- `next/font/google` needs network at build time.
-- Windows is untested.
+## Remaining work (needs your direction)
 
-## Remaining work
-
-Milestones 3-8. Next: **Milestone 3** - transformer encoder from scratch (embeddings, scaled
-dot-product + multi-head attention with explicit masks, layer norm, FFN, residuals, pooling,
-projection, L2 norm), dual encoder, InfoNCE loss, correctness tests (attention vs a reference
-implementation, masking, gradients, checkpointing, determinism). Before comparing neural systems
-fairly, plan: human review of a sample of labels and pooling with several systems.
+1. Human review of a label sample (and optionally Stack Overflow-derived labels, which need approval).
+2. The custom PyTorch transformer + contrastive training, to compare against these baselines.
+3. RAG generation with citation validation, API endpoints, UI.

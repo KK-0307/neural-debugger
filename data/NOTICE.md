@@ -12,3 +12,15 @@ their source URL, version and retrieval time. Each chunk links back to its origi
 The evaluation queries in `data/eval/` are original work of this project, except the `official_faq`
 slice whose query text is the FAQ question headings of the Python and PyTorch documentation.
 If you redistribute this corpus beyond research use, re-check each licence.
+
+# Pretrained models used for retrieval (downloaded at run time, not stored in this repository)
+
+| Model | Licence (per Hugging Face model card) | Notes |
+|---|---|---|
+| `thenlper/gte-small` | MIT | selected dense encoder |
+| `BAAI/bge-small-en-v1.5` | MIT | compared on dev |
+| `sentence-transformers/all-MiniLM-L6-v2` | Apache-2.0 | compared on dev |
+| `cross-encoder/ms-marco-MiniLM-L-12-v2`, `-L-6-v2` | Apache-2.0 | trained on MS MARCO, whose dataset terms are non-commercial research; unresolved for commercial deployment |
+
+`data/embeddings/gte-small/` contains vectors computed from the corpus above by `thenlper/gte-small`
+(revision recorded in its `meta.json`).

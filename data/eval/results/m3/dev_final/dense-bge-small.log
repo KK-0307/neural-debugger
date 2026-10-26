@@ -1,0 +1,5 @@
+W1025 20:01:50.521000 29833 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7185.68it/s]
+dense-bge-small        authored      n=138 R@1 0.274 R@5 0.635 R@10 0.723 MRR 0.748 NDCG@10 0.651 unjudged@10 0.24
+dense-bge-small        official_faq  n= 23 R@1 0.957 R@5 1.000 R@10 1.000 MRR 0.978 NDCG@10 0.984 unjudged@10 0.90
+build 6.71s  rss after build 519 MB  peak 643 MB  latency p50 10.734 ms p95 11.821 ms

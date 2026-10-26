@@ -1,0 +1,1587 @@
+# Relevance judgments from expanding the pool with neural/hybrid candidates (Milestone 3).
+# `reviewed` = every candidate read; `added` = judged relevant. Judged by the assistant; not human-verified.
+fa002:
+  added:
+  - fastapi/0.162.0/tutorial/cors#wildcards
+  reviewed:
+  - fastapi/0.162.0/advanced/wsgi#check-it
+  - fastapi/0.162.0/tutorial/cors#wildcards
+  - fastapi/0.162.0/tutorial/first-steps#check-it
+  - fastapi/0.162.0/tutorial/query-params-str-validations#query-parameter-list-multiple-values-with-defaults
+fa003:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/request-forms-and-files#import-file-and-form
+  - python/3.12/tutorial/errors#exception-chaining
+  - pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory
+  - pytorch/2.14/notes/windows#multiprocessing-error-broken-pipe
+  - pytorch/2.14/notes/windows#multiprocessing-error-without-if-clause-protection
+fa004:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/sql-databases#read-heroes-with-heropublic
+  - python/3.12/library/asyncio-dev#concurrency-and-multithreading
+  - python/3.12/library/threading#condition-objects
+  - python/3.12/library/threading#semaphore-example
+  - python/3.12/library/threading#thread-objects
+  - python/3.12/library/threading#threading.Barrier.wait
+  - python/3.12/library/threading#threading.Condition
+  - python/3.12/library/threading#threading.Thread.name
+  - python/3.12/library/threading#threading.Thread.start
+  - python/3.12/library/threading#using-locks-conditions-and-semaphores-in-the-with-statement
+  - python/3.12/tutorial/classes#private-variables
+  - python/3.12/tutorial/errors#exception-chaining
+fa005:
+  added:
+  - fastapi/0.162.0/advanced/response-directly#using-the-jsonable-encoder-in-a-response
+  reviewed:
+  - fastapi/0.162.0/advanced/json-base64-bytes#pydantic-bytes
+  - fastapi/0.162.0/advanced/json-base64-bytes#pydantic-bytes-for-output-data
+  - fastapi/0.162.0/advanced/response-directly#how-a-response-model-works
+  - fastapi/0.162.0/advanced/response-directly#using-the-jsonable-encoder-in-a-response
+  - fastapi/0.162.0/python-types#pydantic-models
+  - fastapi/0.162.0/tutorial/body#create-your-data-model
+  - fastapi/0.162.0/tutorial/body#import-pydantics-basemodel
+  - fastapi/0.162.0/tutorial/body-nested-models#nested-models
+  - fastapi/0.162.0/tutorial/request-form-models#pydantic-models-for-forms
+  - python/3.12/library/datetime#datetime-objects
+  - python/3.12/library/datetime#datetime.datetime.isoformat
+  - python/3.12/library/datetime#datetime.datetime.utcfromtimestamp
+  - python/3.12/library/datetime#examples-of-usage-datetime
+  - python/3.12/library/datetime#technical-detail
+  - python/3.12/library/json#json.JSONEncoder
+  - python/3.12/library/json#json.JSONEncoder.default
+  - python/3.12/library/json#json.dump
+fa006:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/deployment/manually#asgi-servers
+  - fastapi/0.162.0/tutorial/bigger-applications#how-relative-imports-work
+  - fastapi/0.162.0/tutorial/bigger-applications#the-main-fastapi
+  - python/3.12/library/exceptions#ImportError
+  - python/3.12/reference/import#loaders
+  - python/3.12/reference/import#loading
+  - python/3.12/reference/import#main-spec
+  - python/3.12/reference/import#special-considerations-for-main
+  - python/3.12/reference/simple_stmts#the-import-statement
+  - pytorch/2.14/notes/windows#import-error
+fa007:
+  added:
+  - fastapi/0.162.0/fastapi-cli#fastapi-cli
+  reviewed:
+  - fastapi/0.162.0/deployment/docker#build-the-docker-image
+  - fastapi/0.162.0/deployment/docker#create-the-fastapi-code
+  - fastapi/0.162.0/deployment/docker#dockerfile
+  - fastapi/0.162.0/deployment/docker#use-cmd-exec-form
+  - fastapi/0.162.0/deployment/fastapicloud#fastapi-cloud
+  - fastapi/0.162.0/deployment/manually#use-the-fastapi-run-command
+  - fastapi/0.162.0/fastapi-cli#fastapi-cli
+  - fastapi/0.162.0/fastapi-cli#fastapi-dev
+  - fastapi/0.162.0/how-to/conditional-openapi#conditional-openapi-from-settings-and-env-vars
+  - fastapi/0.162.0/tutorial/first-steps#first-steps
+  - fastapi/0.162.0/tutorial/first-steps#recap
+  - fastapi/0.162.0/tutorial/first-steps#step-1-import-fastapi
+  - python/3.12/library/subprocess#replacing-bin-sh-shell-command-substitution
+  - python/3.12/tutorial/venv#managing-packages-with-pip
+fa008:
+  added:
+  - python/3.12/library/asyncio-dev#detect-never-awaited-coroutines
+  reviewed:
+  - python/3.12/library/asyncio-dev#detect-never-awaited-coroutines
+  - python/3.12/library/asyncio-dev#detect-never-retrieved-exceptions
+  - python/3.12/library/asyncio-task#asyncio.Task
+  - python/3.12/library/asyncio-task#asyncio.Timeout.expired
+  - python/3.12/library/asyncio-task#asyncio.as_completed
+  - python/3.12/library/asyncio-task#asyncio.gather
+  - python/3.12/library/asyncio-task#asyncio.timeout
+  - python/3.12/library/asyncio-task#asyncio.to_thread
+  - python/3.12/library/asyncio-task#awaitables
+  - python/3.12/library/asyncio-task#coroutines
+  - python/3.12/library/exceptions#RuntimeWarning
+  - python/3.12/library/unittest#unittest.TestCase.assertWarnsRegex
+  - python/3.12/library/unittest.mock#unittest.mock.AsyncMock.assert_awaited
+  - python/3.12/reference/datamodel#coroutine-objects
+  - python/3.12/reference/datamodel#coroutine.close
+  - python/3.12/reference/datamodel#coroutine.send
+  - python/3.12/reference/datamodel#object.__anext__
+fa009:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/opentelemetry#trace-websocket-connections
+fa010:
+  added:
+  - fastapi/0.162.0/advanced/response-directly#return-a-response
+  reviewed:
+  - fastapi/0.162.0/advanced/response-directly#return-a-response
+  - fastapi/0.162.0/how-to/migrate-from-pydantic-v1-to-pydantic-v2#fastapi-support-for-pydantic-v1-in-v2
+  - fastapi/0.162.0/tutorial/handling-errors#fastapis-httpexception-vs-starlettes-httpexception
+  - fastapi/0.162.0/tutorial/handling-errors#install-custom-exception-handlers
+  - fastapi/0.162.0/tutorial/handling-errors#reuse-fastapis-exception-handlers
+  - fastapi/0.162.0/tutorial/response-model#response-model-parameter
+  - fastapi/0.162.0/tutorial/response-model#response-model-priority
+  - fastapi/0.162.0/tutorial/response-model#using-lists-instead-of-sets
+fa011:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#create-a-path-operation-to-test-static-files
+  - python/3.12/library/exceptions#FileNotFoundError
+  - python/3.12/library/exceptions#RecursionError
+  - python/3.12/library/exceptions#RuntimeError
+  - python/3.12/library/pathlib#pathlib.Path.expanduser
+  - python/3.12/library/pathlib#pathlib.Path.home
+  - python/3.12/library/pathlib#pathlib.Path.mkdir
+  - python/3.12/library/pathlib#pathlib.Path.resolve
+  - python/3.12/library/pathlib#pathlib.PurePath.with_name
+  - python/3.12/library/pathlib#pathlib.PurePath.with_stem
+  - python/3.12/reference/simple_stmts#the-raise-statement
+  - python/3.12/tutorial/errors#exception-chaining
+  - python/3.12/tutorial/modules#the-dir-function
+  - python/3.12/using/cmdline#envvar-PYTHONNOUSERSITE
+fa013:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/how-to/configure-swagger-ui#configure-swagger-ui
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#create-a-path-operation-to-test-it
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#custom-docs-ui-static-assets-self-hosting
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#disable-the-automatic-docs
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#serve-the-static-files
+  - fastapi/0.162.0/tutorial/first-steps#check-the-openapi-json
+  - fastapi/0.162.0/tutorial/first-steps#interactive-api-docs
+fa014:
+  added: []
+  reviewed:
+  - python/3.12/library/asyncio-dev#concurrency-and-multithreading
+  - python/3.12/library/asyncio-dev#detect-never-awaited-coroutines
+  - python/3.12/library/asyncio-dev#detect-never-retrieved-exceptions
+  - python/3.12/library/asyncio-task#asyncio.Task
+  - python/3.12/library/asyncio-task#asyncio.Task.add_done_callback
+  - python/3.12/library/asyncio-task#asyncio.Task.cancel
+  - python/3.12/library/asyncio-task#asyncio.gather
+  - python/3.12/library/asyncio-task#asyncio.run_coroutine_threadsafe
+  - python/3.12/library/asyncio-task#asyncio.wait
+  - python/3.12/library/asyncio-task#asyncio.wait_for
+  - python/3.12/library/asyncio-task#awaitables
+  - python/3.12/library/concurrent.futures#concurrent.futures.Future.set_result
+  - python/3.12/library/unittest#unittest.IsolatedAsyncioTestCase.run
+fa016:
+  added: []
+  reviewed:
+  - python/3.12/library/exceptions#AssertionError
+fa017:
+  added:
+  - fastapi/0.162.0/advanced/events#shutdown-event
+  - fastapi/0.162.0/advanced/events#startup-and-shutdown-together
+  reviewed:
+  - fastapi/0.162.0/advanced/events#shutdown-event
+  - fastapi/0.162.0/advanced/events#startup-and-shutdown-together
+  - fastapi/0.162.0/advanced/events#sub-applications
+  - fastapi/0.162.0/deployment/concepts#separate-program
+  - python/3.12/library/unittest#setupmodule-and-teardownmodule
+  - python/3.12/tutorial/errors#predefined-clean-up-actions
+fa018:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/custom-response#streamingresponse
+  - fastapi/0.162.0/advanced/openapi-callbacks#add-the-callback-router
+  - fastapi/0.162.0/advanced/openapi-callbacks#the-normal-fastapi-app
+  - fastapi/0.162.0/advanced/response-change-status-code#response-change-status-code
+  - fastapi/0.162.0/advanced/websockets#await-for-messages-and-send-messages
+  - fastapi/0.162.0/advanced/websockets#handling-disconnections-and-multiple-clients
+  - fastapi/0.162.0/tutorial/body#request-body
+  - fastapi/0.162.0/tutorial/middleware#before-and-after-the-response
+  - fastapi/0.162.0/tutorial/server-sent-events#resuming-with-last-event-id
+  - fastapi/0.162.0/tutorial/server-sent-events#technical-details
+fa019:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/query-params-str-validations#query-as-the-default-value-or-in-annotated
+fa020:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/handling-errors#the-resulting-response
+  - fastapi/0.162.0/tutorial/path-params#data-validation
+  - fastapi/0.162.0/tutorial/path-params-numeric-validations#declare-metadata
+  - fastapi/0.162.0/tutorial/path-params-numeric-validations#order-the-parameters-as-you-need
+  - fastapi/0.162.0/tutorial/path-params-numeric-validations#path-parameters-and-numeric-validations
+  - fastapi/0.162.0/tutorial/query-params-str-validations#additional-validation
+fa021:
+  added:
+  - fastapi/0.162.0/tutorial/query-params-str-validations#additional-validation
+  reviewed:
+  - fastapi/0.162.0/tutorial/query-params#defaults
+  - fastapi/0.162.0/tutorial/query-params#required-query-parameters
+  - fastapi/0.162.0/tutorial/query-params-str-validations#add-regular-expressions
+  - fastapi/0.162.0/tutorial/query-params-str-validations#additional-validation
+  - fastapi/0.162.0/tutorial/query-params-str-validations#required-parameters
+  - python/3.12/library/stdtypes#configuring-the-limit
+  - python/3.12/library/stdtypes#integer-string-conversion-length-limitation
+fa022:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/body-multiple-params#body-multiple-parameters
+  - fastapi/0.162.0/tutorial/query-param-models#forbid-extra-query-parameters
+  - fastapi/0.162.0/tutorial/query-param-models#query-parameter-models
+  - fastapi/0.162.0/tutorial/query-params#multiple-path-and-query-parameters
+  - fastapi/0.162.0/tutorial/query-params-str-validations#alternative-old-query-as-the-default-value
+fa024:
+  added:
+  - fastapi/0.162.0/advanced/response-headers#return-a-response-directly
+  reviewed:
+  - fastapi/0.162.0/advanced/custom-response#fileresponse
+  - fastapi/0.162.0/advanced/path-operation-advanced-configuration#additional-responses
+  - fastapi/0.162.0/advanced/response-headers#return-a-response-directly
+  - fastapi/0.162.0/tutorial/path-operation-configuration#response-description
+fa025:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/response-change-status-code#use-a-response-parameter
+  - fastapi/0.162.0/advanced/response-cookies#more-info
+  - fastapi/0.162.0/advanced/response-headers#use-a-response-parameter
+  - fastapi/0.162.0/tutorial/cookie-param-models#check-the-docs
+  - fastapi/0.162.0/tutorial/cookie-params#declare-cookie-parameters
+  - fastapi/0.162.0/tutorial/cookie-params#import-cookie
+  - fastapi/0.162.0/tutorial/cookie-params#recap
+fa026:
+  added:
+  - fastapi/0.162.0/tutorial/cookie-params#cookie-parameters
+  reviewed:
+  - fastapi/0.162.0/advanced/response-cookies#more-info
+  - fastapi/0.162.0/advanced/response-cookies#return-a-response-directly
+  - fastapi/0.162.0/advanced/response-cookies#use-a-response-parameter
+  - fastapi/0.162.0/advanced/websockets#using-depends-and-others
+  - fastapi/0.162.0/tutorial/cookie-params#cookie-parameters
+  - fastapi/0.162.0/tutorial/cookie-params#recap
+fa027:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/stream-data#files-and-async
+  - fastapi/0.162.0/advanced/stream-data#simulate-a-file
+  - fastapi/0.162.0/tutorial/bigger-applications#apirouter
+  - fastapi/0.162.0/tutorial/bigger-applications#include-an-apirouter-with-a-custom-prefix-tags-responses-and-dependencies
+  - fastapi/0.162.0/tutorial/bigger-applications#include-the-apirouters-for-users-and-items
+  - fastapi/0.162.0/tutorial/bigger-applications#path-operations-with-apirouter
+  - pytorch/2.14/notes/cuda#using-custom-memory-allocators-for-cuda
+fa028:
+  added:
+  - fastapi/0.162.0/tutorial/header-params#recap
+  reviewed:
+  - fastapi/0.162.0/advanced/behind-a-proxy#how-proxy-forwarded-headers-work
+  - fastapi/0.162.0/advanced/generate-clients#custom-generate-unique-id-function
+  - fastapi/0.162.0/advanced/generate-clients#fastapi-app-with-tags
+  - fastapi/0.162.0/advanced/openapi-webhooks#an-app-with-webhooks
+  - fastapi/0.162.0/advanced/using-request-directly#use-the-request-object-directly
+  - fastapi/0.162.0/advanced/using-request-directly#using-the-request-directly
+  - fastapi/0.162.0/tutorial/header-params#recap
+  - fastapi/0.162.0/tutorial/response-model#return-the-same-input-data
+  - fastapi/0.162.0/tutorial/security/get-current-user#code-size
+fa030:
+  added: []
+  reviewed:
+  - python/3.12/library/unittest#module-unittest
+fa031:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/advanced-dependencies#use-the-instance-as-a-dependency
+  - fastapi/0.162.0/tutorial/dependencies/classes-as-dependencies#classes-as-dependencies_1
+  - fastapi/0.162.0/tutorial/testing#extended-fastapi-app-file
+  - python/3.12/library/unittest#load-tests-protocol
+  - python/3.12/library/unittest#re-using-old-test-code
+  - python/3.12/library/unittest#unittest.TestLoader.errors
+  - python/3.12/library/unittest#unittest.TestLoader.loadTestsFromModule
+  - python/3.12/library/unittest#unittest.TestResult
+  - python/3.12/library/unittest#unittest.main
+  - pytorch/2.14/optim#torch.optim.swap_in_optimizer_params_and_state
+fa032:
+  added:
+  - fastapi/0.162.0/deployment/docker#build-a-docker-image-with-a-single-file-fastapi
+  reviewed:
+  - fastapi/0.162.0/deployment/docker#build-a-docker-image-with-a-single-file-fastapi
+  - fastapi/0.162.0/deployment/docker#create-the-fastapi-code
+  - fastapi/0.162.0/deployment/docker#deploy-the-container-image
+  - fastapi/0.162.0/deployment/docker#directory-structure
+  - fastapi/0.162.0/deployment/docker#start-the-docker-container
+  - fastapi/0.162.0/deployment/docker#what-is-a-container
+fa033:
+  added:
+  - fastapi/0.162.0/deployment/server-workers#recap
+  reviewed:
+  - fastapi/0.162.0/deployment/server-workers#recap
+  - python/3.12/library/concurrent.futures#concurrent.futures.ProcessPoolExecutor
+  - python/3.12/library/multiprocessing#multiprocessing.pool.Pool
+  - python/3.12/library/multiprocessing#using-a-pool-of-workers
+  - pytorch/2.14/data#multi-process-data-loading
+  - pytorch/2.14/notes/multiprocessing#cpu-in-multiprocessing
+fa034:
+  added:
+  - fastapi/0.162.0/advanced/settings#run-the-server
+  reviewed:
+  - fastapi/0.162.0/advanced/settings#run-the-server
+  - fastapi/0.162.0/environment-variables#learn-more
+fa035:
+  added:
+  - fastapi/0.162.0/how-to/custom-request-and-route#custom-apiroute-class-in-a-router
+  reviewed:
+  - fastapi/0.162.0/how-to/custom-request-and-route#custom-apiroute-class-in-a-router
+  - fastapi/0.162.0/how-to/custom-request-and-route#custom-request-and-apiroute-class
+fa036:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/custom-response#htmlresponse
+  - fastapi/0.162.0/advanced/custom-response#plaintextresponse
+  - fastapi/0.162.0/advanced/stream-data#a-custom-pngstreamingresponse
+  - fastapi/0.162.0/advanced/stream-data#files-and-async
+  - fastapi/0.162.0/advanced/stream-data#simulate-a-file
+  - fastapi/0.162.0/advanced/stream-data#yield-from
+  - fastapi/0.162.0/tutorial/stream-json-lines#stream-json-lines
+  - python/3.12/library/json#json.JSONEncoder.iterencode
+  - python/3.12/library/multiprocessing#multiprocessing.connection.Connection.send
+  - python/3.12/library/multiprocessing#multiprocessing.connection.Connection.send_bytes
+  - python/3.12/library/multiprocessing#multiprocessing.connection.deliver_challenge
+fa037:
+  added:
+  - fastapi/0.162.0/advanced/custom-response#custom-response-html-stream-file-others
+  - fastapi/0.162.0/advanced/custom-response#return-an-htmlresponse-directly
+  reviewed:
+  - fastapi/0.162.0/advanced/custom-response#custom-response-html-stream-file-others
+  - fastapi/0.162.0/advanced/custom-response#return-a-response
+  - fastapi/0.162.0/advanced/custom-response#return-an-htmlresponse-directly
+  - fastapi/0.162.0/advanced/response-directly#returning-a-custom-response
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#include-the-custom-docs
+  - fastapi/0.162.0/tutorial/request-files#what-is-form-data
+  - fastapi/0.162.0/tutorial/response-model#return-a-response-directly
+  - fastapi/0.162.0/tutorial/security/simple-oauth2#return-the-token
+fa038:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#custom-docs-ui-static-assets-self-hosting
+  - fastapi/0.162.0/tutorial/first-steps#interactive-api-docs
+  - fastapi/0.162.0/tutorial/schema-extra-example#openapi-specific-examples
+  - fastapi/0.162.0/tutorial/schema-extra-example#swagger-ui-and-openapi-specific-examples
+fa039:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/generate-clients#preprocess-the-openapi-specification-for-the-client-generator
+  - fastapi/0.162.0/advanced/openapi-callbacks#write-the-callback-documentation-code
+  - fastapi/0.162.0/advanced/path-operation-advanced-configuration#openapi-extra
+  - fastapi/0.162.0/how-to/conditional-openapi#about-security-apis-and-docs
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#disable-the-automatic-docs
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#disable-the-automatic-docs-for-static-files
+  - fastapi/0.162.0/how-to/general#documentation-deprecate-a-path-operation-openapi
+  - fastapi/0.162.0/tutorial/metadata#docs-urls
+  - fastapi/0.162.0/tutorial/metadata#openapi-url
+  - python/3.12/howto/unicode#tips-for-writing-unicode-aware-programs
+  - python/3.12/library/subprocess#subprocess.STARTUPINFO.wShowWindow
+  - python/3.12/library/subprocess#subprocess.SW_HIDE
+  - python/3.12/tutorial/controlflow#documentation-strings
+fa040:
+  added:
+  - fastapi/0.162.0/how-to/general#documentation-deprecate-a-path-operation-openapi
+  reviewed:
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#include-the-custom-docs
+  - fastapi/0.162.0/how-to/general#documentation-deprecate-a-path-operation-openapi
+  - python/3.12/library/exceptions#DeprecationWarning
+  - python/3.12/library/exceptions#FutureWarning
+  - python/3.12/library/exceptions#PendingDeprecationWarning
+  - python/3.12/library/pathlib#pathlib.PurePath.relative_to
+  - python/3.12/library/typing#aliases-to-other-concrete-types
+  - python/3.12/library/typing#deprecated-aliases
+  - python/3.12/library/typing#deprecation-timeline-of-major-features
+  - python/3.12/library/typing#typing.ValuesView
+fa041:
+  added:
+  - fastapi/0.162.0/tutorial/response-model#data-with-the-same-values-as-the-defaults
+  reviewed:
+  - fastapi/0.162.0/tutorial/response-model#data-with-the-same-values-as-the-defaults
+  - fastapi/0.162.0/tutorial/response-model#disable-response-model
+  - fastapi/0.162.0/tutorial/response-model#fastapi-data-filtering
+  - fastapi/0.162.0/tutorial/response-model#other-return-type-annotations
+  - fastapi/0.162.0/tutorial/response-model#recap
+  - fastapi/0.162.0/tutorial/response-model#response-model-include-and-response-model-exclude
+  - fastapi/0.162.0/tutorial/response-model#response-model-priority
+fa042:
+  added:
+  - fastapi/0.162.0/tutorial/security/oauth2-jwt#about-jwt
+  reviewed:
+  - fastapi/0.162.0/tutorial/security/oauth2-jwt#about-jwt
+  - fastapi/0.162.0/tutorial/security/oauth2-jwt#check-it
+fa043:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/security/http-basic-auth#a-professional-attack
+  - fastapi/0.162.0/advanced/security/http-basic-auth#fix-it-with-secrets-compare-digest
+  - fastapi/0.162.0/tutorial/security/first-steps#security-first-steps
+  - fastapi/0.162.0/tutorial/security/simple-oauth2#simple-oauth2-with-password-and-bearer
+fa044:
+  added:
+  - fastapi/0.162.0/async#concurrency-and-async-await
+  - fastapi/0.162.0/async#other-utility-functions
+  reviewed:
+  - fastapi/0.162.0/advanced/async-tests#httpx
+  - fastapi/0.162.0/async#async-and-await
+  - fastapi/0.162.0/async#concurrency-and-async-await
+  - fastapi/0.162.0/async#more-technical-details
+  - fastapi/0.162.0/async#other-utility-functions
+  - fastapi/0.162.0/async#sub-dependencies
+  - fastapi/0.162.0/async#very-technical-details
+  - python/3.12/faq/programming#my-class-defines-del-but-it-is-not-called-when-i-delete-the-object
+fa046:
+  added:
+  - fastapi/0.162.0/tutorial/query-param-models#query-parameter-models
+  reviewed:
+  - fastapi/0.162.0/tutorial/body-multiple-params#body-multiple-parameters
+  - fastapi/0.162.0/tutorial/query-param-models#query-parameter-models
+  - fastapi/0.162.0/tutorial/query-params#defaults
+  - fastapi/0.162.0/tutorial/query-params#multiple-path-and-query-parameters
+  - fastapi/0.162.0/tutorial/query-params#optional-parameters
+  - fastapi/0.162.0/tutorial/query-params#query-parameters
+  - fastapi/0.162.0/tutorial/query-params-str-validations#alternative-old-query-as-the-default-value
+  - fastapi/0.162.0/tutorial/query-params-str-validations#deprecating-parameters
+  - fastapi/0.162.0/tutorial/query-params-str-validations#query-parameter-list-multiple-values
+fa047:
+  added:
+  - fastapi/0.162.0/tutorial/metadata#docs-urls
+  reviewed:
+  - fastapi/0.162.0/fastapi-cli#fastapi-run
+  - fastapi/0.162.0/how-to/conditional-openapi#about-security-apis-and-docs
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#disable-the-automatic-docs
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#disable-the-automatic-docs-for-static-files
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#self-hosting-javascript-and-css-for-docs
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#test-static-files-ui
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#test-the-static-files
+  - fastapi/0.162.0/tutorial/metadata#docs-urls
+  - python/3.12/library/unittest#unittest.TestResult.stop
+  - python/3.12/using/cmdline#cmdoption-S
+  - python/3.12/using/cmdline#cmdoption-X
+  - python/3.12/using/cmdline#cmdoption-i
+  - python/3.12/using/cmdline#cmdoption-q
+  - python/3.12/using/cmdline#envvar-PYTHONSTARTUP
+fa048:
+  added:
+  - fastapi/0.162.0/tutorial/sql-databases#update-a-hero-with-heroupdate
+  reviewed:
+  - fastapi/0.162.0/tutorial/body-fields#declare-model-attributes
+  - fastapi/0.162.0/tutorial/sql-databases#update-a-hero-with-heroupdate
+  - python/3.12/library/stdtypes#dict.update
+fa049:
+  added:
+  - fastapi/0.162.0/tutorial/body-nested-models#body-nested-models
+  - fastapi/0.162.0/tutorial/body-nested-models#list-fields
+  reviewed:
+  - fastapi/0.162.0/tutorial/body-nested-models#body-nested-models
+  - fastapi/0.162.0/tutorial/body-nested-models#declare-a-list-with-a-type-parameter
+  - fastapi/0.162.0/tutorial/body-nested-models#list-fields
+  - fastapi/0.162.0/tutorial/stream-json-lines#json-lines
+  - python/3.12/library/json#json.JSONEncoder
+  - python/3.12/library/json#json.JSONEncoder.default
+  - python/3.12/library/json#module-json
+  - python/3.12/library/json#repeated-names-within-an-object
+  - python/3.12/library/json#top-level-non-object-non-array-values
+fa050:
+  added:
+  - fastapi/0.162.0/tutorial/path-params#working-with-python-enumerations
+  reviewed:
+  - fastapi/0.162.0/tutorial/path-operation-configuration#path-operation-configuration
+  - fastapi/0.162.0/tutorial/path-params#order-matters
+  - fastapi/0.162.0/tutorial/path-params#working-with-python-enumerations
+  - fastapi/0.162.0/tutorial/path-params-numeric-validations#declare-metadata
+  - fastapi/0.162.0/tutorial/path-params-numeric-validations#order-the-parameters-as-you-need
+  - fastapi/0.162.0/tutorial/path-params-numeric-validations#order-the-parameters-as-you-need-tricks
+  - fastapi/0.162.0/tutorial/path-params-numeric-validations#path-parameters-and-numeric-validations
+  - python/3.12/library/os.path#os.path.ALLOW_MISSING
+fa051:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/websockets#websockets
+fa052:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/sub-applications#check-the-automatic-api-docs
+  - fastapi/0.162.0/advanced/sub-applications#mounting-a-fastapi-application
+  - fastapi/0.162.0/advanced/sub-applications#technical-details-root-path
+  - fastapi/0.162.0/tutorial/bigger-applications#configure-the-entrypoint-in-pyproject-toml
+fa053:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/behind-a-proxy#additional-servers
+  - fastapi/0.162.0/advanced/generate-clients#hey-api
+  - fastapi/0.162.0/advanced/websockets#in-production
+  - fastapi/0.162.0/deployment/concepts#deployments-concepts
+  - fastapi/0.162.0/deployment/concepts#in-a-remote-server
+  - fastapi/0.162.0/deployment/https#multiple-applications
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#custom-docs-ui-static-assets-self-hosting
+  - python/3.12/library/multiprocessing#multiprocessing.managers.BaseManager.get_server
+fa055:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/frontend#custom-404-page
+pt002:
+  added: []
+  reviewed:
+  - pytorch/2.14/cuda#torch.cuda.use_mem_pool
+  - pytorch/2.14/data#multi-process-data-loading
+  - pytorch/2.14/notes/cuda#mixing-different-cuda-system-allocators-in-the-same-program
+  - pytorch/2.14/notes/cuda#sharing-memory-across-captures
+  - pytorch/2.14/notes/windows#cuda-ipc-operations
+pt003:
+  added:
+  - pytorch/2.14/autograd#autograd-graph
+  - pytorch/2.14/generated/torch.no_grad#torch.no_grad
+  reviewed:
+  - pytorch/2.14/autograd#autograd-graph
+  - pytorch/2.14/autograd#torch.autograd.graph.register_multi_grad_hook
+  - pytorch/2.14/autograd#variable-deprecated
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.zero_grad
+  - pytorch/2.14/generated/torch.no_grad#torch.no_grad
+  - pytorch/2.14/generated/torch.optim.Optimizer.zero_grad#torch.optim.Optimizer.zero_grad
+  - pytorch/2.14/notes/autograd#inference-mode
+  - pytorch/2.14/notes/extending#how-to-use
+  - pytorch/2.14/notes/modules#module-hooks
+  - pytorch/2.14/notes/modules#modules-as-building-blocks
+  - pytorch/2.14/tensor_attributes#torch-device
+  - pytorch/2.14/tensors#initializing-and-basic-operations
+  - pytorch/2.14/tensors#tensor-class-reference
+pt004:
+  added: []
+  reviewed:
+  - pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory
+  - pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory
+  - pytorch/2.14/tensor_attributes#torch-device
+pt005:
+  added:
+  - pytorch/2.14/autograd#in-place-correctness-checks
+  reviewed:
+  - pytorch/2.14/autograd#in-place-correctness-checks
+  - pytorch/2.14/autograd#torch.autograd.graph.region_activation_memory_budget
+  - pytorch/2.14/autograd#variable-deprecated
+  - pytorch/2.14/generated/torch.nn.Linear#torch.nn.Linear
+  - pytorch/2.14/generated/torch.no_grad#torch.no_grad
+  - pytorch/2.14/notes/amp_examples#gradient-clipping
+  - pytorch/2.14/notes/autograd#division-by-zero-in-autograd
+  - pytorch/2.14/notes/extending#extending-torch-with-a-tensor-like-type
+  - pytorch/2.14/optim#optimizer-step-closure
+  - pytorch/2.14/tensor_attributes#torch-device
+  - pytorch/2.14/tensors#initializing-and-basic-operations
+pt006:
+  added: []
+  reviewed:
+  - python/3.12/howto/argparse#combining-positional-and-optional-arguments
+  - python/3.12/library/concurrent.futures#concurrent.futures.BrokenExecutor
+  - python/3.12/library/exceptions#RecursionError
+  - python/3.12/library/exceptions#RuntimeError
+  - python/3.12/library/functions#complex
+  - python/3.12/library/threading#threading.BrokenBarrierError
+  - python/3.12/reference/datamodel#object.__round__
+  - python/3.12/reference/simple_stmts#the-raise-statement
+  - python/3.12/tutorial/errors#exception-chaining
+  - pytorch/2.14/generated/torch.Tensor.view#torch.Tensor.view
+  - pytorch/2.14/generated/torch.stack#torch.stack
+  - pytorch/2.14/notes/broadcasting#general-semantics
+  - pytorch/2.14/notes/broadcasting#in-place-semantics
+  - pytorch/2.14/notes/extending#example
+  - pytorch/2.14/notes/faq#my-recurrent-network-doesn-t-work-with-data-parallelism
+  - pytorch/2.14/notes/numerical_accuracy#non-finite-values
+  - pytorch/2.14/tensor_attributes#torch-dtype
+pt007:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/handling-errors#use-the-requestvalidationerror-body
+  - fastapi/0.162.0/tutorial/path-params-numeric-validations#number-validations-floats-greater-than-and-less-than
+  - python/3.12/library/enum#enum.FlagBoundary.STRICT
+  - python/3.12/library/exceptions#RecursionError
+  - python/3.12/library/stdtypes#configuring-the-limit
+  - python/3.12/library/stdtypes#integer-string-conversion-length-limitation
+  - python/3.12/library/stdtypes#memoryview
+  - python/3.12/library/stdtypes#memoryview.cast
+  - python/3.12/library/stdtypes#recommended-configuration
+  - python/3.12/library/threading#threading.stack_size
+  - python/3.12/reference/datamodel#object.__len__
+  - python/3.12/reference/simple_stmts#the-raise-statement
+  - python/3.12/tutorial/modules#the-dir-function
+  - python/3.12/using/cmdline#envvar-PYTHONINTMAXSTRDIGITS
+  - pytorch/2.14/data#torch.utils.data.datapipes.utils.common.validate_input_col
+  - pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory
+  - pytorch/2.14/notes/faq#my-recurrent-network-doesn-t-work-with-data-parallelism
+  - pytorch/2.14/tensor_attributes#torch-device
+pt009:
+  added: []
+  reviewed:
+  - python/3.12/library/exceptions#FloatingPointError
+  - python/3.12/library/exceptions#RecursionError
+  - python/3.12/library/exceptions#RuntimeError
+  - python/3.12/library/functions#float
+  - python/3.12/library/stdtypes#additional-methods-on-float
+  - python/3.12/library/stdtypes#common-sequence-operations
+  - python/3.12/library/stdtypes#float.as_integer_ratio
+  - python/3.12/library/typing#type-aliases
+  - python/3.12/library/typing#typing-support-for-type-hints
+  - python/3.12/library/typing#typing.SupportsFloat
+  - python/3.12/reference/datamodel#numbers-real-float
+  - python/3.12/reference/datamodel#object.__complex__
+  - python/3.12/reference/datamodel#object.__index__
+  - python/3.12/reference/simple_stmts#the-raise-statement
+  - python/3.12/tutorial/errors#exception-chaining
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.double
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.float
+pt013:
+  added: []
+  reviewed:
+  - pytorch/2.14/cuda#module-torch.cuda
+  - pytorch/2.14/cuda#torch.cuda.nccl.is_available
+  - pytorch/2.14/cuda#torch.cuda.use_mem_pool
+  - pytorch/2.14/notes/cuda#constraints
+  - pytorch/2.14/notes/windows#cuda-ipc-operations
+pt014:
+  added: []
+  reviewed:
+  - python/3.12/library/pickle#pickle.Unpickler.persistent_load
+  - python/3.12/library/pickle#pickle.UnpicklingError
+  - python/3.12/library/pickle#restricting-globals
+pt015:
+  added: []
+  reviewed:
+  - python/3.12/library/stdtypes#dict
+  - pytorch/2.14/generated/torch.optim.Adam#torch.optim.Adam.load_state_dict
+pt016:
+  added:
+  - python/3.12/library/multiprocessing#contexts-and-start-methods
+  - python/3.12/library/multiprocessing#multiprocessing.set_start_method
+  reviewed:
+  - python/3.12/library/multiprocessing#all-start-methods
+  - python/3.12/library/multiprocessing#contexts-and-start-methods
+  - python/3.12/library/multiprocessing#multiprocessing.get_start_method
+  - python/3.12/library/multiprocessing#multiprocessing.set_executable
+  - python/3.12/library/multiprocessing#multiprocessing.set_forkserver_preload
+  - python/3.12/library/multiprocessing#multiprocessing.set_start_method
+  - python/3.12/library/multiprocessing#the-spawn-and-forkserver-start-methods
+  - pytorch/2.14/notes/cuda#use-nn-parallel-distributeddataparallel-instead-of-multiprocessing-or-nn-dataparallel
+pt017:
+  added: []
+  reviewed:
+  - pytorch/2.14/cuda#module-torch.cuda
+  - pytorch/2.14/generated/torch.Tensor.view#torch.Tensor.view
+  - pytorch/2.14/generated/torch.load#torch.load
+  - pytorch/2.14/notes/cuda#cuda-semantics
+  - pytorch/2.14/notes/cuda#mixing-different-cuda-system-allocators-in-the-same-program
+  - pytorch/2.14/notes/cuda#tensorfloat-32-tf32-on-ampere-and-later-devices
+  - pytorch/2.14/notes/extending#extending-torch-with-a-tensor-like-type
+  - pytorch/2.14/notes/serialization#weights-only-allowlist
+  - pytorch/2.14/notes/windows#cuda-ipc-operations
+pt018:
+  added: []
+  reviewed:
+  - python/3.12/library/exceptions#RecursionError
+  - python/3.12/library/exceptions#RuntimeError
+  - python/3.12/reference/simple_stmts#the-raise-statement
+  - python/3.12/tutorial/errors#exception-chaining
+  - pytorch/2.14/amp#torch.cpu.amp.GradScaler
+  - pytorch/2.14/autograd#default-gradient-layouts
+  - pytorch/2.14/autograd#module-torch.autograd.gradcheck
+  - pytorch/2.14/autograd#torch.autograd.graph.region_activation_memory_budget
+  - pytorch/2.14/autograd#variable-deprecated
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.zero_grad
+  - pytorch/2.14/generated/torch.no_grad#torch.no_grad
+  - pytorch/2.14/notes/amp_examples#gradient-penalty
+  - pytorch/2.14/notes/autograd#concurrency-on-cpu
+  - pytorch/2.14/notes/autograd#grad-modes
+  - pytorch/2.14/notes/autograd#inference-mode
+  - pytorch/2.14/notes/autograd#locally-disabling-gradient-computation
+  - pytorch/2.14/notes/autograd#setting-requires-grad
+  - pytorch/2.14/notes/extending#combined-or-separate-forward-and-setup-context
+  - pytorch/2.14/notes/extending#example
+  - pytorch/2.14/notes/modules#module-hooks
+  - pytorch/2.14/notes/modules#modules-as-building-blocks
+pt019:
+  added:
+  - pytorch/2.14/notes/autograd#division-by-zero-in-autograd
+  reviewed:
+  - python/3.12/howto/logging#changing-the-format-of-displayed-messages
+  - python/3.12/library/exceptions#RuntimeError
+  - python/3.12/library/exceptions#StopIteration
+  - python/3.12/library/json#infinite-and-nan-number-values
+  - python/3.12/library/logging#logging.Formatter
+  - python/3.12/library/logging#logging.LogRecord
+  - python/3.12/library/logging#logging.Logger.debug
+  - python/3.12/library/logging#logging.basicConfig
+  - python/3.12/library/logging#logging.getLevelName
+  - python/3.12/library/logging#logging.setLogRecordFactory
+  - python/3.12/library/logging#logrecord-attributes
+  - python/3.12/library/traceback#examples-of-using-tracebackexception
+  - python/3.12/reference/simple_stmts#the-raise-statement
+  - pytorch/2.14/autograd#torch.autograd.profiler.emit_nvtx
+  - pytorch/2.14/notes/autograd#division-by-zero-in-autograd
+  - pytorch/2.14/notes/extending#forward-mode-ad
+  - pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory
+  - pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory
+  - pytorch/2.14/notes/modules#module-hooks
+  - pytorch/2.14/notes/modules#module-state
+pt020:
+  added: []
+  reviewed:
+  - python/3.12/faq/library#none-of-my-threads-seem-to-run-why
+  - python/3.12/library/asyncio-task#asyncio.gather
+  - python/3.12/library/exceptions#RecursionError
+  - python/3.12/library/exceptions#StopIteration
+  - python/3.12/reference/datamodel#coroutine-objects
+  - python/3.12/reference/simple_stmts#the-raise-statement
+  - python/3.12/tutorial/errors#exception-chaining
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.load_state_dict
+  - pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory
+  - pytorch/2.14/notes/modules#module-hooks
+  - pytorch/2.14/notes/modules#module-state
+  - pytorch/2.14/notes/modules#neural-network-training-with-modules
+  - pytorch/2.14/optim#optimizer-step-closure
+pt021:
+  added: []
+  reviewed:
+  - python/3.12/library/exceptions#NotImplementedError
+  - python/3.12/library/exceptions#TypeError
+  - python/3.12/library/multiprocessing#module-multiprocessing
+  - python/3.12/library/multiprocessing#multiprocessing.Queue.qsize
+  - python/3.12/reference/datamodel#notimplemented
+  - pytorch/2.14/notes/numerical_accuracy#non-finite-values
+  - pytorch/2.14/notes/windows#cuda-ipc-operations
+  - pytorch/2.14/notes/windows#multiprocessing-error-driver-shut-down
+pt022:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/stream-data#yield-from
+  - python/3.12/faq/library#why-don-t-my-signal-handlers-work
+  - python/3.12/library/exceptions#RecursionError
+  - python/3.12/library/threading#threading.BrokenBarrierError
+  - python/3.12/tutorial/errors#raising-and-handling-multiple-unrelated-exceptions
+  - pytorch/2.14/data#multi-process-data-loading
+  - pytorch/2.14/data#torch.utils.data.WeightedRandomSampler
+  - pytorch/2.14/data#torch.utils.data.dataset.random_split
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.apply
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.modules
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.to
+pt023:
+  added: []
+  reviewed:
+  - python/3.12/library/threading#threading.stack_size
+  - pytorch/2.14/data#torch.utils.data.TensorDataset
+  - pytorch/2.14/generated/torch.cat#torch.cat
+  - pytorch/2.14/generated/torch.nn.Embedding#torch.nn.Embedding
+  - pytorch/2.14/notes/broadcasting#backwards-compatibility
+  - pytorch/2.14/notes/modules#modules-as-building-blocks
+  - pytorch/2.14/tensor_attributes#torch-dtype
+  - pytorch/2.14/tensors#initializing-and-basic-operations
+pt024:
+  added:
+  - python/3.12/library/multiprocessing#the-spawn-and-forkserver-start-methods
+  reviewed:
+  - python/3.12/library/concurrent.futures#concurrent.futures.ProcessPoolExecutor
+  - python/3.12/library/concurrent.futures#concurrent.futures.process.BrokenProcessPool
+  - python/3.12/library/multiprocessing#multiprocessing.set_forkserver_preload
+  - python/3.12/library/multiprocessing#the-spawn-and-forkserver-start-methods
+  - pytorch/2.14/notes/faq#my-data-loader-workers-return-identical-random-numbers
+  - pytorch/2.14/notes/windows#cuda-ipc-operations
+  - pytorch/2.14/notes/windows#multiprocessing-error-broken-pipe
+pt025:
+  added: []
+  reviewed:
+  - python/3.12/faq/library#where-is-the-math-py-socket-py-regex-py-etc-source-file
+  - python/3.12/installing/index#install-pip-in-versions-of-python-prior-to-python-3-4
+  - python/3.12/library/exceptions#ImportError
+  - python/3.12/library/exceptions#ModuleNotFoundError
+  - python/3.12/library/pickle#examples
+  - python/3.12/library/unittest#unittest.TestLoader.discover
+  - python/3.12/reference/import#finders-and-loaders
+  - python/3.12/reference/import#loaders
+  - python/3.12/reference/import#loading
+  - python/3.12/reference/import#path-entry-finder-protocol
+  - python/3.12/reference/import#path-entry-finders
+  - python/3.12/reference/import#the-import-system
+  - python/3.12/reference/simple_stmts#the-import-statement
+  - python/3.12/tutorial/modules#the-dir-function
+pt026:
+  added:
+  - pytorch/2.14/data#randomness-in-multi-process-data-loading
+  - pytorch/2.14/notes/randomness#cuda-convolution-benchmarking
+  - pytorch/2.14/notes/randomness#cuda-convolution-determinism
+  - pytorch/2.14/notes/randomness#cuda-scaled-dot-product-attention
+  - pytorch/2.14/notes/randomness#dataloader
+  - pytorch/2.14/notes/randomness#python
+  reviewed:
+  - fastapi/0.162.0/tutorial/body-nested-models#declare-a-list-with-a-type-parameter
+  - python/3.12/faq/programming#my-class-defines-del-but-it-is-not-called-when-i-delete-the-object
+  - python/3.12/library/logging#logrecord-objects
+  - python/3.12/library/multiprocessing#using-a-pool-of-workers
+  - pytorch/2.14/data#randomness-in-multi-process-data-loading
+  - pytorch/2.14/data#torch.utils.data.distributed.DistributedSampler
+  - pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory
+  - pytorch/2.14/notes/modules#distributed-training
+  - pytorch/2.14/notes/multiprocessing#hogwild
+  - pytorch/2.14/notes/randomness#cuda-convolution-benchmarking
+  - pytorch/2.14/notes/randomness#cuda-convolution-determinism
+  - pytorch/2.14/notes/randomness#cuda-scaled-dot-product-attention
+  - pytorch/2.14/notes/randomness#dataloader
+  - pytorch/2.14/notes/randomness#python
+  - pytorch/2.14/optim#weight-averaging-swa-and-ema
+pt027:
+  added:
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.requires_grad_
+  reviewed:
+  - python/3.12/library/multiprocessing#multiprocessing.freeze_support
+  - python/3.12/library/re#module-re
+  - python/3.12/library/typing#typing.FrozenSet
+  - pytorch/2.14/amp#cpu-ops-that-can-autocast-to-bfloat16
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.requires_grad_
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.zero_grad
+  - pytorch/2.14/generated/torch.optim.Optimizer.zero_grad#torch.optim.Optimizer.zero_grad
+  - pytorch/2.14/notes/amp_examples#gradient-clipping
+  - pytorch/2.14/notes/autograd#locally-disabling-gradient-computation
+  - pytorch/2.14/notes/autograd#no-grad-mode
+  - pytorch/2.14/notes/randomness#filling-uninitialized-memory
+  - pytorch/2.14/optim#how-to-adjust-learning-rate
+  - pytorch/2.14/optim#how-to-utilize-named-parameters-to-load-optimizer-state-dict
+pt028:
+  added: []
+  reviewed:
+  - pytorch/2.14/notes/amp_examples#gradient-accumulation
+  - pytorch/2.14/notes/amp_examples#gradient-penalty
+  - pytorch/2.14/notes/amp_examples#working-with-multiple-gpus
+  - pytorch/2.14/notes/amp_examples#working-with-multiple-models-losses-and-optimizers
+  - pytorch/2.14/notes/cuda#reduced-precision-reduction-in-fp16-gemms
+  - pytorch/2.14/notes/numerical_accuracy#reduced-precision-reduction-for-fp16-and-bf16-gemms
+pt029:
+  added: []
+  reviewed:
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.zero_grad
+  - pytorch/2.14/notes/autograd#division-by-zero-in-autograd
+  - pytorch/2.14/notes/autograd#locally-disabling-gradient-computation
+pt030:
+  added:
+  - pytorch/2.14/notes/serialization#saving-and-loading-tensors
+  reviewed:
+  - fastapi/0.162.0/deployment/concepts#bigger-errors-crashes
+  - fastapi/0.162.0/deployment/concepts#restart-after-crash
+  - fastapi/0.162.0/deployment/concepts#restarts
+  - fastapi/0.162.0/tutorial/background-tasks#recap
+  - pytorch/2.14/notes/autograd#registering-default-hooks-for-saved-tensors
+  - pytorch/2.14/notes/extending#how-to-use
+  - pytorch/2.14/notes/serialization#saving-and-loading-tensors
+  - pytorch/2.14/notes/serialization#torch.serialization.get_unsafe_globals_in_checkpoint
+pt031:
+  added:
+  - pytorch/2.14/notes/autograd#no-grad-mode
+  reviewed:
+  - pytorch/2.14/autograd#locally-disabling-gradient-computation
+  - pytorch/2.14/autograd#tensor-autograd-functions
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.zero_grad
+  - pytorch/2.14/notes/autograd#no-grad-mode
+  - pytorch/2.14/optim#optimizer-step-closure
+pt032:
+  added: []
+  reviewed:
+  - pytorch/2.14/generated/torch.nn.CrossEntropyLoss#torch.nn.CrossEntropyLoss
+  - pytorch/2.14/notes/cuda#optimizing-memory-usage-with-pytorch-alloc-conf
+  - pytorch/2.14/notes/faq#my-recurrent-network-doesn-t-work-with-data-parallelism
+  - pytorch/2.14/notes/numerical_accuracy#batched-computations-or-slice-computations
+pt034:
+  added: []
+  reviewed:
+  - pytorch/2.14/autograd#locally-disabling-gradient-computation
+  - pytorch/2.14/autograd#manual-gradient-layouts
+  - pytorch/2.14/autograd#module-torch.autograd
+  - pytorch/2.14/notes/autograd#no-grad-mode
+  - pytorch/2.14/notes/extending#example
+pt035:
+  added: []
+  reviewed:
+  - python/3.12/faq/programming#how-do-i-convert-a-string-to-a-number
+  - pytorch/2.14/generated/torch.Tensor.to#torch.Tensor.to
+  - pytorch/2.14/generated/torch.cat#torch.cat
+  - pytorch/2.14/notes/numerical_accuracy#extremal-values
+  - pytorch/2.14/tensor_attributes#torch-device
+  - pytorch/2.14/tensors#initializing-and-basic-operations
+pt037:
+  added: []
+  reviewed:
+  - python/3.12/tutorial/datastructures#looping-techniques
+  - python/3.12/tutorial/datastructures#more-on-lists
+  - pytorch/2.14/cuda#memory-management
+  - pytorch/2.14/cuda#random-number-generator
+  - pytorch/2.14/notes/cuda#cuda-semantics
+  - pytorch/2.14/notes/cuda#device-agnostic-code
+  - pytorch/2.14/notes/cuda#usage-with-torch-cuda-amp
+  - pytorch/2.14/notes/modules#distributed-training
+  - pytorch/2.14/notes/numerical_accuracy#reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices
+  - pytorch/2.14/notes/numerical_accuracy#tensorfloat-32-tf32-on-amd-instinct-mi300-devices
+  - pytorch/2.14/tensor_attributes#torch-device
+pt038:
+  added:
+  - pytorch/2.14/notes/modules#distributed-training
+  reviewed:
+  - pytorch/2.14/data#torch.utils.data.distributed.DistributedSampler
+  - pytorch/2.14/notes/ddp#internal-design
+  - pytorch/2.14/notes/modules#distributed-training
+pt039:
+  added:
+  - pytorch/2.14/notes/extending#example
+  - pytorch/2.14/notes/extending#how-to-use
+  reviewed:
+  - python/3.12/library/functions#reversed
+  - pytorch/2.14/amp#torch.amp.custom_bwd
+  - pytorch/2.14/autograd#torch.autograd.profiler.emit_nvtx
+  - pytorch/2.14/notes/extending#example
+  - pytorch/2.14/notes/extending#how-to-use
+  - pytorch/2.14/notes/modules#module-hooks
+pt042:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/deployment/https#recap
+  - pytorch/2.14/data#torch.utils.data.TensorDataset
+  - pytorch/2.14/generated/torch.Tensor.reshape#torch.Tensor.reshape
+  - pytorch/2.14/generated/torch.Tensor.view#torch.Tensor.view
+  - pytorch/2.14/generated/torch.cat#torch.cat
+  - pytorch/2.14/tensor_attributes#torch-layout
+  - pytorch/2.14/tensors#initializing-and-basic-operations
+  - pytorch/2.14/tensors#tensor-class-reference
+  - pytorch/2.14/tensors#torch-tensor
+  - pytorch/2.14/tensors#torch.Tensor
+pt043:
+  added: []
+  reviewed:
+  - pytorch/2.14/autograd#torch.autograd.graph.disable_saved_tensors_hooks
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.zero_grad
+  - pytorch/2.14/notes/amp_examples#gradient-accumulation
+  - pytorch/2.14/notes/numerical_accuracy#reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices
+  - pytorch/2.14/optim#taking-care-of-batch-normalization
+pt044:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/path-params#compare-enumeration-members
+  - fastapi/0.162.0/tutorial/path-params#declare-a-path-parameter
+  - fastapi/0.162.0/tutorial/query-params#multiple-path-and-query-parameters
+  - python/3.12/faq/library#how-do-i-parcel-out-work-among-a-bunch-of-worker-threads
+  - python/3.12/library/asyncio-dev#logging
+  - python/3.12/library/asyncio-task#asyncio.all_tasks
+  - python/3.12/library/asyncio-task#asyncio.gather
+  - python/3.12/library/asyncio-task#asyncio.sleep
+  - python/3.12/tutorial/classes#iterators
+  - python/3.12/tutorial/datastructures#looping-techniques
+  - pytorch/2.14/generated/torch.optim.Adam#torch.optim.Adam.add_param_group
+  - pytorch/2.14/generated/torch.optim.Adam#torch.optim.Adam.step
+  - pytorch/2.14/notes/cuda#partial-network-capture
+  - pytorch/2.14/notes/cuda#whole-network-capture
+  - pytorch/2.14/notes/ddp#distributeddataparallel
+pt045:
+  added: []
+  reviewed:
+  - python/3.12/library/subprocess#subprocess.run
+  - pytorch/2.14/autograd#torch.autograd.graph.saved_tensors_hooks
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.forward
+  - pytorch/2.14/notes/autograd#registering-default-hooks-for-saved-tensors
+  - pytorch/2.14/notes/autograd#special-hooks
+  - pytorch/2.14/notes/cuda#whole-network-capture
+  - pytorch/2.14/notes/extending#example
+pt048:
+  added: []
+  reviewed:
+  - pytorch/2.14/amp#gradient-scaling
+  - pytorch/2.14/generated/torch.nn.CrossEntropyLoss#torch.nn.CrossEntropyLoss
+  - pytorch/2.14/notes/amp_examples#gradient-accumulation
+  - pytorch/2.14/notes/autograd#division-by-zero-in-autograd
+  - pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory
+  - pytorch/2.14/notes/modules#neural-network-training-with-modules
+  - pytorch/2.14/optim#putting-it-all-together-ema
+pt049:
+  added:
+  - pytorch/2.14/data#torch.utils.data.Dataset
+  reviewed:
+  - fastapi/0.162.0/advanced/dataclasses#dataclasses-in-nested-data-structures
+  - fastapi/0.162.0/advanced/dataclasses#learn-more
+  - python/3.12/library/dataclasses#dataclasses.asdict
+  - python/3.12/library/dataclasses#dataclasses.dataclass
+  - python/3.12/library/dataclasses#dataclasses.field
+  - python/3.12/library/dataclasses#dataclasses.make_dataclass
+  - python/3.12/library/multiprocessing#customized-managers
+  - python/3.12/library/pathlib#pathlib.Path.read_bytes
+  - python/3.12/library/pathlib#pathlib.Path.write_bytes
+  - python/3.12/library/pathlib#pathlib.Path.write_text
+  - python/3.12/tutorial/classes#odds-and-ends
+  - pytorch/2.14/data#torch.utils.data.Dataset
+pt050:
+  added: []
+  reviewed:
+  - pytorch/2.14/notes/autograd#non-determinism
+pt051:
+  added: []
+  reviewed:
+  - pytorch/2.14/amp#automatic-mixed-precision-package-torch-amp
+  - pytorch/2.14/amp#cuda-ops-that-can-autocast-to-float16
+  - pytorch/2.14/data#memory-pinning
+  - pytorch/2.14/notes/cuda#reduced-precision-reduction-in-fp16-gemms
+  - pytorch/2.14/notes/numerical_accuracy#batched-computations-or-slice-computations
+  - pytorch/2.14/notes/numerical_accuracy#numerical-accuracy
+  - pytorch/2.14/notes/numerical_accuracy#reduced-precision-reduction-for-fp16-and-bf16-gemms
+  - pytorch/2.14/notes/numerical_accuracy#tensorfloat-32-tf32-on-amd-instinct-mi300-devices
+pt052:
+  added: []
+  reviewed:
+  - pytorch/2.14/data#torch.utils.data.default_collate
+  - pytorch/2.14/generated/torch.Tensor.view#torch.Tensor.view
+  - pytorch/2.14/generated/torch.nn.Embedding#torch.nn.Embedding
+  - pytorch/2.14/tensors#tensor-class-reference
+  - pytorch/2.14/tensors#torch.Tensor.T
+pt054:
+  added: []
+  reviewed:
+  - pytorch/2.14/amp#cuda-ops-that-can-autocast-to-float32
+  - pytorch/2.14/amp#xpu-ops-that-can-autocast-to-float32
+  - pytorch/2.14/generated/torch.nn.Embedding#torch.nn.Embedding
+  - pytorch/2.14/generated/torch.nn.Embedding#torch.nn.Embedding.from_pretrained
+  - pytorch/2.14/generated/torch.nn.MultiheadAttention#torch.nn.MultiheadAttention
+  - pytorch/2.14/notes/modules#parametrizations
+  - pytorch/2.14/notes/numerical_accuracy#extremal-values
+  - pytorch/2.14/notes/randomness#cuda-scaled-dot-product-attention
+  - pytorch/2.14/tensors#tensor-class-reference
+pt055:
+  added: []
+  reviewed:
+  - python/3.12/library/collections#deque-recipes
+py001:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/bigger-applications#how-relative-imports-work
+  - fastapi/0.162.0/tutorial/body#import-pydantics-basemodel
+  - fastapi/0.162.0/tutorial/schema-extra-example#body-with-examples
+  - python/3.12/installing/index#how-do-i
+  - python/3.12/library/exceptions#ImportError
+  - python/3.12/library/io#module-io
+  - python/3.12/reference/simple_stmts#the-import-statement
+  - python/3.12/tutorial/modules#the-dir-function
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.get_submodule
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.load_state_dict
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.named_modules
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.set_submodule
+py003:
+  added: []
+  reviewed:
+  - python/3.12/faq/design#why-does-python-use-indentation-for-grouping-of-statements
+  - python/3.12/faq/programming#what-does-unicodedecodeerror-or-unicodeencodeerror-error-mean
+  - python/3.12/reference/lexical_analysis#implicit-line-joining
+  - python/3.12/tutorial/controlflow#documentation-strings
+  - python/3.12/tutorial/errors#handling-exceptions
+  - python/3.12/tutorial/errors#syntax-errors
+py005:
+  added: []
+  reviewed:
+  - python/3.12/library/functions#compile
+  - python/3.12/library/functions#zip
+  - python/3.12/library/multiprocessing#multiprocessing.connection.Connection.recv_bytes
+  - python/3.12/library/re#re.split
+  - python/3.12/library/stdtypes#comparisons
+  - python/3.12/library/stdtypes#str.split
+  - python/3.12/tutorial/classes#iterators
+  - python/3.12/tutorial/datastructures#comparing-sequences-and-other-types
+  - python/3.12/tutorial/datastructures#more-on-lists
+  - pytorch/2.14/notes/extending#subclassing-torch-tensor
+  - pytorch/2.14/notes/modules#modules-as-building-blocks
+py006:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/handling-errors#use-the-requestvalidationerror-body
+  - fastapi/0.162.0/tutorial/query-params-str-validations#string-with-value-startswith
+  - python/3.12/faq/programming#why-am-i-getting-an-unboundlocalerror-when-the-variable-has-a-value
+  - python/3.12/library/functions#oct
+  - python/3.12/library/stdtypes#affected-apis
+  - python/3.12/library/typing#typing.LiteralString
+  - python/3.12/reference/compound_stmts#literal-patterns
+  - python/3.12/reference/datamodel#object.__index__
+py007:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/body-nested-models#bodies-of-pure-lists
+  - fastapi/0.162.0/tutorial/body-nested-models#declare-a-list-with-a-type-parameter
+  - fastapi/0.162.0/tutorial/query-params-str-validations#query-parameter-list-multiple-values-with-defaults
+  - fastapi/0.162.0/tutorial/query-params-str-validations#using-just-list
+  - python/3.12/faq/design#why-doesn-t-list-sort-return-the-sorted-list
+  - python/3.12/faq/programming#how-do-you-remove-duplicates-from-a-list
+  - python/3.12/faq/programming#why-does-a-tuple-i-item-raise-an-exception-when-the-addition-works
+  - python/3.12/library/collections#collections.UserList
+  - python/3.12/library/stdtypes#common-sequence-operations
+  - python/3.12/library/stdtypes#lists
+  - python/3.12/library/stdtypes#memoryview
+  - python/3.12/library/stdtypes#str.join
+  - python/3.12/library/typing#typing.List
+  - python/3.12/library/typing#typing.TypeGuard
+  - python/3.12/reference/compound_stmts#class-patterns
+  - python/3.12/reference/datamodel#special-method-lookup
+  - python/3.12/tutorial/classes#class-and-instance-variables
+  - python/3.12/tutorial/datastructures#list-comprehensions
+  - python/3.12/tutorial/datastructures#more-on-lists
+py010:
+  added: []
+  reviewed:
+  - python/3.12/howto/unicode#the-string-type
+  - python/3.12/library/exceptions#FileExistsError
+  - python/3.12/library/exceptions#OSError
+  - python/3.12/library/pathlib#pathlib.Path.write_text
+  - python/3.12/library/pathlib#pathlib.PurePath.as_uri
+  - python/3.12/library/pathlib#querying-file-type-and-status
+  - python/3.12/tutorial/inputoutput#reading-and-writing-files
+  - python/3.12/tutorial/modules#the-dir-function
+  - python/3.12/using/cmdline#envvar-PYTHONLEGACYWINDOWSFSENCODING
+  - pytorch/2.14/notes/windows#multiprocessing-error-broken-pipe
+py013:
+  added:
+  - fastapi/0.162.0/python-types#more-motivation
+  reviewed:
+  - fastapi/0.162.0/python-types#more-motivation
+  - python/3.12/faq/programming#can-i-end-a-raw-string-with-an-odd-number-of-backslashes
+  - python/3.12/faq/programming#how-do-i-convert-a-string-to-a-number
+  - python/3.12/faq/programming#how-do-i-get-int-literal-attribute-instead-of-syntaxerror
+  - python/3.12/faq/programming#what-is-the-most-efficient-way-to-concatenate-many-strings-together
+  - python/3.12/library/stdtypes#bytes.join
+  - python/3.12/library/stdtypes#integer-string-conversion-length-limitation
+  - python/3.12/library/stdtypes#str.join
+  - python/3.12/library/stdtypes#str.split
+  - python/3.12/library/stdtypes#text-sequence-type-str
+  - python/3.12/library/typing#typing.AnyStr
+  - python/3.12/library/typing#typing.Concatenate
+  - python/3.12/library/typing#typing.LiteralString
+py014:
+  added: []
+  reviewed:
+  - python/3.12/library/exceptions#SyntaxError.end_lineno
+  - python/3.12/reference/compound_stmts#class-patterns
+  - python/3.12/reference/lexical_analysis#escape-sequences
+py015:
+  added: []
+  reviewed:
+  - python/3.12/faq/design#why-must-dictionary-keys-be-immutable
+  - python/3.12/library/collections#ordereddict-examples-and-recipes
+  - python/3.12/library/collections#ordereddict-objects
+  - python/3.12/reference/datamodel#module.__dict__
+  - python/3.12/reference/datamodel#object.__len__
+  - python/3.12/reference/datamodel#special-method-lookup
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.load_state_dict
+  - pytorch/2.14/notes/broadcasting#general-semantics
+  - pytorch/2.14/notes/broadcasting#in-place-semantics
+  - pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory
+  - pytorch/2.14/notes/faq#my-out-of-memory-exception-handler-can-t-allocate-memory
+py017:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/bigger-applications#how-relative-imports-work
+  - python/3.12/faq/programming#import-x-y-z-returns-module-x-how-do-i-get-z
+  - python/3.12/library/functions#import__
+  - python/3.12/reference/import#searching
+  - python/3.12/reference/import#the-import-system
+  - python/3.12/reference/import#the-meta-path
+  - python/3.12/tutorial/modules#importing-from-a-package
+py018:
+  added: []
+  reviewed:
+  - python/3.12/library/json#json.JSONDecoder
+  - python/3.12/library/json#json.JSONEncoder
+  - python/3.12/library/json#json.load
+py019:
+  added:
+  - fastapi/0.162.0/advanced/response-directly#using-the-jsonable-encoder-in-a-response
+  - fastapi/0.162.0/tutorial/encoder#using-the-jsonable-encoder
+  reviewed:
+  - fastapi/0.162.0/advanced/response-directly#using-the-jsonable-encoder-in-a-response
+  - fastapi/0.162.0/tutorial/encoder#using-the-jsonable-encoder
+  - python/3.12/library/datetime#datetime.date.fromisoformat
+  - python/3.12/library/datetime#datetime.datetime
+  - python/3.12/library/datetime#datetime.datetime.fromisoformat
+  - python/3.12/library/datetime#datetime.datetime.fromtimestamp
+  - python/3.12/library/datetime#datetime.datetime.isoformat
+  - python/3.12/library/datetime#datetime.datetime.utcfromtimestamp
+  - python/3.12/library/datetime#datetime.time
+  - python/3.12/library/datetime#datetime.time.tzinfo
+  - python/3.12/library/datetime#examples-of-usage-datetime
+  - python/3.12/library/json#json.JSONDecodeError
+  - python/3.12/library/json#json.JSONDecodeError.msg
+py020:
+  added:
+  - python/3.12/library/subprocess#subprocess.check_call
+  - python/3.12/library/subprocess#subprocess.check_output
+  reviewed:
+  - python/3.12/library/subprocess#subprocess.call
+  - python/3.12/library/subprocess#subprocess.check_call
+  - python/3.12/library/subprocess#subprocess.check_output
+  - python/3.12/library/subprocess#subprocess.getoutput
+py021:
+  added: []
+  reviewed:
+  - python/3.12/library/pickle#pickle.Unpickler.find_class
+  - python/3.12/library/pickle#pickle.UnpicklingError
+  - python/3.12/library/pickle#pickle.dumps
+  - python/3.12/library/pickle#pickle.loads
+  - python/3.12/library/pickle#pickling-class-instances
+  - python/3.12/library/pickle#restricting-globals
+py022:
+  added:
+  - python/3.12/library/multiprocessing#contexts-and-start-methods
+  - pytorch/2.14/notes/windows#multiprocessing-error-without-if-clause-protection
+  reviewed:
+  - python/3.12/library/concurrent.futures#concurrent.futures.process.BrokenProcessPool
+  - python/3.12/library/exceptions#ProcessLookupError
+  - python/3.12/library/multiprocessing#all-start-methods
+  - python/3.12/library/multiprocessing#contexts-and-start-methods
+  - python/3.12/library/subprocess#exceptions
+  - python/3.12/library/subprocess#subprocess.CREATE_BREAKAWAY_FROM_JOB
+  - python/3.12/library/subprocess#subprocess.Popen
+  - python/3.12/library/subprocess#subprocess.STARTUPINFO.hStdError
+  - python/3.12/library/subprocess#subprocess.STARTUPINFO.lpAttributeList
+  - pytorch/2.14/notes/multiprocessing#poison-fork-in-multiprocessing
+  - pytorch/2.14/notes/windows#multiprocessing-error-without-if-clause-protection
+py023:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/body-updates#using-pydantics-exclude-unset-parameter
+  - fastapi/0.162.0/tutorial/extra-models#unpacking-a-dict-and-extra-keywords
+  - fastapi/0.162.0/tutorial/query-params-str-validations#string-with-value-startswith
+  - python/3.12/faq/programming#why-am-i-getting-an-unboundlocalerror-when-the-variable-has-a-value
+  - python/3.12/library/enum#enum.Enum._missing_
+  - python/3.12/library/functions#import__
+  - python/3.12/library/functions#zip
+  - python/3.12/library/json#json.JSONDecodeError
+  - python/3.12/library/pickle#restricting-globals
+  - python/3.12/library/typing#typing.Unpack
+  - python/3.12/library/unittest.mock#patch-dict
+  - python/3.12/reference/compound_stmts#mapping-patterns
+  - python/3.12/reference/datamodel#module.__package__
+  - python/3.12/reference/simple_stmts#assignment-statements
+  - python/3.12/tutorial/classes#class-and-instance-variables
+  - python/3.12/tutorial/modules#the-dir-function
+  - python/3.12/tutorial/venv#managing-packages-with-pip
+  - pytorch/2.14/autograd#torch.autograd.graph.saved_tensors_hooks
+py024:
+  added: []
+  reviewed:
+  - python/3.12/faq/design#why-don-t-generators-support-the-with-statement
+  - python/3.12/library/exceptions#GeneratorExit
+  - python/3.12/library/exceptions#RecursionError
+  - python/3.12/library/exceptions#StopAsyncIteration
+  - python/3.12/reference/datamodel#frame.clear
+  - python/3.12/reference/simple_stmts#the-raise-statement
+  - python/3.12/tutorial/classes#generator-expressions
+  - python/3.12/tutorial/classes#generators
+  - pytorch/2.14/notes/windows#multiprocessing-error-without-if-clause-protection
+py025:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/advanced-python-types#using-union-or-optional
+  - fastapi/0.162.0/tutorial/debugging#about-name-main
+  - fastapi/0.162.0/tutorial/debugging#more-details
+  - python/3.12/faq/programming#why-am-i-getting-an-unboundlocalerror-when-the-variable-has-a-value
+  - python/3.12/library/exceptions#ImportError
+  - python/3.12/library/functions#import__
+  - python/3.12/reference/import#loaders
+  - python/3.12/reference/lexical_analysis#reserved-classes-of-identifiers
+  - python/3.12/tutorial/classes#inheritance
+  - python/3.12/tutorial/modules#the-dir-function
+  - python/3.12/using/cmdline#envvar-PYTHONNOUSERSITE
+  - pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.load_state_dict
+  - pytorch/2.14/notes/randomness#random-number-generators-in-other-libraries
+py027:
+  added:
+  - python/3.12/library/concurrent.futures#concurrent.futures.BrokenExecutor
+  reviewed:
+  - python/3.12/library/concurrent.futures#concurrent.futures.BrokenExecutor
+py028:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/how-to/custom-request-and-route#accessing-the-request-body-in-an-exception-handler
+  - python/3.12/library/exceptions#NameError
+  - python/3.12/library/exceptions#TypeError
+  - python/3.12/library/unittest#unittest.TestCase
+  - python/3.12/library/unittest#unittest.TestCase.assertLogs
+  - python/3.12/library/unittest#unittest.TestCase.assertWarns
+  - python/3.12/library/unittest#unittest.TestCase.failureException
+  - python/3.12/library/unittest#unittest.TestCase.longMessage
+  - python/3.12/library/unittest.mock#the-mock-class
+  - python/3.12/reference/simple_stmts#the-raise-statement
+py029:
+  added: []
+  reviewed:
+  - python/3.12/library/exceptions#exception-hierarchy
+  - python/3.12/tutorial/errors#exception-chaining
+  - python/3.12/tutorial/errors#handling-exceptions
+py030:
+  added:
+  - python/3.12/library/io#io.IOBase.close
+  reviewed:
+  - fastapi/0.162.0/advanced/stream-data#simulate-a-file
+  - python/3.12/library/io#io.IOBase.close
+  - python/3.12/library/io#io.IOBase.readline
+  - python/3.12/library/io#io.IOBase.readlines
+  - python/3.12/library/io#io.StringIO
+py031:
+  added: []
+  reviewed:
+  - python/3.12/faq/programming#why-did-changing-list-y-also-change-list-x
+  - python/3.12/library/functions#hash
+  - python/3.12/library/re#match-objects
+  - python/3.12/library/stdtypes#comparisons
+  - python/3.12/library/stdtypes#truth-value-testing
+  - python/3.12/library/unittest#unittest.TestCase.assertListEqual
+  - python/3.12/reference/compound_stmts#the-if-statement
+  - python/3.12/reference/datamodel#code-objects
+  - python/3.12/reference/datamodel#object.__lt__
+  - python/3.12/tutorial/datastructures#comparing-sequences-and-other-types
+  - python/3.12/tutorial/datastructures#more-on-conditions
+py033:
+  added:
+  - fastapi/0.162.0/virtual-environments#create-a-project
+  - fastapi/0.162.0/virtual-environments#virtual-environments
+  reviewed:
+  - fastapi/0.162.0/how-to/custom-docs-ui-assets#project-file-structure
+  - fastapi/0.162.0/tutorial/index#install-fastapi
+  - fastapi/0.162.0/virtual-environments#create-a-project
+  - fastapi/0.162.0/virtual-environments#learn-more
+  - fastapi/0.162.0/virtual-environments#virtual-environments
+py034:
+  added:
+  - python/3.12/howto/logging#formatters
+  reviewed:
+  - fastapi/0.162.0/advanced/events#shutdown-event
+  - fastapi/0.162.0/tutorial/background-tasks#dependency-injection
+  - python/3.12/howto/logging#configuring-logging
+  - python/3.12/howto/logging#formatters
+  - python/3.12/library/logging#logging.Formatter.formatTime
+  - python/3.12/library/logging#logging.basicConfig
+  - python/3.12/library/logging#logrecord-attributes
+py036:
+  added: []
+  reviewed:
+  - python/3.12/library/argparse#argparse.ArgumentParser.get_default
+  - python/3.12/library/argparse#nargs
+  - python/3.12/library/argparse#partial-parsing
+py037:
+  added: []
+  reviewed:
+  - python/3.12/library/datetime#datetime.datetime.isoformat
+py038:
+  added:
+  - python/3.12/library/threading#thread-objects
+  - python/3.12/library/threading#threading.Thread.start
+  reviewed:
+  - fastapi/0.162.0/tutorial/background-tasks#add-the-background-task
+  - fastapi/0.162.0/tutorial/background-tasks#background-tasks
+  - fastapi/0.162.0/tutorial/background-tasks#caveat
+  - fastapi/0.162.0/tutorial/background-tasks#create-a-task-function
+  - fastapi/0.162.0/tutorial/background-tasks#dependency-injection
+  - fastapi/0.162.0/tutorial/background-tasks#technical-details
+  - fastapi/0.162.0/tutorial/middleware#middleware
+  - python/3.12/library/threading#thread-objects
+  - python/3.12/library/threading#threading.Thread.run
+  - python/3.12/library/threading#threading.Thread.start
+py039:
+  added:
+  - python/3.12/library/dataclasses#default-factory-functions
+  reviewed:
+  - fastapi/0.162.0/advanced/dataclasses#dataclasses-in-response-model
+  - python/3.12/library/collections#collections.UserList
+  - python/3.12/library/collections#defaultdict-examples
+  - python/3.12/library/dataclasses#dataclasses.MISSING
+  - python/3.12/library/dataclasses#dataclasses.dataclass
+  - python/3.12/library/dataclasses#default-factory-functions
+  - python/3.12/library/dataclasses#descriptor-typed-fields
+py040:
+  added:
+  - fastapi/0.162.0/tutorial/debugging#about-name-main
+  - fastapi/0.162.0/tutorial/debugging#more-details
+  - pytorch/2.14/notes/windows#multiprocessing-error-without-if-clause-protection
+  reviewed:
+  - fastapi/0.162.0/deployment/docker#containers-and-processes
+  - fastapi/0.162.0/python-types#add-types
+  - fastapi/0.162.0/python-types#motivation
+  - fastapi/0.162.0/tutorial/debugging#about-name-main
+  - fastapi/0.162.0/tutorial/debugging#more-details
+  - python/3.12/faq/library#how-do-i-test-a-python-program-or-component
+  - python/3.12/library/functions#eval
+  - python/3.12/reference/executionmodel#builtins-and-restricted-execution
+  - python/3.12/reference/import#special-considerations-for-main
+  - python/3.12/using/cmdline#cmdoption-m
+  - pytorch/2.14/notes/windows#multiprocessing-error-without-if-clause-protection
+py041:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/settings#creating-the-settings-only-once-with-lru-cache
+  - fastapi/0.162.0/advanced/settings#lru-cache-technical-details
+  - python/3.12/library/functools#functools.cached_property
+  - pytorch/2.14/notes/cuda#optimizing-memory-usage-with-pytorch-alloc-conf
+py042:
+  added: []
+  reviewed:
+  - python/3.12/faq/library#how-do-i-make-a-python-script-executable-on-unix
+py043:
+  added: []
+  reviewed:
+  - python/3.12/library/json#cmdoption-json.tool-arg-infile
+  - python/3.12/library/json#json.dump
+  - python/3.12/library/json#module-json
+  - python/3.12/library/json#module-json.tool
+  - pytorch/2.14/cuda#graph-kernel-annotations-prototype
+  - pytorch/2.14/data#torch.utils.data.datapipes.utils.decoder.basichandlers
+py044:
+  added:
+  - python/3.12/library/pathlib#operators
+  - python/3.12/library/pathlib#pathlib.PurePath.joinpath
+  reviewed:
+  - python/3.12/library/os.path#module-os.path
+  - python/3.12/library/os.path#os.path.expandvars
+  - python/3.12/library/os.path#os.path.relpath
+  - python/3.12/library/os.path#os.path.samefile
+  - python/3.12/library/os.path#os.path.sameopenfile
+  - python/3.12/library/os.path#os.path.split
+  - python/3.12/library/os.path#os.path.splitdrive
+  - python/3.12/library/os.path#os.path.splitroot
+  - python/3.12/library/os.path#os.path.supports_unicode_filenames
+  - python/3.12/library/pathlib#operators
+  - python/3.12/library/pathlib#pathlib.Path.walk
+  - python/3.12/library/pathlib#pathlib.PurePath.anchor
+  - python/3.12/library/pathlib#pathlib.PurePath.as_posix
+  - python/3.12/library/pathlib#pathlib.PurePath.joinpath
+py046:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/deployment/concepts#replication-processes-and-memory
+  - python/3.12/library/asyncio-task#asyncio.Task
+  - python/3.12/library/asyncio-task#asyncio.Task.get_coro
+  - python/3.12/library/asyncio-task#asyncio.all_tasks
+  - python/3.12/library/asyncio-task#asyncio.as_completed
+  - python/3.12/library/asyncio-task#asyncio.run_coroutine_threadsafe
+  - python/3.12/library/asyncio-task#coroutines-and-tasks
+  - python/3.12/reference/datamodel#coroutine-objects
+py047:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/advanced/async-tests#other-asynchronous-function-calls
+  - fastapi/0.162.0/advanced/stream-data#files-and-async
+  - fastapi/0.162.0/async#other-forms-of-asynchronous-code
+  - fastapi/0.162.0/tutorial/server-sent-events#non-async-path-operation-functions
+  - python/3.12/faq/library#how-do-i-avoid-blocking-in-the-connect-method-of-a-socket
+  - python/3.12/library/threading#threading.Event.clear
+  - python/3.12/library/threading#threading.Event.set
+  - python/3.12/library/threading#threading.Event.wait
+py048:
+  added: []
+  reviewed:
+  - python/3.12/library/re#making-a-phonebook
+  - python/3.12/library/re#module-re
+  - python/3.12/library/re#re.Pattern.findall
+  - python/3.12/library/re#re.Pattern.search
+  - python/3.12/library/re#re.match
+  - python/3.12/library/re#re.search
+py049:
+  added:
+  - python/3.12/library/collections#counter-objects
+  reviewed:
+  - python/3.12/library/collections#collections.Counter.most_common
+  - python/3.12/library/collections#collections.Counter.total
+  - python/3.12/library/collections#collections.deque.count
+  - python/3.12/library/collections#counter-objects
+  - python/3.12/library/functions#enumerate
+  - python/3.12/library/threading#threading.active_count
+py050:
+  added:
+  - python/3.12/reference/compound_stmts#finally-clause
+  - python/3.12/tutorial/errors#predefined-clean-up-actions
+  reviewed:
+  - fastapi/0.162.0/advanced/advanced-dependencies#background-tasks-and-dependencies-with-yield-technical-details
+  - fastapi/0.162.0/advanced/advanced-dependencies#dependencies-with-yield-and-except-technical-details
+  - fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#dependencies-with-yield-and-httpexception
+  - python/3.12/library/contextlib#contextlib.suppress
+  - python/3.12/library/threading#threading.excepthook
+  - python/3.12/reference/compound_stmts#finally-clause
+  - python/3.12/reference/compound_stmts#the-try-statement
+  - python/3.12/tutorial/errors#predefined-clean-up-actions
+py051:
+  added:
+  - python/3.12/library/exceptions#exception-context
+  reviewed:
+  - fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#always-raise-in-dependencies-with-yield-and-except
+  - python/3.12/library/exceptions#BaseException.__traceback__
+  - python/3.12/library/exceptions#BufferError
+  - python/3.12/library/exceptions#KeyError
+  - python/3.12/library/exceptions#StopIteration
+  - python/3.12/library/exceptions#exception-context
+  - python/3.12/tutorial/errors#raising-exceptions
+py052:
+  added:
+  - python/3.12/library/exceptions#BaseException
+  - python/3.12/library/exceptions#Exception
+  reviewed:
+  - python/3.12/library/exceptions#BaseException
+  - python/3.12/library/exceptions#BaseExceptionGroup.exceptions
+  - python/3.12/library/exceptions#ConnectionError
+  - python/3.12/library/exceptions#Exception
+  - python/3.12/library/exceptions#LookupError
+  - python/3.12/library/exceptions#base-classes
+  - python/3.12/library/exceptions#exception-hierarchy
+  - python/3.12/reference/simple_stmts#the-raise-statement
+py054:
+  added:
+  - python/3.12/library/pdb#pdb.set_trace
+  reviewed:
+  - fastapi/0.162.0/tutorial/debugging#debugging
+  - python/3.12/library/pdb#pdb.run
+  - python/3.12/library/pdb#pdb.set_trace
+  - python/3.12/library/pdb#pdbcommand-jump
+  - python/3.12/library/pdb#pdbcommand-where
+py055:
+  added: []
+  reviewed:
+  - python/3.12/faq/programming#how-do-i-convert-a-number-to-a-string
+  - python/3.12/faq/programming#how-do-i-convert-a-string-to-a-number
+  - python/3.12/library/functions#float
+  - python/3.12/library/stdtypes#float.hex
+  - python/3.12/library/stdtypes#printf-style-string-formatting
+  - python/3.12/library/stdtypes#str.format
+py056:
+  added:
+  - python/3.12/reference/import#the-meta-path
+  - python/3.12/reference/import#the-module-cache
+  reviewed:
+  - fastapi/0.162.0/tutorial/bigger-applications#how-the-importing-works
+  - python/3.12/faq/programming#import-x-y-z-returns-module-x-how-do-i-get-z
+  - python/3.12/reference/import#finders-and-loaders
+  - python/3.12/reference/import#loading
+  - python/3.12/reference/import#regular-packages
+  - python/3.12/reference/import#the-import-system
+  - python/3.12/reference/import#the-meta-path
+  - python/3.12/reference/import#the-module-cache
+py057:
+  added: []
+  reviewed:
+  - fastapi/0.162.0/tutorial/bigger-applications#include-an-apirouter-with-a-custom-prefix-tags-responses-and-dependencies
+  - fastapi/0.162.0/tutorial/dependencies/index#simple-and-powerful
+  - fastapi/0.162.0/tutorial/index#ai-agent-skills
+  - fastapi/0.162.0/tutorial/index#install-fastapi
+  - fastapi/0.162.0/tutorial/security/first-steps#run-it
+  - fastapi/0.162.0/tutorial/security/get-current-user#other-models
+  - fastapi/0.162.0/tutorial/security/simple-oauth2#update-the-dependencies
+  - python/3.12/installing/index#install-scientific-python-packages
+  - python/3.12/installing/index#installing-into-the-system-python-on-linux
+  - python/3.12/installing/index#installing-python-modules
+  - python/3.12/using/cmdline#cmdoption-s
+  - python/3.12/using/cmdline#envvar-PYTHONNOUSERSITE
+  - python/3.12/using/cmdline#envvar-PYTHONUSERBASE
+py059:
+  added: []
+  reviewed:
+  - python/3.12/library/argparse#action
+  - python/3.12/library/argparse#nargs
+  - python/3.12/library/functools#functools.partial
+  - python/3.12/library/functools#functools.partial.args
+  - python/3.12/tutorial/controlflow#arbitrary-argument-lists
+  - python/3.12/tutorial/controlflow#function-examples
+  - python/3.12/tutorial/controlflow#positional-or-keyword-arguments
+  - python/3.12/tutorial/controlflow#special-parameters
+py060:
+  added: []
+  reviewed:
+  - python/3.12/library/exceptions#BufferError
+  - python/3.12/library/exceptions#IOError
+  - python/3.12/library/exceptions#StopIteration.value
+  - python/3.12/library/exceptions#ValueError
+  - python/3.12/library/exceptions#built-in-exceptions
+  - python/3.12/reference/compound_stmts#the-try-statement
+  - python/3.12/tutorial/errors#raising-and-handling-multiple-unrelated-exceptions

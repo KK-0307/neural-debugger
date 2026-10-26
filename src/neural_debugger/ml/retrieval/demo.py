@@ -17,6 +17,7 @@ from pathlib import Path
 from neural_debugger.data.corpus import load_corpus
 
 from .bm25 import BM25Config, BM25Retriever
+from .types import Retriever
 
 EXAMPLES = [
     "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu",
@@ -32,10 +33,23 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--framework", choices=["python", "pytorch", "fastapi"])
     ap.add_argument("--corpus-dir", type=Path, default=Path("data/corpus"))
     ap.add_argument("--json", action="store_true", help="machine-readable output")
+    ap.add_argument(
+        "--system",
+        default="bm25",
+        help="system from configs/neural.yaml (default: bm25, no extras needed)",
+    )
+    ap.add_argument("--device", default="auto", help="auto | cpu | mps | cuda (neural systems)")
     args = ap.parse_args(argv)
 
     corpus = load_corpus(args.corpus_dir)
-    retriever = BM25Retriever(corpus.chunks, BM25Config())
+    if args.system == "bm25":
+        retriever: Retriever = BM25Retriever(corpus.chunks, BM25Config())
+    else:
+        from .systems import SystemFactory, load_neural_config
+
+        retriever = SystemFactory(corpus, load_neural_config(), device=args.device).build(
+            args.system
+        )
     queries = [" ".join(args.query)] if args.query else EXAMPLES
     results = []
     for q in queries:
@@ -53,7 +67,7 @@ def main(argv: list[str] | None = None) -> int:
             continue
         print(
             f"\nQuery: {q}\n{len(hits)} sections in {elapsed_ms:.1f} ms "
-            f"(BM25 over {len(corpus.chunks)} chunks, corpus {corpus.sha256[:12]})"
+            f"({args.system} over {len(corpus.chunks)} chunks, corpus {corpus.sha256[:12]})"
         )
         for h in hits:
             print(

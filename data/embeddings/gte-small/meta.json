@@ -1,0 +1,28 @@
+{
+ "batch_size": 32,
+ "bytes": 7672320,
+ "corpus_chunks_sha256": "3d3ae6ff3ac8eccda14f3d87179679dad5ed5f82fe2b829cb01df6b0d33874e0",
+ "created_at": "2026-10-25T23:44:36+00:00",
+ "device": "mps",
+ "embedding_seconds": 10.65,
+ "encoder": {
+  "dim": 384,
+  "doc_prefix": "",
+  "hf_id": "thenlper/gte-small",
+  "kind": "sentence-transformers",
+  "library_versions": {
+   "sentence_transformers": "6.2.0",
+   "torch": "2.14.1"
+  },
+  "max_seq_length": 512,
+  "normalized": true,
+  "query_prefix": "",
+  "revision": "17e1f347d17fe144873b1201da91788898c639cd"
+ },
+ "host": {
+  "machine": "arm64",
+  "platform": "macOS-26.5.2-arm64-arm-64bit"
+ },
+ "n_chunks": 4995,
+ "text_template": "index_text:v1"
+}

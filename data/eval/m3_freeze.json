@@ -1,0 +1,63 @@
+{
+ "depends_on": "bm25-v1 (data/eval/baseline_freeze.json)",
+ "embedding_model": {
+  "hf_id": "thenlper/gte-small",
+  "license": "MIT",
+  "max_seq_length": 512,
+  "revision": "17e1f347d17fe144873b1201da91788898c639cd",
+  "size_mb": 67
+ },
+ "files": {
+  "configs/neural.yaml": "fdd57be48dc8d643aec3b50c750537ac98e80d76da9d059fcba2db65611534d5",
+  "data/embeddings/gte-small/embeddings.npy": "82c412fd92952ba213df34a22942a1469668beb612fae0d5276ff4874e156922",
+  "data/embeddings/gte-small/meta.json": "0705f01710341701657948d294772224b6a5beaecd32bbd4908a3b78ff381308",
+  "data/eval/pooled_judgments_neural.yaml": "93b1ebe2d1e61470ee34ea7a2660a9a834cce6a7a45ffc125ebf6c6e6e84ac0a",
+  "data/eval/results/m3/dev_final/bm25.json": "0695309b3faf18f975e1a49d7bd406a55b1e1530561c92f89a8ffba73b7ad1ed",
+  "data/eval/results/m3/dev_final/bm25.rankings.jsonl": "072f2ec7eed4a24837c837b7f038070575c88d20dd31086b8f642b716dd80092",
+  "data/eval/results/m3/dev_final/dense-gte-small.json": "fbfae0e71cc2428a9bc9fb86f862ea5423ecd7b7638d3e67ae00ac6a801e2cca",
+  "data/eval/results/m3/dev_final/dense-gte-small.rankings.jsonl": "c1821b712b4dfaa593058afb27dfcf48f591825f78b5a7a8ee44e4b3b0a34778",
+  "data/eval/results/m3/dev_final/hybrid-gte-tuned.json": "fdb47c8d4cf5d0ea32767354f791c8b60969a668a80abd67bf290d9083b9a258",
+  "data/eval/results/m3/dev_final/hybrid-gte-tuned.rankings.jsonl": "7b2513531d32a8e6845536e77a291b33bf43503a59327201c4950552e0102070",
+  "data/eval/results/m3/dev_final/rerank-l12-n30-rrf.json": "731e43cbaf7ddc43f5c233e291f90cb016d2e3d7f0d704b58fb9cb5b836d2a9a",
+  "data/eval/results/m3/dev_final/rerank-l12-n30-rrf.rankings.jsonl": "d62164f3cd80302876e1c69fa42c5f3ad0ceca558a56e9afff9f81f770e407e8",
+  "data/eval/results/m3/fusion_tuning_dev.json": "fd594857684d470c2c1a12cbba696cf3ce2ef561e03cadb0b592ca97afdc59c1"
+ },
+ "freeze_id": "neural-retrieval-v1",
+ "reranker": {
+  "hf_id": "cross-encoder/ms-marco-MiniLM-L-12-v2",
+  "license": "Apache-2.0 (trained on MS MARCO, whose data terms are non-commercial research; see docs)",
+  "max_length": 512,
+  "revision": "7b0235231ca2674cb8ca8f022859a6eba2b1c968",
+  "size_mb": 134
+ },
+ "selection": "Chosen on train+val only with expanded judgments: embedding model = best dense dev NDCG@10; fusion = (k=10, w_dense=1.5) per the declared paired-CI rule; reranker = best dev variant; router rejected (dev regression).",
+ "test_systems": {
+  "bm25": {
+   "kind": "bm25"
+  },
+  "dense-gte-small": {
+   "kind": "dense",
+   "model": "gte-small"
+  },
+  "hybrid-gte-tuned": {
+   "components": [
+    "bm25",
+    "dense-gte-small"
+   ],
+   "kind": "hybrid",
+   "rrf_k": 10,
+   "weights": [
+    1.0,
+    1.5
+   ]
+  },
+  "rerank-l12-n30-rrf": {
+   "base": "hybrid-gte-tuned",
+   "kind": "rerank",
+   "mode": "rrf",
+   "reranker": "ce-minilm-l12",
+   "rrf_k": 10,
+   "top_n": 30
+  }
+ }
+}

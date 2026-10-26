@@ -1,0 +1,62 @@
+# Retrieval systems for Milestone 3. Every pretrained model is pinned to an exact Hugging Face
+# revision; changing a model, revision, prefix or max length changes the stored embeddings'
+# fingerprint and forces re-embedding (see ml/retrieval/embedding_store.py).
+embedding_dir: data/embeddings
+
+embedding_models:
+  minilm-l6:
+    hf_id: sentence-transformers/all-MiniLM-L6-v2
+    revision: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+    max_seq_length: 256
+    license: Apache-2.0
+    size_mb: 91
+  bge-small:
+    hf_id: BAAI/bge-small-en-v1.5
+    revision: 5c38ec7c405ec4b44b94cc5a9bb96e735b38267a
+    query_prefix: "Represent this sentence for searching relevant passages: "
+    max_seq_length: 512
+    license: MIT
+    size_mb: 134
+  gte-small:
+    hf_id: thenlper/gte-small
+    revision: 17e1f347d17fe144873b1201da91788898c639cd
+    max_seq_length: 512
+    license: MIT
+    size_mb: 67
+
+rerankers:
+  ce-minilm-l6:
+    hf_id: cross-encoder/ms-marco-MiniLM-L-6-v2
+    revision: 233902d25c440f23af6f7d6e94d2946bac0bee0a
+    max_length: 512
+    license: Apache-2.0 (trained on MS MARCO, whose data terms are non-commercial research; see docs)
+    size_mb: 91
+  ce-minilm-l12:
+    hf_id: cross-encoder/ms-marco-MiniLM-L-12-v2
+    revision: 7b0235231ca2674cb8ca8f022859a6eba2b1c968
+    max_length: 512
+    license: Apache-2.0 (trained on MS MARCO, whose data terms are non-commercial research; see docs)
+    size_mb: 134
+
+# Systems reference each other by name. kinds: bm25 | dense | hybrid | rerank | router
+systems:
+  bm25: {kind: bm25}
+  dense-minilm-l6: {kind: dense, model: minilm-l6}
+  dense-bge-small: {kind: dense, model: bge-small}
+  dense-gte-small: {kind: dense, model: gte-small}
+  hybrid-minilm-l6: {kind: hybrid, components: [bm25, dense-minilm-l6], weights: [1.0, 1.0], rrf_k: 60}
+  hybrid-bge-small: {kind: hybrid, components: [bm25, dense-bge-small], weights: [1.0, 1.0], rrf_k: 60}
+  hybrid-gte-small: {kind: hybrid, components: [bm25, dense-gte-small], weights: [1.0, 1.0], rrf_k: 60}
+  # Fusion tuned on dev (see data/eval/results/m3/fusion_tuning_dev.json): rule = beat default (k=60, 1:1) with paired CI > 0
+  hybrid-gte-tuned: {kind: hybrid, components: [bm25, dense-gte-small], weights: [1.0, 1.5], rrf_k: 10}
+  # Cross-encoder reranking of the top-N hybrid candidates
+  rerank-l6-n20: {kind: rerank, base: hybrid-gte-tuned, reranker: ce-minilm-l6, top_n: 20, mode: replace}
+  rerank-l6-n30: {kind: rerank, base: hybrid-gte-tuned, reranker: ce-minilm-l6, top_n: 30, mode: replace}
+  rerank-l6-n30-rrf: {kind: rerank, base: hybrid-gte-tuned, reranker: ce-minilm-l6, top_n: 30, mode: rrf, rrf_k: 10}
+  rerank-l12-n30: {kind: rerank, base: hybrid-gte-tuned, reranker: ce-minilm-l12, top_n: 30, mode: replace}
+  rerank-l12-n30-rrf: {kind: rerank, base: hybrid-gte-tuned, reranker: ce-minilm-l12, top_n: 30, mode: rrf, rrf_k: 10}
+  # Automatic framework awareness on top of a base system
+  route-hard-90: {kind: router, base: hybrid-gte-tuned, mode: hard, threshold: 0.9}
+  route-hard-99: {kind: router, base: hybrid-gte-tuned, mode: hard, threshold: 0.99}
+  route-soft-1: {kind: router, base: hybrid-gte-tuned, mode: soft, beta: 1.0}
+  route-soft-3: {kind: router, base: hybrid-gte-tuned, mode: soft, beta: 3.0}

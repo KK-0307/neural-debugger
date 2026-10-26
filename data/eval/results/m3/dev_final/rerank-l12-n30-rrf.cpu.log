@@ -1,0 +1,8 @@
+W1025 20:04:52.056000 30044 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 15986.41it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+This model was loaded in torch.float16 on CPU. Depending on your CPU, inference may be significantly slower than with torch.float32. Consider comparing inference speeds by loading with `model_kwargs={"dtype": torch.float32}`.
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 7488.56it/s]
+rerank-l12-n30-rrf     authored      n=138 R@1 0.283 R@5 0.667 R@10 0.782 MRR 0.768 NDCG@10 0.685 unjudged@10 0.08
+rerank-l12-n30-rrf     official_faq  n= 23 R@1 0.957 R@5 1.000 R@10 1.000 MRR 0.978 NDCG@10 0.984 unjudged@10 0.90
+build 7.39s  rss after build 539 MB  peak 1124 MB  latency p50 460.691 ms p95 575.382 ms

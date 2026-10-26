@@ -1,0 +1,3 @@
+bm25                   authored      n=138 R@1 0.231 R@5 0.521 R@10 0.638 MRR 0.656 NDCG@10 0.552 unjudged@10 0.14
+bm25                   official_faq  n= 23 R@1 0.957 R@5 1.000 R@10 1.000 MRR 0.978 NDCG@10 0.984 unjudged@10 0.90
+build 0.78s  rss after build 161 MB  peak 177 MB  latency p50 0.816 ms p95 1.425 ms

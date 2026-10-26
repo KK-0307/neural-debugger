@@ -99,3 +99,44 @@ near-duplicate crosses a split; provenance never overstates verification.
 
 **Ruff `E501` is disabled in the linter** (the formatter wraps code at 100 columns, but cannot wrap
 long string literals, docstring examples and error-message queries).
+
+## M3 - Neural retrieval
+
+**Pretrained models first, custom transformer later.** Milestone 3 was redefined to build the
+retrieval stack from pretrained sentence-transformers (dense, hybrid, rerank) so the custom-trained
+encoder from the original brief has measured baselines to be compared against. The custom transformer
+is still planned; nothing here substitutes for it.
+
+**Small models, with the trade-off stated.** Three embedding models (67-134 MB) and two cross-encoders
+(91-134 MB) were compared; larger ones (`bge-base` 438 MB, rerankers up to 2.3 GB) were not downloaded:
+on a 5k-chunk corpus the three small embedders were already within noise of each other, and CPU
+latency/memory matter for a laptop-runnable product. Revisions are pinned to commit SHAs.
+
+**Weighted RRF over score fusion.** BM25 scores are unbounded and cosine scores are bounded; RRF needs
+no calibration and is deterministic. Fusion happens on *section* rankings (best chunk represents each
+section), matching how labels and citations work. Parameters were tuned on dev only, with a declared
+selection rule, and the optimism of best-of-N selection is stated in the results.
+
+**Exact search, FAISS only where safe.** At 5k vectors NumPy exact search beat FAISS flat search
+(0.06 vs 0.14 ms), and on macOS FAISS + PyTorch in one process abort on a duplicate `libomp`, which would
+make the CPU fallback unusable. So the index picks the backend (`auto`): FAISS when it is safe, NumPy
+otherwise; both are exact and tested for agreement. *Cost:* the "efficient index" requirement is met by
+exactness at this scale, not by an approximate FAISS index; that is a scale-up decision for later.
+
+**Judging is part of the experiment, so it is recorded and bounded.** Pool expansion records every
+candidate read (`reviewed`) and every addition (`added`), keeps dev and test pools in separate files,
+never edits the frozen M2 labels, and reports original / expanded / condensed scores plus the unjudged
+share. Alternatives rejected: relabeling the whole corpus (infeasible) and silently expanding labels
+for neural systems only (would be unfair).
+
+**Test split protocol.** Selection used train+val; the configuration was frozen with hashes; the test
+split is behind `--final-test` with an append-only access log; the four frozen systems were scored once,
+then once more with expanded judgments (disclosed as post-hoc). Negative results (reranker in replace
+mode, framework router) are kept and reported rather than dropped.
+
+**Reranker is optional and off by default.** It did not significantly help on dev, costs 7-12x latency
+(about 100 ms on MPS, 460 ms on CPU), and its MS MARCO training data may restrict commercial use.
+
+**macOS robustness.** Imports must not depend on the editable `.pth` alone (hidden-flag issue) and FAISS
+must not share a process with PyTorch on macOS; both are handled in code/config and documented in
+`docs/neural-retrieval.md`.

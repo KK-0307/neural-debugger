@@ -23,7 +23,19 @@ data = [
     "lxml>=5.2",
     "numpy>=1.26",
 ]
-# `ml`: custom transformer / training (Milestone 3+).
+# `neural`: pretrained dense retriever, FAISS index, cross-encoder reranker (Milestone 3).
+neural = [
+    "sentence-transformers>=3.0",
+    "faiss-cpu>=1.8",
+    "torch>=2.4",
+    "numpy>=1.26",
+]
+# `index`: just the vector index (no torch), enough for the index/RRF unit tests.
+index = [
+    "faiss-cpu>=1.8",
+    "numpy>=1.26",
+]
+# `ml`: custom transformer / training (later milestone).
 ml = [
     "torch>=2.4",
     "numpy>=1.26",
@@ -51,6 +63,9 @@ packages = ["src/neural_debugger"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# Put src/ on the path explicitly: on macOS, files under a synced Desktop/.venv can gain the
+# "hidden" flag and Python then silently skips the editable-install .pth file (see docs).
+pythonpath = ["src"]
 addopts = "-ra --strict-markers"
 filterwarnings = [
     "error",  # any new warning fails the run, so it cannot go unnoticed
@@ -60,6 +75,7 @@ filterwarnings = [
 ]
 markers = [
     "integration: needs a real PostgreSQL (DATABASE_URL_TEST); skipped otherwise",
+    "model: needs sentence-transformers and the pinned Hugging Face models in the local cache; skipped otherwise",
 ]
 
 [tool.ruff]
@@ -89,6 +105,6 @@ strict = true
 plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
-module = ["torch.*", "sklearn.*", "tokenizers.*", "bs4.*", "lxml.*"]
+module = ["torch.*", "sklearn.*", "tokenizers.*", "bs4.*", "lxml.*", "sentence_transformers.*", "faiss.*", "huggingface_hub.*"]
 ignore_missing_imports = true
 

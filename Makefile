@@ -1,6 +1,11 @@
+# Robust to the macOS hidden-.pth problem (see docs/technical-decisions.md): never rely on the
+# editable-install .pth alone.
+export PYTHONPATH := $(CURDIR)/src
+
 .PHONY: install lint format typecheck test test-backend test-frontend check \
         dev-db dev-backend dev-frontend up down \
-        corpus verify-urls dataset eval-bm25 eval-ablation freeze-verify demo
+        corpus verify-urls dataset eval-bm25 eval-ablation freeze-verify demo \
+        demo-neural embed eval-dev
 
 install:
 	uv sync --extra data
@@ -41,8 +46,18 @@ dataset:  ## merge YAML label sources -> queries.jsonl, run integrity + leakage 
 eval-bm25:  ## re-score the frozen BM25 baseline on train+val (test is protected; see protocol.py)
 	uv run python -m neural_debugger.ml.evaluation.evaluate --retriever bm25
 
-freeze-verify:  ## fail if the frozen Milestone 2 baseline (data, labels, results) drifted
+freeze-verify:  ## fail if the frozen baseline (M2) or neural configuration (M3) drifted
 	uv run python -m neural_debugger.ml.evaluation.freeze verify
+	uv run python -m neural_debugger.ml.evaluation.freeze verify-m3
+
+embed:  ## (re)generate chunk embeddings: make embed M=gte-small
+	uv run python -m neural_debugger.ml.retrieval.embed --model $(M)
+
+eval-dev:  ## dev (train+val) evaluation of one system on expanded judgments: make eval-dev S=hybrid-gte-tuned
+	uv run python -m neural_debugger.ml.evaluation.system_eval --system $(S) --qrels expanded
+
+demo-neural:  ## neural/hybrid search over the real docs: make demo-neural Q="RuntimeError: ..."
+	uv run python -m neural_debugger.ml.retrieval.demo --system hybrid-gte-tuned $(Q)
 
 eval-ablation:  ## dev-only (train+val) BM25 configuration study
 	uv run python -m neural_debugger.ml.evaluation.bm25_ablation

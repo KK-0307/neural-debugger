@@ -2,6 +2,7 @@
 
     python -m neural_debugger.ml.evaluation.freeze create    # writes data/eval/baseline_freeze.json
     python -m neural_debugger.ml.evaluation.freeze verify    # exit 1 on any drift
+    python -m neural_debugger.ml.evaluation.freeze create-m3 / verify-m3   # Milestone 3 configuration
 
 Frozen: corpus, labeled queries and splits, the review file, the BM25 configuration, and the BM25
 result files. New work adds new files and new versions; it does not edit these.
@@ -68,10 +69,64 @@ def verify(root: Path = Path(".")) -> list[str]:
     return problems
 
 
+M3_FREEZE_PATH = Path("data/eval/m3_freeze.json")
+M3_TEST_SYSTEMS = ["bm25", "dense-gte-small", "hybrid-gte-tuned", "rerank-l12-n30-rrf"]
+M3_FROZEN_FILES = [
+    "configs/neural.yaml",
+    "data/embeddings/gte-small/embeddings.npy",
+    "data/embeddings/gte-small/meta.json",
+    "data/eval/pooled_judgments_neural.yaml",
+    "data/eval/results/m3/fusion_tuning_dev.json",
+    *[f"data/eval/results/m3/dev_final/{s}.json" for s in M3_TEST_SYSTEMS],
+    *[f"data/eval/results/m3/dev_final/{s}.rankings.jsonl" for s in M3_TEST_SYSTEMS],
+]
+
+
+def compute_m3(root: Path = Path(".")) -> dict[str, Any]:
+    import yaml
+
+    cfg = yaml.safe_load((root / "configs/neural.yaml").read_text())
+    return {
+        "freeze_id": "neural-retrieval-v1",
+        "depends_on": "bm25-v1 (data/eval/baseline_freeze.json)",
+        "test_systems": {s: cfg["systems"][s] for s in M3_TEST_SYSTEMS},
+        "embedding_model": cfg["embedding_models"]["gte-small"],
+        "reranker": cfg["rerankers"]["ce-minilm-l12"],
+        "selection": (
+            "Chosen on train+val only with expanded judgments: embedding model = best dense dev NDCG@10; "
+            "fusion = (k=10, w_dense=1.5) per the declared paired-CI rule; reranker = best dev variant; "
+            "router rejected (dev regression)."
+        ),
+        "files": {f: _sha(root / f) for f in M3_FROZEN_FILES},
+    }
+
+
+def verify_m3(root: Path = Path(".")) -> list[str]:
+    frozen = json.loads((root / M3_FREEZE_PATH).read_text())
+    now = compute_m3(root)
+    problems = [
+        k + " changed"
+        for k in ("test_systems", "embedding_model", "reranker")
+        if frozen[k] != now[k]
+    ]
+    problems += [f + " changed" for f, h in frozen["files"].items() if now["files"].get(f) != h]
+    return problems
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-    ap.add_argument("command", choices=["create", "verify"])
+    ap.add_argument("command", choices=["create", "verify", "create-m3", "verify-m3"])
     args = ap.parse_args(argv)
+    if args.command == "create-m3":
+        M3_FREEZE_PATH.write_text(json.dumps(compute_m3(), indent=1, sort_keys=True) + "\n")
+        print(f"wrote {M3_FREEZE_PATH}")
+        return 0
+    if args.command == "verify-m3":
+        problems = verify_m3()
+        for p in problems:
+            print("DRIFT:", p)
+        print("frozen M3 configuration intact" if not problems else f"{len(problems)} drift(s)")
+        return 1 if problems else 0
     if args.command == "create":
         FREEZE_PATH.write_text(json.dumps(compute(), indent=1, sort_keys=True) + "\n")
         print(f"wrote {FREEZE_PATH}")
