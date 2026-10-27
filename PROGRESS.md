@@ -8,8 +8,8 @@ review; not proceeding to Milestone 7.
 
 **Note on commit hashes.** Before the repository was made public, author e-mails were scrubbed by rewriting history; hashes cited in these write-ups (e.g. `35087b0`, `339bfe9`) are the old ones: see [docs/commit-map.md](docs/commit-map.md).
 
-**Release milestone (final): packaging for the portfolio.** Pushed everything (CI green on every push; run IDs in
-`docs/portfolio.md`), rewrote the README, added `docs/deployment.md`, `docs/portfolio.md` (walkthrough script, resume bullets,
+**Release milestone (final): packaging for the portfolio.** Pushed everything (CI green on every push; the run history before the
+scrub was deleted with the old e-mails, so the badge's latest run is the evidence), rewrote the README, added `docs/deployment.md`, `docs/portfolio.md` (walkthrough script, resume bullets,
 evidence map), an MIT `LICENSE`, real-app screenshots, and made the **actual** application deployable as one free container:
 FastAPI serves the exported Next.js frontend (`docker/fullstack.Dockerfile`), `GET /api/v1/config` lets the UI show the public-mode
 limits and the free-tier data notice, `render.yaml` describes a free-plan Render service, `scripts/smoke_public.py` verifies a

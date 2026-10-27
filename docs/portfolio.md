@@ -58,7 +58,7 @@ model-written": interviewers ask.
 | 12/12 out-of-scope declined; 12/42 → 16/42 answered; 0 invalid ids in 67 claims; quality 11/4/1 | `data/eval/results/m5_3/final_summary.json`, raw replies in `final_before/` and `final_after/`, [rag-reliability.md](rag-reliability.md) |
 | Gate: 18 → 1 of 36 verbose answerable refusals | `data/eval/results/m5_3/gate_diagnosis_before.json`, `gate_diagnosis_after.json`, `gate_regression.json` |
 | p = 0.125 (not significant) | exact sign test on 4 gained / 0 lost, `final_summary.json` |
-| 335 Python tests, 47 frontend tests | CI run logs (GitHub Actions), `make check` |
+| 335 Python tests, 47 frontend tests | the latest run of the CI badge's workflow (`.github/workflows/ci.yml`), `make check`; older runs were deleted when the history was scrubbed (see [commit-map.md](commit-map.md)) |
 | Container fits a 512 MB limit | CI step "Full-stack container inside a 512 MB limit" (OOMKilled false); step summary of the run |
 | Free-tier latency p50 7.4 s / p95 21 s generation | `final_summary.json` (`latency_ms.after`), the free tier varies |
 | Evaluation sets and results unchanged since recorded | `data/eval/*_freeze.json`, `make freeze-verify` |
