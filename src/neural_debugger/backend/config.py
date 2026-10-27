@@ -27,7 +27,7 @@ class Settings(BaseSettings):
         default_factory=lambda: ["configs/neural.yaml", "configs/m4.yaml"]
     )
     retriever_device: str = "auto"
-    llm_provider: Literal["none", "anthropic", "openai_compatible", "extractive"] = "none"
+    llm_provider: Literal["none", "anthropic", "openai_compatible", "gemini", "extractive"] = "none"
     llm_model: str = "claude-haiku-5-5"
     llm_api_key_env: str = "ANTHROPIC_API_KEY"
     llm_base_url: str = (
@@ -35,7 +35,21 @@ class Settings(BaseSettings):
     )
     llm_timeout_seconds: float = 60.0
     llm_max_retries: int = 2
+    llm_reasoning_effort: str = (
+        ""  # openai_compatible/gemini: none|low|medium|high (empty = provider default)
+    )
+    llm_min_interval_seconds: float = (
+        0.0  # client-side spacing between requests (free tiers: set >= 6)
+    )
+    llm_max_requests: int | None = None  # hard per-process cap on requests sent; None = unlimited
     rag_support_check: Literal["off", "lexical", "llm"] = "lexical"
+    # semantic grounding: "rules" (numbers, signatures, identifiers, negation; ~0.2 ms, no extra memory) is the
+    # deployment default; "nli" adds a 283 MB cross-encoder (~37 ms/claim on CPU). PipelineConfig itself
+    # defaults to "off" so the frozen Milestone 5 evaluations are unchanged.
+    rag_semantic_check: Literal["off", "rules", "nli"] = "rules"
+    # remove claims the semantic check only *disputes* (NLI / negation signals) instead of flagging them;
+    # measured to remove some correct claims on real model output, so off by default
+    rag_drop_disputed: bool = False
     rag_max_concurrent: int = 4
     rag_warm_on_startup: bool = False
 

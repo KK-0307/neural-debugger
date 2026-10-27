@@ -194,6 +194,40 @@ def verify_m5(root: Path = Path(".")) -> list[str]:
     return [f + " changed" for f, h in frozen["files"].items() if now["files"].get(f) != h]
 
 
+M51_FREEZE_PATH = Path("data/eval/m5_1_freeze.json")
+M51_FROZEN_FILES = [
+    "data/eval/rag/live_acceptance.yaml",
+    "data/eval/rag/independent_gemini.yaml",
+    "data/eval/rag/grounding_adversarial.jsonl",
+    "data/eval/results/m5_1/semantic_grounding.json",
+    "data/eval/results/m5_1/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_1/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_1/live_merged_as_run.json",
+    "data/eval/results/m5_1/independent/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_1/independent/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_1/independent/live_merged_as_run.json",
+]
+
+
+def compute_m51(root: Path = Path(".")) -> dict[str, Any]:
+    return {
+        "freeze_id": "rag-live-and-grounding-v1",
+        "depends_on": "rag-v1 (data/eval/m5_freeze.json)",
+        "note": (
+            "Recorded evidence of the Milestone 5.1 live Gemini free-tier runs (21 agent-authored and 30 "
+            "model-generated questions; raw replies are the evidence and cannot be regenerated bit-for-bit) "
+            "and the synthetic adversarial grounding set. Agent-authored / model-generated; no human labels."
+        ),
+        "files": {f: _sha(root / f) for f in M51_FROZEN_FILES},
+    }
+
+
+def verify_m51(root: Path = Path(".")) -> list[str]:
+    frozen = json.loads((root / M51_FREEZE_PATH).read_text())
+    now = compute_m51(root)
+    return [f + " changed" for f, h in frozen["files"].items() if now["files"].get(f) != h]
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument(
@@ -207,9 +241,21 @@ def main(argv: list[str] | None = None) -> int:
             "verify-m4",
             "create-m5",
             "verify-m5",
+            "create-m5_1",
+            "verify-m5_1",
         ],
     )
     args = ap.parse_args(argv)
+    if args.command == "create-m5_1":
+        M51_FREEZE_PATH.write_text(json.dumps(compute_m51(), indent=1, sort_keys=True) + "\n")
+        print(f"wrote {M51_FREEZE_PATH}")
+        return 0
+    if args.command == "verify-m5_1":
+        problems = verify_m51()
+        for p_ in problems:
+            print("DRIFT:", p_)
+        print("frozen M5.1 evidence intact" if not problems else f"{len(problems)} drift(s)")
+        return 1 if problems else 0
     if args.command == "create-m5":
         M5_FREEZE_PATH.write_text(json.dumps(compute_m5(), indent=1, sort_keys=True) + "\n")
         print(f"wrote {M5_FREEZE_PATH}")

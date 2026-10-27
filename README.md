@@ -5,13 +5,15 @@ explanation, troubleshooting steps, and citations to indexed documentation. Retr
 with a **custom transformer encoder written from scratch on PyTorch tensors**, evaluated against
 baselines, inside a RAG pipeline.
 
-> **Project status: early development (Milestones 1-5 of 8).** Built and verified: API skeleton, a
+> **Project status: early development (Milestones 1-5 of 8, incl. 5.1).** Built and verified: API skeleton, a
 > reproducible documentation corpus, a labeled evaluation set, BM25, **pretrained dense / hybrid / reranked
 > retrieval**, a **from-scratch PyTorch transformer dual encoder** (negative result: it does not beat BM25,
-> see [docs/ml-model.md](docs/ml-model.md)), and a **RAG pipeline with validated citations, abstention and
-> prompt-injection defences** ([docs/rag.md](docs/rag.md)). **Live generation with a real LLM is NOT yet
-> verified** (no credentials were available); the providers are tested against mocked HTTP only. Not built
-> yet: the debugging UI, persistence, deployment hardening.
+> see [docs/ml-model.md](docs/ml-model.md)), and a **RAG pipeline with validated citations, abstention,
+> semantic claim checking and prompt-injection defences** ([docs/rag.md](docs/rag.md)). **Live generation was
+> exercised with one real model** (Gemini 3.1 Flash-Lite, free tier) on 51 questions: grounded and rarely wrong
+> when it answers, but it answered only 80% of my own in-scope questions and **38% of independently generated
+> ones**. No human labelled anything. The Docker image has been checked only by a local simulation; its CI
+> job is the first real build. Not built yet: the debugging UI, persistence.
 > [PROGRESS.md](PROGRESS.md) lists exactly what is done and verified. No result is claimed that has
 > not been measured.
 
@@ -36,11 +38,17 @@ baselines, inside a RAG pipeline.
   for the pretrained hybrid** (32 queries; intervals in [docs/ml-model.md](docs/ml-model.md)).
 
 * **RAG** (`src/neural_debugger/rag`, `POST /api/v1/debug`): hybrid-gte-small retrieval -> evidence selection ->
-  provider-agnostic generation (Anthropic and OpenAI-compatible providers) -> citation validity and support
-  checks. Evaluated offline with a deterministic test provider (not an LLM): the pre-LLM gate abstains on 84%
-  of out-of-scope questions with 3.7% false abstentions on dev answerable ones; synthetic fabricated citations,
-  uncited claims and foreign links never survive validation, but an inverted-meaning claim does (the lexical
-  support check cannot see negation). [docs/rag.md](docs/rag.md)
+  provider-agnostic generation (Anthropic and OpenAI-compatible providers; a free Gemini preset) -> citation
+  validity, lexical support and **semantic grounding** checks. Offline (test provider): the pre-LLM gate abstains
+  on 84% of out-of-scope questions with 3.7% false abstentions; fabricated citations, uncited claims and foreign
+  links never survive. **Live (Gemini 3.1 Flash-Lite, free tier, 2026-10-26):** 100% valid JSON, 0 invalid citation
+  ids in 98 claims, 9 of 9 out-of-scope questions abstained, 12 of 15 agent-authored in-scope questions answered but
+  only **9 of 24** independent (model-generated) ones; the abstentions are retrieval misses, verbose questions the gate
+  over-abstains on, and troubleshooting causes the reference docs do not contain. [docs/rag.md](docs/rag.md)
+* **Semantic grounding** (`rag/semantic.py`): changed numbers/signatures remove a claim; negation and NLI conflicts
+  flag it. On a synthetic adversarial set the lexical judge alone silently accepted 52% of defective claims, rules
+  21%, rules + NLI 2.7% (test half). **Recall on real model errors is unmeasured.**
+  [docs/semantic-grounding.md](docs/semantic-grounding.md)
 
 **Measured results** (NDCG@10, authored queries; full tables, intervals and caveats in the docs):
 
@@ -80,7 +88,7 @@ make install             # uv sync --extra data + npm ci
 make check               # lint + type check + all tests (what CI runs, minus Docker builds)
 make demo Q="KeyError"   # BM25 search over the real corpus
 make eval-bm25           # re-score the frozen BM25 baseline on train+val (test split is guarded)
-make freeze-verify       # fail if the frozen baseline / neural configuration drifted
+make freeze-verify       # fail if the frozen baseline / neural / RAG evidence drifted
 make dev-backend         # http://localhost:8000/health  (needs a database, see make dev-db)
 make dev-frontend        # http://localhost:3000
 ```
@@ -100,9 +108,14 @@ Rebuild the corpus from the network (cached after the first run; ~24 MB, 1 reque
 | `data/` | `corpus/`, `embeddings/gte-small/` (committed), `eval/` (labels, pooled judgments, results), `manifests/`, `NOTICE.md` (licences) |
 | `configs/`, `scripts/`, `docker/`, `docs/` | sources config, authoring/rendering scripts, Dockerfile, documentation |
 
+RAG with a free hosted LLM (no local weights): put `GEMINI_API_KEY=...` in the git-ignored `.env`, then
+`python -m neural_debugger.rag.live_acceptance` (21 questions, <= 45 requests) or run the backend with
+`ND_LLM_PROVIDER=gemini` (see [docs/rag.md](docs/rag.md), "Free hosted LLM"). The backend image
+(`docker/backend.Dockerfile`) contains the retrieval stack and corpus and takes the key from the environment.
+
 Docs: [architecture](docs/architecture.md) · [data pipeline](docs/data-pipeline.md) ·
 [evaluation](docs/evaluation.md) · [neural retrieval](docs/neural-retrieval.md) ·
-[custom transformer](docs/ml-model.md) · [RAG](docs/rag.md) ·
+[custom transformer](docs/ml-model.md) · [RAG](docs/rag.md) · [semantic grounding](docs/semantic-grounding.md) ·
 [technical decisions](docs/technical-decisions.md).
 
 macOS note: if `import neural_debugger` fails inside `.venv`, run `chflags -R nohidden .venv` (see

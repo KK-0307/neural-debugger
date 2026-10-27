@@ -17,7 +17,10 @@ from .text import term_set
 from .types import Claim, CodeSuggestion, Evidence, ValidationReport
 
 _INLINE = re.compile(r"\[\s*(E\d{1,3}(?:\s*,\s*E\d{1,3})*)\s*\]", re.I)
-_URL = re.compile(r"https?://[^\s<>)\]\"']+", re.I)
+_URL = re.compile(r"https?://[^\s<>)\]\"'`]+", re.I)
+_LOOPBACK_URL = re.compile(
+    r"https?://(?:localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)(?::\d+)?(?:/[^\s<>)\]\"'`]*)?", re.I
+)
 _IMAGE = re.compile(r"!\[[^\]]*\]\([^)]*\)")
 _TAG = re.compile(r"</?[A-Za-z][^>\n]{0,200}>")
 _RISKY_CODE = (
@@ -49,9 +52,14 @@ def _norm_url(url: str) -> str:
 
 
 class _Cleaner:
-    def __init__(self, evidence: list[Evidence], report: ValidationReport) -> None:
+    def __init__(
+        self, evidence: list[Evidence], report: ValidationReport, trusted_text: str = ""
+    ) -> None:
         self.ids = {e.id for e in evidence}
         self.allowed = {_norm_url(e.url) for e in evidence}
+        # a loopback address the user typed (http://localhost:3000 in a CORS question) is theirs to read back;
+        # any other URL must be a documentation source, so an injected "visit http://evil..." never survives
+        self.allowed |= {_norm_url(m.group(0)) for m in _LOOPBACK_URL.finditer(trusted_text)}
         self.report = report
 
     def prose(self, text: str) -> str:
@@ -104,10 +112,12 @@ def validate_answer(
     evidence: list[Evidence],
     judge: SupportJudge | None = None,
     drop_unsupported: bool = True,
+    drop_disputed: bool = False,
+    trusted_text: str = "",
 ) -> Validated:
     out = Validated()
     rep = out.report
-    cleaner = _Cleaner(evidence, rep)
+    cleaner = _Cleaner(evidence, rep, trusted_text)
     by_id = {e.id: e for e in evidence}
 
     def check(
@@ -123,15 +133,39 @@ def validate_answer(
         label, score = "unchecked", None
         if judge is not None:
             passages = [f"{by_id[c].title} > {by_id[c].heading}\n{by_id[c].text}" for c in good]
-            verdict = judge.judge(judge_text or text, passages)
+            if getattr(judge, "supports_trusted", False):
+                verdict = judge.judge(judge_text or text, passages, trusted=trusted_text)  # type: ignore[call-arg]
+            else:
+                verdict = judge.judge(judge_text or text, passages)
             label, score = verdict.label, verdict.score
-            if label == "unsupported":
+            if label == "contradicted":
+                rep.contradicted_claims += 1
+                if drop_unsupported:
+                    return None
+            elif label == "unsupported":
                 rep.unsupported_claims += 1
                 if drop_unsupported:
                     return None
             elif label == "partial":
                 rep.partially_supported_claims += 1
-        return Claim(text, tuple(good), kind, label, score)  # type: ignore[arg-type]
+        semantic = "unchecked"
+        reason = ""
+        if judge is not None and verdict.semantic in (
+            "supported",
+            "unverified",
+            "disputed",
+            "unconfirmed",
+        ):
+            semantic, reason = verdict.semantic, verdict.reason
+            if semantic == "unverified":
+                rep.unverified_claims += 1
+            elif semantic == "unconfirmed":
+                rep.unconfirmed_claims += 1
+            elif semantic == "disputed":
+                rep.disputed_claims += 1
+                if drop_disputed:
+                    return None
+        return Claim(text, tuple(good), kind, label, score, semantic, reason)  # type: ignore[arg-type]
 
     if model.diagnosis:
         out.diagnosis = check(model.diagnosis.text, model.diagnosis.citations, "diagnosis")

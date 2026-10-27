@@ -26,6 +26,15 @@ services:
       ND_ENVIRONMENT: development
       ND_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-neural_debugger}:${POSTGRES_PASSWORD:-neural_debugger}@db:5432/${POSTGRES_DB:-neural_debugger}
       ND_CORS_ORIGINS: '["http://localhost:3000"]'
+      # RAG provider: read from the host environment / the git-ignored .env at `docker compose up` time,
+      # never baked into the image. With ND_LLM_PROVIDER unset the debug endpoint answers 503 llm_not_configured.
+      ND_LLM_PROVIDER: ${ND_LLM_PROVIDER:-none}
+      ND_LLM_MODEL: ${ND_LLM_MODEL:-gemini-3.1-flash-lite}
+      ND_LLM_MIN_INTERVAL_SECONDS: ${ND_LLM_MIN_INTERVAL_SECONDS:-7}
+      ND_LLM_MAX_REQUESTS: ${ND_LLM_MAX_REQUESTS:-200}
+      ND_RAG_SEMANTIC_CHECK: ${ND_RAG_SEMANTIC_CHECK:-rules}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
     ports:
       - "8000:8000"
     depends_on:

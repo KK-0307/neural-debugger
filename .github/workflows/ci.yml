@@ -63,8 +63,33 @@ jobs:
           context: .
           file: docker/backend.Dockerfile
           push: false
+          load: true
+          tags: nd-backend:ci
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Image size
+        run: |
+          size=$(docker image inspect nd-backend:ci --format '{{.Size}}')
+          echo "backend image: $((size / 1024 / 1024)) MiB"
+          echo "backend image: $((size / 1024 / 1024)) MiB" >> "$GITHUB_STEP_SUMMARY"
+          # guard against the CUDA wheels sneaking back in (CPU-only torch is ~1 GiB with the retrieval stack)
+          test "$size" -lt $((3 * 1024 * 1024 * 1024))
+      - name: No secrets in the image
+        run: |
+          ! docker run --rm --entrypoint sh nd-backend:ci -c 'ls -A /app | grep -E "^\.env"'
+          ! docker history --no-trunc nd-backend:ci | grep -iE 'api[_-]?key|secret|password'
+      - name: Smoke test - provider configured (mock OpenAI-compatible server inside the container)
+        run: |
+          docker run -d --name nd -p 8000:8000 \
+            -e ND_LLM_PROVIDER=openai_compatible -e ND_LLM_BASE_URL=http://127.0.0.1:8765 -e ND_LLM_MODEL=mock \
+            nd-backend:ci sh -c "python -m neural_debugger.rag.mock_server --port 8765 & exec uvicorn neural_debugger.backend.main:app --host 0.0.0.0 --port 8000"
+          python3 scripts/smoke_debug.py http://127.0.0.1:8000 || { docker logs nd; exit 1; }
+          docker rm -f nd
+      - name: Smoke test - no provider configured gives an informative 503
+        run: |
+          docker run -d --name nd -p 8000:8000 nd-backend:ci
+          python3 scripts/smoke_debug.py http://127.0.0.1:8000 --expect-unconfigured || { docker logs nd; exit 1; }
+          docker rm -f nd
       - name: Build frontend image
         uses: docker/build-push-action@v6
         with:

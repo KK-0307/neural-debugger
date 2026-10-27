@@ -58,6 +58,9 @@ class QuestionInfo:
     code_blocks: int
     truncated: bool
     injection_flags: tuple[str, ...] = ()
+    # the user's text minus instruction-like sentences (code kept): identifiers, numbers and loopback URLs in it
+    # are the user's own and are not treated as fabricated when an answer repeats them
+    trusted_text: str = ""
 
 
 @dataclass(frozen=True)
@@ -67,8 +70,14 @@ class Claim:
     text: str
     citations: tuple[str, ...]
     kind: Literal["diagnosis", "step", "code", "conflict", "caveat"] = "step"
-    support: Literal["supported", "partial", "unsupported", "unchecked"] = "unchecked"
+    support: Literal["supported", "partial", "unsupported", "contradicted", "unchecked"] = (
+        "unchecked"
+    )
     support_score: float | None = None
+    semantic: Literal["supported", "unverified", "disputed", "unconfirmed", "unchecked"] = (
+        "unchecked"
+    )
+    semantic_reason: str = ""
 
 
 @dataclass(frozen=True)
@@ -95,6 +104,14 @@ class ValidationReport:
     dropped_claims: int = 0  # claims removed for having no valid citation
     unsupported_claims: int = 0  # claims removed/flagged by the support check
     partially_supported_claims: int = 0
+    contradicted_claims: int = 0  # removed: the cited text says something different (semantic.py)
+    unverified_claims: int = 0  # kept but flagged: the semantic check could not establish support
+    unconfirmed_claims: int = (
+        0  # neutral: no contradiction found, but the semantic check confirmed nothing
+    )
+    disputed_claims: int = (
+        0  # soft conflict signal (NLI / negation): flagged, or removed if drop_disputed
+    )
     total_claims: int = 0
     citations_checked: int = (
         0  # citation ids the model emitted (explicit + inline), before validation

@@ -13,7 +13,15 @@ from dataclasses import dataclass, field
 from typing import Literal, Protocol
 
 ErrorKind = Literal[
-    "not_configured", "auth", "rate_limit", "timeout", "network", "server", "bad_request", "empty"
+    "not_configured",
+    "auth",
+    "rate_limit",
+    "timeout",
+    "network",
+    "server",
+    "bad_request",
+    "empty",
+    "budget_exhausted",  # local guard: the configured request cap was reached (nothing was sent)
 ]
 
 
@@ -92,3 +100,33 @@ def with_retries(call: Callable[[], LLMResponse], policy: RetryPolicy) -> LLMRes
                 raise
             policy.sleep(policy.delay(attempt, exc))
             attempt += 1
+
+
+@dataclass
+class RequestGovernor:
+    """Client-side guard so a free-tier key is never hammered: spacing between calls and a hard request cap.
+
+    ``max_requests`` counts calls *attempted* (including retries); when it is reached further calls raise
+    ``ProviderError("budget_exhausted")`` without touching the network. There is no fallback to any other
+    model or provider.
+    """
+
+    min_interval_s: float = 0.0
+    max_requests: int | None = None
+    clock: Callable[[], float] = time.monotonic
+    sleep: Callable[[float], None] = time.sleep
+    used: int = 0
+    _last: float | None = field(default=None, repr=False)
+
+    def before_request(self) -> None:
+        if self.max_requests is not None and self.used >= self.max_requests:
+            raise ProviderError(
+                "budget_exhausted",
+                f"request cap of {self.max_requests} reached; no request was sent",
+            )
+        if self._last is not None and self.min_interval_s > 0:
+            wait = self.min_interval_s - (self.clock() - self._last)
+            if wait > 0:
+                self.sleep(wait)
+        self.used += 1
+        self._last = self.clock()

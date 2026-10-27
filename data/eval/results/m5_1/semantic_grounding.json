@@ -1,0 +1,1151 @@
+{
+ "label": "synthetic, agent-authored adversarial set built by rule from the indexed corpus; thresholds chosen on dev only; no human labels",
+ "seed": 20261026,
+ "dataset_sha256": "19c53022151c5da065b3751d706b0fccafd33bbc0121f200fe5bdb2e0855d060",
+ "n_items": {
+  "supported_verbatim": 90,
+  "supported_clause": 90,
+  "supported_two_sentences": 90,
+  "supported_signature": 90,
+  "supported_reordered": 90,
+  "supported_prefixed": 90,
+  "negation": 90,
+  "wrong_number": 76,
+  "wrong_signature": 90,
+  "fabricated_identifier": 90,
+  "antonym_swap": 90,
+  "unsupported_causal": 90
+ },
+ "n_dev": 548,
+ "n_test": 518,
+ "nli_model": "cross-encoder/nli-deberta-v3-xsmall@a1508764",
+ "chosen_config": {
+  "min_match_overlap": 0.6,
+  "entail_threshold": 0.95,
+  "contradict_threshold": 0.85,
+  "max_windows": 4,
+  "use_rules": true
+ },
+ "default_config": {
+  "min_match_overlap": 0.6,
+  "entail_threshold": 0.95,
+  "contradict_threshold": 0.85,
+  "max_windows": 4,
+  "use_rules": true
+ },
+ "systems": {
+  "lexical": {
+   "dev": {
+    "per_category": {
+     "supported_verbatim": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_clause": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_two_sentences": {
+      "n": 48,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_signature": {
+      "n": 42,
+      "accepted": 0.976,
+      "flagged": 0.024,
+      "rejected": 0.0
+     },
+     "supported_reordered": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_prefixed": {
+      "n": 45,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "negation": {
+      "n": 40,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "wrong_number": {
+      "n": 43,
+      "accepted": 0.907,
+      "flagged": 0.047,
+      "rejected": 0.047
+     },
+     "wrong_signature": {
+      "n": 44,
+      "accepted": 0.136,
+      "flagged": 0.273,
+      "rejected": 0.591
+     },
+     "fabricated_identifier": {
+      "n": 53,
+      "accepted": 0.038,
+      "flagged": 0.453,
+      "rejected": 0.509
+     },
+     "antonym_swap": {
+      "n": 45,
+      "accepted": 0.956,
+      "flagged": 0.022,
+      "rejected": 0.022
+     },
+     "unsupported_causal": {
+      "n": 47,
+      "accepted": 0.085,
+      "flagged": 0.511,
+      "rejected": 0.404
+     }
+    },
+    "defective_silently_accepted": 0.493,
+    "defective_not_accepted_clean": 0.507,
+    "defective_rejected": 0.276,
+    "supported_accepted": 0.996,
+    "supported_flagged": 0.004,
+    "supported_rejected": 0.0,
+    "supported_quote_accepted": 0.995,
+    "supported_quote_rejected": 0.0,
+    "supported_paraphrase_accepted": 1.0,
+    "supported_paraphrase_flagged": 0.0,
+    "supported_paraphrase_rejected": 0.0
+   },
+   "test": {
+    "per_category": {
+     "supported_verbatim": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_clause": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_two_sentences": {
+      "n": 42,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_signature": {
+      "n": 48,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_reordered": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_prefixed": {
+      "n": 45,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "negation": {
+      "n": 50,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "wrong_number": {
+      "n": 33,
+      "accepted": 0.909,
+      "flagged": 0.061,
+      "rejected": 0.03
+     },
+     "wrong_signature": {
+      "n": 46,
+      "accepted": 0.065,
+      "flagged": 0.304,
+      "rejected": 0.63
+     },
+     "fabricated_identifier": {
+      "n": 37,
+      "accepted": 0.0,
+      "flagged": 0.568,
+      "rejected": 0.432
+     },
+     "antonym_swap": {
+      "n": 45,
+      "accepted": 0.978,
+      "flagged": 0.022,
+      "rejected": 0.0
+     },
+     "unsupported_causal": {
+      "n": 43,
+      "accepted": 0.116,
+      "flagged": 0.535,
+      "rejected": 0.349
+     }
+    },
+    "defective_silently_accepted": 0.52,
+    "defective_not_accepted_clean": 0.48,
+    "defective_rejected": 0.24,
+    "supported_accepted": 1.0,
+    "supported_flagged": 0.0,
+    "supported_rejected": 0.0,
+    "supported_quote_accepted": 1.0,
+    "supported_quote_rejected": 0.0,
+    "supported_paraphrase_accepted": 1.0,
+    "supported_paraphrase_flagged": 0.0,
+    "supported_paraphrase_rejected": 0.0
+   },
+   "latency_ms_per_claim_warm": {
+    "p50": 0.0,
+    "p95": 0.1
+   }
+  },
+  "lexical+rules": {
+   "dev": {
+    "per_category": {
+     "supported_verbatim": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_clause": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_two_sentences": {
+      "n": 48,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_signature": {
+      "n": 42,
+      "accepted": 0.929,
+      "flagged": 0.071,
+      "rejected": 0.0
+     },
+     "supported_reordered": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_prefixed": {
+      "n": 45,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "negation": {
+      "n": 40,
+      "accepted": 0.15,
+      "flagged": 0.85,
+      "rejected": 0.0
+     },
+     "wrong_number": {
+      "n": 43,
+      "accepted": 0.0,
+      "flagged": 0.0,
+      "rejected": 1.0
+     },
+     "wrong_signature": {
+      "n": 44,
+      "accepted": 0.0,
+      "flagged": 0.0,
+      "rejected": 1.0
+     },
+     "fabricated_identifier": {
+      "n": 53,
+      "accepted": 0.0,
+      "flagged": 0.491,
+      "rejected": 0.509
+     },
+     "antonym_swap": {
+      "n": 45,
+      "accepted": 0.911,
+      "flagged": 0.067,
+      "rejected": 0.022
+     },
+     "unsupported_causal": {
+      "n": 47,
+      "accepted": 0.085,
+      "flagged": 0.511,
+      "rejected": 0.404
+     }
+    },
+    "defective_silently_accepted": 0.187,
+    "defective_not_accepted_clean": 0.813,
+    "defective_rejected": 0.492,
+    "supported_accepted": 0.989,
+    "supported_flagged": 0.011,
+    "supported_rejected": 0.0,
+    "supported_quote_accepted": 0.984,
+    "supported_quote_rejected": 0.0,
+    "supported_paraphrase_accepted": 1.0,
+    "supported_paraphrase_flagged": 0.0,
+    "supported_paraphrase_rejected": 0.0
+   },
+   "test": {
+    "per_category": {
+     "supported_verbatim": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_clause": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_two_sentences": {
+      "n": 42,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_signature": {
+      "n": 48,
+      "accepted": 0.917,
+      "flagged": 0.062,
+      "rejected": 0.021
+     },
+     "supported_reordered": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_prefixed": {
+      "n": 45,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "negation": {
+      "n": 50,
+      "accepted": 0.08,
+      "flagged": 0.92,
+      "rejected": 0.0
+     },
+     "wrong_number": {
+      "n": 33,
+      "accepted": 0.03,
+      "flagged": 0.0,
+      "rejected": 0.97
+     },
+     "wrong_signature": {
+      "n": 46,
+      "accepted": 0.0,
+      "flagged": 0.0,
+      "rejected": 1.0
+     },
+     "fabricated_identifier": {
+      "n": 37,
+      "accepted": 0.0,
+      "flagged": 0.568,
+      "rejected": 0.432
+     },
+     "antonym_swap": {
+      "n": 45,
+      "accepted": 0.978,
+      "flagged": 0.022,
+      "rejected": 0.0
+     },
+     "unsupported_causal": {
+      "n": 43,
+      "accepted": 0.116,
+      "flagged": 0.535,
+      "rejected": 0.349
+     }
+    },
+    "defective_silently_accepted": 0.213,
+    "defective_not_accepted_clean": 0.787,
+    "defective_rejected": 0.429,
+    "supported_accepted": 0.985,
+    "supported_flagged": 0.011,
+    "supported_rejected": 0.004,
+    "supported_quote_accepted": 0.977,
+    "supported_quote_rejected": 0.006,
+    "supported_paraphrase_accepted": 1.0,
+    "supported_paraphrase_flagged": 0.0,
+    "supported_paraphrase_rejected": 0.0
+   },
+   "latency_ms_per_claim_warm": {
+    "p50": 0.2,
+    "p95": 0.3
+   }
+  },
+  "lexical+nli_only": {
+   "dev": {
+    "per_category": {
+     "supported_verbatim": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_clause": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_two_sentences": {
+      "n": 48,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_signature": {
+      "n": 42,
+      "accepted": 0.929,
+      "flagged": 0.071,
+      "rejected": 0.0
+     },
+     "supported_reordered": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_prefixed": {
+      "n": 45,
+      "accepted": 0.978,
+      "flagged": 0.022,
+      "rejected": 0.0
+     },
+     "negation": {
+      "n": 40,
+      "accepted": 0.025,
+      "flagged": 0.975,
+      "rejected": 0.0
+     },
+     "wrong_number": {
+      "n": 43,
+      "accepted": 0.023,
+      "flagged": 0.93,
+      "rejected": 0.047
+     },
+     "wrong_signature": {
+      "n": 44,
+      "accepted": 0.114,
+      "flagged": 0.295,
+      "rejected": 0.591
+     },
+     "fabricated_identifier": {
+      "n": 53,
+      "accepted": 0.038,
+      "flagged": 0.453,
+      "rejected": 0.509
+     },
+     "antonym_swap": {
+      "n": 45,
+      "accepted": 0.0,
+      "flagged": 0.978,
+      "rejected": 0.022
+     },
+     "unsupported_causal": {
+      "n": 47,
+      "accepted": 0.085,
+      "flagged": 0.511,
+      "rejected": 0.404
+     }
+    },
+    "defective_silently_accepted": 0.048,
+    "defective_not_accepted_clean": 0.952,
+    "defective_rejected": 0.276,
+    "supported_accepted": 0.986,
+    "supported_flagged": 0.014,
+    "supported_rejected": 0.0,
+    "supported_quote_accepted": 0.984,
+    "supported_quote_rejected": 0.0,
+    "supported_paraphrase_accepted": 0.989,
+    "supported_paraphrase_flagged": 0.011,
+    "supported_paraphrase_rejected": 0.0
+   },
+   "test": {
+    "per_category": {
+     "supported_verbatim": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_clause": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_two_sentences": {
+      "n": 42,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_signature": {
+      "n": 48,
+      "accepted": 0.958,
+      "flagged": 0.042,
+      "rejected": 0.0
+     },
+     "supported_reordered": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_prefixed": {
+      "n": 45,
+      "accepted": 0.978,
+      "flagged": 0.022,
+      "rejected": 0.0
+     },
+     "negation": {
+      "n": 50,
+      "accepted": 0.02,
+      "flagged": 0.98,
+      "rejected": 0.0
+     },
+     "wrong_number": {
+      "n": 33,
+      "accepted": 0.0,
+      "flagged": 0.97,
+      "rejected": 0.03
+     },
+     "wrong_signature": {
+      "n": 46,
+      "accepted": 0.065,
+      "flagged": 0.304,
+      "rejected": 0.63
+     },
+     "fabricated_identifier": {
+      "n": 37,
+      "accepted": 0.0,
+      "flagged": 0.568,
+      "rejected": 0.432
+     },
+     "antonym_swap": {
+      "n": 45,
+      "accepted": 0.022,
+      "flagged": 0.978,
+      "rejected": 0.0
+     },
+     "unsupported_causal": {
+      "n": 43,
+      "accepted": 0.116,
+      "flagged": 0.535,
+      "rejected": 0.349
+     }
+    },
+    "defective_silently_accepted": 0.039,
+    "defective_not_accepted_clean": 0.961,
+    "defective_rejected": 0.24,
+    "supported_accepted": 0.989,
+    "supported_flagged": 0.011,
+    "supported_rejected": 0.0,
+    "supported_quote_accepted": 0.989,
+    "supported_quote_rejected": 0.0,
+    "supported_paraphrase_accepted": 0.989,
+    "supported_paraphrase_flagged": 0.011,
+    "supported_paraphrase_rejected": 0.0
+   },
+   "latency_ms_per_claim_warm": {
+    "p50": 34.9,
+    "p95": 73.5
+   }
+  },
+  "lexical+rules+nli": {
+   "dev": {
+    "per_category": {
+     "supported_verbatim": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_clause": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_two_sentences": {
+      "n": 48,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_signature": {
+      "n": 42,
+      "accepted": 0.881,
+      "flagged": 0.119,
+      "rejected": 0.0
+     },
+     "supported_reordered": {
+      "n": 47,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_prefixed": {
+      "n": 45,
+      "accepted": 0.978,
+      "flagged": 0.022,
+      "rejected": 0.0
+     },
+     "negation": {
+      "n": 40,
+      "accepted": 0.025,
+      "flagged": 0.975,
+      "rejected": 0.0
+     },
+     "wrong_number": {
+      "n": 43,
+      "accepted": 0.0,
+      "flagged": 0.0,
+      "rejected": 1.0
+     },
+     "wrong_signature": {
+      "n": 44,
+      "accepted": 0.0,
+      "flagged": 0.0,
+      "rejected": 1.0
+     },
+     "fabricated_identifier": {
+      "n": 53,
+      "accepted": 0.0,
+      "flagged": 0.491,
+      "rejected": 0.509
+     },
+     "antonym_swap": {
+      "n": 45,
+      "accepted": 0.0,
+      "flagged": 0.978,
+      "rejected": 0.022
+     },
+     "unsupported_causal": {
+      "n": 47,
+      "accepted": 0.085,
+      "flagged": 0.511,
+      "rejected": 0.404
+     }
+    },
+    "defective_silently_accepted": 0.018,
+    "defective_not_accepted_clean": 0.982,
+    "defective_rejected": 0.492,
+    "supported_accepted": 0.978,
+    "supported_flagged": 0.022,
+    "supported_rejected": 0.0,
+    "supported_quote_accepted": 0.973,
+    "supported_quote_rejected": 0.0,
+    "supported_paraphrase_accepted": 0.989,
+    "supported_paraphrase_flagged": 0.011,
+    "supported_paraphrase_rejected": 0.0
+   },
+   "test": {
+    "per_category": {
+     "supported_verbatim": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_clause": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_two_sentences": {
+      "n": 42,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_signature": {
+      "n": 48,
+      "accepted": 0.896,
+      "flagged": 0.083,
+      "rejected": 0.021
+     },
+     "supported_reordered": {
+      "n": 43,
+      "accepted": 1.0,
+      "flagged": 0.0,
+      "rejected": 0.0
+     },
+     "supported_prefixed": {
+      "n": 45,
+      "accepted": 0.978,
+      "flagged": 0.022,
+      "rejected": 0.0
+     },
+     "negation": {
+      "n": 50,
+      "accepted": 0.02,
+      "flagged": 0.98,
+      "rejected": 0.0
+     },
+     "wrong_number": {
+      "n": 33,
+      "accepted": 0.0,
+      "flagged": 0.03,
+      "rejected": 0.97
+     },
+     "wrong_signature": {
+      "n": 46,
+      "accepted": 0.0,
+      "flagged": 0.0,
+      "rejected": 1.0
+     },
+     "fabricated_identifier": {
+      "n": 37,
+      "accepted": 0.0,
+      "flagged": 0.568,
+      "rejected": 0.432
+     },
+     "antonym_swap": {
+      "n": 45,
+      "accepted": 0.022,
+      "flagged": 0.978,
+      "rejected": 0.0
+     },
+     "unsupported_causal": {
+      "n": 43,
+      "accepted": 0.116,
+      "flagged": 0.535,
+      "rejected": 0.349
+     }
+    },
+    "defective_silently_accepted": 0.027,
+    "defective_not_accepted_clean": 0.973,
+    "defective_rejected": 0.429,
+    "supported_accepted": 0.977,
+    "supported_flagged": 0.019,
+    "supported_rejected": 0.004,
+    "supported_quote_accepted": 0.972,
+    "supported_quote_rejected": 0.006,
+    "supported_paraphrase_accepted": 0.989,
+    "supported_paraphrase_flagged": 0.011,
+    "supported_paraphrase_rejected": 0.0
+   },
+   "latency_ms_per_claim_warm": {
+    "p50": 36.0,
+    "p95": 72.5
+   }
+  }
+ },
+ "environment": {
+  "device": "cpu",
+  "nli_load_seconds": 5.81,
+  "peak_rss_mb_before_nli_load": 110.7,
+  "peak_rss_mb_after_nli_load": 634.6
+ },
+ "calibration_grid": [
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.033,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.076
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.033,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.047
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.033,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.022
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.033,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.072
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.033,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.047
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.033,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.022
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.033,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.054
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.033,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.04
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.033,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.018
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.037,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.04
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.037,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.033
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.5,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.037,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.018
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.076
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.047
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.022
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.072
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.047
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.022
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.054
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.04
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.018
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.029,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.04
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.029,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.033
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.7,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.029,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.018
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.08
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.051
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.025
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.076
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.051
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.025
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.058
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.043
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.022
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.043
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.036
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.85,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.026,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.022
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.018,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.083
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.018,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.054
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.5,
+   "defective_silently_accepted": 0.018,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.025
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.018,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.08
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.018,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.054
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.7,
+   "defective_silently_accepted": 0.018,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.025
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.018,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.061
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.018,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.047
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.85,
+   "defective_silently_accepted": 0.018,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.022
+  },
+  {
+   "min_match_overlap": 0.3,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.047
+  },
+  {
+   "min_match_overlap": 0.45,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.04
+  },
+  {
+   "min_match_overlap": 0.6,
+   "entail_threshold": 0.95,
+   "contradict_threshold": 0.95,
+   "defective_silently_accepted": 0.022,
+   "supported_rejected": 0.0,
+   "supported_flagged": 0.022
+  }
+ ],
+ "nli_model_seconds_total": 37.2
+}

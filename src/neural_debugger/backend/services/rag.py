@@ -7,7 +7,7 @@ import threading
 from pathlib import Path
 
 from neural_debugger.rag import PipelineConfig, RAGPipeline
-from neural_debugger.rag.providers.base import LLMProvider, RetryPolicy
+from neural_debugger.rag.providers.base import LLMProvider, RequestGovernor, RetryPolicy
 from neural_debugger.rag.providers.testing import ExtractiveProvider, UnconfiguredProvider
 from neural_debugger.rag.sufficiency import TermStats
 
@@ -16,10 +16,13 @@ from ..errors import AppError
 
 logger = logging.getLogger(__name__)
 
+GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai"
+
 
 def build_provider(settings: Settings) -> LLMProvider:
     kind = settings.llm_provider
     retry = RetryPolicy(max_retries=settings.llm_max_retries)
+    governor = RequestGovernor(settings.llm_min_interval_seconds, settings.llm_max_requests)
     if kind == "none":
         return UnconfiguredProvider(
             "no LLM provider is configured: set ND_LLM_PROVIDER=anthropic (and ANTHROPIC_API_KEY) "
@@ -37,6 +40,18 @@ def build_provider(settings: Settings) -> LLMProvider:
             api_key_env=settings.llm_api_key_env,
             base_url=settings.llm_base_url or "https://api.anthropic.com",
             retry=retry,
+            governor=governor,
+        )
+    if kind == "gemini":  # Google AI Studio free tier through its OpenAI-compatible endpoint
+        return OpenAICompatibleProvider(
+            settings.llm_model,
+            base_url=settings.llm_base_url or GEMINI_BASE_URL,
+            api_key_env=settings.llm_api_key_env
+            if settings.llm_api_key_env != "ANTHROPIC_API_KEY"
+            else "GEMINI_API_KEY",
+            retry=retry,
+            governor=governor,
+            reasoning_effort=settings.llm_reasoning_effort,
         )
     local = bool(settings.llm_base_url) and any(
         h in settings.llm_base_url for h in ("localhost", "127.0.0.1", "[::1]")
@@ -47,6 +62,8 @@ def build_provider(settings: Settings) -> LLMProvider:
         api_key_env=None if local else settings.llm_api_key_env,
         retry=retry,
         key_required=not local,
+        governor=governor,
+        reasoning_effort=settings.llm_reasoning_effort,
     )
 
 
@@ -78,7 +95,10 @@ def build_pipeline(settings: Settings) -> RAGPipeline:
         CorpusSectionRetriever(retriever, corpus),
         build_provider(settings),
         PipelineConfig(
-            support=settings.rag_support_check, generation_timeout_s=settings.llm_timeout_seconds
+            support=settings.rag_support_check,
+            semantic=settings.rag_semantic_check,
+            drop_disputed=settings.rag_drop_disputed,
+            generation_timeout_s=settings.llm_timeout_seconds,
         ),
         stats=stats,
     )

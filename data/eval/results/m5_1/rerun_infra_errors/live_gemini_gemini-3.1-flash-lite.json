@@ -1,0 +1,182 @@
+{
+ "label": "live acceptance; agent-authored questions, automated checks only, not human-verified",
+ "provider": "gemini",
+ "model": "gemini-3.1-flash-lite",
+ "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+ "retriever": "hybrid-gte-tuned",
+ "free_tier_basis": "https://ai.google.dev/gemini-api/docs/pricing (checked 2026-10-26)",
+ "questions_sha256": "98eb31d9c958db47a1b92086756686058884ec5f2bc524e460c3e5614c858a51",
+ "pace_seconds": 7.0,
+ "max_requests": 45,
+ "summary": {
+  "n_items_run": 4,
+  "n_served_by_model": 4,
+  "n_infrastructure_errors": 0,
+  "requests_sent": 6,
+  "tokens": {
+   "input_tokens": 7899,
+   "output_tokens": 1545
+  },
+  "answer_questions": {
+   "n": 4,
+   "answered_or_partial": 1.0,
+   "on_topic_with_citations": 1.0,
+   "false_abstentions": 0,
+   "by_framework": {
+    "python": null,
+    "pytorch": 1.0,
+    "fastapi": 1.0
+   }
+  },
+  "json_compliance": {
+   "first_try_valid": 1.0,
+   "needed_repair": 0,
+   "unusable_after_repair": 0
+  },
+  "citations": {
+   "claims_emitted": 19,
+   "invalid_citation_ids_emitted": 0,
+   "claims_unsupported_by_lexical_check": 3,
+   "claims_dropped_no_valid_citation": 0
+  },
+  "abstention": {
+   "n_should_abstain": 0,
+   "abstained": 0,
+   "abstained_by_pre_llm_gate": 0,
+   "abstained_by_model": 0,
+   "answered_anyway": []
+  },
+  "prompt_injection": {
+   "n": 0,
+   "model_followed_attack_in_raw_reply": [],
+   "attack_survived_into_final_answer": []
+  },
+  "latency_ms": {
+   "generation_p50": 12725,
+   "generation_p95": 72668,
+   "total_p50": 12748,
+   "total_p95": 72695,
+   "mean_total": 22713
+  },
+  "wall_clock_seconds": 90.9
+ },
+ "results": [
+  {
+   "id": "pt4",
+   "kind": "answer",
+   "fw": "pytorch",
+   "status": "partial",
+   "abstain_reason": null,
+   "confidence": "low",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 6,
+   "cited_sections": [
+    "pytorch/2.14/autograd#default-gradient-layouts",
+    "pytorch/2.14/optim#optimizer-step",
+    "pytorch/2.14/optim#optimizer-step-closure"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 2,
+   "dropped_claims": 0,
+   "on_topic": true,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 72668,
+   "total_ms": 72695,
+   "tokens": {
+    "input_tokens": 1734,
+    "output_tokens": 412
+   },
+   "note": ""
+  },
+  {
+   "id": "fa1",
+   "kind": "answer",
+   "fw": "fastapi",
+   "status": "answered",
+   "abstain_reason": null,
+   "confidence": "medium",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 4,
+   "cited_sections": [
+    "fastapi/0.162.0/tutorial/body#results",
+    "fastapi/0.162.0/tutorial/handling-errors#use-the-requestvalidationerror-body",
+    "fastapi/0.162.0/tutorial/request-files#what-is-form-data"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": true,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 1790,
+   "total_ms": 1816,
+   "tokens": {
+    "input_tokens": 2278,
+    "output_tokens": 311
+   },
+   "note": ""
+  },
+  {
+   "id": "fa2",
+   "kind": "answer",
+   "fw": "fastapi",
+   "status": "partial",
+   "abstain_reason": null,
+   "confidence": "low",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 5,
+   "cited_sections": [
+    "fastapi/0.162.0/tutorial/cors#use-corsmiddleware",
+    "fastapi/0.162.0/tutorial/cors#steps"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 1,
+   "dropped_claims": 0,
+   "on_topic": true,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 12725,
+   "total_ms": 12748,
+   "tokens": {
+    "input_tokens": 1893,
+    "output_tokens": 413
+   },
+   "note": ""
+  },
+  {
+   "id": "fa3",
+   "kind": "answer",
+   "fw": "fastapi",
+   "status": "answered",
+   "abstain_reason": null,
+   "confidence": "medium",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 4,
+   "cited_sections": [
+    "fastapi/0.162.0/advanced/events#lifespan"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": true,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 3575,
+   "total_ms": 3594,
+   "tokens": {
+    "input_tokens": 1994,
+    "output_tokens": 409
+   },
+   "note": ""
+  }
+ ]
+}

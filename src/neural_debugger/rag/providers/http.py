@@ -10,6 +10,7 @@ from __future__ import annotations
 import contextlib
 import os
 import time
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -18,6 +19,7 @@ from .base import (
     LLMRequest,
     LLMResponse,
     ProviderError,
+    RequestGovernor,
     RetryPolicy,
     with_retries,
 )
@@ -58,18 +60,36 @@ class _HTTPProvider:
         api_key_env: str | None,
         client: httpx.Client | None = None,
         retry: RetryPolicy | None = None,
+        governor: RequestGovernor | None = None,
+        dotenv_path: str | None = ".env",
     ) -> None:
         self.model = model
         self.base_url = base_url.rstrip("/")
         self.api_key_env = api_key_env
         self._client = client or httpx.Client()
         self._retry = retry or RetryPolicy()
+        self.governor = governor or RequestGovernor()
+        self._dotenv_path = dotenv_path
 
     def __repr__(self) -> str:  # never include credentials
         return f"{type(self).__name__}(model={self.model!r}, base_url={self.base_url!r})"
 
+    def _dotenv_key(self) -> str | None:
+        """Read only ``api_key_env`` from a git-ignored ``.env`` file (never exported, never logged)."""
+        if not (self._dotenv_path and self.api_key_env):
+            return None
+        try:
+            lines = Path(self._dotenv_path).read_text(encoding="utf-8").splitlines()
+        except OSError:
+            return None
+        for line in lines:
+            name, sep, value = line.strip().partition("=")
+            if sep and name.strip().removeprefix("export ").strip() == self.api_key_env:
+                return value.strip().strip("'\"") or None
+        return None
+
     def _api_key(self, required: bool) -> str | None:
-        key = os.environ.get(self.api_key_env) if self.api_key_env else None
+        key = (os.environ.get(self.api_key_env) if self.api_key_env else None) or self._dotenv_key()
         if required and not key:
             raise ProviderError(
                 "not_configured", f"environment variable {self.api_key_env} is not set"
@@ -79,6 +99,7 @@ class _HTTPProvider:
     def _post(
         self, path: str, headers: dict[str, str], body: dict[str, Any], timeout: float
     ) -> Any:
+        self.governor.before_request()
         try:
             resp = self._client.post(
                 self.base_url + path, headers=headers, json=body, timeout=timeout
@@ -118,8 +139,10 @@ class AnthropicProvider(_HTTPProvider):
         base_url: str = "https://api.anthropic.com",
         client: httpx.Client | None = None,
         retry: RetryPolicy | None = None,
+        governor: RequestGovernor | None = None,
+        dotenv_path: str | None = ".env",
     ) -> None:
-        super().__init__(model, base_url, api_key_env, client, retry)
+        super().__init__(model, base_url, api_key_env, client, retry, governor, dotenv_path)
 
     def generate(self, request: LLMRequest) -> LLMResponse:
         return self._timed(request, self._once)
@@ -170,10 +193,14 @@ class OpenAICompatibleProvider(_HTTPProvider):
         retry: RetryPolicy | None = None,
         send_json_mode: bool = False,
         key_required: bool = True,
+        governor: RequestGovernor | None = None,
+        reasoning_effort: str = "",
+        dotenv_path: str | None = ".env",
     ) -> None:
-        super().__init__(model, base_url, api_key_env, client, retry)
+        super().__init__(model, base_url, api_key_env, client, retry, governor, dotenv_path)
         self.send_json_mode = send_json_mode
         self.key_required = key_required
+        self.reasoning_effort = reasoning_effort
 
     def generate(self, request: LLMRequest) -> LLMResponse:
         return self._timed(request, self._once)
@@ -189,6 +216,8 @@ class OpenAICompatibleProvider(_HTTPProvider):
                 *({"role": m.role, "content": m.content} for m in request.messages),
             ],
         }
+        if self.reasoning_effort:
+            body["reasoning_effort"] = self.reasoning_effort
         if request.json_mode and self.send_json_mode:
             body["response_format"] = {"type": "json_object"}
         headers = {"content-type": "application/json"}

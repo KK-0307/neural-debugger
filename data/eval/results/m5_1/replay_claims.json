@@ -1,0 +1,1828 @@
+[
+ {
+  "id": "py3",
+  "claim_kind": "diagnosis",
+  "claim": "A ModuleNotFoundError indicates that the Python interpreter cannot locate the requested module, which often occurs if the package was installed into a different Python environment than the one currently executing your script.",
+  "citations": [
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "unsupported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.11, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.11, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.11, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.11, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py3",
+  "claim_kind": "step",
+  "claim": "Ensure you are installing the package for the specific Python version you are using by running pip through the python executable with the -m switch.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py3",
+  "claim_kind": "code",
+  "claim": "Using 'python -m pip' ensures that the package is installed into the same Python environment that the 'python' command invokes.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py4",
+  "claim_kind": "diagnosis",
+  "claim": "To ensure a file is closed even if an exception occurs, you should use the `with` statement, which provides a predefined clean-up action to close the file automatically.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py4",
+  "claim_kind": "step",
+  "claim": "Use the `with` statement followed by the `open()` function to open your file.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.60, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.60, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.60, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.60, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py4",
+  "claim_kind": "step",
+  "claim": "Perform your file operations within the indented block following the `with` statement; the file will be closed automatically once the block finishes, regardless of whether an exception was encountered.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.47, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.47, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.47, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.47, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py4",
+  "claim_kind": "code",
+  "claim": "The `with` statement ensures that the file object `f` is closed promptly and correctly after the block is executed, even if an error occurs during processing.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "diagnosis",
+  "claim": "This warning occurs because a coroutine function was called but not awaited or scheduled, meaning the coroutine object was created but never executed.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.69, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.69, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.69, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.69, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "step",
+  "claim": "Await the coroutine directly using the 'await' keyword.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "step",
+  "claim": "Alternatively, schedule the coroutine to run concurrently using 'asyncio.create_task()'.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.88, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.88, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.88, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.88, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "code",
+  "claim": "Directly awaiting the coroutine ensures it is executed.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "unsupported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.20, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.20, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.20, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.20, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "code",
+  "claim": "Scheduling the coroutine as a task allows it to run concurrently.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt1",
+  "claim_kind": "diagnosis",
+  "claim": "PyTorch operations require all input tensors to reside on the same device; attempting to perform operations on tensors spread across different devices (e.g., 'cuda:0' and 'cpu') is not allowed by default.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.68, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.68, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.68, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.68, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt1",
+  "claim_kind": "step",
+  "claim": "Identify the devices of your tensors using the `Tensor.device` property.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt1",
+  "claim_kind": "step",
+  "claim": "Move all tensors to the same device using the `to()` method before performing operations.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt1",
+  "claim_kind": "code",
+  "claim": "Explicitly move all tensors to the target device (e.g., 'cuda:0') using the `to()` method to ensure they are on the same device before computation.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.40, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.40, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.40, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.40, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt3",
+  "claim_kind": "diagnosis",
+  "claim": "A 'CUDA out of memory' error indicates that your program has exhausted the available GPU memory, often due to large data handling or inefficient memory usage.",
+  "citations": [
+   "E5"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.47, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.47, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.47, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.47, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt3",
+  "claim_kind": "step",
+  "claim": "Use `torch.cuda.empty_cache()` to release unoccupied cached memory held by the allocator, making it available for other applications.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.77, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.77, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.77, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.77, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt3",
+  "claim_kind": "step",
+  "claim": "Monitor memory usage using `torch.cuda.memory_summary()` or `torch.cuda.memory_stats()` to identify allocation patterns.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt3",
+  "claim_kind": "step",
+  "claim": "Consider configuring the caching allocator behavior using the `PYTORCH_ALLOC_CONF` environment variable, such as switching the backend to `cudaMallocAsync` if using CUDA 11.4 or newer.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt3",
+  "claim_kind": "code",
+  "claim": "This releases all unoccupied cached memory currently held by the caching allocator.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.88, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.88, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.88, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.88, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt4",
+  "claim_kind": "diagnosis",
+  "claim": "In PyTorch, the `backward()` function accumulates gradients into the `.grad` attribute of parameters rather than overwriting them. Therefore, you must call `optimizer.zero_grad()` to reset these accumulated gradients before each new backward pass.",
+  "citations": [
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.53, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.53, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.53, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.53, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt4",
+  "claim_kind": "step",
+  "claim": "Call `optimizer.zero_grad()` at the start of your training loop iteration to clear or reset the gradients from the previous pass.",
+  "citations": [
+   "E2",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.46, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.46, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.46, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.46, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt4",
+  "claim_kind": "step",
+  "claim": "Perform the forward pass and compute the loss.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "unsupported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.20, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.20, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.20, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.20, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt4",
+  "claim_kind": "step",
+  "claim": "Call `loss.backward()` to compute new gradients, which will be accumulated into the parameters.",
+  "citations": [
+   "E2",
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt4",
+  "claim_kind": "step",
+  "claim": "Call `optimizer.step()` to update the model parameters using the newly computed gradients.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt4",
+  "claim_kind": "code",
+  "claim": "This standard pattern ensures that gradients are cleared before each backward pass, preventing the accumulation of gradients from previous iterations.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "unsupported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.18, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.18, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.18, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "unsupported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.18, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt5",
+  "claim_kind": "diagnosis",
+  "claim": "Starting in PyTorch 2.6, `torch.load` defaults to `weights_only=True`, which restricts the unpickler to an allowlist of safe globals; if your checkpoint contains functions or classes not on this list, an `UnpicklingError` is raised.",
+  "citations": [
+   "E2",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.76, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.76, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.76, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.76, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt5",
+  "claim_kind": "step",
+  "claim": "If you trust the source of the checkpoint, you can set `weights_only=False` in `torch.load` to bypass the restriction.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt5",
+  "claim_kind": "step",
+  "claim": "Alternatively, if you wish to keep `weights_only=True`, use `torch.serialization.add_safe_globals` or the `torch.serialization.safe_globals` context manager to explicitly allowlist the required classes or functions identified in the error message.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.74, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.74, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.74, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.74, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt5",
+  "claim_kind": "code",
+  "claim": "Disables the weights-only restriction to load files containing custom classes or functions from trusted sources.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.45, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.45, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.45, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.45, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt5",
+  "claim_kind": "code",
+  "claim": "Adds a specific class or function to the allowlist, enabling it to be loaded while `weights_only=True` remains active.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.55, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.55, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.55, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.55, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa1",
+  "claim_kind": "diagnosis",
+  "claim": "A 422 Unprocessable Entity error indicates that the request body failed validation against the Pydantic model defined in your path operation.",
+  "citations": [
+   "E4",
+   "E5"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa1",
+  "claim_kind": "step",
+  "claim": "Verify that the JSON structure sent in the request matches the fields and types defined in your Pydantic model.",
+  "citations": [
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.36, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.36, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.36, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.36, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa1",
+  "claim_kind": "step",
+  "claim": "Ensure you are not mixing `File` or `Form` parameters with JSON body parameters, as this changes the request encoding to `multipart/form-data` or `application/x-www-form-urlencoded` instead of `application/json`.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.81, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.81, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.81, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.81, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa1",
+  "claim_kind": "step",
+  "claim": "Implement a custom `RequestValidationError` exception handler to inspect the `exc.body` and `exc.errors()` to see exactly what data was received and why it failed validation.",
+  "citations": [
+   "E5"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.54, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.54, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.54, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.54, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa2",
+  "claim_kind": "diagnosis",
+  "claim": "To resolve CORS errors, you must configure the `CORSMiddleware` in your FastAPI application to explicitly allow your frontend's origin (`http://localhost:3000`).",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.86, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.86, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.86, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.86, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa2",
+  "claim_kind": "step",
+  "claim": "Import `CORSMiddleware` from `fastapi.middleware.cors`.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 1.00, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 1.00, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 1.00, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 1.00, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa2",
+  "claim_kind": "step",
+  "claim": "Define a list of allowed origins including `http://localhost:3000`.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa2",
+  "claim_kind": "step",
+  "claim": "Add the middleware to your FastAPI application instance using `app.add_middleware` with the `allow_origins` parameter.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa2",
+  "claim_kind": "code",
+  "claim": "This configuration enables the browser to communicate with your backend by explicitly authorizing the origin `http://localhost:3000`.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.45, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.45, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.45, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.45, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa3",
+  "claim_kind": "diagnosis",
+  "claim": "You can manage startup and shutdown logic by defining an asynchronous context manager and passing it to the `lifespan` parameter of your `FastAPI` application.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.71, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.71, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.71, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.71, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa3",
+  "claim_kind": "step",
+  "claim": "Define an `asynccontextmanager` function that performs your setup logic before a `yield` statement and your cleanup logic after the `yield`.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa3",
+  "claim_kind": "step",
+  "claim": "Pass this function to the `lifespan` parameter when initializing your `FastAPI` app.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa3",
+  "claim_kind": "code",
+  "claim": "The code before `yield` runs during startup, and the code after `yield` runs during shutdown.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa4",
+  "claim_kind": "diagnosis",
+  "claim": "You can return a 201 Created status code by setting the `status_code` parameter directly in the path operation decorator.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.90, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.90, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.90, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.90, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa4",
+  "claim_kind": "step",
+  "claim": "Import `status` from `fastapi` to use the constant `status.HTTP_201_CREATED` for better readability.",
+  "citations": [
+   "E2",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa4",
+  "claim_kind": "step",
+  "claim": "Pass the status code to the `status_code` parameter of the `@app.post()` decorator.",
+  "citations": [
+   "E1",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa4",
+  "claim_kind": "code",
+  "claim": "This example uses the `status_code` parameter in the decorator to set the response to 201 Created.",
+  "citations": [
+   "E1",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa5",
+  "claim_kind": "diagnosis",
+  "claim": "The RuntimeError occurs because FastAPI requires the 'python-multipart' package to be installed to process form data, which is used for form fields, file uploads, and OAuth2 authentication.",
+  "citations": [
+   "E1",
+   "E2",
+   "E3",
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa5",
+  "claim_kind": "step",
+  "claim": "Install the required package by running the command 'uv add python-multipart' in your project environment.",
+  "citations": [
+   "E1",
+   "E2",
+   "E3",
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.82, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.82, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.82, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.82, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa5",
+  "claim_kind": "code",
+  "claim": "This command adds the necessary dependency to your project to enable form data support.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.44, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.44, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.44, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.44, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "in2",
+  "claim_kind": "diagnosis",
+  "claim": "This error occurs because PyTorch operations require all input tensors to reside on the same device, and you are attempting to perform an operation on tensors split between 'cuda:0' and 'cpu'.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.41, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.41, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.41, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.41, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "in2",
+  "claim_kind": "step",
+  "claim": "Identify the tensors involved in the operation using the `Tensor.device` property.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "in2",
+  "claim_kind": "step",
+  "claim": "Move the tensors to the same device using the `tensor.to(device)` method.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "in2",
+  "claim_kind": "code",
+  "claim": "Explicitly move all tensors to the target device (e.g., 'cuda:0') before performing operations.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "in3",
+  "claim_kind": "diagnosis",
+  "claim": "The error occurs because PyTorch operations cannot be performed on tensors residing on different devices (e.g., CPU and CUDA) simultaneously.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "in3",
+  "claim_kind": "step",
+  "claim": "Identify the devices of the involved tensors using the `Tensor.device` property.",
+  "citations": [
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "in3",
+  "claim_kind": "step",
+  "claim": "Move all tensors to the same device using the `tensor.to(device)` method.",
+  "citations": [
+   "E1",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "disputed",
+    "reason": "disputed: NLI contradiction (0.93) with a matching sentence"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "disputed",
+    "reason": "disputed: NLI contradiction (0.93) with a matching sentence"
+   }
+  }
+ },
+ {
+  "id": "in3",
+  "claim_kind": "code",
+  "claim": "Explicitly move all tensors to the target device before performing operations.",
+  "citations": [
+   "E1",
+   "E2",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   }
+  }
+ }
+]

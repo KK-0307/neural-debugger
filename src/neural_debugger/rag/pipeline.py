@@ -45,9 +45,14 @@ class PipelineConfig:
     evidence: EvidenceConfig = field(default_factory=EvidenceConfig)
     sufficiency: SufficiencyConfig = field(default_factory=SufficiencyConfig)
     support: Literal["off", "lexical", "llm"] = "lexical"
+    # semantic grounding on top of ``support``: deterministic checks ("rules") plus an NLI cross-encoder ("nli")
+    semantic: Literal["off", "rules", "nli"] = "off"
     max_output_tokens: int = 1500
     repair_attempts: int = 1
     drop_unsupported: bool = True
+    # a soft semantic conflict signal (NLI, negation) flags the claim by default; True removes it. Measured to
+    # remove correct claims on real model output, hence off by default (see docs/rag.md).
+    drop_disputed: bool = False
     generation_timeout_s: float = 60.0
     min_question_chars: int = 3
 
@@ -74,6 +79,11 @@ class RAGPipeline:
             self.judge = LLMSupportJudge(provider)
         else:
             self.judge = None
+        if self.judge is not None and self.config.semantic != "off" and judge is None:
+            from .semantic import CrossEncoderNLI, GroundedSupportJudge, SemanticGuard
+
+            nli = CrossEncoderNLI() if self.config.semantic == "nli" else None
+            self.judge = GroundedSupportJudge(self.judge, SemanticGuard(nli))
 
     # ------------------------------------------------------------------ public
 
@@ -144,7 +154,14 @@ class RAGPipeline:
                 missing=list(parsed.missing_information),
             )
         else:
-            validated = validate_answer(parsed, evidence, self.judge, self.config.drop_unsupported)
+            validated = validate_answer(
+                parsed,
+                evidence,
+                self.judge,
+                self.config.drop_unsupported,
+                self.config.drop_disputed,
+                trusted_text=q.trusted_text,
+            )
             ans = self._assemble(question, q, evidence, suff, validated, timings, trace)
         timings.validation_ms = (time.perf_counter() - t) * 1000
         ans.provider, ans.model = self.provider.name, response.model if response else None
@@ -227,7 +244,10 @@ class RAGPipeline:
             return ans
         citations = _citations(used, evidence)
         status: AnswerStatus = (
-            "answered" if v.report.dropped_claims + v.report.unsupported_claims == 0 else "partial"
+            "answered"
+            if v.report.dropped_claims + v.report.unsupported_claims + v.report.contradicted_claims
+            == 0
+            else "partial"
         )
         return RAGAnswer(
             status=status,
@@ -251,9 +271,21 @@ class RAGPipeline:
 
     def _confidence(self, suff: Sufficiency, v: Validated) -> Confidence:
         r = v.report
-        if r.invalid_citations or r.unsupported_claims or r.dropped_claims > r.total_claims / 2:
+        if (
+            r.invalid_citations
+            or r.unsupported_claims
+            or r.contradicted_claims
+            or r.disputed_claims
+            or r.dropped_claims > r.total_claims / 2
+        ):
             return "low"
-        if suff.level == "weak" or r.partially_supported_claims or r.dropped_claims or v.conflicts:
+        if (
+            suff.level == "weak"
+            or r.partially_supported_claims
+            or r.unverified_claims
+            or r.dropped_claims
+            or v.conflicts
+        ):
             return "medium" if self.judge is not None else "low"
         return "high" if self.judge is not None else "medium"
 

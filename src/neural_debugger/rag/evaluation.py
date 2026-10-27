@@ -525,7 +525,10 @@ def _make_pipeline_factory(
 
     def make(provider: LLMProvider) -> RAGPipeline:
         return RAGPipeline(
-            rec, provider, PipelineConfig(sufficiency=suff, support=args.support), stats=stats
+            rec,
+            provider,
+            PipelineConfig(sufficiency=suff, support=args.support, semantic=args.semantic),
+            stats=stats,
         )
 
     return make, rec, corpus
@@ -567,6 +570,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--abstain-below", type=float, default=SufficiencyConfig().abstain_below)
     ap.add_argument("--confident-above", type=float, default=SufficiencyConfig().confident_above)
     ap.add_argument("--support", choices=["off", "lexical", "llm"], default="lexical")
+    ap.add_argument(
+        "--semantic",
+        choices=["off", "rules", "nli"],
+        default="off",
+        help="semantic grounding stage (off keeps the frozen Milestone 5 baseline behaviour)",
+    )
     ap.add_argument(
         "--judge",
         choices=["none", "llm"],

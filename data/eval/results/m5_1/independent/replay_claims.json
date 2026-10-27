@@ -1,0 +1,1159 @@
+[
+ {
+  "id": "py1",
+  "claim_kind": "diagnosis",
+  "claim": "The new type parameter syntax (e.g., `class Bag[T]:`) is a feature introduced specifically in Python 3.12; if you are encountering a `SyntaxError`, you may be running the code in an environment using an older version of Python.",
+  "citations": [
+   "E1",
+   "E2",
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.53, identifier coverage 0.67"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unverified",
+    "reason": "unverified: identifier not in cited text: class bag[t]:"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unverified",
+    "reason": "unverified: identifier not in cited text: class bag[t]:"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unverified",
+    "reason": "unverified: identifier not in cited text: class bag[t]:"
+   }
+  }
+ },
+ {
+  "id": "py1",
+  "claim_kind": "step",
+  "claim": "Verify your Python version by running `python --version` in your terminal to ensure it is 3.12 or higher.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.44, identifier coverage 0.50"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unverified",
+    "reason": "unverified: identifier not in cited text: python --version"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unverified",
+    "reason": "unverified: identifier not in cited text: python --version"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unverified",
+    "reason": "unverified: identifier not in cited text: python --version"
+   }
+  }
+ },
+ {
+  "id": "py1",
+  "claim_kind": "step",
+  "claim": "If you must support Python 3.11 or lower, use the legacy `TypeVar` and `Generic` inheritance syntax instead of the new square-bracket parameter syntax.",
+  "citations": [
+   "E1",
+   "E2"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.69, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.69, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.69, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.69, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py1",
+  "claim_kind": "code",
+  "claim": "This is the compatible syntax for versions prior to Python 3.12, using the `TypeVar` factory and explicit inheritance from `Generic`.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.46, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unverified",
+    "reason": "unverified: number not found in cited text"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unverified",
+    "reason": "unverified: number not found in cited text"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unverified",
+    "reason": "unverified: number not found in cited text"
+   }
+  }
+ },
+ {
+  "id": "py3",
+  "claim_kind": "diagnosis",
+  "claim": "The `AttributeError` suggests that your Python environment may be running a version earlier than 3.11, as `typing.Unpack` was only added in Python 3.11.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.58, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.58, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.58, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.58, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py3",
+  "claim_kind": "step",
+  "claim": "Verify your Python version to ensure it is 3.11 or higher.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py3",
+  "claim_kind": "step",
+  "claim": "If using a version earlier than 3.11, import `Unpack` from `typing_extensions` instead of `typing`.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py3",
+  "claim_kind": "code",
+  "claim": "This approach attempts to import `Unpack` from the standard library and falls back to `typing_extensions` for compatibility with older Python versions.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "diagnosis",
+  "claim": "The `@typing.override` decorator is used to mark a method in a subclass as intended to override a method or attribute in a superclass, allowing static type checkers to report an error if no such override exists.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "step",
+  "claim": "Import `override` from the `typing` module.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.75, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "step",
+  "claim": "Apply the `@override` decorator to the method in your subclass that is intended to override a base class member.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.78, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "step",
+  "claim": "Run a static type checker to identify mismatches, as there is no runtime checking for this decorator.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "py5",
+  "claim_kind": "code",
+  "claim": "The `@override` decorator is applied to the subclass method to ensure it correctly matches a method in the base class.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.60, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.60, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.60, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.60, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt2",
+  "claim_kind": "diagnosis",
+  "claim": "To save and load a model along with its optimizer state (including momentum buffers), you must save both the model's `state_dict` and the optimizer's `state_dict` into a single dictionary or separate files, as they are managed independently.",
+  "citations": [
+   "E1",
+   "E3",
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.59, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.59, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.59, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.59, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt2",
+  "claim_kind": "step",
+  "claim": "Save the model's state dictionary and the optimizer's state dictionary using `torch.save`.",
+  "citations": [
+   "E1",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 1.00, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 1.00, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 1.00, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 1.00, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt2",
+  "claim_kind": "step",
+  "claim": "To restore, load the saved dictionary using `torch.load` and apply the states to the model and optimizer using their respective `load_state_dict()` methods.",
+  "citations": [
+   "E2",
+   "E4",
+   "E5"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt2",
+  "claim_kind": "code",
+  "claim": "This approach bundles both the model parameters/buffers and the optimizer's internal state (such as momentum buffers) into a single checkpoint file for consistent restoration.",
+  "citations": [
+   "E1",
+   "E3",
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.53, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.53, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.53, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.53, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt8",
+  "claim_kind": "diagnosis",
+  "claim": "Training loss often becomes NaN because the autograd system propagates NaN or inf values through the computation graph, even if those values are masked out before the final loss calculation. Operations like division by zero or functions receiving NaN inputs produce NaN gradients, which persist and propagate during backpropagation.",
+  "citations": [
+   "E1",
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.68, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.68, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.68, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.68, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt8",
+  "claim_kind": "step",
+  "claim": "Check for operations that produce NaN or inf, such as division by zero, and ensure you mask inputs before performing these operations rather than masking the output.",
+  "citations": [
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt8",
+  "claim_kind": "step",
+  "claim": "If using Automatic Mixed Precision, ensure you are correctly unscaling gradients before clipping and that you are not unscaling multiple times, which can lead to invalid gradient states.",
+  "citations": [
+   "E2",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.43, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "pt8",
+  "claim_kind": "code",
+  "claim": "Perform masking before the division operation to prevent the autograd system from propagating NaN gradients through the computation graph.",
+  "citations": [
+   "E4"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.67, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa2",
+  "claim_kind": "diagnosis",
+  "claim": "Since FastAPI 0.106.0, dependencies with `yield` close their resources after the response is sent, meaning they are no longer held open for background tasks.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.65, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.65, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.65, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.65, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa2",
+  "claim_kind": "step",
+  "claim": "Create a new database session directly inside the background task function instead of passing an existing session dependency.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.77, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.77, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.77, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.77, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa2",
+  "claim_kind": "step",
+  "claim": "Pass only the necessary data (such as an object ID) to the background task, rather than passing the database object itself.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.82, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.82, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.82, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.82, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa2",
+  "claim_kind": "code",
+  "claim": "This pattern ensures the background task manages its own resources independently of the request-response lifecycle.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.40, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.40, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.40, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.40, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa4",
+  "claim_kind": "diagnosis",
+  "claim": "The best way to implement this is by creating a dependency function that uses `OAuth2PasswordBearer` to extract the token, decodes and verifies it, and returns the current user, raising an HTTP error if the token is invalid.",
+  "citations": [
+   "E1",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.55, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.55, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.55, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.55, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa4",
+  "claim_kind": "step",
+  "claim": "Define an `OAuth2PasswordBearer` instance to handle token extraction from the request.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.56, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa4",
+  "claim_kind": "step",
+  "claim": "Create a dependency function (e.g., `get_current_user`) that accepts the token via `Depends(oauth2_scheme)`, decodes/verifies it, and returns a Pydantic `User` model.",
+  "citations": [
+   "E1",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.62, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa4",
+  "claim_kind": "step",
+  "claim": "Inject this dependency into your path operations using `Depends(get_current_user)`.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.86, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.86, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.86, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "supported",
+    "reason": "term coverage 0.86, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa4",
+  "claim_kind": "code",
+  "claim": "This pattern uses the OAuth2 scheme to extract the token and injects the resulting user object into the path operation.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.50, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa7",
+  "claim_kind": "diagnosis",
+  "claim": "You cannot declare `Body` fields expected as JSON in a path operation that also includes `File` or `Form` parameters, as the HTTP protocol requires the request body to be encoded as `multipart/form-data` rather than `application/json`.",
+  "citations": [
+   "E1",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.81, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.81, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.81, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.81, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa7",
+  "claim_kind": "step",
+  "claim": "Remove the `Body` parameter expecting JSON from your path operation.",
+  "citations": [
+   "E1",
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "partial",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.57, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa7",
+  "claim_kind": "step",
+  "claim": "Replace the JSON body fields with individual `Form` parameters to receive the data as part of the multipart/form-data request.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "disputed",
+    "reason": "disputed: negation polarity differs from the matching sentence"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "disputed",
+    "reason": "disputed: negation polarity differs from the matching sentence; NLI contradiction (0.91) with a matching sentence"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "disputed",
+    "reason": "disputed: negation polarity differs from the matching sentence; NLI contradiction (0.91) with a matching sentence"
+   }
+  }
+ },
+ {
+  "id": "fa7",
+  "claim_kind": "code",
+  "claim": "Instead of using a JSON body, define the data fields using `Form` parameters alongside your `File` parameters.",
+  "citations": [
+   "E3"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.90, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "partial",
+    "semantic": "disputed",
+    "reason": "disputed: negation polarity differs from the matching sentence"
+   },
+   "rules+nli(default)": {
+    "label": "partial",
+    "semantic": "disputed",
+    "reason": "disputed: negation polarity differs from the matching sentence"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "partial",
+    "semantic": "disputed",
+    "reason": "disputed: negation polarity differs from the matching sentence"
+   }
+  }
+ },
+ {
+  "id": "fa8",
+  "claim_kind": "diagnosis",
+  "claim": "CPU-bound code should not be called directly in an async function because it blocks the event loop, delaying all concurrent tasks and I/O operations.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.71, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.71, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.71, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.71, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa8",
+  "claim_kind": "step",
+  "claim": "For general CPU-bound tasks, use an executor via `loop.run_in_executor()` to run the task in a different thread or process.",
+  "citations": [
+   "E1"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.83, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa8",
+  "claim_kind": "step",
+  "claim": "Alternatively, for path operation functions, you can declare them with standard `def` instead of `async def`, which causes FastAPI to run them in an external threadpool.",
+  "citations": [
+   "E5"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.80, identifier coverage 1.00"
+   }
+  }
+ },
+ {
+  "id": "fa8",
+  "claim_kind": "code",
+  "claim": "Declaring a path operation function with `def` instead of `async def` allows FastAPI to execute it in an external threadpool, preventing the event loop from blocking.",
+  "citations": [
+   "E5"
+  ],
+  "verdicts": {
+   "lexical": {
+    "label": "supported",
+    "semantic": "unchecked",
+    "reason": "term coverage 0.65, identifier coverage 1.00"
+   },
+   "rules": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.65, identifier coverage 1.00"
+   },
+   "rules+nli(default)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.65, identifier coverage 1.00"
+   },
+   "rules+nli(dev-calibrated)": {
+    "label": "supported",
+    "semantic": "unconfirmed",
+    "reason": "term coverage 0.65, identifier coverage 1.00"
+   }
+  }
+ }
+]

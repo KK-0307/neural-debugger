@@ -1,4 +1,5 @@
 import json
+from typing import Literal
 
 from neural_debugger.rag import PipelineConfig, RAGPipeline
 from neural_debugger.rag.evaluation import (
@@ -19,7 +20,11 @@ from neural_debugger.rag.providers.testing import ExtractiveProvider, ScriptedPr
 from tests.rag.helpers import CUDA_TEXT, QUERY_TEXT, FakeRetriever, section
 
 
-def make(provider: LLMProvider) -> RAGPipeline:
+def make(
+    provider: LLMProvider,
+    semantic: Literal["off", "rules", "nli"] = "off",
+    drop_disputed: bool = False,
+) -> RAGPipeline:
     return RAGPipeline(
         FakeRetriever(
             [
@@ -28,7 +33,7 @@ def make(provider: LLMProvider) -> RAGPipeline:
             ]
         ),
         provider,
-        PipelineConfig(),
+        PipelineConfig(semantic=semantic, drop_disputed=drop_disputed),
     )
 
 
@@ -124,8 +129,16 @@ def test_faulty_provider_corrupts_only_answers_and_validators_catch_most_faults(
         "injected_url",
     ):
         assert res["faults"][fault]["survival_rate"] == 0.0, fault
-    # documented limitation: lexical checks cannot see a negation
+    # documented limitation of the *lexical-only* baseline: it cannot see a negation
     assert res["faults"]["negated_claim_valid_citation"]["survival_rate"] == 1.0
+
+
+def test_negated_claims_are_flagged_by_default_and_removed_when_disputes_are_dropped() -> None:
+    # default policy: a negation-polarity dispute is a flag, not a deletion (it fires on correct claims too)
+    kept = fault_injection(lambda p: make(p, "rules"), ITEMS[:2])
+    assert kept["faults"]["negated_claim_valid_citation"]["survival_rate"] == 1.0
+    dropped = fault_injection(lambda p: make(p, "rules", drop_disputed=True), ITEMS[:2])
+    assert dropped["faults"]["negated_claim_valid_citation"]["survival_rate"] < 1.0
 
 
 def test_llm_correctness_judge_parses_and_degrades() -> None:

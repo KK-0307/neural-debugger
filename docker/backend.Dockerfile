@@ -6,15 +6,32 @@ COPY --from=ghcr.io/astral-sh/uv:0.13 /uv /usr/local/bin/uv
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy PYTHONUNBUFFERED=1
 WORKDIR /app
 
-# Third-party dependencies first so this layer is cached across source edits.
+# Third-party dependencies first so this layer is cached across source edits. The `neural` extra is the
+# retrieval stack (sentence-transformers, faiss-cpu, torch). On Linux torch comes from the CPU-only wheel index
+# ([tool.uv.sources] in pyproject.toml), so no CUDA libraries are installed.
 COPY pyproject.toml uv.lock .python-version README.md ./
-RUN uv sync --frozen --no-dev --no-install-project
+RUN uv sync --frozen --no-dev --no-install-project --extra neural
 
 # Then the project itself (a regular, non-editable install of src/neural_debugger).
 COPY src src
-RUN uv sync --frozen --no-dev --no-editable
+RUN uv sync --frozen --no-dev --no-editable --extra neural
 
-ENV PATH="/app/.venv/bin:$PATH"
+# Runtime data for retrieval: the indexed documentation, its precomputed embeddings, the retriever configs.
+COPY configs/neural.yaml configs/m4.yaml configs/
+COPY data/corpus data/corpus
+COPY data/embeddings data/embeddings
+
+ENV PATH="/app/.venv/bin:$PATH" HF_HOME=/opt/hf
+# Bake the pinned embedding model used to encode queries (revision read from the same config the app uses), only
+# the files the encoder needs, so the container never downloads anything at runtime.
+RUN python -c "import yaml; from huggingface_hub import snapshot_download; \
+spec = yaml.safe_load(open('configs/neural.yaml'))['embedding_models']['gte-small']; \
+snapshot_download(spec['hf_id'], revision=spec['revision'], \
+allow_patterns=['*.json', '*.txt', 'model.safetensors', '1_Pooling/*'])"
+
+# No secrets live in the image: API keys are only ever read from environment variables at run time
+# (e.g. `docker run -e GEMINI_API_KEY ...`). With no ND_LLM_PROVIDER the endpoint answers 503 llm_not_configured.
+ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 ND_RETRIEVER_DEVICE=cpu
 RUN useradd --system --no-create-home app
 USER app
 

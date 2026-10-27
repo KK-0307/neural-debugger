@@ -14,10 +14,11 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from collections.abc import Callable, Sequence
 
 from ..text import term_set
-from .base import LLMRequest, LLMResponse, ProviderError
+from .base import LLMProvider, LLMRequest, LLMResponse, ProviderError
 
 _BLOCK = re.compile(r'<evidence id="(E\d+)"[^>]*>\n(.*?)\n</evidence>', re.S)
 _QUESTION = re.compile(r"<user_question>\n(.*?)\n</user_question>", re.S)
@@ -140,3 +141,37 @@ class UnconfiguredProvider:
 
     def generate(self, request: LLMRequest) -> LLMResponse:
         raise ProviderError("not_configured", self.reason)
+
+
+class RecordingProvider:
+    """Wraps a provider and keeps every request/response pair (for raw-output preservation)."""
+
+    def __init__(self, inner: "LLMProvider") -> None:  # noqa: UP037
+        self.inner = inner
+        self.name = inner.name
+        self.model = inner.model
+        self.calls: list[dict[str, object]] = []
+
+    def generate(self, request: LLMRequest) -> LLMResponse:
+        entry: dict[str, object] = {
+            "purpose": request.purpose,
+            "system": request.system,
+            "messages": [m.content for m in request.messages],
+        }
+        started = time.perf_counter()
+        try:
+            resp = self.inner.generate(request)
+        except ProviderError as exc:
+            entry |= {
+                "error": {"kind": exc.kind, "status": exc.status_code, "message": str(exc)[:300]}
+            }
+            self.calls.append(entry)
+            raise
+        entry |= {
+            "reply": resp.text,
+            "usage": resp.usage,
+            "stop_reason": resp.stop_reason,
+            "latency_ms": round((time.perf_counter() - started) * 1000),
+        }
+        self.calls.append(entry)
+        return resp

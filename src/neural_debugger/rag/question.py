@@ -83,6 +83,7 @@ def extract_versions(text: str) -> tuple[tuple[str, str], ...]:
     return tuple(found)
 
 
+_SENTENCES = re.compile(r"(?<=[.!?])\s+")
 _FENCED = re.compile(r"```.*?(```|\Z)", re.S)
 
 
@@ -97,7 +98,12 @@ def _prose(text: str) -> str:
     skip_next = False
     for line in _FENCED.sub("\n", text).splitlines():
         if any(f.severity == "high" for f in scan(line)):
-            continue
+            # drop only the offending sentences: the same line may also carry the user's real question
+            line = " ".join(
+                part
+                for part in _SENTENCES.split(line)
+                if not any(f.severity == "high" for f in scan(part))
+            )
         if _TRACE_FRAME.match(line):
             skip_next = True
             continue
@@ -108,6 +114,20 @@ def _prose(text: str) -> str:
         if line.strip() and not line.startswith("Traceback (most recent call last)"):
             keep.append(line.strip())
     return " ".join(keep)
+
+
+def user_text_without_injection(text: str) -> str:
+    """The question with instruction-like sentences removed; everything else (including code) is kept."""
+    out: list[str] = []
+    for line in text.splitlines():
+        if any(f.severity == "high" for f in scan(line)):
+            line = " ".join(
+                part
+                for part in _SENTENCES.split(line)
+                if not any(f.severity == "high" for f in scan(part))
+            )
+        out.append(line)
+    return "\n".join(out)
 
 
 def prepare_question(raw: str, max_chars: int = MAX_CHARS) -> QuestionInfo:
@@ -133,4 +153,5 @@ def prepare_question(raw: str, max_chars: int = MAX_CHARS) -> QuestionInfo:
         code_blocks=clean.count("```") // 2,
         truncated=truncated,
         injection_flags=tuple(sorted({f.rule for f in findings})),
+        trusted_text=user_text_without_injection(clean),
     )

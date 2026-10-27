@@ -54,6 +54,16 @@ dev = [
     "scikit-learn>=1.5",  # independent reference implementation for metric tests
 ]
 
+# Linux (the Docker image) takes torch from the CPU-only wheel index: the default PyPI Linux wheel drags in
+# several GB of CUDA libraries the CPU-only service never uses. macOS/Windows keep the PyPI wheels.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

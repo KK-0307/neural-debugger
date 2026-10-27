@@ -1,0 +1,149 @@
+provenance:
+  generated_by: gemini-3.1-flash-lite
+  date: '2026-10-26'
+  prompt_sha256: ebbb7b9a8a3b149054c6ca236e5f284232dadf8cd4651f271644937a9e7bd8c5
+  note: model-generated questions; not human-written, no gold answers; the generating model did not see the corpus, the pipeline
+    or any other question
+  requests: 7
+questions:
+- id: py1
+  kind: answer
+  fw: python
+  q: Why am I getting a SyntaxError when using the new type parameter syntax for generic classes in Python 3.12?
+- id: py2
+  kind: answer
+  fw: python
+  q: How can I use the new per-interpreter GIL introduced in Python 3.12 to improve concurrency in my application?
+- id: py3
+  kind: answer
+  fw: python
+  q: 'I am receiving an AttributeError: module ''typing'' has no attribute ''Unpack'' when trying to use TypeDict with TypedDict
+    in my codebase.'
+- id: py4
+  kind: answer
+  fw: python
+  q: What is the most efficient way to use the new command-line interface for the sqlite3 module to inspect my database files?
+- id: py5
+  kind: answer
+  fw: python
+  q: How do I correctly implement the new override decorator from the typing module to catch base class method mismatches?
+- id: py6
+  kind: answer
+  fw: python
+  q: 'My code is throwing a TypeError: ''type'' object is not subscriptable despite using from __future__ import annotations;
+    how do I fix this in 3.12?'
+- id: py7
+  kind: answer
+  fw: python
+  q: How can I leverage the improved error messages for NameError in Python 3.12 to debug missing imports more effectively?
+- id: py8
+  kind: answer
+  fw: python
+  q: Is there a recommended way to migrate from distutils to the new packaging standards now that distutils is removed in
+    Python 3.12?
+- id: pt1
+  kind: answer
+  fw: pytorch
+  q: 'Why am I getting a RuntimeError: CUDA error: device-side assert triggered when running my PyTorch 2.0 training loop
+    on a GPU?'
+- id: pt2
+  kind: answer
+  fw: pytorch
+  q: How can I properly save and load a model using torch.save that includes the state_dict along with the optimizer's momentum
+    buffers?
+- id: pt3
+  kind: answer
+  fw: pytorch
+  q: My DataLoader is causing a massive memory leak in my training script; how do I efficiently clear the cache or limit the
+    number of workers?
+- id: pt4
+  kind: answer
+  fw: pytorch
+  q: I am trying to compute the gradient of a loss with respect to an input image, but autograd is returning None for the
+    gradients. What am I missing?
+- id: pt5
+  kind: answer
+  fw: pytorch
+  q: How do I correctly move a nested dictionary of tensors to the GPU without manually calling .to(device) on every single
+    key?
+- id: pt6
+  kind: answer
+  fw: pytorch
+  q: I am encountering a shape mismatch error during matrix multiplication despite the dimensions appearing correct; how can
+    I debug the underlying tensor layout?
+- id: pt7
+  kind: answer
+  fw: pytorch
+  q: Is there a way to use torch.compile to speed up my custom training loop without breaking the existing hooks I have attached
+    to the model?
+- id: pt8
+  kind: answer
+  fw: pytorch
+  q: Why does my training loss stay at NaN after a few iterations even when using a very small learning rate and gradient
+    clipping?
+- id: fa1
+  kind: answer
+  fw: fastapi
+  q: Why am I getting a 422 Unprocessable Entity error even though my Pydantic model fields seem to match the incoming JSON
+    request?
+- id: fa2
+  kind: answer
+  fw: fastapi
+  q: How can I inject a database session dependency into my FastAPI background tasks without the session closing prematurely?
+- id: fa3
+  kind: answer
+  fw: fastapi
+  q: I am seeing a CORS error in my browser console despite adding CORSMiddleware to my app with allow_origins=['*']. What
+    am I missing?
+- id: fa4
+  kind: answer
+  fw: fastapi
+  q: What is the best way to implement a dependency that fetches the current user from a JWT token for every protected endpoint?
+- id: fa5
+  kind: answer
+  fw: fastapi
+  q: My FastAPI unit tests are failing because the dependency override for my database is not being applied when I use TestClient.
+- id: fa6
+  kind: answer
+  fw: fastapi
+  q: How do I handle asynchronous background tasks that need to access the request state or headers after the response has
+    already been sent?
+- id: fa7
+  kind: answer
+  fw: fastapi
+  q: I have an endpoint that expects a file upload and a JSON body, but FastAPI keeps throwing a 422 error when I send them
+    as multipart/form-data.
+- id: fa8
+  kind: answer
+  fw: fastapi
+  q: How can I prevent my FastAPI application from blocking the event loop when performing heavy CPU-bound computations inside
+    a route handler?
+- id: ot1
+  kind: abstain
+  fw: other
+  q: Why am I getting an 'image pull backoff' error in Kubernetes even though my credentials for the private container registry
+    are correctly stored in a secret?
+- id: ot2
+  kind: abstain
+  fw: other
+  q: How do I resolve a 'lifetime may not live long enough' error in Rust when passing a reference into a thread that requires
+    a 'static bound?
+- id: ot3
+  kind: abstain
+  fw: other
+  q: My React application is re-rendering the entire component tree on every state update, how can I use memoization to target
+    only the specific child that changed?
+- id: ot4
+  kind: abstain
+  fw: other
+  q: I am seeing significant performance degradation in PostgreSQL when running a query with a 'LIKE' operator on a large
+    text column, even though I have a standard B-tree index.
+- id: ot5
+  kind: abstain
+  fw: other
+  q: How can I configure a Docker bridge network so that two containers can communicate using their service names instead
+    of hardcoded IP addresses?
+- id: ot6
+  kind: abstain
+  fw: other
+  q: Why is my Git rebase failing with a 'conflict' error on a file that I haven't even modified in my current feature branch?

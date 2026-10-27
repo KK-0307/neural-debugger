@@ -1,0 +1,17 @@
+{
+ "depends_on": "rag-v1 (data/eval/m5_freeze.json)",
+ "files": {
+  "data/eval/rag/grounding_adversarial.jsonl": "19c53022151c5da065b3751d706b0fccafd33bbc0121f200fe5bdb2e0855d060",
+  "data/eval/rag/independent_gemini.yaml": "49aeb45e424e3d226e41a2f66a8f6cca2aee3d195ddaf4b3e6cd0fe76ce75556",
+  "data/eval/rag/live_acceptance.yaml": "98eb31d9c958db47a1b92086756686058884ec5f2bc524e460c3e5614c858a51",
+  "data/eval/results/m5_1/independent/live_gemini_gemini-3.1-flash-lite.raw.json": "504f2d36d5334b7c23eb80cf006d5a4a3a7a3c25751fa3dfda07fc2ed6ced077",
+  "data/eval/results/m5_1/independent/live_merged_as_run.json": "c3353c18dbb30ab911d4e568cd04b817f7a422b71a68b7d425238defb87d8802",
+  "data/eval/results/m5_1/independent/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json": "4a08a104d83da788800a618534e3665ac004bf1e01fb47d62be76b203e2f16d0",
+  "data/eval/results/m5_1/live_gemini_gemini-3.1-flash-lite.raw.json": "6f9794cb42370cd457e710ce6a702a2685f458d93cac14cd4a72b2fc186bf7f1",
+  "data/eval/results/m5_1/live_merged_as_run.json": "53f51a63d52c46c3770a497d5f54351e765894241e80a7a08cdbf7273f1f645a",
+  "data/eval/results/m5_1/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json": "1c1e09b4f5a4549ff6d66826030d539b212f32b608242f034a9586f8f073f78c",
+  "data/eval/results/m5_1/semantic_grounding.json": "672f5caed2fed92e59de95685e1a95351c22bb046cc04e7908ec68d5358a1ac1"
+ },
+ "freeze_id": "rag-live-and-grounding-v1",
+ "note": "Recorded evidence of the Milestone 5.1 live Gemini free-tier runs (21 agent-authored and 30 model-generated questions; raw replies are the evidence and cannot be regenerated bit-for-bit) and the synthetic adversarial grounding set. Agent-authored / model-generated; no human labels."
+}

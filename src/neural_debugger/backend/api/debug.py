@@ -31,8 +31,13 @@ class DebugRequest(BaseModel):
 class ClaimOut(BaseModel):
     text: str
     citations: list[str]
-    support: str
+    support: str = Field(description="supported | partial | unsupported | contradicted | unchecked")
     support_score: float | None = None
+    semantic: str = Field(
+        default="unchecked",
+        description="semantic grounding: supported | unverified | disputed | unconfirmed | unchecked",
+    )
+    semantic_reason: str = ""
 
 
 class CodeOut(BaseModel):
@@ -60,6 +65,10 @@ class ValidationOut(BaseModel):
     dropped_claims: int
     unsupported_claims: int
     partially_supported_claims: int
+    contradicted_claims: int = 0
+    disputed_claims: int = 0
+    unverified_claims: int = 0
+    unconfirmed_claims: int = 0
     invalid_citations: list[str]
     stripped_urls: int
 
@@ -93,7 +102,12 @@ class DebugResponse(BaseModel):
 
 def _claim(c: Any) -> ClaimOut:
     return ClaimOut(
-        text=c.text, citations=list(c.citations), support=c.support, support_score=c.support_score
+        text=c.text,
+        citations=list(c.citations),
+        support=c.support,
+        support_score=c.support_score,
+        semantic=c.semantic,
+        semantic_reason=c.semantic_reason,
     )
 
 
@@ -136,6 +150,10 @@ def to_response(ans: RAGAnswer, request_id: str | None, include_trace: bool) -> 
             dropped_claims=v.dropped_claims,
             unsupported_claims=v.unsupported_claims,
             partially_supported_claims=v.partially_supported_claims,
+            contradicted_claims=v.contradicted_claims,
+            disputed_claims=v.disputed_claims,
+            unverified_claims=v.unverified_claims,
+            unconfirmed_claims=v.unconfirmed_claims,
             invalid_citations=v.invalid_citations,
             stripped_urls=len(v.stripped_urls),
         ),
@@ -153,10 +171,24 @@ _ERROR_STATUS = {
     "llm_timeout": (504, "llm_timeout"),
     "llm_network": (503, "llm_unavailable"),
     "llm_server": (503, "llm_unavailable"),
+    "llm_budget_exhausted": (429, "llm_budget_exhausted"),
     "llm_bad_request": (502, "llm_bad_request"),
     "llm_empty": (502, "llm_bad_response"),
     "malformed_model_output": (502, "bad_model_output"),
     "retrieval_failed": (503, "retrieval_unavailable"),
+}
+
+
+_ERROR_MESSAGE = {
+    "llm_not_configured": (
+        "No LLM provider is configured on this server. Set ND_LLM_PROVIDER (anthropic, gemini or "
+        "openai_compatible) and the API key environment variable that provider reads, then restart."
+    ),
+    "llm_auth": "The LLM provider rejected the configured API key (or no key is set for it).",
+    "llm_rate_limit": "The LLM provider is rate limiting this server (free tiers allow few requests); retry later.",
+    "llm_budget_exhausted": "The configured request budget (ND_LLM_MAX_REQUESTS) is used up; restart or raise it.",
+    "llm_timeout": "The LLM provider did not answer in time.",
+    "retrieval_failed": "Documentation retrieval failed.",
 }
 
 
@@ -197,7 +229,10 @@ def debug(body: DebugRequest, request: Request) -> Any:
         resp: JSONResponse = error_response(
             status,
             code,
-            "No answer could be generated. The most relevant documentation is listed in details.",
+            _ERROR_MESSAGE.get(
+                ans.abstain_reason or "",
+                "No answer could be generated. The most relevant documentation is listed in details.",
+            ),
             request_id,
             details=[{"sources": sources, "reason": ans.abstain_reason}],
         )

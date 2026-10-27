@@ -1,9 +1,22 @@
 # Progress
 
-**Current milestone:** 5 - RAG with validated citations: **implemented, tested and evaluated offline; live
-generation with a real LLM is BLOCKED (no credentials) and therefore UNVERIFIED, so the milestone's "works end
-to end with a configured real LLM provider" criterion is NOT met.** Awaiting your review; not proceeding to
-Milestone 6.
+**Current milestone:** 5 / 5.1 - RAG with validated citations, live-LLM verification, semantic grounding and a
+deployable image. **Live generation was exercised with one real model** (Gemini 3.1 Flash-Lite, free tier,
+2026-10-26): 51 questions, valid JSON every time, no invalid citation ids. **The honest headline is mixed:** it answered
+80% of my own in-scope questions but **only 9 of 24 independently generated ones** (the rest are retrieval misses,
+over-abstention on verbose questions, and troubleshooting causes the reference docs do not contain). **Docker is verified
+only by a local simulation; the image has never been built here.** No human labelled anything. Awaiting your review; not
+proceeding to Milestone 6.
+
+**Milestone 5.1 in one paragraph (details: `docs/rag.md` section 11, `docs/semantic-grounding.md`).** Added a free hosted
+LLM path (Gemini through the existing OpenAI-compatible provider; env-var key, hard request cap, spacing, no fallback model),
+a rate-limited live acceptance harness and an offline replay/re-score tool; a semantic grounding stage (rules for numbers,
+signatures, identifiers, negation; optional NLI) with a deterministic synthetic adversarial benchmark (lexical alone silently
+accepts 52% of defective claims, rules 21%, rules + NLI 2.7% on the test half; thresholds chosen on dev only; real-model
+recall unmeasured); 30 model-generated independent questions; and a Docker image with the retrieval stack, CPU-only
+PyTorch, corpus, embeddings and a baked offline embedding model, plus a CI smoke test. Real-model runs exposed 5 defects
+that no mocked test had (`e.g.` parsed as an identifier, dotted names, user-typed URLs stripped, a first semantic design
+that flagged 85-95% of claims and removed five correct ones, a retired model that is still listed); all fixed and tested.
 
 **Milestone 5 in one paragraph (details: `docs/rag.md`).** `neural_debugger.rag` implements question
 preparation, retrieval with the pretrained hybrid (custom transformer selectable), evidence selection and
@@ -33,7 +46,8 @@ and speed (~1 ms/query). Test pool expansion for the custom systems was post-hoc
 | 2 | Documentation retrieval (corpus, labels, BM25) | Done, **frozen** (labels LLM-authored; agent second-pass review only) |
 | 3 | Neural retrieval (dense, hybrid, rerank, framework filter) | **Done**; results below, with caveats |
 | 4 | Custom transformer + contrastive training | **Done**; negative result vs. baselines (`docs/ml-model.md`) |
-| 5 | RAG with validated citations (API, providers, evaluation) | **Implemented; live LLM generation unverified (blocked)** |
+| 5 | RAG with validated citations (API, providers, evaluation) | **Done**; live run on one free-tier model (51 questions, agent-reviewed only) |
+| 5.1 | Live verification, semantic grounding, Docker retrieval image | **Done locally; Docker image build/size verified only in CI** (see below) |
 | - | Debugging UI, persistence, performance, beta | Not started |
 
 ## Step 1 - Milestone 2 finalised and committed
@@ -104,11 +118,12 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 
 | Check | Result |
 |---|---|
-| `uv run pytest` (full env, models cached) | **251 passed, 1 skipped** (M4: +37; M5: +97 collected, of which the live-LLM test is the 1 skip) |
-| CI-equivalent env (`--extra data --extra index`, no PyTorch) | ruff clean, strict mypy clean (93 src / 37 test files), **209 passed, 9 skipped** (model/PyTorch/live-LLM tests); GitHub Actions python, frontend and docker jobs green on M5 `bd2cb61` |
-| `make freeze-verify` (M2 baseline + M3 + M4 + M5 evaluation) | intact |
-| Frontend `lint`, `typecheck`, `npm test` (8) | clean (frontend untouched in M5; `npm run build` left to CI) |
-| Core-only environment (the Docker backend image's dependency set) | app imports; `/api/v1/debug` answers 503 `retrieval_unavailable` instead of crashing |
+| `uv run pytest` (full env, models cached) | **286 passed, 1 skipped** (the skip is the live Anthropic test; M5.1 added 35 tests: semantic stage, free-tier config, harness, Dockerfile guards, freeze) |
+| CI-equivalent env (`uv sync --locked --extra data --extra index`, no PyTorch; validates the regenerated `uv.lock`) | ruff + format clean, strict mypy clean (98 src / 41 test files), **244 passed, 9 skipped**; GitHub Actions for this milestone's commit: see the final report |
+| `make freeze-verify` (M2 baseline + M3 + M4 + M5 + new M5.1 evidence) | intact; frozen M5 evaluation **re-run with the 5.1 code: 146 of 146 non-timing numbers identical** |
+| Frontend `lint`, `typecheck`, `npm test` (8), `npm run build` | clean (frontend untouched) |
+| Container simulation (no Docker here): staging dir with exactly the Dockerfile's `COPY` set, fresh `uv sync --frozen --extra neural`, model baked into an isolated offline `HF_HOME`, scrubbed env, mock OpenAI-compatible server | `/api/v1/debug` -> `answered`, 4 PyTorch citations; without a provider -> informative 503 `llm_not_configured` listing 5 retrieved sources; first request 31 s (cold retriever) |
+| Secrets audit | the API key value appears in no file in the repository or in any run output; `.env` is git-ignored; a key-shaped test fixture is now assembled at runtime so secret scanners do not trip |
 | Wheel build + clean-venv install + `/health` on real PostgreSQL 16 | 200 `ok`, then 503 after stopping Postgres; retrieval modules import from the wheel without PyTorch |
 | CPU vs MPS | identical ranking metrics; embeddings cosine >= 0.9999; CPU bitwise deterministic |
 | Test access log | M3: 4 systems x 2 judgment sets = 8; M4: 6 systems x 2 judgment sets = 12; + 1 retroactive M2 entry (21 lines); asserted by a test |
@@ -124,20 +139,31 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 - M4: no mid-run training resume; one tokenizer size / temperature; no LR sweep; test pool expansion for
   the custom systems was done after seeing test rankings; seed 0 weights are shipped, not the best seed.
 - Larger models / fine-tuning / HyDE / real-user queries not evaluated.
-- No database schema or API wiring for retrieval yet (RAG milestone).
+- Retrieval is the weak link of the whole pipeline: all 3 false abstentions on my own questions were retrieval misses
+  (right section ranked 17th and 36th, or absent), and 6 of 15 in-scope abstentions on the independent set came from a
+  lexical gate that over-abstains on verbose questions. Fixing that is Milestone 2-4 territory and was not attempted.
+- The corpus is reference documentation, not a troubleshooting knowledge base: "why does X happen" questions often cannot
+  be answered from it, and the system (correctly) refuses.
+- Semantic grounding recall on real model errors is unmeasured (no known defective claim in 98 real claims); `disputed`
+  flags were false alarms on correct claims 2-3 times in 98 and lower the answer's confidence.
+- Free-tier Gemini is unreliable under load (Google 503 "high demand" for 8 of 51 first-pass questions); limits are
+  unpublished; on the free tier Google may use prompts to improve its products.
+- Caveats can be noisy (seven version notes on one answer). The first request loads the retriever (6-31 s).
+- Docker: Dockerfile, Linux CPU wheels, image size and the CI smoke test have not run yet. Only the simulation above did.
 
-## Milestone 5 - blocked item and how to unblock it
+## Milestone 5 - live verification: closed, with caveats
 
-Live generation could not be verified: there is no `ANTHROPIC_API_KEY` (or other provider key or local LLM
-runtime) in this environment, and I did not use paid APIs or the harness' own endpoint. To close the gap,
-either export a key and run the three commands at the top of `docs/rag.md` section 2 (about a few cents), or
-point `--provider openai_compatible --base-url http://localhost:11434/v1` at a local model server (free). Until
-then the model-graded rows of the RAG evaluation, real abstention behaviour, JSON compliance and
-prompt-injection resistance of an actual model are **unmeasured**.
+Closed on 2026-10-26 with a **free-tier Gemini model** (no Ollama, no local weights, no paid request). Measured: JSON
+compliance, citation validity, abstention, latency, tokens (`docs/rag.md` section 11). **Still not measured:** the
+Anthropic provider against the real API, any other model, load, a meaningful prompt-injection sample (only 2 poisoned-
+document cases reached a live model), the model-graded evaluation rows (deliberately not produced: a second LLM is not
+ground truth), and anything human-verified (n = 0). Every correctness judgement of an answer is an **agent review**.
 
 ## Remaining work (needs your direction)
 
 1. Human review of a label sample (and optionally Stack Overflow-derived labels, which need approval).
 2. Decide whether to invest further in the custom model (more/LLM-generated training data, distillation
    from a pretrained model) or use the pretrained hybrid as the retrieval backbone for RAG.
-3. Live-LLM verification of Milestone 5 (above), then the debugging UI / persistence / retrieval extras in the Docker image.
+3. Decide whether to attack retrieval recall and the gate's over-abstention on verbose questions before the UI, and whether
+   to add a troubleshooting-style source (needs your approval, e.g. Stack Overflow) to the corpus.
+4. Human review of a sample of live answers and of the semantic flags; the debugging UI and persistence (Milestone 6).

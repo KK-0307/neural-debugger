@@ -28,7 +28,7 @@ from .injection import escape_delimiters
 from .providers.base import LLMMessage, LLMProvider, LLMRequest, ProviderError
 from .text import term_set
 
-Label = Literal["supported", "partial", "unsupported", "unchecked"]
+Label = Literal["supported", "partial", "unsupported", "contradicted", "unchecked"]
 _MARKER = re.compile(r"\[\s*E\d+(?:\s*,\s*E\d+)*\s*\]", re.I)
 _BACKTICK = re.compile(r"`([^`\n]{1,80})`")
 _DOTTED = re.compile(r"\b[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)+(?:\(\))?")
@@ -40,6 +40,9 @@ class SupportVerdict:
     label: Label
     score: float
     reason: str = ""
+    semantic: str = (
+        "unchecked"  # "supported" | "contradicted" | "unverified" | "unchecked" (see semantic.py)
+    )
 
 
 class SupportJudge(Protocol):
@@ -49,14 +52,32 @@ class SupportJudge(Protocol):
     def judge(self, claim: str, passages: Sequence[str]) -> SupportVerdict: ...
 
 
+# "e.g." / "i.e." look like dotted API names to the pattern below but are prose.
+_NOT_IDENTIFIERS = frozenset({"e.g", "i.e", "etc", "vs", "cf", "a.k.a", "w.r.t"})
+
+
 def identifiers(claim: str) -> list[str]:
     found: list[str] = []
     for pat in (_BACKTICK, _DOTTED, _NUMBER):
         for m in pat.finditer(claim):
             tok = (m.group(1) if pat is _BACKTICK else m.group(0)).strip().lower().rstrip("()")
-            if len(tok) >= 2 and tok not in found:
+            if len(tok) >= 2 and tok not in found and tok not in _NOT_IDENTIFIERS:
                 found.append(tok)
     return found
+
+
+def identifier_present(ident: str, haystack_lower: str) -> bool:
+    """Is ``ident`` in the text? A dotted name also counts when its final segment (the documented function or
+    attribute name, which API reference pages list without the module path) appears as a whole word."""
+    if ident in haystack_lower:
+        return True
+    if "." in ident and not ident.replace(".", "").isdigit():
+        tail = ident.rsplit(".", 1)[1]
+        return (
+            len(tail) >= 4
+            and re.search(rf"(?<![\w]){re.escape(tail)}(?![\w])", haystack_lower) is not None
+        )
+    return False
 
 
 @dataclass(frozen=True)
@@ -67,7 +88,9 @@ class LexicalSupportJudge:
     partial_identifiers: float = 0.5
     name: str = "lexical"
 
-    def judge(self, claim: str, passages: Sequence[str]) -> SupportVerdict:
+    supports_trusted = True  # accepts ``trusted``: identifiers the user themself supplied
+
+    def judge(self, claim: str, passages: Sequence[str], trusted: str = "") -> SupportVerdict:
         text = _MARKER.sub(" ", claim)
         claim_terms = term_set(text)
         if not claim_terms:
@@ -77,7 +100,12 @@ class LexicalSupportJudge:
         low = haystack.lower()
         cov = len(claim_terms & have) / len(claim_terms)
         ids = identifiers(text)
-        id_cov = sum(i in low for i in ids) / len(ids) if ids else 1.0
+        user = (
+            trusted.lower()
+        )  # a value the user typed (a URL, a port) is a given, not a fabrication
+        id_cov = (
+            sum(identifier_present(i, low) or i in user for i in ids) / len(ids) if ids else 1.0
+        )
         score = round(0.6 * cov + 0.4 * id_cov, 3)
         reason = f"term coverage {cov:.2f}, identifier coverage {id_cov:.2f}"
         if cov >= self.supported_coverage and id_cov >= self.supported_identifiers:
