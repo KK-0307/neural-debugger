@@ -409,6 +409,9 @@ After these fixes the frozen Milestone 5 evaluation reproduces exactly.
   a fresh `uv sync --frozen --extra neural` environment, the model baked into an isolated `HF_HOME`, offline mode, a scrubbed
   environment, and the in-repo mock OpenAI-compatible server: `/api/v1/debug` returned `answered` with 4 PyTorch citations;
   without a provider it returned the informative 503 with 5 sources. First request 31 s (cold retriever load).
-* **Not verified until CI runs:** the Dockerfile itself, the Linux CPU wheels, and the image size. The CI Docker job now builds the
-  image, prints and bounds its size (< 3 GiB), checks that no `.env` or key-like string is in the image or its history, and runs
-  `scripts/smoke_debug.py` against the running container in both modes.
+* **Verified in CI (GitHub Actions run on `d148b6d`, the first real build):** the Dockerfile and Linux CPU wheels build; the image is
+  **2,766 MiB** (large: CPU-only torch plus the sentence-transformers stack; no multi-stage slimming was tried, and the
+  < 3 GiB guard leaves little headroom); no `.env`, secret-like environment variable or key name is in the image; and
+  `scripts/smoke_debug.py` against the running container returned `answered` with 4 citations (provider configured, mock
+  server inside the container, first request 9.6 s) and the informative 503 with 5 retrieved sources (no provider).
+  These are plumbing checks with a mock LLM, not a live-model test inside the container; the 283 MB NLI model is not in the image.

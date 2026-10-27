@@ -12,8 +12,8 @@ baselines, inside a RAG pipeline.
 > semantic claim checking and prompt-injection defences** ([docs/rag.md](docs/rag.md)). **Live generation was
 > exercised with one real model** (Gemini 3.1 Flash-Lite, free tier) on 51 questions: grounded and rarely wrong
 > when it answers, but it answered only 80% of my own in-scope questions and **38% of independently generated
-> ones**. No human labelled anything. The Docker image has been checked only by a local simulation; its CI
-> job is the first real build. Not built yet: the debugging UI, persistence.
+> ones**. No human labelled anything. The backend Docker image (2.7 GiB) builds and passes smoke tests in CI.
+> Not built yet: the debugging UI, persistence.
 > [PROGRESS.md](PROGRESS.md) lists exactly what is done and verified. No result is claimed that has
 > not been measured.
 

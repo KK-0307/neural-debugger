@@ -4,8 +4,8 @@
 deployable image. **Live generation was exercised with one real model** (Gemini 3.1 Flash-Lite, free tier,
 2026-10-26): 51 questions, valid JSON every time, no invalid citation ids. **The honest headline is mixed:** it answered
 80% of my own in-scope questions but **only 9 of 24 independently generated ones** (the rest are retrieval misses,
-over-abstention on verbose questions, and troubleshooting causes the reference docs do not contain). **Docker is verified
-only by a local simulation; the image has never been built here.** No human labelled anything. Awaiting your review; not
+over-abstention on verbose questions, and troubleshooting causes the reference docs do not contain). **The Docker image builds in CI and
+passes two container smoke tests, but at 2.7 GiB it is not small.** No human labelled anything. Awaiting your review; not
 proceeding to Milestone 6.
 
 **Milestone 5.1 in one paragraph (details: `docs/rag.md` section 11, `docs/semantic-grounding.md`).** Added a free hosted
@@ -47,7 +47,7 @@ and speed (~1 ms/query). Test pool expansion for the custom systems was post-hoc
 | 3 | Neural retrieval (dense, hybrid, rerank, framework filter) | **Done**; results below, with caveats |
 | 4 | Custom transformer + contrastive training | **Done**; negative result vs. baselines (`docs/ml-model.md`) |
 | 5 | RAG with validated citations (API, providers, evaluation) | **Done**; live run on one free-tier model (51 questions, agent-reviewed only) |
-| 5.1 | Live verification, semantic grounding, Docker retrieval image | **Done locally; Docker image build/size verified only in CI** (see below) |
+| 5.1 | Live verification, semantic grounding, Docker retrieval image | **Done**; CI green on `d148b6d` incl. real image build + smoke tests |
 | - | Debugging UI, persistence, performance, beta | Not started |
 
 ## Step 1 - Milestone 2 finalised and committed
@@ -119,10 +119,11 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 | Check | Result |
 |---|---|
 | `uv run pytest` (full env, models cached) | **286 passed, 1 skipped** (the skip is the live Anthropic test; M5.1 added 35 tests: semantic stage, free-tier config, harness, Dockerfile guards, freeze) |
-| CI-equivalent env (`uv sync --locked --extra data --extra index`, no PyTorch; validates the regenerated `uv.lock`) | ruff + format clean, strict mypy clean (98 src / 41 test files), **244 passed, 9 skipped**; GitHub Actions for this milestone's commit: see the final report |
+| CI-equivalent env (`uv sync --locked --extra data --extra index`, no PyTorch; validates the regenerated `uv.lock`) | ruff + format clean, strict mypy clean (98 src / 41 test files), **244 passed, 9 skipped**; **GitHub Actions green on `d148b6d`** (python, frontend, docker). The first run on `a388397` was cancelled by me after I found my own CI secret-check was toothless under `set -e`; the fix is `d148b6d` |
 | `make freeze-verify` (M2 baseline + M3 + M4 + M5 + new M5.1 evidence) | intact; frozen M5 evaluation **re-run with the 5.1 code: 146 of 146 non-timing numbers identical** |
 | Frontend `lint`, `typecheck`, `npm test` (8), `npm run build` | clean (frontend untouched) |
-| Container simulation (no Docker here): staging dir with exactly the Dockerfile's `COPY` set, fresh `uv sync --frozen --extra neural`, model baked into an isolated offline `HF_HOME`, scrubbed env, mock OpenAI-compatible server | `/api/v1/debug` -> `answered`, 4 PyTorch citations; without a provider -> informative 503 `llm_not_configured` listing 5 retrieved sources; first request 31 s (cold retriever) |
+| **CI Docker job** (the first real image build) | image **2,766 MiB**; no `.env`/secret-like variable/key in the image; container smoke test with a provider: `answered`, 4 citations, first request 9.6 s; without a provider: 503 `llm_not_configured` with 5 sources. Local Docker is not installed, so everything about the image is CI evidence |
+| Container simulation before CI (no Docker here): staging dir with exactly the Dockerfile's `COPY` set, fresh `uv sync --frozen --extra neural`, model baked into an isolated offline `HF_HOME`, scrubbed env, mock OpenAI-compatible server | `/api/v1/debug` -> `answered`, 4 PyTorch citations; without a provider -> informative 503 `llm_not_configured` listing 5 retrieved sources; first request 31 s (cold retriever) |
 | Secrets audit | the API key value appears in no file in the repository or in any run output; `.env` is git-ignored; a key-shaped test fixture is now assembled at runtime so secret scanners do not trip |
 | Wheel build + clean-venv install + `/health` on real PostgreSQL 16 | 200 `ok`, then 503 after stopping Postgres; retrieval modules import from the wheel without PyTorch |
 | CPU vs MPS | identical ranking metrics; embeddings cosine >= 0.9999; CPU bitwise deterministic |
@@ -149,7 +150,7 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 - Free-tier Gemini is unreliable under load (Google 503 "high demand" for 8 of 51 first-pass questions); limits are
   unpublished; on the free tier Google may use prompts to improve its products.
 - Caveats can be noisy (seven version notes on one answer). The first request loads the retriever (6-31 s).
-- Docker: Dockerfile, Linux CPU wheels, image size and the CI smoke test have not run yet. Only the simulation above did.
+- Docker image is **2.7 GiB** (CPU-only torch, sentence-transformers, scipy/sklearn, faiss, plus bytecode); no multi-stage slimming was attempted, and the CI guard (< 3 GiB) leaves little headroom. The NLI model (283 MB) is not in the image, so `ND_RAG_SEMANTIC_CHECK=nli` would download it at run time.
 
 ## Milestone 5 - live verification: closed, with caveats
 
