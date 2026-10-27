@@ -1,0 +1,111 @@
+# DEVELOPMENT set for stack-trace handling (Milestone 5.2). Tracebacks are agent-written to look like real console output;
+# gold is doc-level (any section of these pages answers or explains the error), annotated by the agent by searching the
+# corpus. Not human, not independent, and used for tuning: the held-out set (heldout_gemini.yaml) is not.
+questions:
+- id: tb1
+  gold_docs: [pytorch/2.14/generated/torch.nn.CrossEntropyLoss]
+  q: |
+    Traceback (most recent call last):
+      File "train.py", line 52, in <module>
+        loss = criterion(outputs, labels)
+      File "/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+        return self._call_impl(*args, **kwargs)
+      File "/venv/lib/python3.12/site-packages/torch/nn/modules/loss.py", line 1293, in forward
+        return F.cross_entropy(input, target, weight=self.weight,
+      File "/venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3479, in cross_entropy
+        return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+    IndexError: Target 10 is out of bounds.
+- id: tb2
+  gold_docs: [pytorch/2.14/generated/torch.Tensor.backward, pytorch/2.14/notes/autograd]
+  q: |
+    Traceback (most recent call last):
+      File "main.py", line 31, in <module>
+        loss.backward()
+      File "/venv/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+        torch.autograd.backward(
+      File "/venv/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+        _engine_run_backward(
+      File "/venv/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+        return Variable._execution_engine.run_backward(
+    RuntimeError: Trying to backward through the graph a second time (or directly access saved tensors after they have already been freed).
+- id: tb3
+  gold_docs: [pytorch/2.14/notes/autograd, pytorch/2.14/autograd]
+  q: |
+    Traceback (most recent call last):
+      File "eval.py", line 14, in <module>
+        loss.backward()
+      File "/venv/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+        torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
+    RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+    I wrapped my forward pass in torch.no_grad() while testing.
+- id: tb4
+  gold_docs: [pytorch/2.14/notes/cuda, pytorch/2.14/tensor_attributes, pytorch/2.14/generated/torch.Tensor.to]
+  q: |
+    Traceback (most recent call last):
+      File "run.py", line 40, in <module>
+        out = model(x)
+      File "/venv/lib/python3.12/site-packages/torch/nn/modules/linear.py", line 134, in forward
+        return F.linear(input, self.weight, self.bias)
+    RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat1 in method wrapper_CUDA_addmm)
+- id: tb5
+  gold_docs: [fastapi/0.162.0/tutorial/request-forms]
+  q: |
+    Traceback (most recent call last):
+      File "/venv/lib/python3.12/site-packages/fastapi/dependencies/utils.py", line 118, in ensure_multipart_is_installed
+        raise RuntimeError(multipart_not_installed_error) from None
+    RuntimeError: Form data requires "python-multipart" to be installed.
+    You can install "python-multipart" with:
+    pip install python-multipart
+- id: tb6
+  gold_docs: [fastapi/0.162.0/tutorial/response-model]
+  q: |
+    Traceback (most recent call last):
+      File "/app/main.py", line 12, in <module>
+        @app.get("/users/{user_id}", response_model=User)
+      File "/venv/lib/python3.12/site-packages/fastapi/routing.py", line 994, in decorator
+        self.add_api_route(
+      File "/venv/lib/python3.12/site-packages/fastapi/utils.py", line 105, in create_response_field
+        raise fastapi.exceptions.FastAPIError(
+    fastapi.exceptions.FastAPIError: Invalid args for response field! Hint: check that <class 'sqlalchemy.orm.decl_api.Base'> is a valid Pydantic field type.
+- id: tb7
+  gold_docs: [python/3.12/library/json]
+  q: |
+    Traceback (most recent call last):
+      File "load.py", line 5, in <module>
+        data = json.loads(resp.text)
+      File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+        return _default_decoder.decode(s)
+      File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
+        raise JSONDecodeError("Expecting value", s, err.value) from None
+    json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+- id: tb8
+  gold_docs: [python/3.12/library/asyncio-task]
+  q: |
+    Traceback (most recent call last):
+      File "app.py", line 9, in <module>
+        asyncio.run(main())
+      File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+        return runner.run(main)
+    RuntimeError: asyncio.run() cannot be called from a running event loop
+    I'm running this inside a Jupyter notebook.
+- id: tb9
+  gold_docs: [python/3.12/library/exceptions, python/3.12/library/sys]
+  supplement_docs: [python/3.12/library/sys]
+  q: |
+    Traceback (most recent call last):
+      File "fib.py", line 4, in fib
+        return fib(n - 1) + fib(n - 2)
+      File "fib.py", line 4, in fib
+        return fib(n - 1) + fib(n - 2)
+      [Previous line repeated 996 more times]
+    RecursionError: maximum recursion depth exceeded
+- id: tb10
+  gold_docs: [python/3.12/library/pathlib, python/3.12/library/exceptions]
+  q: |
+    INFO:     Started server process [1432]
+    Traceback (most recent call last):
+      File "/app/main.py", line 7, in <module>
+        text = Path("config/settings.toml").read_text()
+      File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+        with self.open(mode='r', encoding=encoding, errors=errors) as f:
+    FileNotFoundError: [Errno 2] No such file or directory: 'config/settings.toml'

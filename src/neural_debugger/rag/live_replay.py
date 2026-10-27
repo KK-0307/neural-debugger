@@ -62,6 +62,7 @@ def replay(
     retriever: SectionRetriever,
     stats: TermStats,
     judges: dict[str, SupportJudge],
+    config: PipelineConfig,
 ) -> list[dict[str, Any]]:
     by_id = {q["id"]: q for q in questions}
     rows: list[dict[str, Any]] = []
@@ -74,9 +75,7 @@ def replay(
         if q["kind"] in _POISON:
             retr = PoisonedRetriever(retriever, _POISON[q["kind"]])
         reply = calls[0]["reply"]
-        pipe = RAGPipeline(
-            retr, ScriptedProvider([reply]), PipelineConfig(semantic="off"), stats=stats
-        )
+        pipe = RAGPipeline(retr, ScriptedProvider([reply]), config, stats=stats)
         evidence: dict[str, Evidence] = {e.id: e for e in pipe.answer(q["q"], None).evidence}
         for kind, text, cites in _claims(reply):
             good = [c for c in cites if c in evidence]
@@ -162,6 +161,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--rescore-out", type=Path)
     ap.add_argument("--questions", type=Path, default=QUESTIONS)
     ap.add_argument("--retriever", default="hybrid-gte-tuned")
+    ap.add_argument("--profile", choices=["m5", "coverage"], default="m5")
+    ap.add_argument("--corpus-dir", nargs="+", default=["data/corpus"])
+    ap.add_argument("--embedding-dir", default="data/embeddings_rag")
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out", type=Path)
     ap.add_argument(
@@ -172,22 +174,26 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = ap.parse_args(argv)
 
-    from neural_debugger.data.corpus import load_corpus
+    from neural_debugger.data.corpus import load_corpus_overlay
     from neural_debugger.ml.retrieval.systems import SystemFactory, load_neural_config
 
     from .retrieval import CorpusSectionRetriever
 
     raws = merge_raw([json.loads(p.read_text()) for p in args.raw])
-    corpus = load_corpus("data/corpus")
+    corpus = load_corpus_overlay(args.corpus_dir)
     system = SystemFactory(
-        corpus, load_neural_config("configs/neural.yaml", "configs/m4.yaml"), device=args.device
+        corpus,
+        load_neural_config("configs/neural.yaml", "configs/m4.yaml"),
+        device=args.device,
+        embedding_dir=Path(args.embedding_dir) if len(args.corpus_dir) > 1 else None,
     ).build(args.retriever)
     stats = TermStats.from_texts(c.index_text() for c in corpus.chunks)
+    make_config = PipelineConfig.coverage_profile if args.profile == "coverage" else PipelineConfig
     questions = yaml.safe_load(args.questions.read_text())["questions"]
     section_retriever = CorpusSectionRetriever(system, corpus)
     if args.rescore:
         results = rescore(
-            raws, questions, section_retriever, stats, PipelineConfig(semantic=args.rescore)
+            raws, questions, section_retriever, stats, make_config(semantic=args.rescore)
         )
         summary = summarize(
             results,
@@ -215,7 +221,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.config_from.exists():
         chosen = SemanticConfig(**json.loads(args.config_from.read_text())["chosen_config"])
         judges["rules+nli(dev-calibrated)"] = GroundedSupportJudge(base, SemanticGuard(nli, chosen))
-    rows = replay(raws, questions, section_retriever, stats, judges)
+    rows = replay(raws, questions, section_retriever, stats, judges, make_config(semantic="off"))
     out = json.dumps(rows, indent=1) + "\n"
     if args.out:
         args.out.write_text(out)

@@ -1,0 +1,336 @@
+provenance:
+  generated_by: gemini-3.1-flash-lite
+  date: '2026-10-26'
+  prompt_sha256: 346d602c100980995889c8d0436d5a67f11adcffaa216820e9c14e358b725b7c
+  note: 'HELD-OUT: model-generated (not human-written), no gold answers, generated before any Milestone 5.2 change and never
+    used for tuning; the generating model did not see the corpus or the pipeline'
+  requests: 13
+questions:
+- id: hp1
+  kind: answer
+  fw: python
+  style: symptom
+  q: I'm getting a TypeError when using type aliases with the new 'type' keyword in Python 3.12 for recursive definitions.
+    How do I properly forward-reference these types without triggering a name resolution error?
+- id: hp2
+  kind: answer
+  fw: python
+  style: symptom
+  q: My asyncio code that relies on task groups is behaving differently than it did with gather. It seems like a single failing
+    task is cancelling siblings immediately, but I need to know how to suppress this behavior for specific background cleanup
+    tasks.
+- id: hp3
+  kind: answer
+  fw: python
+  style: symptom
+  q: I'm trying to use the new 'per-interpreter GIL' feature in 3.12 via the C-API, but I'm getting intermittent segmentation
+    faults when sharing objects between interpreters. What are the strict limitations on object sharing across sub-interpreters?
+- id: hp4
+  kind: answer
+  fw: python
+  style: symptom
+  q: After upgrading to 3.12, my build pipeline is failing because it can't find 'distutils'. I know it was deprecated, but
+    what is the standard library replacement for 'distutils.util.strtobool' and 'distutils.dir_util'?
+- id: hp5
+  kind: answer
+  fw: python
+  style: symptom
+  q: I'm encountering an issue with the 'pathlib' module where Path.walk() is behaving inconsistently with symlinks compared
+    to 'os.walk'. Does it handle directory traversal depth-first by default, and can I toggle this to prevent infinite loops?
+- id: hp6
+  kind: answer
+  fw: python
+  style: symptom
+  q: Why does my exception group in 3.12 stop propagating 'KeyboardInterrupt' correctly when wrapped in a try-except* block?
+    It seems like the signal is being swallowed by the group handling logic instead of bubbling up to the main thread.
+- id: hp7
+  kind: answer
+  fw: python
+  style: traceback
+  q: "File \"app/auth.py\", line 42, in <module>\n    from typing import Annotated\nImportError: cannot import name 'Annotated'\
+    \ from 'typing' (unknown location)\nI thought Python 3.12 handled imports from typing differently, why is this failing?"
+- id: hp8
+  kind: answer
+  fw: python
+  style: traceback
+  q: "File \"src/db/models.py\", line 15\n    def get_data(self) -> list[int] | None:\n                                  ^\n\
+    SyntaxError: invalid syntax\nI'm trying to use PEP 695 type aliases, is there a reason 3.12 rejects this syntax?"
+- id: hp9
+  kind: answer
+  fw: python
+  style: traceback
+  q: "File \"/usr/local/lib/python3.12/site-packages/aiohttp/client.py\", line 340, in _request\n    await self._session.request(method,\
+    \ url, **kwargs)\nTypeError: __init__() got an unexpected keyword argument 'headers'\nUpgraded to 3.12 and now aiohttp\
+    \ is throwing weird type errors, any ideas?"
+- id: hp10
+  kind: answer
+  fw: python
+  style: traceback
+  q: "File \"scripts/processor.py\", line 88, in run\n    distutils.dir_util.copy_tree(src, dst)\nAttributeError: module 'distutils'\
+    \ has no attribute 'dir_util'\nI know distutils was deprecated, but did 3.12 actually remove it entirely?"
+- id: hp11
+  kind: answer
+  fw: python
+  style: traceback
+  q: "File \"lib/data_loader.py\", line 12, in <module>\n    import dataclasses\nRuntimeError: Failed to initialize C-extension:\
+    \ _dataclasses\nThis works fine in 3.11 but segfaults immediately on 3.12, what changed?"
+- id: hp12
+  kind: answer
+  fw: python
+  style: traceback
+  q: "File \"tests/test_async.py\", line 22, in test_event_loop\n    loop = asyncio.get_event_loop()\nDeprecationWarning:\
+    \ There is no current event loop\nRuntimeError: asyncio.run() must be called from the main thread\nMy test suite is failing\
+    \ with this error after moving to Python 3.12, is the event loop policy different now?"
+- id: ht1
+  kind: answer
+  fw: pytorch
+  style: symptom
+  q: I'm trying to use torch.compile() on my custom nn.Module, but it keeps failing with 'guards for local variables are not
+    supported'. Does this mean I have to refactor my forward pass to avoid dynamic attribute access?
+- id: ht2
+  kind: answer
+  fw: pytorch
+  style: symptom
+  q: My DataLoader is getting stuck during multi-process data loading when using num_workers > 0. It seems like a deadlock
+    related to CUDA initialization in the child processes; how do I properly set the start method to spawn?
+- id: ht3
+  kind: answer
+  fw: pytorch
+  style: symptom
+  q: 'I''m getting a ''RuntimeError: one of the variables needed for gradient computation has been modified by an inplace
+    operation'' in my autograd graph. How can I identify exactly which line is causing the leaf variable modification?'
+- id: ht4
+  kind: answer
+  fw: pytorch
+  style: symptom
+  q: When saving my model using torch.save(), I'm getting a massive file size because it's serializing the entire optimizer
+    state and some unnecessary buffers. How do I filter the state_dict to only include trainable parameters and current momentum?
+- id: ht5
+  kind: answer
+  fw: pytorch
+  style: symptom
+  q: I'm running a DistributedDataParallel job on multiple GPUs, but the loss isn't converging at all. Is it possible that
+    my manual gradient accumulation logic is interfering with the internal DDP sync process?
+- id: ht6
+  kind: answer
+  fw: pytorch
+  style: symptom
+  q: 'I''m encountering a ''CUDA error: device-side assert triggered'' whenever I use specific indexing operations on my tensors.
+    How can I trace back which operation caused the out-of-bounds access without disabling all async CUDA kernels?'
+- id: ht7
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "File \"train.py\", line 42, in <module>\n    model = torch.compile(model)\n  File \"torch/_dynamo/eval_frame.py\", line\
+    \ 339, in compile\n    return _fn(model, *args, **kwargs)\nRuntimeError: Failed to trigger guard: 'torch.Tensor' object\
+    \ has no attribute 'is_nested'"
+- id: ht8
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "RuntimeError: CUDA error: device-side assert triggered\n  File \"model.py\", line 112, in forward\n    x = F.cross_entropy(logits,\
+    \ targets)\n  File \"torch/nn/functional.py\", line 3053, in cross_entropy\n    return torch._C._nn.cross_entropy_loss(input,\
+    \ target, ...)\nGetting this inside a torch.compile block; how do I debug the source of the index out of bounds?"
+- id: ht9
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "File \"engine.py\", line 88, in step\n    loss.backward()\n  File \"torch/_tensor.py\", line 492, in backward\n    torch.autograd.backward(self,\
+    \ ...)\n  File \"torch/autograd/__init__.py\", line 251, in backward\n    Variable._execution_engine.run_backward(...)\n\
+    RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation."
+- id: ht10
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "File \"dataset.py\", line 21, in __getitem__\n    return torch.from_numpy(self.data[idx])\n  File \"torch/utils/data/dataloader.py\"\
+    , line 1133, in _try_get_data\n    data = self._data_queue.get(timeout=timeout)\nRuntimeError: DataLoader worker (pid\
+    \ 4829) is killed by signal: Bus error.\nIs this a shared memory issue with PyTorch 2.0's new multi-processing?"
+- id: ht11
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "File \"model.py\", line 55, in forward\n    out = self.layer(x)\n  File \"torch/nn/modules/module.py\", line 1518, in\
+    \ _wrapped_call_impl\n    return self._compiled_call_impl(*args, **kwargs)\n  File \"torch/_inductor/codecache.py\", line\
+    \ 140, in __call__\n    raise RuntimeError(\"Inductor compilation failed\")\nRuntimeError: Triton Error [CUDA]: invalid\
+    \ argument. Why is Triton failing only on A100s but not T4s?"
+- id: ht12
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "File \"trainer.py\", line 10, in <module>\n    torch.distributed.init_process_group(\"nccl\")\n  File \"torch/distributed/c10d_cxx.py\"\
+    , line 125, in init_process_group\n    return _init_process_group_helper(...)\nRuntimeError: NCCL error in: ../torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:127,\
+    \ unhandled system error."
+- id: hf1
+  kind: answer
+  fw: fastapi
+  style: symptom
+  q: I'm getting a 422 Unprocessable Entity error even though my JSON payload matches the Pydantic model. It seems like FastAPI
+    isn't picking up the nested fields correctly, even with `alias` defined. How do I debug the validation layer?
+- id: hf2
+  kind: answer
+  fw: fastapi
+  style: symptom
+  q: My dependency injection isn't working as expected in my route handlers. I have a `Depends()` call that fetches a database
+    session, but it seems to be getting instantiated multiple times per request instead of being a singleton. What's the recommended
+    way to scope this?
+- id: hf3
+  kind: answer
+  fw: fastapi
+  style: symptom
+  q: I'm trying to implement a custom middleware to log request latency, but `request.body()` is hanging indefinitely. I assume
+    it's because the stream has already been consumed, but how can I access the request body without blocking the main event
+    loop?
+- id: hf4
+  kind: answer
+  fw: fastapi
+  style: symptom
+  q: My BackgroundTasks are failing silently in production. The task is supposed to send an email, but the logs show the request
+    finishes before the task triggers, and I'm not sure how to capture exceptions occurring inside the background process.
+- id: hf5
+  kind: answer
+  fw: fastapi
+  style: symptom
+  q: I'm using `OAuth2PasswordBearer` for security, but the token isn't being extracted from the Authorization header in my
+    integration tests. I'm passing the header correctly, but the dependency keeps returning 401. How do I mock the security
+    flow correctly in `TestClient`?
+- id: hf6
+  kind: answer
+  fw: fastapi
+  style: symptom
+  q: 'I''m getting a `RuntimeError: You must call `await` on a background task` or similar when trying to return a response
+    from a route that depends on an async generator. Is there a limitation on how I structure my dependency chain when mixing
+    sync and async code?'
+- id: hf7
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: 'INFO:     Started server process [1234]
+
+    INFO:     Waiting for application startup.
+
+    ERROR:    Exception in ''lifespan'' startup
+
+    TypeError: ''NoneType'' object is not callable
+
+    I''m trying to add a lifespan context manager to my FastAPI app and it''s crashing on startup.'
+- id: hf8
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "File \"app/main.py\", line 15, in get_user\n    user = await db.fetch_one(query)\n  File \"databases/core.py\", line\
+    \ 154, in fetch_one\n    raise e\nsqlalchemy.exc.InterfaceError: (sqlite3.InterfaceError) Error binding parameter 0 -\
+    \ probably unsupported type.\nMy Pydantic model has a custom class, how do I serialize it for asyncpg?"
+- id: hf9
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "INFO:     127.0.0.1:56789 - \"GET /items/123 HTTP/1.1\" 422 Unprocessable Entity\n{\n  \"detail\": [{\"loc\": [\"path\"\
+    , \"item_id\"], \"msg\": \"value is not a valid integer\", \"type\": \"type_error.integer\"}]\n}\nWhy is my path parameter\
+    \ returning 422 even though I typed it as an int?"
+- id: hf10
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "File \"fastapi/routing.py\", line 227, in run_endpoint_function\n    return await dependant.call(**values)\n  File \"\
+    app/api.py\", line 45, in create_order\n    background_tasks.add_task(send_email, user.email)\nRuntimeError: No background\
+    \ tasks have been passed to the dependency tree.\nI'm trying to trigger a background task inside a dependency, is this\
+    \ not supported?"
+- id: hf11
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"starlette/middleware/base.py\", line 45, in call_next\n    raise RuntimeError(\"\
+    No response returned\")\nRuntimeError: No response returned\nMy custom BaseHTTPMiddleware is causing this, how do I properly\
+    \ return the call_next response?"
+- id: hf12
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "pydantic.errors.ConfigError: Field \"model_config\" is not allowed in Pydantic V2 models.\n  File \"app/schemas.py\"\
+    , line 10, in <module>\n    class User(BaseModel):\nI just upgraded to Pydantic v2 and now FastAPI is throwing these config\
+    \ errors, what changed?"
+- id: ho1
+  kind: abstain
+  fw: other
+  style: symptom
+  q: I'm getting a 'CrashLoopBackOff' in Kubernetes with 'OOMKilled'. The pod memory limit is set to 2Gi, but `kubectl top`
+    shows it's only using 500Mi before it dies. How can I debug if this is a cgroup limit issue or a native Go GC heap constraint?
+- id: ho2
+  kind: abstain
+  fw: other
+  style: symptom
+  q: Getting a 'lifetime may not live long enough' error in Rust when trying to pass a closure into a tokio::spawn block.
+    I'm moving an Arc into the move block, but the compiler still complains about the reference to the local variable. What
+    is the idiomatic way to handle this?
+- id: ho3
+  kind: abstain
+  fw: other
+  style: symptom
+  q: My React functional component is triggering a re-render loop on mount. I'm using a useEffect hook to update a state object,
+    but even with the dependency array set correctly, the object reference changes every render. How do I memoize this to
+    prevent the loop?
+- id: ho4
+  kind: abstain
+  fw: other
+  style: symptom
+  q: PostgreSQL query performance is tanking after a recent migration. The `EXPLAIN ANALYZE` shows a sequential scan on a
+    table with 10M rows despite having an index on the filtered column. Why is the planner ignoring my index even after running
+    `ANALYZE`?
+- id: ho5
+  kind: abstain
+  fw: other
+  style: symptom
+  q: 'Terraform apply is failing with ''Error: Provider produced inconsistent final plan''. It keeps trying to recreate an
+    AWS RDS instance even though I haven''t changed any arguments in the resource block. How do I force Terraform to ignore
+    these specific drift changes?'
+- id: ho6
+  kind: abstain
+  fw: other
+  style: symptom
+  q: 'My Go Kafka consumer using `confluent-kafka-go` is failing to rebalance. I''m seeing ''Local: Timed out'' errors in
+    the logs after processing a large batch of messages. Is this a heartbeat interval issue or is the processing logic blocking
+    the poll loop?'
+- id: ho7
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: 'Why am I getting `AttributeError: ''NoneType'' object has no attribute ''get_result''` when calling `session.commit()`
+    in SQLAlchemy? I''ve verified the scoped_session is initialized, but it seems to be failing specifically inside my celery
+    task worker.'
+- id: ho8
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: I'm trying to perform a left join in pandas using `pd.merge()`, but the memory usage spikes from 2GB to 12GB and eventually
+    triggers an OOM killer. Is there a way to perform this join lazily or in chunks without switching to Dask?
+- id: ho9
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: 'Getting this traceback in my Django view:
+
+    `django.db.utils.IntegrityError: duplicate key value violates unique constraint`
+
+    Even though I''m using `get_or_create`, it seems like a race condition is happening during high concurrency. How do I
+    handle this with `select_for_update()` properly?'
+- id: ho10
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: 'Has anyone encountered `ValueError: Input contains NaN, infinity or a value too large for dtype(''float64'')` in scikit-learn''s
+    `RandomForestClassifier`? I''ve already run `df.fillna(0)` and verified `np.isfinite()` on the whole array, but it still
+    fails.'
+- id: ho11
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: 'My Flask app is using `flask-sqlalchemy`. When I try to access a lazy-loaded relationship property outside of the request
+    context, I get `RuntimeError: working outside of application context`. How do I properly detach the model or force load
+    the relationship before the session closes?'
+- id: ho12
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: I'm trying to cast a column to categorical in NumPy/pandas, but `np.nan` values keep being treated as strings in the
+    underlying object array. How can I force this to stay numeric while representing missing data correctly for a TensorFlow
+    input pipeline?

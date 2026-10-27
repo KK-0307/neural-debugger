@@ -31,12 +31,26 @@ from .types import (
     Evidence,
     QuestionInfo,
     RAGAnswer,
+    RetrievedSection,
     Timings,
     ValidationReport,
 )
 from .validate import Validated, validate_answer
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class Prepared:
+    """Everything the pipeline decides before it would call the model (also used by the diagnosis tooling)."""
+
+    question: QuestionInfo
+    sections: list[RetrievedSection]
+    evidence: list[Evidence]
+    sufficiency: Sufficiency
+    dropped_evidence: list[dict[str, str]]
+    retrieval_ms: float
+    error: str | None = None
 
 
 @dataclass
@@ -55,6 +69,23 @@ class PipelineConfig:
     drop_disputed: bool = False
     generation_timeout_s: float = 60.0
     min_question_chars: int = 3
+    # When set, the sufficiency gate judges *this* evidence (selected from the top ``gate_k`` candidates) while the model
+    # is shown the larger ``evidence`` set. Showing more sections must not raise the gate's coverage score, otherwise
+    # out-of-scope questions would slip through (measured: 81% -> 69-72% abstention). None = the gate sees what the model sees.
+    gate_evidence: EvidenceConfig | None = None
+    gate_k: int = 12
+
+    @classmethod
+    def coverage_profile(cls, **overrides: Any) -> PipelineConfig:
+        """Milestone 5.2: show the model up to 7 sections (max 3 per page, 8,000 characters) from 16 candidates while the
+        gate keeps judging the Milestone 5 evidence (5 sections, 2 per page, top 12), so abstention behaviour is unchanged."""
+        base: dict[str, Any] = {
+            "retrieve_k": 16,
+            "evidence": EvidenceConfig(max_items=7, max_per_doc=3, max_chars_total=8000),
+            "gate_evidence": EvidenceConfig(),
+            "gate_k": 12,
+        }
+        return cls(**{**base, **overrides})
 
 
 class RAGPipeline:
@@ -87,12 +118,31 @@ class RAGPipeline:
 
     # ------------------------------------------------------------------ public
 
+    def prepare(self, question: str, framework: str | None = None) -> Prepared:
+        """Question preparation, retrieval, evidence selection and the sufficiency gate (no model call)."""
+        q = prepare_question(question)
+        t = time.perf_counter()
+        try:
+            sections = self.retriever.search(q.retrieval_query, self.config.retrieve_k, framework)
+        except Exception as exc:  # retriever failures must not leak internals or crash the request
+            logger.exception("retrieval failed")
+            ms = (time.perf_counter() - t) * 1000
+            return Prepared(q, [], [], Sufficiency("none", 0.0), [], ms, type(exc).__name__)
+        ms = (time.perf_counter() - t) * 1000
+        evidence, selection = select_evidence(sections, self.config.evidence)
+        gate_ev = evidence
+        if self.config.gate_evidence is not None:
+            gate_ev, _ = select_evidence(sections[: self.config.gate_k], self.config.gate_evidence)
+        suff = assess(q, gate_ev, self.stats, self.config.sufficiency)
+        return Prepared(q, sections, evidence, suff, selection.dropped, ms)
+
     def answer(self, question: str, framework: str | None = None) -> RAGAnswer:
         t0 = time.perf_counter()
         timings = Timings()
         if len(question.strip()) < self.config.min_question_chars:
             return self._finish(self._empty(question, "abstained", "empty_question", timings), t0)
-        q = prepare_question(question)
+        prep = self.prepare(question, framework)
+        q, evidence, suff = prep.question, prep.evidence, prep.sufficiency
         trace: dict[str, Any] = {
             "prompt_version": PROMPT_VERSION,
             "retrieval_query": q.retrieval_query,
@@ -100,24 +150,15 @@ class RAGPipeline:
             "question_injection_flags": list(q.injection_flags),
             "question_truncated": q.truncated,
         }
-
-        t = time.perf_counter()
-        try:
-            sections = self.retriever.search(q.retrieval_query, self.config.retrieve_k, framework)
-        except Exception as exc:  # retriever failures must not leak internals or crash the request
-            logger.exception("retrieval failed")
-            timings.retrieval_ms = (time.perf_counter() - t) * 1000
-            trace["retrieval_error"] = type(exc).__name__
+        timings.retrieval_ms = prep.retrieval_ms
+        if prep.error:
+            trace["retrieval_error"] = prep.error
             return self._finish(
                 self._empty(question, "error", "retrieval_failed", timings, trace), t0
             )
-        timings.retrieval_ms = (time.perf_counter() - t) * 1000
-
-        evidence, selection = select_evidence(sections, self.config.evidence)
-        trace["retrieved"] = len(sections)
-        trace["dropped_evidence"] = selection.dropped
+        trace["retrieved"] = len(prep.sections)
+        trace["dropped_evidence"] = prep.dropped_evidence
         trace["evidence_flags"] = {e.id: list(e.flags) for e in evidence if e.flags}
-        suff = assess(q, evidence, self.stats, self.config.sufficiency)
         trace["sufficiency"] = {"level": suff.level, "coverage": round(suff.coverage, 3)}
 
         if suff.level == "none":

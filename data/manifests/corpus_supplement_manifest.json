@@ -1,0 +1,85 @@
+{
+ "by_framework": {
+  "python": {
+   "chunks": 357,
+   "documents": 3,
+   "sections": 314
+  },
+  "pytorch": {
+   "chunks": 4,
+   "documents": 1,
+   "sections": 1
+  }
+ },
+ "chunking": {
+  "max_words": 300,
+  "min_tail_words": 30,
+  "target_words": 180
+ },
+ "corpus_chunks_sha256": "5d78c33cb81cd5bab563d818e4aa8fc7ceb90231c83712985f868fbc7cea86d1",
+ "corpus_id": "nd-corpus-supplement-v1",
+ "dedup": {
+  "n_exact_duplicates_dropped": 0,
+  "n_input": 361,
+  "n_near_duplicates_dropped": 0,
+  "n_output": 361,
+  "near_duplicate_jaccard_threshold": 0.85
+ },
+ "dedup_dropped": [],
+ "documents": [
+  {
+   "doc_id": "python/3.12/library/sys",
+   "raw_bytes": 240006,
+   "raw_sha256": "fc6f9c8f3bf1e0edcbab49c7f2d0923a140a363d7df9fc08d58b8e9463627178",
+   "retrieved_at": "2026-10-27T02:47:05+00:00",
+   "source_url": "https://docs.python.org/3.12/library/sys.html"
+  },
+  {
+   "doc_id": "python/3.12/library/sqlite3",
+   "raw_bytes": 310373,
+   "raw_sha256": "cf425fd15be3911c9bffd72332a6cf247afb30edd0ef1d14d3176c812d246ec8",
+   "retrieved_at": "2026-10-27T02:47:06+00:00",
+   "source_url": "https://docs.python.org/3.12/library/sqlite3.html"
+  },
+  {
+   "doc_id": "python/3.12/whatsnew/3.12",
+   "raw_bytes": 439513,
+   "raw_sha256": "87db8e5968c889712b25b603faf1a4e1c9c04e579517c63e85cc6459d052f255",
+   "retrieved_at": "2026-10-27T02:47:07+00:00",
+   "source_url": "https://docs.python.org/3.12/whatsnew/3.12.html"
+  },
+  {
+   "doc_id": "pytorch/2.14/generated/torch.compile",
+   "raw_bytes": 264512,
+   "raw_sha256": "54ae58b7eb6f760ac62c89767ec0b6c13c4d7a03930196b03538c599ddbc08e4",
+   "retrieved_at": "2026-10-27T02:47:09+00:00",
+   "source_url": "https://docs.pytorch.org/docs/2.14/generated/torch.compile.html"
+  }
+ ],
+ "pipeline_version": "1",
+ "sources": [
+  {
+   "base_url": "https://docs.python.org/3.12/",
+   "framework": "python",
+   "kind": "sphinx_html",
+   "license": "Python Software Foundation License v2 (https://docs.python.org/3.12/license.html)",
+   "name": "python",
+   "version": "3.12"
+  },
+  {
+   "base_url": "https://docs.pytorch.org/docs/2.14/",
+   "framework": "pytorch",
+   "kind": "sphinx_html",
+   "license": "BSD-3-Clause (pytorch/pytorch LICENSE; documentation is built from that repository)",
+   "name": "pytorch",
+   "version": "2.14"
+  }
+ ],
+ "sources_config_sha256": "04a50e036063760ed47ca93de571f42c15b256dc7753320ea8e66a01419fc5cf",
+ "totals": {
+  "chunks": 361,
+  "documents": 4,
+  "sections": 315,
+  "words": 34213
+ }
+}

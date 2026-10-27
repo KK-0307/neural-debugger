@@ -19,6 +19,25 @@ _ERROR_LINE = re.compile(
     r"^\s*(?:[A-Za-z_][\w.]*\.)?[A-Za-z_]\w*(?:Error|Exception|Warning|Exit|Interrupt|Disconnect)\b.*$"
 )
 _TRACE_FRAME = re.compile(r'^\s*File ".*", line \d+')
+_FRAME_FUNC = re.compile(r'^\s*File "(?P<path>[^"]+)", line \d+, in (?P<func>\S+)')
+_SITE_PATH = re.compile(r"(?:site-packages|dist-packages)/(?P<rel>.+)$")
+_STDLIB_PATH = re.compile(r"/lib/python3\.\d+/(?P<rel>(?!site-packages|dist-packages)[^/].+)$")
+# frames that are plumbing in every traceback and say nothing about which API was misused
+_GENERIC_FUNCS = frozenset(
+    {
+        "<module>",
+        "forward",
+        "wrapper",
+        "decorator",
+        "inner",
+        "wrapped",
+        "main",
+        "app",
+        "call",
+        "dispatch",
+    }
+)
+_SERVER_LOG = re.compile(r"^\s*(?:INFO|DEBUG|WARNING|ERROR|CRITICAL)\s*:\s")
 _VERSION_PATTERNS: dict[str, re.Pattern[str]] = {
     "python": re.compile(r"\b(?:python|py)\s*[=v]*\s*(\d+\.\d+(?:\.\d+)?)", re.I),
     "pytorch": re.compile(
@@ -65,6 +84,43 @@ def extract_error_lines(text: str, limit: int = 3) -> tuple[str, ...]:
     return tuple(seen[-limit:])
 
 
+def extract_api_hints(text: str, limit: int = 3) -> tuple[str, ...]:
+    """Dotted API names from the *library* frames of a traceback, innermost first.
+
+    ``.../site-packages/torch/nn/functional.py ... in cross_entropy`` becomes ``torch.nn.functional.cross_entropy``: the
+    most informative documentation term in a pasted traceback, and one the exception line alone often lacks. User
+    frames, private helpers (``_call_impl``) and plumbing (``forward``, ``wrapper``) are skipped.
+    """
+    hints: list[str] = []
+    for line in text.splitlines():
+        m = _FRAME_FUNC.match(line)
+        if not m:
+            continue
+        path = m.group("path").replace("\\", "/")
+        lib = _SITE_PATH.search(path) or _STDLIB_PATH.search(path)
+        if not lib:
+            continue
+        parts = [
+            p for p in lib.group("rel").removesuffix(".py").split("/") if p and p != "__init__"
+        ]
+        func = m.group("func")
+        # private modules/helpers (torch/_tensor.py, _call_impl) are implementation detail: the public API shows up in
+        # another frame (torch.autograd.backward)
+        if (
+            not parts
+            or func in _GENERIC_FUNCS
+            or func.startswith("_")
+            or any(p.startswith("_") for p in parts)
+        ):
+            continue
+        hints.append(".".join([*parts, func]))
+    seen: list[str] = []
+    for h in reversed(hints):  # innermost frame first
+        if h not in seen:
+            seen.append(h)
+    return tuple(seen[:limit])
+
+
 def detect_framework_hint(text: str) -> str | None:
     low = text.lower()
     scores = {fw: sum(kw in low for kw in kws) for fw, kws in _FRAMEWORK_KEYWORDS.items()}
@@ -104,6 +160,8 @@ def _prose(text: str) -> str:
                 for part in _SENTENCES.split(line)
                 if not any(f.severity == "high" for f in scan(part))
             )
+        if _SERVER_LOG.match(line):
+            continue
         if _TRACE_FRAME.match(line):
             skip_next = True
             continue
@@ -138,15 +196,18 @@ def prepare_question(raw: str, max_chars: int = MAX_CHARS) -> QuestionInfo:
     prose = _prose(clean)
     has_trace = any(_TRACE_FRAME.match(ln) for ln in clean.splitlines())
     if len(clean) <= MAX_RETRIEVAL_CHARS and not has_trace and "```" not in clean and not findings:
-        query = clean.replace("\n", " ")
+        query = gate_query = clean.replace("\n", " ")
     else:
         head = errors[-1] if errors else ""
         rest = prose.replace(head, " ") if head else prose
-        query = f"{head} {rest or clean}"
+        hints = " ".join(extract_api_hints(clean))
+        query = f"{head} {hints} {rest or clean}"
+        gate_query = f"{head} {rest or clean}"
     return QuestionInfo(
         original=raw,
         text=clean,
         retrieval_query=query.strip()[:MAX_RETRIEVAL_CHARS],
+        gate_text=" ".join(gate_query.split())[:MAX_RETRIEVAL_CHARS],
         error_lines=errors,
         framework_hint=detect_framework_hint(clean),
         versions=extract_versions(clean),

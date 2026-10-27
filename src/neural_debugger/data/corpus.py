@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from collections import defaultdict
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -54,3 +55,30 @@ def load_corpus(corpus_dir: str | Path = DEFAULT_CORPUS_DIR) -> Corpus:
         if line
     ]
     return Corpus(chunks=chunks, documents=docs, sha256=sha256_bytes(raw))
+
+
+def load_corpus_overlay(corpus_dirs: Sequence[str | Path]) -> Corpus:
+    """Merge several corpus directories in memory (a frozen base plus supplements), in the order given.
+
+    Nothing on disk changes: the base corpus, its manifest, labels and embeddings stay as they were, so earlier
+    milestones' results remain reproducible. Section ids must be unique across directories (a page lives in exactly
+    one corpus); a clash raises instead of silently shadowing a frozen section.
+    """
+    if len(corpus_dirs) == 1:
+        return load_corpus(corpus_dirs[0])
+    chunks: list[Chunk] = []
+    docs: list[DocumentRecord] = []
+    seen: set[str] = set()
+    digest = b""
+    for d in corpus_dirs:
+        part = load_corpus(d)
+        clash = seen & part.section_ids
+        if clash:
+            raise ValueError(
+                f"{d} redefines sections of an earlier corpus, e.g. {sorted(clash)[0]}"
+            )
+        seen |= part.section_ids
+        chunks += part.chunks
+        docs += part.documents
+        digest += part.sha256.encode()
+    return Corpus(chunks=chunks, documents=docs, sha256=sha256_bytes(digest))

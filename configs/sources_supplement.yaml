@@ -1,0 +1,35 @@
+# Supplement to the frozen "nd-corpus-v1" (Milestone 5.2). The base corpus, its manifest, labels and embeddings are NOT
+# modified: this is built to data/corpus_supplement/ and merged in memory by the RAG layer only.
+#
+# Every page below is OFFICIAL documentation under the same licences as the base corpus, and each is here because a
+# development question (never the held-out set) showed its content missing from the index:
+#   library/sys.html          "How can I see or change the recursion limit?"  (sys.setrecursionlimit was not indexed)
+#   library/sqlite3.html      "new command-line interface for the sqlite3 module"
+#   whatsnew/3.12.html        per-interpreter GIL, NameError suggestions, type-parameter syntax, distutils removal
+#   generated/torch.compile.html   "torch.compile ... without breaking the hooks I have attached"
+# Public GitHub issues were considered and NOT ingested: authors keep ownership and GitHub's terms license other users
+# only to use content "through the Service"; no redistribution licence exists (docs/rag-coverage.md).
+corpus_id: nd-corpus-supplement-v1
+user_agent: "NeuralDebuggerResearch/0.1 (portfolio project; contact kayanm7302@gmail.com)"
+request_delay_seconds: 1.0
+
+sources:
+  - name: python
+    framework: python
+    version: "3.12"
+    kind: sphinx_html
+    base_url: https://docs.python.org/3.12/
+    license: "Python Software Foundation License v2 (https://docs.python.org/3.12/license.html)"
+    pages:
+      - library/sys.html
+      - library/sqlite3.html
+      - whatsnew/3.12.html
+
+  - name: pytorch
+    framework: pytorch
+    version: "2.14"
+    kind: sphinx_html
+    base_url: https://docs.pytorch.org/docs/2.14/
+    license: "BSD-3-Clause (pytorch/pytorch LICENSE; documentation is built from that repository)"
+    pages:
+      - generated/torch.compile.html

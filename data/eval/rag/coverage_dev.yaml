@@ -1,0 +1,389 @@
+note: DEVELOPMENT annotations for the Milestone 5.2 coverage work (agent-annotated by searching the corpus; not human, not independent).
+  These questions are used for diagnosis and tuning; the held-out set (heldout_gemini.yaml) is not.
+questions:
+- id: own:py1
+  set: own
+  kind: answer
+  fw: python
+  q: 'My script crashes with KeyError: ''email'' when I read a value from a dictionary that came from a JSON file. How should I handle
+    a key that may be missing?'
+  gold:
+  - section: python/3.12/library/stdtypes#dict.get
+    key: Return the value for key if key is in the dictionary
+  no_answer_in_corpus: false
+- id: own:py2
+  set: own
+  kind: answer
+  fw: python
+  q: 'RecursionError: maximum recursion depth exceeded in my recursive function. How can I see or change the limit?'
+  gold:
+  - section: python/3.12/library/sys#sys.setrecursionlimit
+    key: maximum depth
+    supplement: true
+  no_answer_in_corpus: false
+- id: own:py3
+  set: own
+  kind: answer
+  fw: python
+  q: 'ModuleNotFoundError: No module named ''requests'' even though I ran pip install requests. What could be wrong?'
+  gold: []
+  no_answer_in_corpus: false
+- id: own:py4
+  set: own
+  kind: answer
+  fw: python
+  q: How do I make sure a file I opened is closed even if an exception happens while I am reading it?
+  gold: []
+  no_answer_in_corpus: false
+- id: own:py5
+  set: own
+  kind: answer
+  fw: python
+  q: 'RuntimeWarning: coroutine ''main'' was never awaited. Why does this appear and how do I fix it?'
+  gold: []
+  no_answer_in_corpus: false
+- id: own:pt1
+  set: own
+  kind: answer
+  fw: pytorch
+  q: 'RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!'
+  gold: []
+  no_answer_in_corpus: false
+- id: own:pt2
+  set: own
+  kind: answer
+  fw: pytorch
+  q: 'RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation. How do I find and
+    fix it?'
+  gold:
+  - section: pytorch/2.14/notes/autograd#in-place-operations-with-autograd
+    key: in-place
+  no_answer_in_corpus: false
+- id: own:pt3
+  set: own
+  kind: answer
+  fw: pytorch
+  q: 'torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 GiB. How can I reduce GPU memory use?'
+  gold: []
+  no_answer_in_corpus: false
+- id: own:pt4
+  set: own
+  kind: answer
+  fw: pytorch
+  q: Why do I have to call optimizer.zero_grad() before every backward pass?
+  gold: []
+  no_answer_in_corpus: false
+- id: own:pt5
+  set: own
+  kind: answer
+  fw: pytorch
+  q: 'torch.load raises UnpicklingError: Weights only load failed after I upgraded PyTorch. What changed and what should I do?'
+  gold: []
+  no_answer_in_corpus: false
+- id: own:fa1
+  set: own
+  kind: answer
+  fw: fastapi
+  q: I POST JSON to my FastAPI endpoint and get 422 Unprocessable Entity with 'Field required' for body. What is wrong?
+  gold: []
+  no_answer_in_corpus: false
+- id: own:fa2
+  set: own
+  kind: answer
+  fw: fastapi
+  q: How do I let my React frontend on http://localhost:3000 call my FastAPI backend without CORS errors?
+  gold: []
+  no_answer_in_corpus: false
+- id: own:fa3
+  set: own
+  kind: answer
+  fw: fastapi
+  q: I want to load a machine learning model once when the app starts and release it on shutdown. How do I run code at startup and shutdown
+    in FastAPI?
+  gold: []
+  no_answer_in_corpus: false
+- id: own:fa4
+  set: own
+  kind: answer
+  fw: fastapi
+  q: How do I return a 201 Created status code from a POST endpoint in FastAPI?
+  gold: []
+  no_answer_in_corpus: false
+- id: own:fa5
+  set: own
+  kind: answer
+  fw: fastapi
+  q: 'RuntimeError: Form data requires "python-multipart" to be installed. What should I do?'
+  gold: []
+  no_answer_in_corpus: false
+- id: own:ab1
+  set: own
+  kind: abstain
+  fw: none
+  q: 'TensorFlow raises InvalidArgumentError: Incompatible shapes when I call model.fit on a Keras Sequential model. How do I fix it?'
+  gold: []
+  no_answer_in_corpus: false
+- id: own:ab2
+  set: own
+  kind: abstain
+  fw: none
+  q: Terraform apply fails with Error acquiring the state lock on my S3 backend. How do I release the lock?
+  gold: []
+  no_answer_in_corpus: false
+- id: own:ab3
+  set: own
+  kind: abstain
+  fw: none
+  q: Kafka consumer keeps rebalancing and I see CommitFailedException in the logs. What should I change?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:py1
+  set: ind
+  kind: answer
+  fw: python
+  q: Why am I getting a SyntaxError when using the new type parameter syntax for generic classes in Python 3.12?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:py2
+  set: ind
+  kind: answer
+  fw: python
+  q: How can I use the new per-interpreter GIL introduced in Python 3.12 to improve concurrency in my application?
+  gold:
+  - section: python/3.12/whatsnew/3.12#pep-684-a-per-interpreter-gil
+    key: per-interpreter GIL
+    supplement: true
+  no_answer_in_corpus: false
+- id: ind:py3
+  set: ind
+  kind: answer
+  fw: python
+  q: 'I am receiving an AttributeError: module ''typing'' has no attribute ''Unpack'' when trying to use TypeDict with TypedDict in
+    my codebase.'
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:py4
+  set: ind
+  kind: answer
+  fw: python
+  q: What is the most efficient way to use the new command-line interface for the sqlite3 module to inspect my database files?
+  gold:
+  - section: python/3.12/library/sqlite3#command-line-interface
+    key: python -m sqlite3
+    supplement: true
+  no_answer_in_corpus: false
+- id: ind:py5
+  set: ind
+  kind: answer
+  fw: python
+  q: How do I correctly implement the new override decorator from the typing module to catch base class method mismatches?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:py6
+  set: ind
+  kind: answer
+  fw: python
+  q: 'My code is throwing a TypeError: ''type'' object is not subscriptable despite using from __future__ import annotations; how do
+    I fix this in 3.12?'
+  gold:
+  - section: python/3.12/reference/datamodel#class-getitem-versus-getitem
+    key: not subscriptable
+    partial: true
+  no_answer_in_corpus: false
+- id: ind:py7
+  set: ind
+  kind: answer
+  fw: python
+  q: How can I leverage the improved error messages for NameError in Python 3.12 to debug missing imports more effectively?
+  gold:
+  - section: python/3.12/whatsnew/3.12#improved-error-messages
+    key: Did you mean
+    supplement: true
+  no_answer_in_corpus: false
+- id: ind:py8
+  set: ind
+  kind: answer
+  fw: python
+  q: Is there a recommended way to migrate from distutils to the new packaging standards now that distutils is removed in Python 3.12?
+  gold:
+  - section: python/3.12/whatsnew/3.12#distutils
+    key: Remove the .distutils
+    supplement: true
+  no_answer_in_corpus: false
+- id: ind:pt1
+  set: ind
+  kind: answer
+  fw: pytorch
+  q: 'Why am I getting a RuntimeError: CUDA error: device-side assert triggered when running my PyTorch 2.0 training loop on a GPU?'
+  gold:
+  - section: pytorch/2.14/notes/cuda#asynchronous-execution
+    key: CUDA_LAUNCH_BLOCKING
+  no_answer_in_corpus: false
+- id: ind:pt2
+  set: ind
+  kind: answer
+  fw: pytorch
+  q: How can I properly save and load a model using torch.save that includes the state_dict along with the optimizer's momentum buffers?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:pt3
+  set: ind
+  kind: answer
+  fw: pytorch
+  q: My DataLoader is causing a massive memory leak in my training script; how do I efficiently clear the cache or limit the number
+    of workers?
+  gold: []
+  no_answer_in_corpus: true
+- id: ind:pt4
+  set: ind
+  kind: answer
+  fw: pytorch
+  q: I am trying to compute the gradient of a loss with respect to an input image, but autograd is returning None for the gradients.
+    What am I missing?
+  gold:
+  - section: pytorch/2.14/autograd#tensor-autograd-functions
+    key: None. by default
+    partial: true
+  no_answer_in_corpus: false
+- id: ind:pt5
+  set: ind
+  kind: answer
+  fw: pytorch
+  q: How do I correctly move a nested dictionary of tensors to the GPU without manually calling .to(device) on every single key?
+  gold: []
+  no_answer_in_corpus: true
+- id: ind:pt6
+  set: ind
+  kind: answer
+  fw: pytorch
+  q: I am encountering a shape mismatch error during matrix multiplication despite the dimensions appearing correct; how can I debug
+    the underlying tensor layout?
+  gold: []
+  no_answer_in_corpus: true
+- id: ind:pt7
+  set: ind
+  kind: answer
+  fw: pytorch
+  q: Is there a way to use torch.compile to speed up my custom training loop without breaking the existing hooks I have attached to
+    the model?
+  gold: []
+  no_answer_in_corpus: true
+- id: ind:pt8
+  set: ind
+  kind: answer
+  fw: pytorch
+  q: Why does my training loss stay at NaN after a few iterations even when using a very small learning rate and gradient clipping?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:fa1
+  set: ind
+  kind: answer
+  fw: fastapi
+  q: Why am I getting a 422 Unprocessable Entity error even though my Pydantic model fields seem to match the incoming JSON request?
+  gold:
+  - section: fastapi/0.162.0/tutorial/handling-errors#use-the-requestvalidationerror-body
+    key: exc\.body
+    partial: true
+  no_answer_in_corpus: false
+- id: ind:fa2
+  set: ind
+  kind: answer
+  fw: fastapi
+  q: How can I inject a database session dependency into my FastAPI background tasks without the session closing prematurely?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:fa3
+  set: ind
+  kind: answer
+  fw: fastapi
+  q: I am seeing a CORS error in my browser console despite adding CORSMiddleware to my app with allow_origins=['*']. What am I missing?
+  gold:
+  - section: fastapi/0.162.0/tutorial/cors#wildcards
+    key: credentials
+  no_answer_in_corpus: false
+- id: ind:fa4
+  set: ind
+  kind: answer
+  fw: fastapi
+  q: What is the best way to implement a dependency that fetches the current user from a JWT token for every protected endpoint?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:fa5
+  set: ind
+  kind: answer
+  fw: fastapi
+  q: My FastAPI unit tests are failing because the dependency override for my database is not being applied when I use TestClient.
+  gold:
+  - section: fastapi/0.162.0/advanced/testing-dependencies#use-the-app-dependency-overrides-attribute
+    key: dependency_overrides
+  no_answer_in_corpus: false
+- id: ind:fa6
+  set: ind
+  kind: answer
+  fw: fastapi
+  q: How do I handle asynchronous background tasks that need to access the request state or headers after the response has already been
+    sent?
+  gold: []
+  no_answer_in_corpus: true
+- id: ind:fa7
+  set: ind
+  kind: answer
+  fw: fastapi
+  q: I have an endpoint that expects a file upload and a JSON body, but FastAPI keeps throwing a 422 error when I send them as multipart/form-data.
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:fa8
+  set: ind
+  kind: answer
+  fw: fastapi
+  q: How can I prevent my FastAPI application from blocking the event loop when performing heavy CPU-bound computations inside a route
+    handler?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:ot1
+  set: ind
+  kind: abstain
+  fw: other
+  q: Why am I getting an 'image pull backoff' error in Kubernetes even though my credentials for the private container registry are
+    correctly stored in a secret?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:ot2
+  set: ind
+  kind: abstain
+  fw: other
+  q: How do I resolve a 'lifetime may not live long enough' error in Rust when passing a reference into a thread that requires a 'static
+    bound?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:ot3
+  set: ind
+  kind: abstain
+  fw: other
+  q: My React application is re-rendering the entire component tree on every state update, how can I use memoization to target only
+    the specific child that changed?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:ot4
+  set: ind
+  kind: abstain
+  fw: other
+  q: I am seeing significant performance degradation in PostgreSQL when running a query with a 'LIKE' operator on a large text column,
+    even though I have a standard B-tree index.
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:ot5
+  set: ind
+  kind: abstain
+  fw: other
+  q: How can I configure a Docker bridge network so that two containers can communicate using their service names instead of hardcoded
+    IP addresses?
+  gold: []
+  no_answer_in_corpus: false
+- id: ind:ot6
+  set: ind
+  kind: abstain
+  fw: other
+  q: Why is my Git rebase failing with a 'conflict' error on a file that I haven't even modified in my current feature branch?
+  gold: []
+  no_answer_in_corpus: false

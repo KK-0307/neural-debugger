@@ -351,6 +351,11 @@ def merge_reports(paths: list[Path], supersede: bool = True) -> dict[str, Any]:
     }
 
 
+def _profile(args: argparse.Namespace) -> Any:
+    """The PipelineConfig constructor for the chosen evidence profile (Milestone 5 or 5.2)."""
+    return PipelineConfig.coverage_profile if args.profile == "coverage" else PipelineConfig
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -371,6 +376,19 @@ def main(argv: list[str] | None = None) -> int:
     )
     ap.add_argument("--reasoning-effort", default="", help="gemini 2.5: none|low|medium|high")
     ap.add_argument("--semantic", choices=["off", "rules", "nli"], default="rules")
+    ap.add_argument(
+        "--profile",
+        choices=["m5", "coverage"],
+        default="coverage",
+        help="evidence settings: m5 = Milestone 5 (5 sections), coverage = Milestone 5.2 (7 shown, gate unchanged)",
+    )
+    ap.add_argument(
+        "--corpus-dir",
+        nargs="+",
+        default=["data/corpus", "data/corpus_supplement"],
+        help="corpus directories merged in memory (base first)",
+    )
+    ap.add_argument("--embedding-dir", default="data/embeddings_rag")
     ap.add_argument("--allow-unlisted-model", action="store_true")
     ap.add_argument("--only", nargs="*", help="question ids")
     ap.add_argument("--skip-preflight", action="store_true")
@@ -422,14 +440,17 @@ def main(argv: list[str] | None = None) -> int:
             print("preflight failed:", redact(str(exc), secrets), file=sys.stderr)
             return 4
 
-    from neural_debugger.data.corpus import load_corpus
+    from neural_debugger.data.corpus import load_corpus_overlay
     from neural_debugger.ml.retrieval.systems import SystemFactory, load_neural_config
 
     from .retrieval import CorpusSectionRetriever
 
-    corpus = load_corpus("data/corpus")
+    corpus = load_corpus_overlay(args.corpus_dir)
     system = SystemFactory(
-        corpus, load_neural_config("configs/neural.yaml", "configs/m4.yaml"), device=args.device
+        corpus,
+        load_neural_config("configs/neural.yaml", "configs/m4.yaml"),
+        device=args.device,
+        embedding_dir=Path(args.embedding_dir) if len(args.corpus_dir) > 1 else None,
     ).build(args.retriever)
     retriever = CorpusSectionRetriever(system, corpus)
     stats = TermStats.from_texts(c.index_text() for c in corpus.chunks)
@@ -477,7 +498,7 @@ def main(argv: list[str] | None = None) -> int:
         elif item["kind"] == "injection_doc_paraphrase":
             retr = PoisonedRetriever(retriever, POISON_PARAPHRASE)
         pipe = RAGPipeline(
-            retr, recorder, PipelineConfig(support="lexical", semantic=args.semantic), stats=stats
+            retr, recorder, _profile(args)(support="lexical", semantic=args.semantic), stats=stats
         )
         n_before = len(recorder.calls)
         ans = pipe.answer(item["q"], None)
@@ -528,6 +549,8 @@ def main(argv: list[str] | None = None) -> int:
         "model": args.model,
         "base_url": base,
         "retriever": args.retriever,
+        "profile": args.profile,
+        "corpus_dirs": args.corpus_dir,
         "free_tier_basis": "https://ai.google.dev/gemini-api/docs/pricing (checked 2026-10-26)",
         "questions_sha256": hashlib.sha256(args.questions.read_bytes()).hexdigest(),
         "pace_seconds": args.pace,

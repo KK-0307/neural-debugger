@@ -1,0 +1,1261 @@
+{
+ "label": "development diagnosis; agent-annotated gold; not held-out, not human",
+ "corpus_dirs": [
+  "data/corpus"
+ ],
+ "retriever": "hybrid-gte-tuned",
+ "summary": {
+  "n_in_scope": 39,
+  "stages_in_scope": {
+   "not_retrieved": 5,
+   "corpus_gap": 5,
+   "unannotated": 21,
+   "evidence_dropped": 2,
+   "no_answer_in_corpus": 5,
+   "reachable": 1
+  },
+  "gold_items": 13,
+  "gold_reachable": 1,
+  "in_scope_gate_abstain": 6,
+  "in_scope_gate_pass_rate": 0.846,
+  "n_out_of_scope": 9,
+  "out_of_scope_gate_abstain": 8,
+  "retrieval_ms_p50": 13.3
+ },
+ "tracebacks": {
+  "n": 10,
+  "gold_in_top5": 9,
+  "gold_in_candidates": 9,
+  "gold_in_evidence": 9,
+  "gate_abstain": 1,
+  "rows": [
+   {
+    "id": "tb1",
+    "first_gold_rank": null,
+    "gold_in_evidence": false,
+    "gate": "none",
+    "query": "IndexError: Target 10 is out of bounds."
+   },
+   {
+    "id": "tb2",
+    "first_gold_rank": 2,
+    "gold_in_evidence": true,
+    "gate": "ok",
+    "query": "RuntimeError: Trying to backward through the graph a second time (or directly access saved tensors after they have already been freed)."
+   },
+   {
+    "id": "tb3",
+    "first_gold_rank": 2,
+    "gold_in_evidence": true,
+    "gate": "ok",
+    "query": "RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn   I wrapped my forward pass in torch.no_grad() while testing."
+   },
+   {
+    "id": "tb4",
+    "first_gold_rank": 1,
+    "gold_in_evidence": true,
+    "gate": "weak",
+    "query": "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat1 in method wrapper_CUDA_addmm)"
+   },
+   {
+    "id": "tb5",
+    "first_gold_rank": 1,
+    "gold_in_evidence": true,
+    "gate": "weak",
+    "query": "RuntimeError: Form data requires \"python-multipart\" to be installed.   You can install \"python-multipart\" with: pip install python-multipart"
+   },
+   {
+    "id": "tb6",
+    "first_gold_rank": 1,
+    "gold_in_evidence": true,
+    "gate": "weak",
+    "query": "fastapi.exceptions.FastAPIError: Invalid args for response field! Hint: check that <class 'sqlalchemy.orm.decl_api.Base'> is a valid Pydantic field type."
+   },
+   {
+    "id": "tb7",
+    "first_gold_rank": 1,
+    "gold_in_evidence": true,
+    "gate": "weak",
+    "query": "json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+   },
+   {
+    "id": "tb8",
+    "first_gold_rank": 2,
+    "gold_in_evidence": true,
+    "gate": "weak",
+    "query": "RuntimeError: asyncio.run() cannot be called from a running event loop   I'm running this inside a Jupyter notebook."
+   },
+   {
+    "id": "tb9",
+    "first_gold_rank": 1,
+    "gold_in_evidence": true,
+    "gate": "ok",
+    "query": "RecursionError: maximum recursion depth exceeded [Previous line repeated 996 more times]"
+   },
+   {
+    "id": "tb10",
+    "first_gold_rank": 1,
+    "gold_in_evidence": true,
+    "gate": "weak",
+    "query": "FileNotFoundError: [Errno 2] No such file or directory: 'config/settings.toml' INFO:     Started server process [1432]"
+   }
+  ]
+ },
+ "rows": [
+  {
+   "id": "own:py1",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.461,
+   "missing_terms": [
+    "crashes",
+    "came",
+    "email",
+    "missing",
+    "handle"
+   ],
+   "retrieval_query": "My script crashes with KeyError: 'email' when I read a value from a dictionary that came from a JSON file. How should I handle a key that may be missing?",
+   "evidence": [
+    "python/3.12/library/exceptions#KeyError",
+    "python/3.12/library/stdtypes#dict.pop",
+    "python/3.12/library/json#module-json.tool",
+    "python/3.12/library/json#json.JSONDecodeError",
+    "python/3.12/tutorial/inputoutput#saving-structured-data-with-json"
+   ],
+   "retrieval_ms": 17.6,
+   "stage": "not_retrieved",
+   "gold": [
+    {
+     "section": "python/3.12/library/stdtypes#dict.get",
+     "stage": "not_retrieved",
+     "rank": null,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "own:py2",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.771,
+   "missing_terms": [
+    "recursive",
+    "change"
+   ],
+   "retrieval_query": "RecursionError: maximum recursion depth exceeded in my recursive function. How can I see or change the limit?",
+   "evidence": [
+    "python/3.12/library/exceptions#RecursionError",
+    "python/3.12/library/stdtypes#integer-string-conversion-length-limitation",
+    "python/3.12/library/functools#functools.lru_cache",
+    "python/3.12/library/functions#zip",
+    "python/3.12/library/functions#len"
+   ],
+   "retrieval_ms": 13.4,
+   "stage": "corpus_gap",
+   "gold": [
+    {
+     "section": "python/3.12/library/sys#sys.setrecursionlimit",
+     "stage": "corpus_gap",
+     "rank": null,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "own:py3",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.466,
+   "missing_terms": [
+    "ran",
+    "wrong",
+    "though",
+    "named",
+    "even"
+   ],
+   "retrieval_query": "ModuleNotFoundError: No module named 'requests' even though I ran pip install requests. What could be wrong?",
+   "evidence": [
+    "python/3.12/tutorial/venv#managing-packages-with-pip",
+    "python/3.12/installing/index#work-with-multiple-versions-of-python-installed-in-parallel",
+    "python/3.12/installing/index#install-pip-in-versions-of-python-prior-to-python-3-4",
+    "python/3.12/library/exceptions#ModuleNotFoundError",
+    "pytorch/2.14/notes/windows#import-error"
+   ],
+   "retrieval_ms": 13.3,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:py4",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.572,
+   "missing_terms": [
+    "am",
+    "happens",
+    "sure"
+   ],
+   "retrieval_query": "How do I make sure a file I opened is closed even if an exception happens while I am reading it?",
+   "evidence": [
+    "python/3.12/library/functions#open",
+    "python/3.12/library/io#io.IOBase.close",
+    "python/3.12/tutorial/errors#predefined-clean-up-actions",
+    "python/3.12/tutorial/inputoutput#reading-and-writing-files",
+    "python/3.12/library/exceptions#EOFError"
+   ],
+   "retrieval_ms": 12.2,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:py5",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 1.0,
+   "missing_terms": [],
+   "retrieval_query": "RuntimeWarning: coroutine 'main' was never awaited. Why does this appear and how do I fix it?",
+   "evidence": [
+    "python/3.12/library/asyncio-dev#detect-never-awaited-coroutines",
+    "python/3.12/library/asyncio-task#awaitables",
+    "python/3.12/library/asyncio-task#asyncio.to_thread",
+    "python/3.12/faq/library#none-of-my-threads-seem-to-run-why",
+    "python/3.12/reference/datamodel#coroutine-objects"
+   ],
+   "retrieval_ms": 12.6,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:pt1",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.601,
+   "missing_terms": [
+    "least",
+    "expected",
+    "runtime",
+    "found"
+   ],
+   "retrieval_query": "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!",
+   "evidence": [
+    "pytorch/2.14/tensor_attributes#torch-device",
+    "pytorch/2.14/notes/cuda#cuda-semantics",
+    "pytorch/2.14/notes/cuda#device-agnostic-code",
+    "pytorch/2.14/generated/torch.load#torch.load",
+    "pytorch/2.14/notes/windows#cuda-ipc-operations"
+   ],
+   "retrieval_ms": 14.2,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:pt2",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.943,
+   "missing_terms": [
+    "one"
+   ],
+   "retrieval_query": "RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation. How do I find and fix it?",
+   "evidence": [
+    "pytorch/2.14/notes/extending#how-to-use",
+    "pytorch/2.14/notes/extending#forward-mode-ad",
+    "pytorch/2.14/notes/autograd#locally-disabling-gradient-computation",
+    "pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory",
+    "pytorch/2.14/notes/amp_examples#gradient-clipping"
+   ],
+   "retrieval_ms": 13.9,
+   "stage": "not_retrieved",
+   "gold": [
+    {
+     "section": "pytorch/2.14/notes/autograd#in-place-operations-with-autograd",
+     "stage": "not_retrieved",
+     "rank": null,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "own:pt3",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.594,
+   "missing_terms": [
+    "gi",
+    "allocate"
+   ],
+   "retrieval_query": "torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 GiB. How can I reduce GPU memory use?",
+   "evidence": [
+    "pytorch/2.14/notes/cuda#optimizing-memory-usage-with-pytorch-alloc-conf",
+    "pytorch/2.14/cuda#memory-management",
+    "pytorch/2.14/cuda#module-torch.cuda",
+    "pytorch/2.14/notes/cuda#mixing-different-cuda-system-allocators-in-the-same-program",
+    "pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory"
+   ],
+   "retrieval_ms": 14.3,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:pt4",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.901,
+   "missing_terms": [
+    "call"
+   ],
+   "retrieval_query": "Why do I have to call optimizer.zero_grad() before every backward pass?",
+   "evidence": [
+    "pytorch/2.14/generated/torch.optim.Optimizer.zero_grad#torch.optim.Optimizer.zero_grad",
+    "pytorch/2.14/optim#optimizer-step",
+    "pytorch/2.14/optim#optimizer-step-closure",
+    "pytorch/2.14/autograd#default-gradient-layouts",
+    "pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.zero_grad"
+   ],
+   "retrieval_ms": 11.5,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:pt5",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.648,
+   "missing_terms": [
+    "upgraded",
+    "raises",
+    "changed"
+   ],
+   "retrieval_query": "torch.load raises UnpicklingError: Weights only load failed after I upgraded PyTorch. What changed and what should I do?",
+   "evidence": [
+    "pytorch/2.14/generated/torch.load#torch.load",
+    "pytorch/2.14/notes/serialization#weights-only-allowlist",
+    "pytorch/2.14/notes/serialization#torch-load-with-weights-only-true",
+    "pytorch/2.14/notes/extending#extending-torch-native-api",
+    "pytorch/2.14/data#module-torch.utils.data"
+   ],
+   "retrieval_ms": 13.0,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:fa1",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.471,
+   "missing_terms": [
+    "unprocessable",
+    "entity",
+    "endpoint",
+    "wrong"
+   ],
+   "retrieval_query": "I POST JSON to my FastAPI endpoint and get 422 Unprocessable Entity with 'Field required' for body. What is wrong?",
+   "evidence": [
+    "fastapi/0.162.0/advanced/path-operation-advanced-configuration#custom-openapi-content-type",
+    "fastapi/0.162.0/tutorial/schema-extra-example#technical-details",
+    "fastapi/0.162.0/tutorial/request-files#what-is-form-data",
+    "fastapi/0.162.0/tutorial/body#results",
+    "fastapi/0.162.0/tutorial/handling-errors#use-the-requestvalidationerror-body"
+   ],
+   "retrieval_ms": 13.6,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:fa2",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.87,
+   "missing_terms": [
+    "without",
+    "call"
+   ],
+   "retrieval_query": "How do I let my React frontend on http://localhost:3000 call my FastAPI backend without CORS errors?",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/cors#use-corsmiddleware",
+    "fastapi/0.162.0/tutorial/cors#steps",
+    "fastapi/0.162.0/tutorial/frontend#client-side-routing",
+    "fastapi/0.162.0/tutorial/frontend#frontend",
+    "fastapi/0.162.0/tutorial/security/first-steps#security-first-steps"
+   ],
+   "retrieval_ms": 12.0,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:fa3",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.926,
+   "missing_terms": [
+    "once"
+   ],
+   "retrieval_query": "I want to load a machine learning model once when the app starts and release it on shutdown. How do I run code at startup and shutdown in FastAPI?",
+   "evidence": [
+    "fastapi/0.162.0/advanced/events#lifespan",
+    "fastapi/0.162.0/advanced/testing-events#testing-events-lifespan-and-startup-shutdown",
+    "fastapi/0.162.0/advanced/events#alternative-events-deprecated",
+    "fastapi/0.162.0/fastapi-cli#fastapi-dev",
+    "fastapi/0.162.0/deployment/concepts#run-automatically-on-startup"
+   ],
+   "retrieval_ms": 15.0,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:fa4",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.758,
+   "missing_terms": [
+    "endpoint"
+   ],
+   "retrieval_query": "How do I return a 201 Created status code from a POST endpoint in FastAPI?",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/response-status-code#response-status-code",
+    "fastapi/0.162.0/tutorial/path-operation-configuration#response-status-code",
+    "fastapi/0.162.0/tutorial/response-status-code#shortcut-to-remember-the-names",
+    "fastapi/0.162.0/advanced/additional-status-codes#additional-status-codes_1",
+    "fastapi/0.162.0/advanced/additional-status-codes#additional-status-codes"
+   ],
+   "retrieval_ms": 10.4,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:fa5",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.713,
+   "missing_terms": [
+    "requires",
+    "runtime"
+   ],
+   "retrieval_query": "RuntimeError: Form data requires \"python-multipart\" to be installed. What should I do?",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/request-forms#form-data",
+    "fastapi/0.162.0/tutorial/security/first-steps#run-it",
+    "fastapi/0.162.0/tutorial/request-forms-and-files#request-forms-and-files",
+    "fastapi/0.162.0/tutorial/request-files#request-files",
+    "fastapi/0.162.0/tutorial/request-form-models#form-models-and-files"
+   ],
+   "retrieval_ms": 12.2,
+   "stage": "unannotated"
+  },
+  {
+   "id": "own:ab1",
+   "kind": "abstain",
+   "gate": "none",
+   "coverage": 0.212,
+   "missing_terms": [
+    "keras",
+    "fit",
+    "incompatible",
+    "sequential",
+    "flow",
+    "invalid"
+   ],
+   "retrieval_query": "TensorFlow raises InvalidArgumentError: Incompatible shapes when I call model.fit on a Keras Sequential model. How do I fix it?",
+   "evidence": [
+    "pytorch/2.14/notes/faq#my-recurrent-network-doesn-t-work-with-data-parallelism",
+    "pytorch/2.14/generated/torch.Tensor.view#torch.Tensor.view",
+    "pytorch/2.14/notes/cuda#tensorfloat-32-tf32-on-ampere-and-later-devices",
+    "pytorch/2.14/tensor_attributes#torch-device"
+   ],
+   "retrieval_ms": 13.3,
+   "stage": "out_of_scope"
+  },
+  {
+   "id": "own:ab2",
+   "kind": "abstain",
+   "gate": "none",
+   "coverage": 0.26,
+   "missing_terms": [
+    "terraform",
+    "s3",
+    "acquiring",
+    "backend",
+    "fails",
+    "apply"
+   ],
+   "retrieval_query": "Terraform apply fails with Error acquiring the state lock on my S3 backend. How do I release the lock?",
+   "evidence": [
+    "python/3.12/library/multiprocessing#multiprocessing.RLock.release",
+    "python/3.12/library/threading#threading.RLock.release",
+    "python/3.12/library/threading#lock-objects",
+    "python/3.12/library/multiprocessing#multiprocessing.Lock.release"
+   ],
+   "retrieval_ms": 12.6,
+   "stage": "out_of_scope"
+  },
+  {
+   "id": "own:ab3",
+   "kind": "abstain",
+   "gate": "none",
+   "coverage": 0.141,
+   "missing_terms": [
+    "kafka",
+    "rebalancing",
+    "consumer",
+    "commit",
+    "keeps",
+    "failed"
+   ],
+   "retrieval_query": "Kafka consumer keeps rebalancing and I see CommitFailedException in the logs. What should I change?",
+   "evidence": [
+    "python/3.12/library/exceptions#StopAsyncIteration",
+    "python/3.12/howto/logging#exceptions-raised-during-logging",
+    "fastapi/0.162.0/advanced/opentelemetry#inspect-errors",
+    "python/3.12/library/asyncio-dev#detect-never-retrieved-exceptions",
+    "python/3.12/library/asyncio-task#task-groups"
+   ],
+   "retrieval_ms": 12.9,
+   "stage": "out_of_scope"
+  },
+  {
+   "id": "ind:py1",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.76,
+   "missing_terms": [
+    "am"
+   ],
+   "retrieval_query": "Why am I getting a SyntaxError when using the new type parameter syntax for generic classes in Python 3.12?",
+   "evidence": [
+    "python/3.12/library/typing#user-defined-generic-types",
+    "python/3.12/library/typing#generics",
+    "python/3.12/reference/compound_stmts#generic-classes",
+    "python/3.12/reference/compound_stmts#class-definitions",
+    "python/3.12/reference/datamodel#emulating-generic-types"
+   ],
+   "retrieval_ms": 12.2,
+   "stage": "unannotated"
+  },
+  {
+   "id": "ind:py2",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.611,
+   "missing_terms": [
+    "improve",
+    "introduced",
+    "per"
+   ],
+   "retrieval_query": "How can I use the new per-interpreter GIL introduced in Python 3.12 to improve concurrency in my application?",
+   "evidence": [
+    "python/3.12/faq/library#can-t-we-get-rid-of-the-global-interpreter-lock",
+    "python/3.12/faq/library#what-kinds-of-global-value-mutation-are-thread-safe",
+    "pytorch/2.14/data#single-and-multi-process-data-loading",
+    "python/3.12/library/threading#module-threading",
+    "python/3.12/library/asyncio-task#asyncio.to_thread"
+   ],
+   "retrieval_ms": 12.8,
+   "stage": "corpus_gap",
+   "gold": [
+    {
+     "section": "python/3.12/whatsnew/3.12#pep-684-a-per-interpreter-gil",
+     "stage": "corpus_gap",
+     "rank": null,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "ind:py3",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.459,
+   "missing_terms": [
+    "codebase",
+    "am",
+    "receiving",
+    "attribute",
+    "has"
+   ],
+   "retrieval_query": "I am receiving an AttributeError: module 'typing' has no attribute 'Unpack' when trying to use TypeDict with TypedDict in my codebase.",
+   "evidence": [
+    "python/3.12/library/typing#typing.Unpack",
+    "python/3.12/library/typing#typing.TypedDict.__optional_keys__"
+   ],
+   "retrieval_ms": 13.9,
+   "stage": "unannotated"
+  },
+  {
+   "id": "ind:py4",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.546,
+   "missing_terms": [
+    "inspect",
+    "efficient",
+    "files",
+    "way",
+    "new"
+   ],
+   "retrieval_query": "What is the most efficient way to use the new command-line interface for the sqlite3 module to inspect my database files?",
+   "evidence": [
+    "python/3.12/faq/library#are-there-any-interfaces-to-database-packages-in-python",
+    "python/3.12/using/cmdline#interface-options",
+    "python/3.12/library/unittest#command-line-interface",
+    "fastapi/0.162.0/tutorial/sql-databases#read-heroes-with-heropublic",
+    "fastapi/0.162.0/tutorial/sql-databases#run-the-app"
+   ],
+   "retrieval_ms": 11.9,
+   "stage": "corpus_gap",
+   "gold": [
+    {
+     "section": "python/3.12/library/sqlite3#command-line-interface",
+     "stage": "corpus_gap",
+     "rank": null,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "ind:py5",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.526,
+   "missing_terms": [
+    "mismatches",
+    "catch",
+    "correctly",
+    "implement"
+   ],
+   "retrieval_query": "How do I correctly implement the new override decorator from the typing module to catch base class method mismatches?",
+   "evidence": [
+    "python/3.12/library/typing#typing.override",
+    "python/3.12/library/typing#typing.dataclass_transform",
+    "python/3.12/tutorial/classes#inheritance",
+    "python/3.12/library/dataclasses#inheritance",
+    "python/3.12/library/functions#classmethod"
+   ],
+   "retrieval_ms": 11.8,
+   "stage": "unannotated"
+  },
+  {
+   "id": "ind:py6",
+   "kind": "answer",
+   "gate": "none",
+   "coverage": 0.297,
+   "missing_terms": [
+    "throwing",
+    "subscriptable",
+    "despite",
+    "future"
+   ],
+   "retrieval_query": "My code is throwing a TypeError: 'type' object is not subscriptable despite using from __future__ import annotations; how do I fix this in 3.12?",
+   "evidence": [
+    "python/3.12/library/typing#typing.get_type_hints",
+    "python/3.12/library/typing#typing.runtime_checkable",
+    "python/3.12/library/exceptions#TypeError"
+   ],
+   "retrieval_ms": 15.0,
+   "stage": "not_retrieved",
+   "gold": [
+    {
+     "section": "python/3.12/reference/datamodel#class-getitem-versus-getitem",
+     "stage": "not_retrieved",
+     "rank": null,
+     "partial": true
+    }
+   ]
+  },
+  {
+   "id": "ind:py7",
+   "kind": "answer",
+   "gate": "none",
+   "coverage": 0.316,
+   "missing_terms": [
+    "leverage",
+    "improved",
+    "effectively",
+    "missing",
+    "debug"
+   ],
+   "retrieval_query": "How can I leverage the improved error messages for NameError in Python 3.12 to debug missing imports more effectively?",
+   "evidence": [
+    "python/3.12/library/exceptions#NameError",
+    "python/3.12/tutorial/errors#exceptions",
+    "python/3.12/library/functions#import__",
+    "python/3.12/library/exceptions#ImportError",
+    "python/3.12/reference/import#searching"
+   ],
+   "retrieval_ms": 12.6,
+   "stage": "corpus_gap",
+   "gold": [
+    {
+     "section": "python/3.12/whatsnew/3.12#improved-error-messages",
+     "stage": "corpus_gap",
+     "rank": null,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "ind:py8",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.706,
+   "missing_terms": [
+    "recommended",
+    "way",
+    "now",
+    "new"
+   ],
+   "retrieval_query": "Is there a recommended way to migrate from distutils to the new packaging standards now that distutils is removed in Python 3.12?",
+   "evidence": [
+    "python/3.12/installing/index#key-terms",
+    "python/3.12/reference/import#module-reprs",
+    "fastapi/0.162.0/how-to/migrate-from-pydantic-v1-to-pydantic-v2#pydantic-v1-in-v2",
+    "python/3.12/installing/index#installing-python-modules",
+    "fastapi/0.162.0/how-to/migrate-from-pydantic-v1-to-pydantic-v2#fastapi-support-for-pydantic-v1-in-v2"
+   ],
+   "retrieval_ms": 13.1,
+   "stage": "corpus_gap",
+   "gold": [
+    {
+     "section": "python/3.12/whatsnew/3.12#distutils",
+     "stage": "corpus_gap",
+     "rank": null,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "ind:pt1",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.706,
+   "missing_terms": [
+    "am",
+    "triggered",
+    "assert"
+   ],
+   "retrieval_query": "Why am I getting a RuntimeError: CUDA error: device-side assert triggered when running my PyTorch 2.0 training loop on a GPU?",
+   "evidence": [
+    "pytorch/2.14/notes/cuda#device-agnostic-code",
+    "pytorch/2.14/tensor_attributes#torch-device",
+    "pytorch/2.14/notes/faq#my-model-reports-cuda-runtime-error-2-out-of-memory",
+    "pytorch/2.14/cuda#module-torch.cuda",
+    "pytorch/2.14/notes/cuda#pytorch-api"
+   ],
+   "retrieval_ms": 14.4,
+   "stage": "evidence_dropped",
+   "gold": [
+    {
+     "section": "pytorch/2.14/notes/cuda#asynchronous-execution",
+     "stage": "evidence_dropped",
+     "rank": 6,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "ind:pt2",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.8,
+   "missing_terms": [
+    "properly",
+    "along"
+   ],
+   "retrieval_query": "How can I properly save and load a model using torch.save that includes the state_dict along with the optimizer's momentum buffers?",
+   "evidence": [
+    "pytorch/2.14/optim#how-to-utilize-named-parameters-to-load-optimizer-state-dict",
+    "pytorch/2.14/generated/torch.optim.Adam#torch.optim.Adam.load_state_dict",
+    "pytorch/2.14/notes/modules#module-state",
+    "pytorch/2.14/notes/serialization#saving-and-loading-torch-nn-modules",
+    "pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.load_state_dict"
+   ],
+   "retrieval_ms": 14.1,
+   "stage": "unannotated"
+  },
+  {
+   "id": "ind:pt3",
+   "kind": "answer",
+   "gate": "none",
+   "coverage": 0.263,
+   "missing_terms": [
+    "massive",
+    "leak",
+    "efficiently",
+    "causing",
+    "training",
+    "cache"
+   ],
+   "retrieval_query": "My DataLoader is causing a massive memory leak in my training script; how do I efficiently clear the cache or limit the number of workers?",
+   "evidence": [
+    "pytorch/2.14/data#multi-process-data-loading",
+    "pytorch/2.14/data#torch.utils.data.DataLoader",
+    "pytorch/2.14/notes/randomness#dataloader",
+    "pytorch/2.14/notes/faq#my-data-loader-workers-return-identical-random-numbers",
+    "pytorch/2.14/notes/multiprocessing#avoid-cpu-oversubscription"
+   ],
+   "retrieval_ms": 14.8,
+   "stage": "no_answer_in_corpus"
+  },
+  {
+   "id": "ind:pt4",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.471,
+   "missing_terms": [
+    "am",
+    "respect",
+    "image",
+    "missing",
+    "returning",
+    "none"
+   ],
+   "retrieval_query": "I am trying to compute the gradient of a loss with respect to an input image, but autograd is returning None for the gradients. What am I missing?",
+   "evidence": [
+    "pytorch/2.14/notes/autograd#division-by-zero-in-autograd",
+    "pytorch/2.14/autograd#torch.autograd.graph.get_gradient_edge",
+    "pytorch/2.14/notes/autograd#gradients-for-non-differentiable-functions",
+    "pytorch/2.14/autograd#module-torch.autograd.gradcheck",
+    "pytorch/2.14/notes/amp_examples#gradient-penalty"
+   ],
+   "retrieval_ms": 14.0,
+   "stage": "not_retrieved",
+   "gold": [
+    {
+     "section": "pytorch/2.14/autograd#tensor-autograd-functions",
+     "stage": "not_retrieved",
+     "rank": null,
+     "partial": true
+    }
+   ]
+  },
+  {
+   "id": "ind:pt5",
+   "kind": "answer",
+   "gate": "none",
+   "coverage": 0.34,
+   "missing_terms": [
+    "manually",
+    "correctly",
+    "nested",
+    "every",
+    "dictionary",
+    "calling"
+   ],
+   "retrieval_query": "How do I correctly move a nested dictionary of tensors to the GPU without manually calling .to(device) on every single key?",
+   "evidence": [
+    "pytorch/2.14/tensor_attributes#torch-device",
+    "pytorch/2.14/notes/cuda#device-agnostic-code",
+    "pytorch/2.14/notes/cuda#cuda-semantics",
+    "pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.to",
+    "pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.cuda"
+   ],
+   "retrieval_ms": 13.5,
+   "stage": "no_answer_in_corpus"
+  },
+  {
+   "id": "ind:pt6",
+   "kind": "answer",
+   "gate": "none",
+   "coverage": 0.317,
+   "missing_terms": [
+    "encountering",
+    "appearing",
+    "am",
+    "multiplication",
+    "despite",
+    "mismatch"
+   ],
+   "retrieval_query": "I am encountering a shape mismatch error during matrix multiplication despite the dimensions appearing correct; how can I debug the underlying tensor layout?",
+   "evidence": [
+    "pytorch/2.14/generated/torch.matmul#torch.matmul",
+    "pytorch/2.14/generated/torch.Tensor.view#torch.Tensor.view",
+    "pytorch/2.14/tensors#torch.Tensor.T",
+    "pytorch/2.14/tensor_attributes#torch-layout",
+    "pytorch/2.14/generated/torch.Tensor.reshape#torch.Tensor.reshape"
+   ],
+   "retrieval_ms": 15.9,
+   "stage": "no_answer_in_corpus"
+  },
+  {
+   "id": "ind:pt7",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.552,
+   "missing_terms": [
+    "breaking",
+    "attached",
+    "speed",
+    "loop",
+    "existing"
+   ],
+   "retrieval_query": "Is there a way to use torch.compile to speed up my custom training loop without breaking the existing hooks I have attached to the model?",
+   "evidence": [
+    "pytorch/2.14/notes/autograd#registering-default-hooks-for-saved-tensors",
+    "pytorch/2.14/optim#how-to-utilize-named-parameters-to-load-optimizer-state-dict",
+    "pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.compile",
+    "pytorch/2.14/generated/torch.optim.Adam#torch.optim.Adam.register_step_pre_hook",
+    "pytorch/2.14/generated/torch.nn.Module#torch.nn.Module.register_full_backward_hook"
+   ],
+   "retrieval_ms": 13.2,
+   "stage": "no_answer_in_corpus"
+  },
+  {
+   "id": "ind:pt8",
+   "kind": "answer",
+   "gate": "ok",
+   "coverage": 0.744,
+   "missing_terms": [
+    "stay",
+    "few",
+    "small"
+   ],
+   "retrieval_query": "Why does my training loss stay at NaN after a few iterations even when using a very small learning rate and gradient clipping?",
+   "evidence": [
+    "pytorch/2.14/notes/autograd#gradients-for-non-differentiable-functions",
+    "pytorch/2.14/notes/amp_examples#gradient-accumulation",
+    "pytorch/2.14/notes/amp_examples#gradient-clipping",
+    "pytorch/2.14/notes/autograd#division-by-zero-in-autograd",
+    "pytorch/2.14/optim#how-to-adjust-learning-rate"
+   ],
+   "retrieval_ms": 12.8,
+   "stage": "unannotated"
+  },
+  {
+   "id": "ind:fa1",
+   "kind": "answer",
+   "gate": "none",
+   "coverage": 0.331,
+   "missing_terms": [
+    "unprocessable",
+    "entity",
+    "am",
+    "seem",
+    "incoming",
+    "though"
+   ],
+   "retrieval_query": "Why am I getting a 422 Unprocessable Entity error even though my Pydantic model fields seem to match the incoming JSON request?",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/body-fields#recap",
+    "fastapi/0.162.0/advanced/path-operation-advanced-configuration#custom-openapi-content-type",
+    "fastapi/0.162.0/tutorial/schema-extra-example#extra-json-schema-data-in-pydantic-models",
+    "fastapi/0.162.0/tutorial/body#create-your-data-model",
+    "fastapi/0.162.0/tutorial/request-form-models#pydantic-models-for-forms"
+   ],
+   "retrieval_ms": 13.3,
+   "stage": "not_retrieved",
+   "gold": [
+    {
+     "section": "fastapi/0.162.0/tutorial/handling-errors#use-the-requestvalidationerror-body",
+     "stage": "not_retrieved",
+     "rank": null,
+     "partial": true
+    }
+   ]
+  },
+  {
+   "id": "ind:fa2",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.593,
+   "missing_terms": [
+    "prematurely",
+    "inject",
+    "closing"
+   ],
+   "retrieval_query": "How can I inject a database session dependency into my FastAPI background tasks without the session closing prematurely?",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/background-tasks#dependency-injection",
+    "fastapi/0.162.0/advanced/advanced-dependencies#use-cases-with-early-exit-code",
+    "fastapi/0.162.0/advanced/advanced-dependencies#background-tasks-and-dependencies-with-yield-technical-details",
+    "fastapi/0.162.0/tutorial/background-tasks#technical-details",
+    "fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#a-database-dependency-with-yield"
+   ],
+   "retrieval_ms": 11.9,
+   "stage": "unannotated"
+  },
+  {
+   "id": "ind:fa3",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.554,
+   "missing_terms": [
+    "am",
+    "seeing",
+    "despite",
+    "missing",
+    "console"
+   ],
+   "retrieval_query": "I am seeing a CORS error in my browser console despite adding CORSMiddleware to my app with allow_origins=['*']. What am I missing?",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/cors#use-corsmiddleware",
+    "fastapi/0.162.0/tutorial/cors#steps",
+    "fastapi/0.162.0/advanced/middleware#advanced-middleware",
+    "fastapi/0.162.0/advanced/middleware#adding-asgi-middlewares",
+    "fastapi/0.162.0/tutorial/middleware#create-a-middleware"
+   ],
+   "retrieval_ms": 15.4,
+   "stage": "evidence_dropped",
+   "gold": [
+    {
+     "section": "fastapi/0.162.0/tutorial/cors#wildcards",
+     "stage": "evidence_dropped",
+     "rank": 5,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "ind:fa4",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.514,
+   "missing_terms": [
+    "fetches",
+    "protected",
+    "best",
+    "every",
+    "implement"
+   ],
+   "retrieval_query": "What is the best way to implement a dependency that fetches the current user from a JWT token for every protected endpoint?",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/security/oauth2-jwt#update-the-dependencies",
+    "fastapi/0.162.0/tutorial/security/oauth2-jwt#handle-jwt-tokens",
+    "fastapi/0.162.0/tutorial/security/get-current-user#inject-the-current-user",
+    "fastapi/0.162.0/advanced/security/oauth2-scopes#global-view",
+    "fastapi/0.162.0/tutorial/security/simple-oauth2#update-the-dependencies"
+   ],
+   "retrieval_ms": 12.1,
+   "stage": "unannotated"
+  },
+  {
+   "id": "ind:fa5",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.627,
+   "missing_terms": [
+    "failing",
+    "applied",
+    "unit",
+    "because"
+   ],
+   "retrieval_query": "My FastAPI unit tests are failing because the dependency override for my database is not being applied when I use TestClient.",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/testing#using-testclient",
+    "fastapi/0.162.0/advanced/testing-dependencies#use-the-app-dependency-overrides-attribute",
+    "fastapi/0.162.0/advanced/async-tests#async-tests",
+    "fastapi/0.162.0/advanced/async-tests#httpx",
+    "fastapi/0.162.0/advanced/testing-dependencies#use-cases-external-service"
+   ],
+   "retrieval_ms": 12.8,
+   "stage": "reachable",
+   "gold": [
+    {
+     "section": "fastapi/0.162.0/advanced/testing-dependencies#use-the-app-dependency-overrides-attribute",
+     "stage": "reachable",
+     "rank": 2,
+     "partial": false
+    }
+   ]
+  },
+  {
+   "id": "ind:fa6",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.609,
+   "missing_terms": [
+    "asynchronous",
+    "state",
+    "handle",
+    "access",
+    "has"
+   ],
+   "retrieval_query": "How do I handle asynchronous background tasks that need to access the request state or headers after the response has already been sent?",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/background-tasks#background-tasks",
+    "fastapi/0.162.0/tutorial/background-tasks#dependency-injection",
+    "fastapi/0.162.0/advanced/response-change-status-code#use-a-response-parameter",
+    "fastapi/0.162.0/advanced/advanced-dependencies#background-tasks-and-dependencies-with-yield-technical-details",
+    "fastapi/0.162.0/advanced/opentelemetry#trace-request-operations"
+   ],
+   "retrieval_ms": 13.4,
+   "stage": "no_answer_in_corpus"
+  },
+  {
+   "id": "ind:fa7",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.619,
+   "missing_terms": [
+    "throwing",
+    "endpoint",
+    "keeps",
+    "expects"
+   ],
+   "retrieval_query": "I have an endpoint that expects a file upload and a JSON body, but FastAPI keeps throwing a 422 error when I send them as multipart/form-data.",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/request-files#what-is-form-data",
+    "fastapi/0.162.0/tutorial/request-forms#about-form-fields",
+    "fastapi/0.162.0/tutorial/request-forms-and-files#define-file-and-form-parameters",
+    "fastapi/0.162.0/advanced/path-operation-advanced-configuration#custom-openapi-content-type",
+    "fastapi/0.162.0/tutorial/request-files#define-file-parameters"
+   ],
+   "retrieval_ms": 15.1,
+   "stage": "unannotated"
+  },
+  {
+   "id": "ind:fa8",
+   "kind": "answer",
+   "gate": "weak",
+   "coverage": 0.586,
+   "missing_terms": [
+    "heavy",
+    "route",
+    "performing",
+    "computations",
+    "inside"
+   ],
+   "retrieval_query": "How can I prevent my FastAPI application from blocking the event loop when performing heavy CPU-bound computations inside a route handler?",
+   "evidence": [
+    "python/3.12/library/asyncio-dev#running-blocking-code",
+    "fastapi/0.162.0/advanced/events#shutdown-event",
+    "fastapi/0.162.0/tutorial/server-sent-events#technical-details",
+    "fastapi/0.162.0/tutorial/server-sent-events#non-async-path-operation-functions",
+    "fastapi/0.162.0/async#path-operation-functions"
+   ],
+   "retrieval_ms": 13.1,
+   "stage": "unannotated"
+  },
+  {
+   "id": "ind:ot1",
+   "kind": "abstain",
+   "gate": "none",
+   "coverage": 0.191,
+   "missing_terms": [
+    "pull",
+    "backoff",
+    "am",
+    "registry",
+    "credentials",
+    "private"
+   ],
+   "retrieval_query": "Why am I getting an 'image pull backoff' error in Kubernetes even though my credentials for the private container registry are correctly stored in a secret?",
+   "evidence": [
+    "fastapi/0.162.0/deployment/docker#recap",
+    "fastapi/0.162.0/deployment/docker#deploy-the-container-image",
+    "fastapi/0.162.0/deployment/server-workers#containers-and-docker",
+    "fastapi/0.162.0/deployment/concepts#examples-of-replication-tools-and-strategies",
+    "fastapi/0.162.0/deployment/concepts#examples-of-previous-steps-strategies"
+   ],
+   "retrieval_ms": 15.5,
+   "stage": "out_of_scope"
+  },
+  {
+   "id": "ind:ot2",
+   "kind": "abstain",
+   "gate": "none",
+   "coverage": 0.303,
+   "missing_terms": [
+    "lifetime",
+    "rust",
+    "resolve",
+    "live",
+    "bound",
+    "static"
+   ],
+   "retrieval_query": "How do I resolve a 'lifetime may not live long enough' error in Rust when passing a reference into a thread that requires a 'static bound?",
+   "evidence": [
+    "python/3.12/faq/library#none-of-my-threads-seem-to-run-why",
+    "python/3.12/library/threading#threading.Barrier.wait",
+    "python/3.12/library/threading#thread-objects",
+    "python/3.12/faq/library#how-do-i-program-using-threads",
+    "python/3.12/library/concurrent.futures#concurrent.futures.ProcessPoolExecutor"
+   ],
+   "retrieval_ms": 12.5,
+   "stage": "out_of_scope"
+  },
+  {
+   "id": "ind:ot3",
+   "kind": "abstain",
+   "gate": "none",
+   "coverage": 0.208,
+   "missing_terms": [
+    "memoization",
+    "react",
+    "rendering",
+    "tree",
+    "component",
+    "entire"
+   ],
+   "retrieval_query": "My React application is re-rendering the entire component tree on every state update, how can I use memoization to target only the specific child that changed?",
+   "evidence": [
+    "fastapi/0.162.0/tutorial/body-updates#using-pydantics-exclude-unset-parameter",
+    "pytorch/2.14/cuda#memory-management",
+    "python/3.12/library/re#regular-expression-syntax",
+    "fastapi/0.162.0/tutorial/body-updates#partial-updates-recap",
+    "fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#dependencies-with-yield"
+   ],
+   "retrieval_ms": 12.5,
+   "stage": "out_of_scope"
+  },
+  {
+   "id": "ind:ot4",
+   "kind": "abstain",
+   "gate": "none",
+   "coverage": 0.355,
+   "missing_terms": [
+    "degradation",
+    "am",
+    "seeing",
+    "significant",
+    "column",
+    "tree"
+   ],
+   "retrieval_query": "I am seeing significant performance degradation in PostgreSQL when running a query with a 'LIKE' operator on a large text column, even though I have a standard B-tree index.",
+   "evidence": [
+    "python/3.12/library/stdtypes#str.index",
+    "python/3.12/library/io#id3",
+    "fastapi/0.162.0/tutorial/sql-databases#sql-relational-databases",
+    "python/3.12/library/stdtypes#str.rindex",
+    "fastapi/0.162.0/tutorial/sql-databases#create-models"
+   ],
+   "retrieval_ms": 14.9,
+   "stage": "out_of_scope"
+  },
+  {
+   "id": "ind:ot5",
+   "kind": "abstain",
+   "gate": "weak",
+   "coverage": 0.44,
+   "missing_terms": [
+    "bridge",
+    "hardcoded",
+    "addresses",
+    "communicate",
+    "names",
+    "two"
+   ],
+   "retrieval_query": "How can I configure a Docker bridge network so that two containers can communicate using their service names instead of hardcoded IP addresses?",
+   "evidence": [
+    "fastapi/0.162.0/deployment/docker#container-images",
+    "fastapi/0.162.0/deployment/concepts#examples-of-replication-tools-and-strategies",
+    "fastapi/0.162.0/deployment/docker#load-balancer",
+    "fastapi/0.162.0/deployment/server-workers#containers-and-docker"
+   ],
+   "retrieval_ms": 12.7,
+   "stage": "out_of_scope"
+  },
+  {
+   "id": "ind:ot6",
+   "kind": "abstain",
+   "gate": "none",
+   "coverage": 0.0,
+   "missing_terms": [
+    "rebase",
+    "branch",
+    "conflict",
+    "haven",
+    "git",
+    "failing"
+   ],
+   "retrieval_query": "Why is my Git rebase failing with a 'conflict' error on a file that I haven't even modified in my current feature branch?",
+   "evidence": [
+    "fastapi/0.162.0/deployment/concepts#bigger-errors-crashes",
+    "python/3.12/library/re#re.error",
+    "python/3.12/library/re#re.sub",
+    "fastapi/0.162.0/deployment/concepts#we-make-mistakes",
+    "fastapi/0.162.0/tutorial/sql-databases#run-the-app-again"
+   ],
+   "retrieval_ms": 13.4,
+   "stage": "out_of_scope"
+  }
+ ],
+ "seconds": 8.2
+}

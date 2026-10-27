@@ -69,7 +69,7 @@ def build_provider(settings: Settings) -> LLMProvider:
 
 def build_pipeline(settings: Settings) -> RAGPipeline:
     try:
-        from neural_debugger.data.corpus import load_corpus
+        from neural_debugger.data.corpus import load_corpus_overlay
         from neural_debugger.ml.retrieval.systems import SystemFactory, load_neural_config
         from neural_debugger.rag.retrieval import CorpusSectionRetriever
     except ImportError as exc:  # numpy / sentence-transformers not installed in this image
@@ -78,12 +78,16 @@ def build_pipeline(settings: Settings) -> RAGPipeline:
             "retrieval dependencies are not installed (install the 'neural' and 'data' extras)",
             503,
         ) from exc
-    corpus = load_corpus(Path(settings.corpus_dir))
+    dirs = [settings.corpus_dir, *settings.corpus_supplement_dirs]
+    corpus = load_corpus_overlay(dirs)
     cfg = load_neural_config(*settings.retriever_configs)
     try:
-        retriever = SystemFactory(corpus, cfg, device=settings.retriever_device).build(
-            settings.retriever_system
-        )
+        retriever = SystemFactory(
+            corpus,
+            cfg,
+            device=settings.retriever_device,
+            embedding_dir=Path(settings.embedding_dir) if settings.corpus_supplement_dirs else None,
+        ).build(settings.retriever_system)
     except (ImportError, KeyError) as exc:
         raise AppError(
             "retrieval_unavailable",
@@ -94,7 +98,7 @@ def build_pipeline(settings: Settings) -> RAGPipeline:
     return RAGPipeline(
         CorpusSectionRetriever(retriever, corpus),
         build_provider(settings),
-        PipelineConfig(
+        (PipelineConfig.coverage_profile if settings.rag_profile == "coverage" else PipelineConfig)(
             support=settings.rag_support_check,
             semantic=settings.rag_semantic_check,
             drop_disputed=settings.rag_drop_disputed,

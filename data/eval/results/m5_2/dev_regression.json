@@ -1,0 +1,27 @@
+{
+ "label": "development queries (train+val, n=161) + unanswerable dev set; base corpus vs overlay",
+ "results": {
+  "base m5": {
+   "NDCG@5": 0.6684,
+   "NDCG@10": 0.7123,
+   "hit@5": 0.8509,
+   "MRR": 0.7475,
+   "false_abstain_train": 0.0388,
+   "false_abstain_val": 0.0,
+   "unanswerable_abstain_all": "26/32",
+   "unanswerable_abstain_calib": "14/16",
+   "unanswerable_abstain_heldout_half": "12/16"
+  },
+  "overlay coverage": {
+   "NDCG@5": 0.6574,
+   "NDCG@10": 0.7049,
+   "hit@5": 0.8385,
+   "MRR": 0.7387,
+   "false_abstain_train": 0.0485,
+   "false_abstain_val": 0.0,
+   "unanswerable_abstain_all": "26/32",
+   "unanswerable_abstain_calib": "13/16",
+   "unanswerable_abstain_heldout_half": "13/16"
+  }
+ }
+}

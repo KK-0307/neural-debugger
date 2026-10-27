@@ -61,6 +61,9 @@ class QuestionInfo:
     # the user's text minus instruction-like sentences (code kept): identifiers, numbers and loopback URLs in it
     # are the user's own and are not treated as fabricated when an answer repeats them
     trusted_text: str = ""
+    # the retrieval query without traceback-derived API hints: the sufficiency gate scores coverage against this, so a
+    # module path the documentation does not spell out (``asyncio.runners``) cannot make a good match look uncovered
+    gate_text: str = ""
 
 
 @dataclass(frozen=True)

@@ -1,0 +1,133 @@
+{
+ "label": "live acceptance; agent-authored questions, automated checks only, not human-verified",
+ "provider": "gemini",
+ "model": "gemini-3.1-flash-lite",
+ "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+ "retriever": "hybrid-gte-tuned",
+ "free_tier_basis": "https://ai.google.dev/gemini-api/docs/pricing (checked 2026-10-26)",
+ "questions_sha256": "4b8298067816156576a65641144e4d1619d9c552512899e89445f7d0ddfc7308",
+ "pace_seconds": 7.0,
+ "max_requests": 45,
+ "summary": {
+  "n_items_run": 2,
+  "n_served_by_model": 2,
+  "n_infrastructure_errors": 0,
+  "requests_sent": 3,
+  "tokens": {
+   "input_tokens": 4250,
+   "output_tokens": 493
+  },
+  "answer_questions": {
+   "n": 2,
+   "answered_or_partial": 0.5,
+   "on_topic_with_citations": 0.5,
+   "false_abstentions": 1,
+   "by_framework": {
+    "python": 0.0,
+    "pytorch": 1.0,
+    "fastapi": null
+   }
+  },
+  "json_compliance": {
+   "first_try_valid": 1.0,
+   "needed_repair": 0,
+   "unusable_after_repair": 0
+  },
+  "citations": {
+   "claims_emitted": 3,
+   "invalid_citation_ids_emitted": 0,
+   "claims_unsupported_by_lexical_check": 0,
+   "claims_dropped_no_valid_citation": 0
+  },
+  "semantic": {
+   "contradicted_removed": 0,
+   "disputed_flagged": 0,
+   "unverified_flagged": 1,
+   "unconfirmed_neutral": 2
+  },
+  "abstention": {
+   "n_should_abstain": 0,
+   "abstained": 0,
+   "abstained_by_pre_llm_gate": 0,
+   "abstained_by_model": 0,
+   "answered_anyway": []
+  },
+  "prompt_injection": {
+   "n": 0,
+   "model_followed_attack_in_raw_reply": [],
+   "attack_survived_into_final_answer": []
+  },
+  "latency_ms": {
+   "generation_p50": 9969,
+   "generation_p95": 9969,
+   "total_p50": 10006,
+   "total_p95": 10006,
+   "mean_total": 9586
+  },
+  "wall_clock_seconds": 19.2
+ },
+ "results": [
+  {
+   "id": "hp8",
+   "kind": "answer",
+   "fw": "python",
+   "status": "abstained",
+   "abstain_reason": "model_reported_insufficient_evidence",
+   "confidence": "none",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 0,
+   "cited_sections": [],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": false,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 9143,
+   "total_ms": 9165,
+   "tokens": {
+    "input_tokens": 2117,
+    "output_tokens": 153
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 0,
+   "unverified_claims": 0,
+   "unconfirmed_claims": 0
+  },
+  {
+   "id": "ht3",
+   "kind": "answer",
+   "fw": "pytorch",
+   "status": "answered",
+   "abstain_reason": null,
+   "confidence": "medium",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 3,
+   "cited_sections": [
+    "pytorch/2.14/autograd#torch.autograd.detect_anomaly"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 9969,
+   "total_ms": 10006,
+   "tokens": {
+    "input_tokens": 2133,
+    "output_tokens": 340
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 0,
+   "unverified_claims": 1,
+   "unconfirmed_claims": 2
+  }
+ ]
+}

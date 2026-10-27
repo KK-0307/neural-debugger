@@ -66,7 +66,7 @@ class Sufficiency:
 
 def salient_terms(q: QuestionInfo, limit: int) -> list[str]:
     seen: list[str] = []
-    for t in terms(" ".join([*q.error_lines[-1:], q.retrieval_query])):
+    for t in terms(" ".join([*q.error_lines[-1:], q.gate_text or q.retrieval_query])):
         if t not in seen and not t.isdigit():
             seen.append(t)
     return seen[:limit]

@@ -20,6 +20,11 @@ class Settings(BaseSettings):
 
     # --- RAG (Milestone 5). Credentials are never settings: only the *name* of the env var is. ---
     corpus_dir: str = "data/corpus"
+    # extra official-documentation pages merged in memory over the frozen base corpus (Milestone 5.2); [] = base only
+    corpus_supplement_dirs: list[str] = Field(default_factory=lambda: ["data/corpus_supplement"])
+    # embeddings of base + supplements; the frozen data/embeddings/ of the base corpus alone is never rewritten
+    embedding_dir: str = "data/embeddings_rag"
+    rag_profile: Literal["m5", "coverage"] = "coverage"  # "m5" = the Milestone 5 evidence settings
     retriever_system: str = (
         "hybrid-gte-tuned"  # any system in the configs below (e.g. hybrid-custom-tiny)
     )
