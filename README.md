@@ -41,22 +41,23 @@ such), a validated-citation pipeline over a free-tier LLM (Gemini), a FastAPI ba
 ## Architecture
 
 ```mermaid
-flowchart LR
-    U([Browser<br/>Next.js UI]) -->|POST /api/v1/debug| API[FastAPI]
-    subgraph Backend["FastAPI service (one process)"]
-        API --> Q[Question prep<br/>normalise, trim long traces,<br/>build retrieval query]
-        Q --> R[Hybrid retrieval<br/>BM25 + gte-small dense<br/>fused with RRF]
-        R --> E[Evidence selection<br/>dedupe, budget, injection scan]
-        E --> G{Sufficiency gate<br/>lexical coverage +<br/>dense similarity}
-        G -->|too little evidence| A([Abstain: no model call])
-        G -->|enough| P[Prompt: question and passages<br/>as delimited data]
-        P --> L[(Gemini 3.1 Flash-Lite<br/>free tier)]
-        L --> V[Validation<br/>JSON contract, citation ids,<br/>support check, semantic rules,<br/>wrong-framework rule]
-        V --> S[Answer + per-claim badges<br/>+ confidence from counters]
+flowchart TD
+    U(["Browser: Next.js UI<br/>paste an error or stack trace"]) -->|"POST /api/v1/debug"| Q
+    subgraph BE["FastAPI service (one process)"]
+        direction TB
+        Q["Question prep<br/>normalise, trim long traces,<br/>build the retrieval query"] --> R["Hybrid retrieval<br/>BM25 + gte-small dense, fused with RRF"]
+        R --> E["Evidence selection<br/>dedupe, budget, injection scan"]
+        E --> G{"Sufficiency gate<br/>lexical coverage + dense similarity"}
+        G -->|enough evidence| P["Prompt<br/>question and passages as delimited data"]
+        P --> L
+        L --> V["Validation<br/>JSON contract, citation ids, support check,<br/>semantic rules, wrong-framework rule"]
+        V --> S["Answer assembly<br/>per-claim badges, confidence from counters"]
     end
-    C[(Corpus: 4,995 chunks<br/>Python 3.12, PyTorch 2.14, FastAPI 0.162<br/>+ embeddings)] --> R
-    S --> U
-    A --> U
+    C[("Corpus: 4,995 chunks<br/>Python 3.12, PyTorch 2.14, FastAPI 0.162<br/>+ embeddings")] --> R
+    L[("Gemini 3.1 Flash-Lite<br/>free tier, external")]
+    G -->|too little evidence| A(["Abstain<br/>no model call, closest pages shown"])
+    S --> O(["Cited answer"])
+    A --> O2(["Explained refusal"])
 ```
 
 * **Corpus** (`data/corpus`): 207 pages, 4,154 sections, 4,995 chunks of official documentation, with source URL, anchor,

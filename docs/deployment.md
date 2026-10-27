@@ -44,10 +44,11 @@ Environment variables are listed in `render.yaml` and `.env.example`; the only s
 
 ## Deploying (what the owner does; I do not hold any account)
 
-1. **GitHub**: the repository should be public for a portfolio (Render can also deploy a private repo you connect).
+1. **GitHub**: the repository is public (`https://github.com/KK-0307/neural-debugger`), so Render needs no GitHub permissions beyond reading it.
 2. **Render**: sign up with GitHub (no payment method is required for a free web service; **do not add one**, so no overage can
    ever be billed: without a payment method Render suspends free services instead).
-3. Dashboard -> **New -> Blueprint** -> pick this repository -> Render reads `render.yaml`.
+3. One click: <https://render.com/deploy?repo=https://github.com/KK-0307/neural-debugger> (or Dashboard -> **New -> Blueprint** -> pick this
+   repository). Render reads `render.yaml`.
 4. When asked for `GEMINI_API_KEY`, paste your free-tier key (Google AI Studio). It is stored as an encrypted environment variable.
 5. Apply. The first build takes several minutes (it installs CPU PyTorch and builds the frontend). Afterwards:
 
