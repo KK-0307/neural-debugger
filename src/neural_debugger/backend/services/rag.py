@@ -71,7 +71,7 @@ def build_pipeline(settings: Settings) -> RAGPipeline:
     try:
         from neural_debugger.data.corpus import load_corpus_overlay
         from neural_debugger.ml.retrieval.systems import SystemFactory, load_neural_config
-        from neural_debugger.rag.retrieval import CorpusSectionRetriever
+        from neural_debugger.rag.retrieval import CorpusSectionRetriever, dense_similarity_source
     except ImportError as exc:  # numpy / sentence-transformers not installed in this image
         raise AppError(
             "retrieval_unavailable",
@@ -82,12 +82,14 @@ def build_pipeline(settings: Settings) -> RAGPipeline:
     corpus = load_corpus_overlay(dirs)
     cfg = load_neural_config(*settings.retriever_configs)
     try:
-        retriever = SystemFactory(
+        factory = SystemFactory(
             corpus,
             cfg,
             device=settings.retriever_device,
             embedding_dir=Path(settings.embedding_dir) if settings.corpus_supplement_dirs else None,
-        ).build(settings.retriever_system)
+        )
+        retriever = factory.build(settings.retriever_system)
+        similarity = dense_similarity_source(factory)
     except (ImportError, KeyError) as exc:
         raise AppError(
             "retrieval_unavailable",
@@ -96,7 +98,7 @@ def build_pipeline(settings: Settings) -> RAGPipeline:
         ) from exc
     stats = TermStats.from_texts(c.index_text() for c in corpus.chunks)
     return RAGPipeline(
-        CorpusSectionRetriever(retriever, corpus),
+        CorpusSectionRetriever(retriever, corpus, similarity),
         build_provider(settings),
         (PipelineConfig.coverage_profile if settings.rag_profile == "coverage" else PipelineConfig)(
             support=settings.rag_support_check,

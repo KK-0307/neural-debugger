@@ -443,16 +443,17 @@ def main(argv: list[str] | None = None) -> int:
     from neural_debugger.data.corpus import load_corpus_overlay
     from neural_debugger.ml.retrieval.systems import SystemFactory, load_neural_config
 
-    from .retrieval import CorpusSectionRetriever
+    from .retrieval import CorpusSectionRetriever, dense_similarity_source
 
     corpus = load_corpus_overlay(args.corpus_dir)
-    system = SystemFactory(
+    factory = SystemFactory(
         corpus,
         load_neural_config("configs/neural.yaml", "configs/m4.yaml"),
         device=args.device,
         embedding_dir=Path(args.embedding_dir) if len(args.corpus_dir) > 1 else None,
-    ).build(args.retriever)
-    retriever = CorpusSectionRetriever(system, corpus)
+    )
+    system = factory.build(args.retriever)
+    retriever = CorpusSectionRetriever(system, corpus, dense_similarity_source(factory))
     stats = TermStats.from_texts(c.index_text() for c in corpus.chunks)
 
     governor = RequestGovernor(args.pace, args.max_requests)

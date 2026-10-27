@@ -1,0 +1,50 @@
+{
+ "label": "development sets only; old = lexical gate (0.375), new = combined gate (dense_weight 0.5, threshold 0.70)",
+ "groups": {
+  "answerable: train authored (calibration)": {
+   "n": 103,
+   "gate_abstains_old": 5,
+   "gate_abstains_new": 4
+  },
+  "answerable: val authored": {
+   "n": 35,
+   "gate_abstains_old": 0,
+   "gate_abstains_new": 1
+  },
+  "answerable: dev own+independent (verbose-ish)": {
+   "n": 39,
+   "gate_abstains_old": 5,
+   "gate_abstains_new": 2
+  },
+  "answerable: tracebacks": {
+   "n": 10,
+   "gate_abstains_old": 0,
+   "gate_abstains_new": 0
+  },
+  "answerable: verbose seeded (diagnosis set)": {
+   "n": 36,
+   "gate_abstains_old": 18,
+   "gate_abstains_new": 1
+  },
+  "out-of-scope: unanswerable calib half": {
+   "n": 16,
+   "gate_abstains_old": 13,
+   "gate_abstains_new": 14
+  },
+  "out-of-scope: unanswerable held-out half": {
+   "n": 16,
+   "gate_abstains_old": 13,
+   "gate_abstains_new": 16
+  },
+  "out-of-scope: dev own+independent": {
+   "n": 9,
+   "gate_abstains_old": 8,
+   "gate_abstains_new": 9
+  },
+  "out-of-scope: verbose seeded": {
+   "n": 12,
+   "gate_abstains_old": 9,
+   "gate_abstains_new": 10
+  }
+ }
+}

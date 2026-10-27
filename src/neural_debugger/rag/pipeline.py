@@ -74,6 +74,8 @@ class PipelineConfig:
     # out-of-scope questions would slip through (measured: 81% -> 69-72% abstention). None = the gate sees what the model sees.
     gate_evidence: EvidenceConfig | None = None
     gate_k: int = 12
+    # Milestone 5.3: drop a claim whose citations all come from the *other* application framework (validate.py)
+    drop_cross_framework: bool = False
 
     @classmethod
     def coverage_profile(cls, **overrides: Any) -> PipelineConfig:
@@ -84,6 +86,9 @@ class PipelineConfig:
             "evidence": EvidenceConfig(max_items=7, max_per_doc=3, max_chars_total=8000),
             "gate_evidence": EvidenceConfig(),
             "gate_k": 12,
+            # Milestone 5.3: length-robust gate (lexical coverage + dense similarity), see sufficiency.py
+            "sufficiency": SufficiencyConfig(dense_weight=0.5),
+            "drop_cross_framework": True,
         }
         return cls(**{**base, **overrides})
 
@@ -133,7 +138,15 @@ class RAGPipeline:
         gate_ev = evidence
         if self.config.gate_evidence is not None:
             gate_ev, _ = select_evidence(sections[: self.config.gate_k], self.config.gate_evidence)
-        suff = assess(q, gate_ev, self.stats, self.config.sufficiency)
+        similarity = None
+        if self.config.sufficiency.dense_weight > 0:
+            fn = getattr(self.retriever, "query_similarity", None)
+            if callable(fn):
+                try:
+                    similarity = fn(q.retrieval_query, framework)
+                except Exception:  # the similarity is an extra signal: never let it break a request
+                    logger.exception("similarity signal failed; using the lexical gate")
+        suff = assess(q, gate_ev, self.stats, self.config.sufficiency, similarity)
         return Prepared(q, sections, evidence, suff, selection.dropped, ms)
 
     def answer(self, question: str, framework: str | None = None) -> RAGAnswer:
@@ -159,7 +172,11 @@ class RAGPipeline:
         trace["retrieved"] = len(prep.sections)
         trace["dropped_evidence"] = prep.dropped_evidence
         trace["evidence_flags"] = {e.id: list(e.flags) for e in evidence if e.flags}
-        trace["sufficiency"] = {"level": suff.level, "coverage": round(suff.coverage, 3)}
+        trace["sufficiency"] = {
+            "level": suff.level,
+            "coverage": round(suff.coverage, 3),
+            "similarity": None if suff.similarity is None else round(suff.similarity, 3),
+        }
 
         if suff.level == "none":
             ans = self._abstain(question, q, evidence, suff, timings, trace)
@@ -202,6 +219,7 @@ class RAGPipeline:
                 self.config.drop_unsupported,
                 self.config.drop_disputed,
                 trusted_text=q.trusted_text,
+                framework_hint=q.framework_hint if self.config.drop_cross_framework else None,
             )
             ans = self._assemble(question, q, evidence, suff, validated, timings, trace)
         timings.validation_ms = (time.perf_counter() - t) * 1000

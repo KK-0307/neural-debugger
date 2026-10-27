@@ -5,6 +5,16 @@ text). A term that is not in the indexed documentation at all (``tensorflow``, `
 weight, so a question about an unindexed library has low coverage even when some generic words match.
 Thresholds are calibrated on development queries only (``docs/rag.md``); they are heuristics, not
 probabilities.
+
+Milestone 5.3: lexical coverage is *length-biased* (an 88-word question mechanically scores lower against five short passages
+than a 10-word one), which made the gate abstain on verbose questions whose evidence was fine. Optionally the gate adds a dense
+signal, the cosine between the question and the best-matching documentation, which does not depend on question length:
+
+    score = coverage + dense_weight * (similarity - dense_floor) / dense_scale
+
+Out-of-scope detection is kept (it improved on every development out-of-scope set; ``docs/rag-coverage.md``): technology names
+the corpus has never seen still drag ``coverage`` down, and an everyday-English question has a low similarity. Without a
+similarity (a retriever with no dense component) the original lexical rule applies unchanged.
 """
 
 from __future__ import annotations
@@ -51,9 +61,18 @@ class UniformStats(TermStats):
 
 @dataclass(frozen=True)
 class SufficiencyConfig:
-    abstain_below: float = 0.375  # calibrated on dev, see docs/rag.md
-    confident_above: float = 0.65
+    abstain_below: float = 0.375  # lexical coverage only; calibrated on dev, see docs/rag.md
+    confident_above: float = (
+        0.65  # lexical coverage: below it a passing answer is "weak" (adds a caveat)
+    )
     max_terms: int = 40
+    # Milestone 5.3 combined gate (0 weight = the Milestone 5 lexical-only gate)
+    dense_weight: float = 0.0
+    dense_floor: float = 0.80
+    dense_scale: float = 0.10
+    combined_abstain_below: float = (
+        0.70  # chosen on dev with the Milestone 5 calibration rule (docs/rag-coverage.md)
+    )
 
 
 @dataclass
@@ -62,6 +81,10 @@ class Sufficiency:
     coverage: float
     missing_terms: list[str] = field(default_factory=list)
     reason: str = ""
+    similarity: float | None = (
+        None  # best question-to-documentation cosine, when the retriever can supply it
+    )
+    score: float | None = None  # the number compared with the abstain threshold
 
 
 def salient_terms(q: QuestionInfo, limit: int) -> list[str]:
@@ -77,6 +100,7 @@ def assess(
     evidence: list[Evidence],
     stats: TermStats | None = None,
     cfg: SufficiencyConfig | None = None,
+    similarity: float | None = None,
 ) -> Sufficiency:
     cfg = cfg or SufficiencyConfig()
     stats = stats or UniformStats()
@@ -92,13 +116,27 @@ def assess(
     covered = sum(stats.idf(t) for t in wanted if t in have)
     cov = covered / total if total else 0.0
     missing = sorted((t for t in wanted if t not in have), key=lambda t: -stats.idf(t))[:8]
-    if cov < cfg.abstain_below:
+    combined = cfg.dense_weight > 0 and similarity is not None
+    score = (
+        cov + cfg.dense_weight * (similarity - cfg.dense_floor) / cfg.dense_scale
+        if combined and similarity is not None
+        else cov
+    )
+    threshold = cfg.combined_abstain_below if combined else cfg.abstain_below
+    if score < threshold:
+        why = f"retrieved documentation covers only {cov:.0%} of the question's key terms" + (
+            f" and is not close to it (similarity {similarity:.2f})"
+            if combined and similarity is not None
+            else ""
+        )
+        return Sufficiency("none", cov, missing, why, similarity, score)
+    if cov < cfg.confident_above:
         return Sufficiency(
-            "none",
+            "weak",
             cov,
             missing,
-            f"retrieved documentation covers only {cov:.0%} of the question's key terms",
+            f"partial coverage ({cov:.0%}) of the key terms",
+            similarity,
+            score,
         )
-    if cov < cfg.confident_above:
-        return Sufficiency("weak", cov, missing, f"partial coverage ({cov:.0%}) of the key terms")
-    return Sufficiency("ok", cov, missing, "")
+    return Sufficiency("ok", cov, missing, "", similarity, score)

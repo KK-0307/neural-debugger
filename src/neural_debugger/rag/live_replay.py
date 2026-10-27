@@ -162,6 +162,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--questions", type=Path, default=QUESTIONS)
     ap.add_argument("--retriever", default="hybrid-gte-tuned")
     ap.add_argument("--profile", choices=["m5", "coverage"], default="m5")
+    ap.add_argument(
+        "--cross-framework",
+        action="store_true",
+        help="also drop claims citing only the other framework",
+    )
     ap.add_argument("--corpus-dir", nargs="+", default=["data/corpus"])
     ap.add_argument("--embedding-dir", default="data/embeddings_rag")
     ap.add_argument("--device", default="cpu")
@@ -177,20 +182,25 @@ def main(argv: list[str] | None = None) -> int:
     from neural_debugger.data.corpus import load_corpus_overlay
     from neural_debugger.ml.retrieval.systems import SystemFactory, load_neural_config
 
-    from .retrieval import CorpusSectionRetriever
+    from .retrieval import CorpusSectionRetriever, dense_similarity_source
 
     raws = merge_raw([json.loads(p.read_text()) for p in args.raw])
     corpus = load_corpus_overlay(args.corpus_dir)
-    system = SystemFactory(
+    factory = SystemFactory(
         corpus,
         load_neural_config("configs/neural.yaml", "configs/m4.yaml"),
         device=args.device,
         embedding_dir=Path(args.embedding_dir) if len(args.corpus_dir) > 1 else None,
-    ).build(args.retriever)
+    )
+    system = factory.build(args.retriever)
     stats = TermStats.from_texts(c.index_text() for c in corpus.chunks)
-    make_config = PipelineConfig.coverage_profile if args.profile == "coverage" else PipelineConfig
+
+    def make_config(**kw: Any) -> PipelineConfig:
+        base = PipelineConfig.coverage_profile if args.profile == "coverage" else PipelineConfig
+        return base(**{**kw, **({"drop_cross_framework": True} if args.cross_framework else {})})
+
     questions = yaml.safe_load(args.questions.read_text())["questions"]
-    section_retriever = CorpusSectionRetriever(system, corpus)
+    section_retriever = CorpusSectionRetriever(system, corpus, dense_similarity_source(factory))
     if args.rescore:
         results = rescore(
             raws, questions, section_retriever, stats, make_config(semantic=args.rescore)

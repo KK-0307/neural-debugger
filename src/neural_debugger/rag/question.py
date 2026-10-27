@@ -14,6 +14,7 @@ from .types import QuestionInfo
 
 MAX_CHARS = 6000
 MAX_RETRIEVAL_CHARS = 400
+_TRUNCATION_MARK = "[... truncated ...]"
 
 _ERROR_LINE = re.compile(
     r"^\s*(?:[A-Za-z_][\w.]*\.)?[A-Za-z_]\w*(?:Error|Exception|Warning|Exit|Interrupt|Disconnect)\b.*$"
@@ -71,7 +72,13 @@ def _limit(text: str, max_chars: int) -> tuple[str, bool]:
         return text, False
     head = int(max_chars * 0.35)
     tail = max_chars - head
-    return text[:head].rstrip() + "\n[... truncated ...]\n" + text[-tail:].lstrip(), True
+    first, last = text[:head], text[-tail:]
+    # cut on line boundaries: a half line ("ne 32, in step_22") is neither prose nor a parsable traceback frame
+    if "\n" in first:
+        first = first[: first.rfind("\n")]
+    if "\n" in last:
+        last = last[last.find("\n") + 1 :]
+    return first.rstrip() + f"\n{_TRUNCATION_MARK}\n" + last.lstrip("\n"), True
 
 
 def extract_error_lines(text: str, limit: int = 3) -> tuple[str, ...]:
@@ -151,7 +158,6 @@ def _prose(text: str) -> str:
     not steer retrieval).
     """
     keep: list[str] = []
-    skip_next = False
     for line in _FENCED.sub("\n", text).splitlines():
         if any(f.severity == "high" for f in scan(line)):
             # drop only the offending sentences: the same line may also carry the user's real question
@@ -163,12 +169,11 @@ def _prose(text: str) -> str:
         if _SERVER_LOG.match(line):
             continue
         if _TRACE_FRAME.match(line):
-            skip_next = True
             continue
-        if skip_next and line.startswith(("    ", "\t")):
-            skip_next = False
+        # indented lines are code or traceback source, not the user's words: this also removes the orphaned source line
+        # left when an over-long paste is cut mid-frame, and our own truncation marker is never prose
+        if line.startswith(("  ", "\t")) or line.strip() == _TRUNCATION_MARK:
             continue
-        skip_next = False
         if line.strip() and not line.startswith("Traceback (most recent call last)"):
             keep.append(line.strip())
     return " ".join(keep)

@@ -49,16 +49,17 @@ def build_pipeline(
     from neural_debugger.data.corpus import load_corpus_overlay
     from neural_debugger.ml.retrieval.systems import SystemFactory, load_neural_config
 
-    from .retrieval import CorpusSectionRetriever
+    from .retrieval import CorpusSectionRetriever, dense_similarity_source
 
     corpus = load_corpus_overlay(corpus_dirs)
     cfg = load_neural_config("configs/neural.yaml", "configs/m4.yaml")
-    system = SystemFactory(
+    factory = SystemFactory(
         corpus, cfg, device=device, embedding_dir=Path(embedding_dir) if embedding_dir else None
-    ).build(retriever)
+    )
+    system = factory.build(retriever)
     stats = TermStats.from_texts(c.index_text() for c in corpus.chunks)
     return RAGPipeline(
-        CorpusSectionRetriever(system, corpus),
+        CorpusSectionRetriever(system, corpus, dense_similarity_source(factory)),
         ExtractiveProvider(),
         PipelineConfig.coverage_profile() if profile == "coverage" else PipelineConfig(),
         stats=stats,

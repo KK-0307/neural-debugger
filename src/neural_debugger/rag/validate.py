@@ -107,6 +107,19 @@ class _Cleaner:
         return good
 
 
+_APP_FRAMEWORKS = frozenset({"pytorch", "fastapi"})
+
+
+def cites_only_the_other_framework(hint: str | None, frameworks: set[str]) -> bool:
+    """True when the question clearly belongs to one of PyTorch / FastAPI and every cited page is from the other.
+
+    Python's own documentation is shared by both, so it never counts as "the other framework". A claim backed only by the
+    other application framework's pages is a valid citation that cannot be relevant (a FastAPI memory question answered with
+    PyTorch ``DataLoader`` documentation).
+    """
+    return hint in _APP_FRAMEWORKS and bool(frameworks) and frameworks <= (_APP_FRAMEWORKS - {hint})
+
+
 def validate_answer(
     model: ModelAnswer,
     evidence: list[Evidence],
@@ -114,6 +127,7 @@ def validate_answer(
     drop_unsupported: bool = True,
     drop_disputed: bool = False,
     trusted_text: str = "",
+    framework_hint: str | None = None,
 ) -> Validated:
     out = Validated()
     rep = out.report
@@ -130,6 +144,14 @@ def validate_answer(
         if not text or len(good) < min_cites:
             rep.dropped_claims += 1
             return None
+        if cites_only_the_other_framework(framework_hint, {by_id[c].framework for c in good}):
+            rep.unsupported_claims += 1
+            rep.notes.append(
+                f"removed a claim citing only {sorted({by_id[c].framework for c in good})} documentation "
+                f"for a {framework_hint} question"
+            )
+            if drop_unsupported:
+                return None
         label, score = "unchecked", None
         if judge is not None:
             passages = [f"{by_id[c].title} > {by_id[c].heading}\n{by_id[c].text}" for c in good]

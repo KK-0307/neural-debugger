@@ -89,6 +89,9 @@ class EvidenceGateOut(BaseModel):
     coverage: float = Field(
         description="IDF-weighted share of the question's key terms found in the evidence, 0-1"
     )
+    similarity: float | None = Field(
+        default=None, description="best question-to-documentation cosine (dense), when available"
+    )
 
 
 class DebugResponse(BaseModel):
@@ -182,7 +185,12 @@ def _gate(ans: RAGAnswer) -> EvidenceGateOut | None:
     suff = ans.trace.get("sufficiency")
     if not isinstance(suff, dict):
         return None
-    return EvidenceGateOut(level=suff["level"], coverage=float(suff["coverage"]))
+    sim = suff.get("similarity")
+    return EvidenceGateOut(
+        level=suff["level"],
+        coverage=float(suff["coverage"]),
+        similarity=None if sim is None else float(sim),
+    )
 
 
 _ERROR_STATUS = {

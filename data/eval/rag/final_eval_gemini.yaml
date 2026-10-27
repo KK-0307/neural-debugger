@@ -1,0 +1,450 @@
+provenance:
+  generated_by: gemini-3.1-flash-lite
+  date: '2026-10-26'
+  seed: 20261028
+  prompt_sha256: 9b5f0cdb7cf7752c55414dac220b9b59cac6c5f25f2c8a52108daa6da61726f0
+  note: FINAL EVALUATION (free-form; frozen before any Milestone 5.3 change; never used for tuning); model-generated, not
+    human-written or human-verified
+  requests: 9
+questions:
+- id: fp1
+  kind: answer
+  fw: python
+  style: prose
+  q: I'm trying to use `type` statements in 3.12, but my IDE and static analysis tools are throwing errors. I tried setting
+    the `from __future__ import annotations` flag, but it doesn't seem to help with the new syntax. Is there a specific configuration
+    for mypy that supports this new typing syntax yet?
+- id: fp2
+  kind: answer
+  fw: python
+  style: prose
+  q: Upgraded to 3.12 and my `asyncio` code that relies on task groups is behaving strangely. I'm getting `ExceptionGroup`
+    errors that I don't know how to catch properly because they hide the actual underlying cause. I've tried wrapping them
+    in broad except blocks, but the traceback is massive and unreadable.
+- id: fp3
+  kind: answer
+  fw: python
+  style: prose
+  q: My build system is breaking because `distutils` is finally gone from the stdlib in 3.12. I've been using it for custom
+    install scripts for years. Do I just migrate everything to `setuptools` now, or is there a lighter-weight alternative
+    that doesn't bloat my project?
+- id: fp4
+  kind: answer
+  fw: python
+  style: prose
+  q: I noticed that `pathlib` operations seem to be slightly slower in 3.12 when dealing with thousands of small files. I
+    tried profiling it with `cProfile`, and it looks like `os.stat` calls are being wrapped differently. Has anything changed
+    under the hood that would impact heavy I/O workloads?
+- id: fp5
+  kind: answer
+  fw: python
+  style: prose
+  q: Why am I getting `SyntaxError` on some of my f-strings that worked perfectly in 3.11? I'm trying to nest quotes inside
+    the expression, which 3.12 is supposed to support, but it seems to be failing on escaped characters. I've double-checked
+    the documentation, but I'm still stumped.
+- id: fp6
+  kind: answer
+  fw: python
+  style: prose
+  q: I'm experimenting with the new per-interpreter GIL features in 3.12, but my C-extension crashes immediately when imported.
+    I tried using the new `Py_NewInterpreterConfig` API, but the documentation is very sparse on how to handle shared state.
+    Is there a known limitation with third-party libraries not being thread-safe in this context?
+- id: fp7
+  kind: answer
+  fw: python
+  style: prose
+  q: My custom exception hierarchy is failing since the upgrade because of the new `ExceptionGroup` integration. It seems
+    like my `__init__` calls are being intercepted by the base `BaseException` logic. I tried stripping down the class to
+    its bare minimum, but it still refuses to format correctly in the console.
+- id: fp8
+  kind: answer
+  fw: python
+  style: prose
+  q: The new `sys.monitoring` API is great, but I can't figure out how to disable it once it's started for a specific code
+    block. I tried setting the events to zero, but the overhead persists in my benchmark results. Am I missing a flag to completely
+    detach the monitor?
+- id: fp9
+  kind: answer
+  fw: python
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"/app/main.py\", line 42, in <module>\n    asyncio.run(main())\n  File \"\
+    /usr/local/lib/python3.12/asyncio/runners.py\", line 194, in run\n    return runner.run(main)\n  File \"/usr/local/lib/python3.12/asyncio/runners.py\"\
+    , line 118, in run\n    return self._loop.run_until_complete(task)\n  File \"/usr/local/lib/python3.12/asyncio/base_events.py\"\
+    , line 687, in run_until_complete\n    return future.result()\n  File \"/app/main.py\", line 38, in main\n    await worker()\n\
+    \  File \"/app/worker.py\", line 15, in worker\n    async with aiohttp.ClientSession() as session:\n  File \"/usr/local/lib/python3.12/site-packages/aiohttp/client.py\"\
+    , line 1139, in __aenter__\n    return await self._create_session()\n  File \"/usr/local/lib/python3.12/site-packages/aiohttp/client.py\"\
+    , line 1176, in _create_session\n    self._connector = TCPConnector(loop=loop)\nTypeError: __init__() got an unexpected\
+    \ keyword argument 'loop'.\nI'm seeing this 'loop' deprecation error after upgrading to 3.12. Is there a clean way to\
+    \ instantiate aiohttp sessions without manually passing the loop?"
+- id: fp10
+  kind: answer
+  fw: python
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"/src/api/auth.py\", line 88, in verify\n    token = jwt.decode(headers['Authorization'],\
+    \ algorithms=['HS256'])\n  File \"/venv/lib/python3.12/site-packages/jwt/api_jwt.py\", line 125, in decode\n    decoded\
+    \ = self._load(jwt, key, algorithms, options, audience, issuer, leeway, serializer)\n  File \"/venv/lib/python3.12/site-packages/jwt/api_jwt.py\"\
+    , line 198, in _load\n    payload = serializer.decode(jwt, key, algorithms, options, audience, issuer, leeway)\n  File\
+    \ \"/venv/lib/python3.12/site-packages/jwt/api_jws.py\", line 214, in decode\n    return self._verify_signature(signing_input,\
+    \ header, signature, key, algorithms)\n  File \"/venv/lib/python3.12/site-packages/jwt/api_jws.py\", line 282, in _verify_signature\n\
+    \    raise InvalidSignatureError('Signature verification failed')\njwt.exceptions.InvalidSignatureError: Signature verification\
+    \ failed\nThis same JWT logic worked perfectly on 3.11. Could there be a change in how 3.12 handles crypto libraries or\
+    \ byte encoding?"
+- id: fp11
+  kind: answer
+  fw: python
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"/app/data_proc.py\", line 55, in <module>\n    df = pd.read_parquet('data.parquet')\n\
+    \  File \"/usr/local/lib/python3.12/site-packages/pandas/io/parquet.py\", line 673, in read_parquet\n    return impl.read(path,\
+    \ columns=columns, **kwargs)\n  File \"/usr/local/lib/python3.12/site-packages/pandas/io/parquet.py\", line 316, in read\n\
+    \    return self.api.parquet.read_table(path, columns=columns, **kwargs).to_pandas()\n  File \"/usr/local/lib/python3.12/site-packages/pyarrow/parquet/core.py\"\
+    , line 2911, in read_table\n    dataset = _ParquetDatasetAdapter(\n  File \"/usr/local/lib/python3.12/site-packages/pyarrow/parquet/core.py\"\
+    , line 2185, in __init__\n    self.fs = _get_filesystem(path_or_paths, filesystem)\n  File \"/usr/local/lib/python3.12/site-packages/pyarrow/parquet/core.py\"\
+    , line 603, in _get_filesystem\n    raise ValueError(f\"Could not infer filesystem for {path_or_paths}\")\nValueError:\
+    \ Could not infer filesystem for data.parquet\nI just bumped to 3.12 and pyarrow seems to be failing on file path resolution.\
+    \ Is this related to path handling changes in the new version?"
+- id: fp12
+  kind: answer
+  fw: python
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"/app/models.py\", line 20, in <module>\n    class User(BaseModel):\n  File\
+    \ \"/venv/lib/python3.12/site-packages/pydantic/_internal/_model_construction.py\", line 192, in __new__\n    cls.__pydantic_complete_init__()\n\
+    \  File \"/venv/lib/python3.12/site-packages/pydantic/_internal/_model_construction.py\", line 524, in __pydantic_complete_init__\n\
+    \    raise PydanticUserError(f\"Type {t} not resolvable\")\npydantic.errors.PydanticUserError: Type 'Optional[datetime]'\
+    \ not resolvable\nUpdating to Python 3.12 broke my Pydantic models. Does 3.12's stricter type checking interfere with\
+    \ how Pydantic resolves forward references?"
+- id: fp13
+  kind: answer
+  fw: python
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"/app/worker.py\", line 102, in process\n    results = pool.map(task_func,\
+    \ items)\n  File \"/usr/local/lib/python3.12/multiprocessing/pool.py\", line 367, in map\n    return self._map_async(func,\
+    \ iterable, mapstar, chunksize).get()\n  File \"/usr/local/lib/python3.12/multiprocessing/pool.py\", line 774, in get\n\
+    \    raise self._value\n  File \"/usr/local/lib/python3.12/multiprocessing/pool.py\", line 125, in worker\n    result\
+    \ = (True, func(*args, **kwds))\n  File \"/app/worker.py\", line 45, in task_func\n    obj = pickle.loads(data)\n  File\
+    \ \"/usr/local/lib/python3.12/pickle.py\", line 1618, in load\n    return Unpickler(file, *, fix_imports=fix_imports).load()\n\
+    _pickle.UnpicklingError: invalid load key, 'v'.\nI'm getting random unpickling errors when scaling up processes on Python\
+    \ 3.12. Did the pickle protocol or internal buffer handling change in this release?"
+- id: fp14
+  kind: answer
+  fw: python
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"/app/web.py\", line 12, in <module>\n    app = FastAPI()\n  File \"/venv/lib/python3.12/site-packages/fastapi/applications.py\"\
+    , line 72, in __init__\n    self.dependency_overrides: Dict[Callable[..., Any], Callable[..., Any]] = {}\n  File \"/venv/lib/python3.12/typing.py\"\
+    , line 1551, in __getitem__\n    return _GenericAlias(self, origin, args)\nTypeError: __init__() takes 2 positional arguments\
+    \ but 3 were given\nSeems like a conflict between typing module updates in 3.12 and FastAPI's internal generics. Any patches\
+    \ or workarounds for this?"
+- id: fy1
+  kind: answer
+  fw: pytorch
+  style: prose
+  q: I'm trying to use torch.compile() on my custom nn.Module, but it keeps throwing a graph break error when I hit a standard
+    Python dictionary lookup inside the forward pass. I've tried wrapping the lookup in a torch.jit.script_if_tracing block,
+    but that didn't help. Is there a way to make the graph capture handle these lookups, or do I need to refactor my entire
+    data flow to be index-based tensors?
+- id: fy2
+  kind: answer
+  fw: pytorch
+  style: prose
+  q: My DataLoader is causing a massive memory leak when using num_workers > 0 on CUDA. I've tried pinning memory and setting
+    persistent_workers=True, but my resident set size just keeps climbing until the OOM killer hits. It seems like the shared
+    memory buffers aren't being cleared between epochs. What's the standard way to debug memory ownership in the multi-processing
+    context for PyTorch 2.x?
+- id: fy3
+  kind: answer
+  fw: pytorch
+  style: prose
+  q: 'I''m getting a ''RuntimeError: one of the variables needed for gradient computation has been modified by an inplace
+    operation'' during my backward pass. I''m using an AdamW optimizer and my custom autograd function is definitely not modifying
+    the inputs in-place. Is it possible that the new torch.compile mode is causing hidden in-place writes during the optimization
+    step? How can I trace back exactly which tensor is causing the version counter mismatch?'
+- id: fy4
+  kind: answer
+  fw: pytorch
+  style: prose
+  q: I'm attempting to load a model saved via torch.save() from a 1.x environment into a 2.x runtime, but the state_dict keys
+    are failing due to changes in how nested modules are serialized. I tried using the weights_only=True flag, but that just
+    throws an unpickling error. Is there a migration utility to map legacy state_dicts to the new module structure, or am
+    I stuck manually renaming every layer?
+- id: fy5
+  kind: answer
+  fw: pytorch
+  style: prose
+  q: Mixed precision training with torch.amp is giving me NaNs after about 500 steps, even with gradient scaling enabled.
+    I've verified that my loss function isn't hitting infinity, but the scaling factor drops to zero rapidly. Could this be
+    related to the new fused kernels in 2.x being too aggressive with FP16 range? What settings should I tweak to get more
+    stable gradients without reverting to FP32?
+- id: fy6
+  kind: answer
+  fw: pytorch
+  style: prose
+  q: I am seeing significant overhead when moving tensors to the GPU using .to('cuda') inside the training loop, even with
+    non_blocking=True. I've profiled it and it seems like there's an implicit synchronization happening somewhere. Does PyTorch
+    2.x have a specific way to warm up the stream or a new way to handle asynchronous transfers that I'm missing? I expected
+    the streams to overlap, but my GPU utilization is hovering around 40%.
+- id: fy7
+  kind: answer
+  fw: pytorch
+  style: prose
+  q: I have a complex model where I'm trying to compute a second-order derivative, but the torch.func.hessian integration
+    seems to conflict with my custom optimizer's state updates. It works fine when I compute the Hessian separately, but integrated
+    into the training loop, the memory usage spikes exponentially. Is there a known incompatibility between functional transforms
+    and the current stateful optimizer paradigm?
+- id: fy8
+  kind: answer
+  fw: pytorch
+  style: prose
+  q: My model's training speed doesn't increase at all when I enable torch.compile(mode='reduce-overhead'). I'm running on
+    an A100, and I expected the CUDA graph capture to handle the small kernel launches better. I've tried padding my inputs
+    to fixed sizes to avoid dynamic shapes, but the graph still seems to be re-capturing every iteration. What are the specific
+    constraints that prevent successful static graph capture?
+- id: fy9
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "RuntimeError: CUDA error: device-side assert triggered\n  File \"/usr/local/lib/python3.10/site-packages/torch/nn/functional.py\"\
+    , line 2589, in nll_loss\n    return torch._C._nn.nll_loss_nd(input, target, weight, _Reduction.get_enum(reduction), ignore_index,\
+    \ eps)\n  File \"/usr/local/lib/python3.10/site-packages/torch/nn/modules/loss.py\", line 1184, in forward\n    return\
+    \ F.nll_loss(F.log_softmax(input, 1), target, ...)\n  File \"train.py\", line 45, in training_step\n    loss = criterion(output,\
+    \ labels)\nMy labels are definitely in the range [0, C-1], but I keep hitting this assert on the GPU. Is this related\
+    \ to how torch.compile interacts with the CUDA stream?"
+- id: fy10
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "torch._dynamo.exc.Unsupported: call_function: <built-in method item of Tensor object>\n  File \"model.py\", line 112,\
+    \ in forward\n    if (self.step_count % 100).item() == 0:\n  File \"/usr/local/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py\"\
+    , line 104, in _fn\n    return fn(*args, **kwargs)\nI’m trying to use torch.compile on my custom RNN, but it fails whenever\
+    \ I try to check a tensor value for control flow. How do I get past this without stripping out the logging logic?"
+- id: fy11
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "RuntimeError: One of the differentiated Tensors does not require grad\n  File \"/usr/local/lib/python3.10/site-packages/torch/autograd/__init__.py\"\
+    , line 200, in grad\n    return Variable._execution_engine.run_backward(\n  File \"trainer.py\", line 88, in compute_gradients\n\
+    \    grads = torch.autograd.grad(outputs, inputs, grad_outputs=grad_ones)\nI’m using torch.func.functional_call to run\
+    \ a forward pass, and now my backward pass is breaking. Why does it think the weights aren't requiring grad when they\
+    \ are defined in the nn.Module?"
+- id: fy12
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "AttributeError: 'NoneType' object has no attribute 'device'\n  File \"/usr/local/lib/python3.10/site-packages/torch/utils/data/_utils/collate.py\"\
+    , line 175, in collate\n    return default_collate(batch)\n  File \"dataset.py\", line 22, in <getitem>\n    return torch.tensor(data)\n\
+    I’m using a custom Map-style dataset with PyTorch 2.0 and suddenly the collator is failing on my lazy-loaded tensors.\
+    \ It seems like the internal buffer isn't being initialized correctly."
+- id: fy13
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "RuntimeError: Trying to backward through the graph a second time\n  File \"/usr/local/lib/python3.10/site-packages/torch/tensor.py\"\
+    , line 488, in backward\n    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)\n  File\
+    \ \"engine.py\", line 210, in train\n    loss.backward()\n  File \"engine.py\", line 215, in train\n    loss.backward()\n\
+    My training loop logic hasn't changed, but after upgrading to 2.1, the graph retention seems to behave differently. Do\
+    \ I need to manually clear the cache or graph buffers now?"
+- id: fy14
+  kind: answer
+  fw: pytorch
+  style: traceback
+  q: "torch._dynamo.errors.BackendCompilerFailed: backend='inductor' raised:\n  File \"/usr/local/lib/python3.10/site-packages/torch/_inductor/compile_fx.py\"\
+    , line 125, in compile_fx\n    return fx_codegen.codegen(gm, example_inputs)\n  File \"/usr/local/lib/python3.10/site-packages/torch/_inductor/ir.py\"\
+    , line 450, in create_node\n    raise NotImplementedError(\"Unsupported operation for Triton backend\")\nEverything runs\
+    \ fine in eager mode, but torch.compile with Inductor is blowing up on a simple reshape. Is there a way to debug which\
+    \ specific operation in my graph is causing the Triton backend to crash?"
+- id: ff1
+  kind: answer
+  fw: fastapi
+  style: prose
+  q: I'm hitting a 405 error when trying to use a trailing slash in my FastAPI routes, even though `redirect_slashes` is set
+    to True. I've tried defining both versions of the path, but it breaks my OpenAPI schema generation. How can I force consistency
+    without duplicating every single endpoint definition?
+- id: ff2
+  kind: answer
+  fw: fastapi
+  style: prose
+  q: My Pydantic models are failing to validate nested lists of objects when I receive a payload from the frontend. I tried
+    using `Union` types and `Discriminated Unions`, but the error messages are unhelpful and just say 'field required'. What's
+    the best way to debug schema resolution in complex recursive models?
+- id: ff3
+  kind: answer
+  fw: fastapi
+  style: prose
+  q: I'm trying to use a database session dependency, but it's not closing correctly when a background task is triggered.
+    I've tried using `yield` in the dependency and adding `Depends` to the background task, but the connection stays open.
+    Is there a specific pattern for keeping sessions alive during background execution?
+- id: ff4
+  kind: answer
+  fw: fastapi
+  style: prose
+  q: My custom middleware is getting executed before the request reaches the specific path operation, which is causing issues
+    with my auth headers. I tried changing the middleware order, but it seems like the base middleware catches everything
+    regardless. How can I scope middleware to only specific sub-routers?
+- id: ff5
+  kind: answer
+  fw: fastapi
+  style: prose
+  q: I have an authentication dependency using `HTTPBearer` that works fine for most routes, but I need to bypass it for a
+    few specific health-check endpoints. I've tried creating an 'optional' dependency, but it still forces the auth check
+    even when the token is missing. How do I conditionally disable global dependencies?
+- id: ff6
+  kind: answer
+  fw: fastapi
+  style: prose
+  q: 'I''m running into a ''RuntimeError: You must call it from the event loop'' when trying to trigger a background task
+    from within a sub-dependency. I tried wrapping the call in `asyncio.create_task`, but the request finishes before the
+    task actually executes. What is the standard way to handle async background work safely?'
+- id: ff7
+  kind: answer
+  fw: fastapi
+  style: prose
+  q: My FastAPI unit tests are failing because the dependency override isn't persisting across different test functions. I
+    tried using `app.dependency_overrides` in a `pytest` fixture, but it keeps polluting the global state for other tests.
+    How can I cleanly reset or scope overrides for each test case?
+- id: ff8
+  kind: answer
+  fw: fastapi
+  style: prose
+  q: I'm deploying to AWS Lambda with Mangum, but my response headers are being stripped somewhere in the proxy layer. I tried
+    debugging the response object before it leaves the middleware, and the headers are present, but the client never sees
+    them. Is this a known limitation with FastAPI headers in serverless environments?
+- id: ff9
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"starlette/routing.py\", line 76, in app\n    response = await func(request)\n\
+    \  File \"fastapi/routing.py\", line 289, in app\n    raw_response = await run_endpoint_function(...)\n  File \"fastapi/concurrency.py\"\
+    , line 105, in run_in_threadpool\n    return await anyio.to_thread.run_sync(...)\n  File \"anyio/_backends/_asyncio.py\"\
+    , line 807, in run_sync\n    return await future\n  File \"concurrent/futures/thread.py\", line 58, in run\n    result\
+    \ = self.fn(*self.args, **self.kwargs)\n  File \"app/services.py\", line 45, in get_user_data\n    return db.query(User).filter(id=user_id).one()\n\
+    sqlalchemy.orm.exc.NoResultFound: No row was found for one().\nI keep getting a 500 error instead of a 404 when the user\
+    \ doesn't exist. How do I map SQLAlchemy exceptions to FastAPI HTTP responses?"
+- id: ff10
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "INFO:     Started server process [1234]\nINFO:     Waiting for application startup.\nERROR:    Exception in 'lifespan'\
+    \ hook\nTraceback (most recent call last):\n  File \"starlette/routing.py\", line 671, in lifespan\n    await self.router.startup()\n\
+    \  File \"starlette/routing.py\", line 630, in startup\n    await handler()\n  File \"app/main.py\", line 15, in startup_event\n\
+    \    await engine.connect()\nsqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at \"localhost\"\
+    \ failed: Connection refused\nMy database container isn't ready when FastAPI boots up, causing the whole app to crash\
+    \ on startup. What's the best way to implement a retry or wait-for-db logic in a lifespan event?"
+- id: ff11
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"uvicorn/protocols/http/httptools_impl.py\", line 401, in run_asgi\n   \
+    \ result = await app(scope, receive, send)\n  File \"fastapi/applications.py\", line 276, in __call__\n    await super().__call__(scope,\
+    \ receive, send)\n  File \"starlette/applications.py\", line 124, in __call__\n    await self.middleware_stack(scope,\
+    \ receive, send)\n  File \"starlette/middleware/errors.py\", line 184, in __call__\n    raise exc from None\n  File \"\
+    app/dependencies.py\", line 22, in get_token_header\n    raise HTTPException(status_code=403)\nfastapi.exceptions.HTTPException:\
+    \ 403\nI'm raising an HTTPException in a dependency, but it's not being caught by my custom ExceptionHandler for 403s.\
+    \ Does the exception handler have to be registered in a specific way to catch errors thrown inside dependencies?"
+- id: ff12
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "pydantic_core._pydantic_core.ValidationError: 1 validation error for Request\nbody -> user_id\n  field required (type=value_error.missing)\n\
+    \  File \"fastapi/routing.py\", line 166, in solve_dependencies\n    ...\n  File \"fastapi/dependencies/utils.py\", line\
+    \ 564, in solve_dependency\n    raise_error=True\nfastapi.exceptions.RequestValidationError: ...\nMy request validation\
+    \ is failing for a nested object, but the error message is totally unreadable. How can I customize the validation error\
+    \ response to show the user exactly which field in the JSON payload is malformed?"
+- id: ff13
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "Traceback (most recent call last):\n  File \"starlette/routing.py\", line 76, in app\n    response = await func(request)\n\
+    \  File \"app/main.py\", line 88, in upload_file\n    async for chunk in file.read():\nAttributeError: 'UploadFile' object\
+    \ has no attribute 'read' (did you mean 'read' as a coroutine?)\nI'm trying to read a file upload in chunks to save memory,\
+    \ but I keep hitting attribute errors. Is 'UploadFile' supposed to be awaited or used as an async iterator?"
+- id: ff14
+  kind: answer
+  fw: fastapi
+  style: traceback
+  q: "INFO:     127.0.0.1:54321 - \"POST /api/v1/process HTTP/1.1\" 500 Internal Server Error\nERROR:    Exception in 'lifespan'\
+    \ hook\nRuntimeError: Cannot run the event loop while another loop is running\n  File \"app/tasks.py\", line 12, in background_task\n\
+    \    asyncio.run(some_other_function())\nI'm trying to fire off a background process from a route, but Uvicorn is throwing\
+    \ this RuntimeError. Do I need to use BackgroundTasks from FastAPI, or can I just spawn an asyncio task directly?"
+- id: fo1
+  kind: abstain
+  fw: other
+  style: prose
+  q: I'm hitting a weird issue in Kubernetes where my pods keep getting stuck in 'Terminating' status. I've checked the finalizers
+    and tried force-deleting with --grace-period=0, but the resource just hangs there. How do I force a cleanup when a controller
+    is clearly not letting go of the object?
+- id: fo2
+  kind: abstain
+  fw: other
+  style: prose
+  q: Why is my Rust project throwing a lifetime error that doesn't make any sense? I'm trying to return a reference from a
+    struct method, but the compiler keeps insisting the data doesn't live long enough even though I've explicitly scoped it
+    correctly. Is there a way to debug the borrow checker's reasoning?
+- id: fo3
+  kind: abstain
+  fw: other
+  style: prose
+  q: My React component is triggering an infinite re-render loop whenever I update the state inside a useEffect hook. I've
+    tried wrapping the function in useCallback, but it still seems to trigger on every mount. How can I properly track which
+    dependency is causing this cycle?
+- id: fo4
+  kind: abstain
+  fw: other
+  style: prose
+  q: I'm running a complex query in PostgreSQL that performs perfectly on small datasets but falls off a cliff once the table
+    hits a few million rows. Explain analyze shows a sequential scan despite having an index on the column. Is there a way
+    to force the planner to use the index without rewriting the entire query?
+- id: fo5
+  kind: abstain
+  fw: other
+  style: prose
+  q: Terraform keeps trying to destroy and recreate my RDS instance every time I run a plan, even though I haven't changed
+    any configuration. It seems like a state mismatch, but I've already refreshed the state file manually. How can I pinpoint
+    exactly which property is triggering the replacement?
+- id: fo6
+  kind: abstain
+  fw: other
+  style: prose
+  q: I'm having major performance issues with my Kafka consumer group where lag keeps spiking under load. I've increased the
+    number of partitions, but now I'm seeing excessive rebalancing causing downtime. What is the standard approach for tuning
+    partition counts without blowing up the consumer health?
+- id: fo7
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: 'Why is pandas `SettingWithCopyWarning` triggering on a simple loc assignment in my filter chain?
+
+    ```
+
+    df.loc[df[''val''] > 0, ''col''] = 1
+
+    SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame
+
+    ```'
+- id: fo8
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: 'I''m trying to use `SQLAlchemy` with `asyncio` and `psycopg2` but it keeps throwing `InterfaceError: This connection
+    is not thread-safe`. Do I have to switch drivers or am I misconfiguring the engine?'
+- id: fo9
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: Why does `numpy` return a `VisibleDeprecationWarning` when I try to construct an array from jagged lists? Is there a
+    faster way to pad these rows without pre-allocating a massive matrix?
+- id: fo10
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: Getting a `RecursionError` inside `scikit-learn`'s `RandomForestClassifier` when fitting on a dataset with huge depth.
+    Is this a known limitation of the underlying Cython implementation?
+- id: fo11
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: 'Running into a `TypeError: ''NoneType'' object is not callable` in `Django` signals. It seems like the receiver isn''t
+    being imported before the signal fires. Any tips on where to register these to avoid the circular dependency?'
+- id: fo12
+  kind: abstain
+  fw: other
+  style: adjacent
+  q: 'Every time I try to run a `Flask` app with `gunicorn` and `gevent`, I get `RuntimeError: working outside of request
+    context`. Why is the context not propagating to the greenlets?'

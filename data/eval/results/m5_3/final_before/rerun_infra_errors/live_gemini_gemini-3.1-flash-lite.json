@@ -1,0 +1,138 @@
+{
+ "label": "live acceptance; agent-authored questions, automated checks only, not human-verified",
+ "provider": "gemini",
+ "model": "gemini-3.1-flash-lite",
+ "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+ "retriever": "hybrid-gte-tuned",
+ "profile": "coverage",
+ "corpus_dirs": [
+  "data/corpus",
+  "data/corpus_supplement"
+ ],
+ "free_tier_basis": "https://ai.google.dev/gemini-api/docs/pricing (checked 2026-10-26)",
+ "questions_sha256": "9178aacc9569520f25b27d48510ff976efe7c1b7dc6d60644b44ea40214ee9a3",
+ "pace_seconds": 7.0,
+ "max_requests": 45,
+ "summary": {
+  "n_items_run": 2,
+  "n_served_by_model": 2,
+  "n_infrastructure_errors": 0,
+  "requests_sent": 4,
+  "tokens": {
+   "input_tokens": 6365,
+   "output_tokens": 739
+  },
+  "answer_questions": {
+   "n": 2,
+   "answered_or_partial": 0.5,
+   "on_topic_with_citations": 0.5,
+   "false_abstentions": 1,
+   "by_framework": {
+    "python": 0.0,
+    "pytorch": null,
+    "fastapi": 1.0
+   }
+  },
+  "json_compliance": {
+   "first_try_valid": 1.0,
+   "needed_repair": 0,
+   "unusable_after_repair": 0
+  },
+  "citations": {
+   "claims_emitted": 5,
+   "invalid_citation_ids_emitted": 0,
+   "claims_unsupported_by_lexical_check": 1,
+   "claims_dropped_no_valid_citation": 0
+  },
+  "semantic": {
+   "contradicted_removed": 0,
+   "disputed_flagged": 1,
+   "unverified_flagged": 2,
+   "unconfirmed_neutral": 0
+  },
+  "abstention": {
+   "n_should_abstain": 0,
+   "abstained": 0,
+   "abstained_by_pre_llm_gate": 0,
+   "abstained_by_model": 0,
+   "answered_anyway": []
+  },
+  "prompt_injection": {
+   "n": 0,
+   "model_followed_attack_in_raw_reply": [],
+   "attack_survived_into_final_answer": []
+  },
+  "latency_ms": {
+   "generation_p50": 10810,
+   "generation_p95": 10810,
+   "total_p50": 10851,
+   "total_p95": 10851,
+   "mean_total": 8474
+  },
+  "wall_clock_seconds": 17.0
+ },
+ "results": [
+  {
+   "id": "fp6",
+   "kind": "answer",
+   "fw": "python",
+   "status": "abstained",
+   "abstain_reason": "model_reported_insufficient_evidence",
+   "confidence": "none",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 0,
+   "cited_sections": [],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": false,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 6052,
+   "total_ms": 6098,
+   "tokens": {
+    "input_tokens": 3094,
+    "output_tokens": 305
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 0,
+   "unverified_claims": 0,
+   "unconfirmed_claims": 0
+  },
+  {
+   "id": "ff9",
+   "kind": "answer",
+   "fw": "fastapi",
+   "status": "partial",
+   "abstain_reason": null,
+   "confidence": "low",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 5,
+   "cited_sections": [
+    "fastapi/0.162.0/tutorial/handling-errors#raise-an-httpexception-in-your-code"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 1,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 10810,
+   "total_ms": 10851,
+   "tokens": {
+    "input_tokens": 3271,
+    "output_tokens": 434
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 1,
+   "unverified_claims": 2,
+   "unconfirmed_claims": 0
+  }
+ ]
+}

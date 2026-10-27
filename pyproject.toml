@@ -102,6 +102,8 @@ ignore = ["E501", "N812"]  # N812: `torch.nn.functional as F` is the universal c
 # Archived Milestone 5.2 exploration scripts (they produced the "tried and not adopted" table in docs/rag-coverage.md);
 # kept runnable for reproducibility, not held to the library's naming/style rules.
 "scripts/m5_2/*" = ["N803", "N806", "SIM115", "SIM905", "UP031"]
+# Milestone 5.3 diagnosis/experiment scripts: script-style (module-level code, late imports, throwaway lambdas)
+"scripts/m5_3/*" = ["B905", "E402", "E501", "E731", "N803", "N806", "SIM115", "SIM905", "UP031", "B023", "C901", "PLC0415"]
 
 [tool.ruff.lint.flake8-bugbear]
 # Frozen dataclasses: safe as default argument values.

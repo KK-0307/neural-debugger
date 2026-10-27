@@ -20,11 +20,21 @@ class CorpusSectionRetriever:
     really is in the index.
     """
 
-    def __init__(self, retriever: Any, corpus: Corpus) -> None:
+    def __init__(self, retriever: Any, corpus: Corpus, similarity: Any = None) -> None:
         self._retriever = retriever
+        self._similarity = (
+            similarity  # a dense retriever (encode_query / search_vector), for the sufficiency gate
+        )
         self._corpus = corpus
         self._known = corpus.section_ids
         self.name = getattr(retriever, "name", "retriever")
+
+    def query_similarity(self, query: str, framework: str | None = None) -> float | None:
+        """Cosine between the question and the best-matching documentation section, or None without a dense component."""
+        if self._similarity is None:
+            return None
+        hits = self._similarity.search_vector(self._similarity.encode_query(query), 1, framework)
+        return float(hits[0].score) if hits else None
 
     def search(self, query: str, k: int, framework: str | None) -> list[RetrievedSection]:
         out: list[RetrievedSection] = []
@@ -45,3 +55,14 @@ class CorpusSectionRetriever:
                 )
             )
         return out
+
+
+def dense_similarity_source(factory: Any, system: str = "dense-gte-small") -> Any:
+    """The dense retriever of a ``SystemFactory`` for the gate's similarity signal (cached: shared with the hybrid system)."""
+    try:
+        return factory.build(system)
+    except (
+        KeyError,
+        ImportError,
+    ):  # no such system / retrieval extras missing: the lexical gate applies
+        return None
