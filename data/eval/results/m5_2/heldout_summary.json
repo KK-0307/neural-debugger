@@ -1,0 +1,115 @@
+{
+ "label": "Held-out (model-generated, 48 questions) before vs after the Milestone 5.2 changes; agent review only",
+ "before_commit": "91521dc",
+ "after_commit": "35087b0",
+ "in_scope": {
+  "n": 36,
+  "answered_before": 11,
+  "answered_after": 14,
+  "rate_before": 0.306,
+  "rate_after": 0.389,
+  "wilson95_before": [
+   0.18,
+   0.469
+  ],
+  "wilson95_after": [
+   0.248,
+   0.551
+  ],
+  "gained": [
+   "hp8",
+   "hp10",
+   "hp12",
+   "hf12"
+  ],
+  "lost": [
+   "ht3"
+  ],
+  "exact_sign_test_p_two_sided": 0.375
+ },
+ "out_of_scope": {
+  "n": 12,
+  "abstained_before": 12,
+  "abstained_after": 12
+ },
+ "answer_quality_agent_review": {
+  "before": {
+   "good": 8,
+   "generic": 1,
+   "weak": 2,
+   "n": 11
+  },
+  "after": {
+   "good": 10,
+   "generic": 1,
+   "weak": 3,
+   "n": 14
+  }
+ },
+ "abstention_appropriateness_after_agent_review": {
+  "appropriate": 8,
+  "avoidable_gate": 4,
+  "avoidable_model": 2,
+  "borderline": 8
+ },
+ "citation_validity": {
+  "invalid_ids_before": "0/38 claims",
+  "invalid_ids_after": "0/56 claims"
+ },
+ "claims_removed_by_lexical_support": {
+  "before": "5/38",
+  "after": "9/56"
+ },
+ "semantic_flags": {
+  "before": {
+   "contradicted_removed": 0,
+   "disputed_flagged": 0,
+   "unverified_flagged": 4,
+   "unconfirmed_neutral": 29
+  },
+  "after": {
+   "contradicted_removed": 0,
+   "disputed_flagged": 2,
+   "unverified_flagged": 2,
+   "unconfirmed_neutral": 41
+  }
+ },
+ "latency_ms": {
+  "before": {
+   "generation_p50": 9969,
+   "generation_p95": 21543,
+   "total_p50": 40,
+   "total_p95": 18339,
+   "mean_total": 5199
+  },
+  "after": {
+   "generation_p50": 8299,
+   "generation_p95": 21606,
+   "total_p50": 4069,
+   "total_p95": 21256,
+   "mean_total": 5254
+  }
+ },
+ "tokens": {
+  "before": {
+   "input_tokens": 51523,
+   "output_tokens": 5387
+  },
+  "after": {
+   "input_tokens": 72932,
+   "output_tokens": 6796
+  }
+ },
+ "by_framework": {
+  "before": {
+   "python": 0.167,
+   "pytorch": 0.25,
+   "fastapi": 0.5
+  },
+  "after": {
+   "python": 0.417,
+   "pytorch": 0.167,
+   "fastapi": 0.583
+  }
+ }
+}

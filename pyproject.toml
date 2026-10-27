@@ -98,6 +98,11 @@ select = ["E", "F", "I", "B", "UP", "SIM", "N"]
 # Line length is enforced by `ruff format`; it cannot wrap long string literals/docstring examples.
 ignore = ["E501", "N812"]  # N812: `torch.nn.functional as F` is the universal convention
 
+[tool.ruff.lint.per-file-ignores]
+# Archived Milestone 5.2 exploration scripts (they produced the "tried and not adopted" table in docs/rag-coverage.md);
+# kept runnable for reproducibility, not held to the library's naming/style rules.
+"scripts/m5_2/*" = ["N803", "N806", "SIM115", "SIM905", "UP031"]
+
 [tool.ruff.lint.flake8-bugbear]
 # Frozen dataclasses: safe as default argument values.
 extend-immutable-calls = [

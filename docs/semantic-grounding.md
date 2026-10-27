@@ -42,7 +42,7 @@ cleaner lets through besides documentation sources.
 
 | `ND_RAG_SEMANTIC_CHECK` | cost | use |
 |---|---|---|
-| `off` | none | the `PipelineConfig` library default; reproduces the frozen Milestone 5 evaluation exactly |
+| `off` | none | the `PipelineConfig` library default; the Milestone 5 evaluation harness uses it (4 of its 146 numbers moved later because of the user-typed-identifier exemption, see section 5) |
 | `rules` | ~0.2 ms per claim, no extra memory | **deployment default** |
 | `nli` | `cross-encoder/nli-deberta-v3-xsmall` (Apache-2.0, 283 MB, pinned revision `a1508764`): ~37 ms p50 / 73 ms p95 per claim on this Mac's CPU, **+520 MB peak memory**, 6 s load | optional; not baked into the Docker image |
 
@@ -141,7 +141,7 @@ the claim is correct (the multipart answer above), which is a real usability cos
    loopback URLs are let through.
 
 After 1-3 the lexical judge rejected 4 of 60 real claims instead of 9. Frozen Milestone 5 results were re-run with the
-fixed code: all 146 non-timing numbers are identical.
+fixed code: all 146 non-timing numbers were identical at that point. (Correction: the user-typed-identifier exemption of item 3 was added after this check; with it, 4 of the 146 numbers differ, all confidence counts on one train answer, low -> medium. Found and attributed in Milestone 5.2.)
 
 ## 6. Limitations
 

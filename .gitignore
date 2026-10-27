@@ -44,3 +44,6 @@ data/embeddings/*
 
 # shipped model weights (small; see models/*/summary.json)
 !models/**/*.pt
+
+# user feedback written by the running backend (may contain opted-in question text)
+var/

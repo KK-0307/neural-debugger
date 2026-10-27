@@ -283,7 +283,7 @@ with the production hybrid is about 8 ms (the one-off model load takes ~6 s on f
 | Citations are real and validated | verified (validity exact; support heuristic) |
 | Insufficient-evidence cases handled | verified for the pre-LLM gate (84% of out-of-scope questions, 3.7% false abstention); with a real LLM 9 of 9 out-of-scope questions abstained (8 by the gate, 1 by the model); the real model also reported insufficient evidence on 12 in-scope questions (section 11) |
 | Tests: success, failure, malicious retrieved instructions, missing sources, provider errors | 97 new tests in `tests/rag` and `tests/backend/test_debug_api.py` (96 run; the live-LLM test skips without a key) |
-| All earlier checks still pass | see PROGRESS.md; the frozen Milestone 5 evaluation reproduces exactly (146 of 146 non-timing numbers) with the Milestone 5.1 code |
+| All earlier checks still pass | see PROGRESS.md; the frozen Milestone 5 result files are unchanged; re-running that evaluation with the final 5.1 code differs in 4 of 146 non-timing numbers (confidence counts; one train answer moves low -> medium) because of the user-typed-identifier exemption added late in 5.1. An earlier check of "146 of 146" was correct when made and stale afterwards; Milestone 5.2 changes none of them |
 
 ## 10. Limitations
 
@@ -395,7 +395,7 @@ not in the cited text (reasonable observations); **its recall on real errors is 
 4. The first semantic design flagged 85-95% of real claims and removed five correct ones (section 4 of semantic-grounding.md).
 5. The generation probe and a filename bug (`gemini-2.5-flash` collapsed to `gemini-2` in the output path) in the harness.
 
-After these fixes the frozen Milestone 5 evaluation reproduces exactly.
+After fixes 1-2 the frozen Milestone 5 evaluation reproduced exactly; fix 3 (user-typed values) later moved 4 of its 146 non-timing numbers (see section 9).
 
 ### 11.6 Deployment (Docker)
 

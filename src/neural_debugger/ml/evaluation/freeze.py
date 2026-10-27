@@ -228,6 +228,51 @@ def verify_m51(root: Path = Path(".")) -> list[str]:
     return [f + " changed" for f, h in frozen["files"].items() if now["files"].get(f) != h]
 
 
+M52_FREEZE_PATH = Path("data/eval/m5_2_freeze.json")
+M52_FROZEN_FILES = [
+    "configs/sources_supplement.yaml",
+    "data/corpus_supplement/chunks.jsonl",
+    "data/corpus_supplement/documents.jsonl",
+    "data/manifests/corpus_supplement_manifest.json",
+    "data/embeddings_rag/gte-small/embeddings.npy",
+    "data/embeddings_rag/gte-small/meta.json",
+    "data/eval/rag/heldout_gemini.yaml",
+    "data/eval/rag/coverage_dev.yaml",
+    "data/eval/rag/traceback_dev.yaml",
+    "data/eval/results/m5_2/coverage_dev_before.json",
+    "data/eval/results/m5_2/coverage_dev_after.json",
+    "data/eval/results/m5_2/dev_regression.json",
+    "data/eval/results/m5_2/heldout_before/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_2/heldout_before/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_2/heldout_before/live_merged_as_run.json",
+    "data/eval/results/m5_2/heldout_after/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_2/heldout_after/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_2/heldout_after/live_merged_as_run.json",
+    "data/eval/results/m5_2/heldout_summary.json",
+    "data/eval/results/m5_2/heldout_agent_review.yaml",
+]
+
+
+def compute_m52(root: Path = Path(".")) -> dict[str, Any]:
+    return {
+        "freeze_id": "rag-coverage-v1",
+        "depends_on": "rag-live-and-grounding-v1 (data/eval/m5_1_freeze.json)",
+        "note": (
+            "Milestone 5.2: supplement corpus (official pages, merged in memory over the untouched base corpus), the "
+            "held-out question set (model-generated, generated before any change and never used for tuning), the BEFORE "
+            "(91521dc) and AFTER (35087b0) live runs on it, and the development diagnosis. Labels are agent-made; "
+            "no human verification."
+        ),
+        "files": {f: _sha(root / f) for f in M52_FROZEN_FILES},
+    }
+
+
+def verify_m52(root: Path = Path(".")) -> list[str]:
+    frozen = json.loads((root / M52_FREEZE_PATH).read_text())
+    now = compute_m52(root)
+    return [f + " changed" for f, h in frozen["files"].items() if now["files"].get(f) != h]
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument(
@@ -243,9 +288,21 @@ def main(argv: list[str] | None = None) -> int:
             "verify-m5",
             "create-m5_1",
             "verify-m5_1",
+            "create-m5_2",
+            "verify-m5_2",
         ],
     )
     args = ap.parse_args(argv)
+    if args.command == "create-m5_2":
+        M52_FREEZE_PATH.write_text(json.dumps(compute_m52(), indent=1, sort_keys=True) + "\n")
+        print(f"wrote {M52_FREEZE_PATH}")
+        return 0
+    if args.command == "verify-m5_2":
+        problems = verify_m52()
+        for p_ in problems:
+            print("DRIFT:", p_)
+        print("frozen M5.2 evidence intact" if not problems else f"{len(problems)} drift(s)")
+        return 1 if problems else 0
     if args.command == "create-m5_1":
         M51_FREEZE_PATH.write_text(json.dumps(compute_m51(), indent=1, sort_keys=True) + "\n")
         print(f"wrote {M51_FREEZE_PATH}")

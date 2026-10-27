@@ -5,17 +5,17 @@ explanation, troubleshooting steps, and citations to indexed documentation. Retr
 with a **custom transformer encoder written from scratch on PyTorch tensors**, evaluated against
 baselines, inside a RAG pipeline.
 
-> **Project status: early development (Milestones 1-5 of 8, incl. 5.1).** Built and verified: API skeleton, a
-> reproducible documentation corpus, a labeled evaluation set, BM25, **pretrained dense / hybrid / reranked
-> retrieval**, a **from-scratch PyTorch transformer dual encoder** (negative result: it does not beat BM25,
-> see [docs/ml-model.md](docs/ml-model.md)), and a **RAG pipeline with validated citations, abstention,
-> semantic claim checking and prompt-injection defences** ([docs/rag.md](docs/rag.md)). **Live generation was
-> exercised with one real model** (Gemini 3.1 Flash-Lite, free tier) on 51 questions: grounded and rarely wrong
-> when it answers, but it answered only 80% of my own in-scope questions and **38% of independently generated
-> ones**. No human labelled anything. The backend Docker image (2.7 GiB) builds and passes smoke tests in CI.
-> Not built yet: the debugging UI, persistence.
-> [PROGRESS.md](PROGRESS.md) lists exactly what is done and verified. No result is claimed that has
-> not been measured.
+> **Project status: early development (Milestones 1-6, incl. 5.1 and 5.2).** Built and verified: a reproducible documentation
+> corpus, a labeled evaluation set, BM25, **pretrained dense / hybrid / reranked retrieval**, a **from-scratch PyTorch
+> transformer dual encoder** (negative result: it does not beat BM25, see [docs/ml-model.md](docs/ml-model.md)), a **RAG
+> pipeline with validated citations, abstention, semantic claim checking and prompt-injection defences**
+> ([docs/rag.md](docs/rag.md)), and now **a web application** ([docs/frontend.md](docs/frontend.md)): paste a stack trace, get a
+> cited diagnosis with an honest statement of uncertainty, inspect the exact source text, and give feedback.
+> **Be realistic about quality:** with a real model (Gemini 3.1 Flash-Lite, free tier) it answered **39% of in-scope questions
+> on a held-out set of independently written questions** (up from 31% before the Milestone 5.2 pass; not statistically
+> significant) and declined all 12 out-of-scope ones; answers it gives were mostly good in my own review and always carried valid citations, but it
+> declines many questions the documentation does not cover. Nothing was reviewed by a human. Not built yet: persistence of
+> answers, user accounts, production hardening. [PROGRESS.md](PROGRESS.md) lists exactly what is done and verified.
 
 ## What exists today
 
@@ -45,6 +45,12 @@ baselines, inside a RAG pipeline.
   ids in 98 claims, 9 of 9 out-of-scope questions abstained, 12 of 15 agent-authored in-scope questions answered but
   only **9 of 24** independent (model-generated) ones; the abstentions are retrieval misses, verbose questions the gate
   over-abstains on, and troubleshooting causes the reference docs do not contain. [docs/rag.md](docs/rag.md)
+* **Coverage pass** (Milestone 5.2): a diagnosis of where in-scope questions were lost (corpus gaps, ranking, evidence
+  selection, the gate), a 4-page official-documentation supplement merged over the frozen corpus, traceback API hints, and an
+  evidence profile that shows the model more text **without** loosening the gate; held-out answer rate 31% -> 39%.
+  [docs/rag-coverage.md](docs/rag-coverage.md)
+* **Web UI** (`frontend/`, Milestone 6): paste -> diagnosis, fixes, copyable code, citation chips that open the text the model saw,
+  a "how sure is this?" panel, abstentions explained, local history, opt-in feedback. [docs/frontend.md](docs/frontend.md)
 * **Semantic grounding** (`rag/semantic.py`): changed numbers/signatures remove a claim; negation and NLI conflicts
   flag it. On a synthetic adversarial set the lexical judge alone silently accepted 52% of defective claims, rules
   21%, rules + NLI 2.7% (test half). **Recall on real model errors is unmeasured.**
@@ -76,6 +82,18 @@ make demo-neural Q="RuntimeError: mat1 and mat2 shapes cannot be multiplied (64x
 
 For that query BM25's top hits are Python's generic `RuntimeError` / `BrokenExecutor` pages, while the
 hybrid returns PyTorch's *matmul* and *broadcasting* sections (first neural query is slower: model load).
+
+## The application
+
+```bash
+echo 'GEMINI_API_KEY=<your free-tier key>' >> .env      # git-ignored; never printed or committed
+ND_LLM_PROVIDER=gemini ND_LLM_MIN_INTERVAL_SECONDS=7 ND_LLM_MAX_REQUESTS=200 make dev-backend   # http://localhost:8000
+make dev-frontend                                            # http://localhost:3000
+# no key? ND_LLM_PROVIDER=extractive makes the backend assemble (stilted) answers from documentation sentences
+```
+
+Docs: [docs/frontend.md](docs/frontend.md) (what the UI does and what was verified), [docs/rag-coverage.md](docs/rag-coverage.md)
+(the coverage pass: diagnosis, what helped, what did not, held-out results).
 
 ## Quick start
 
@@ -115,7 +133,7 @@ RAG with a free hosted LLM (no local weights): put `GEMINI_API_KEY=...` in the g
 
 Docs: [architecture](docs/architecture.md) · [data pipeline](docs/data-pipeline.md) ·
 [evaluation](docs/evaluation.md) · [neural retrieval](docs/neural-retrieval.md) ·
-[custom transformer](docs/ml-model.md) · [RAG](docs/rag.md) · [semantic grounding](docs/semantic-grounding.md) ·
+[custom transformer](docs/ml-model.md) · [RAG](docs/rag.md) · [semantic grounding](docs/semantic-grounding.md) · [coverage pass](docs/rag-coverage.md) · [web app](docs/frontend.md) ·
 [technical decisions](docs/technical-decisions.md).
 
 macOS note: if `import neural_debugger` fails inside `.venv`, run `chflags -R nohidden .venv` (see

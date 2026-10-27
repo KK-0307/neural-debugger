@@ -26,7 +26,15 @@ def test_every_copied_path_exists_and_is_not_dockerignored() -> None:
         if ln.strip() and not ln.startswith(("#", "!"))
     ]
     sources = _copy_sources()
-    assert {"src", "data/corpus", "data/embeddings", "pyproject.toml", "uv.lock"} <= set(sources)
+    assert {
+        "src",
+        "data/corpus",
+        "data/embeddings",
+        "data/corpus_supplement",
+        "data/embeddings_rag",
+        "pyproject.toml",
+        "uv.lock",
+    } <= set(sources)
     for src in sources:
         assert (ROOT / src).exists(), f"Dockerfile copies {src} which does not exist"
         assert not any(src == i or src.startswith(i + "/") for i in ignored), (
@@ -48,3 +56,17 @@ def test_image_installs_the_retrieval_stack_cpu_only_and_stays_offline_without_s
 def test_baked_model_revision_comes_from_the_apps_own_config() -> None:
     assert "configs/neural.yaml" in DOCKERFILE and "snapshot_download" in DOCKERFILE
     assert "revision=spec['revision']" in DOCKERFILE
+
+
+def test_default_settings_only_reference_paths_the_image_contains() -> None:
+    from neural_debugger.backend.config import Settings
+
+    s = Settings()
+    copied = set(_copy_sources())
+    for path in [s.corpus_dir, *s.corpus_supplement_dirs, s.embedding_dir]:
+        assert path in copied, (
+            f"default setting points at {path}, which the Dockerfile does not copy"
+        )
+    assert (
+        "ND_FEEDBACK_DIR" in DOCKERFILE and "chown" in DOCKERFILE
+    )  # the non-root user must be able to write feedback

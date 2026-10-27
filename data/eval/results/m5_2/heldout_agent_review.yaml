@@ -1,0 +1,60 @@
+label: AGENT review of the held-out run (the assistant that built the system reading the outputs). Not independent, not human. Made after the
+  system was frozen; no tuning followed.
+answers_before:
+  hp1: generic
+  hp7: weak
+  ht2: good
+  ht3: good
+  ht9: weak
+  hf2: good
+  hf3: good
+  hf7: good
+  hf9: good
+  hf10: good
+  hf11: good
+answers_after:
+  hp1: generic
+  hp7: weak
+  hp8: weak
+  hp10: good
+  hp12: good
+  ht2: good
+  ht9: weak
+  hf2: good
+  hf3: good
+  hf7: good
+  hf9: good
+  hf10: good
+  hf11: good
+  hf12: good
+weak_notes:
+  hp7: blames an old FastAPI version for ImportError '(unknown location)', which usually means a local typing.py shadows the stdlib; misleading
+  hp8: generic steps, no diagnosis; does not explain the syntax error
+  ht9: cites an unrelated section (forward-mode AD) for an in-place-operation error; the right section is a known retrieval miss
+abstentions_after:
+  appropriate:
+  - hp9
+  - hp11
+  - ht1
+  - ht7
+  - ht11
+  - ht12
+  - hf6
+  - hf8
+  avoidable_gate:
+  - hp2
+  - hp4
+  - hp5
+  - ht6
+  avoidable_model:
+  - ht3
+  - ht4
+  borderline:
+  - hp3
+  - hp6
+  - ht5
+  - ht8
+  - ht10
+  - hf1
+  - hf4
+  - hf5

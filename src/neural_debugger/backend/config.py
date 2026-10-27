@@ -55,6 +55,7 @@ class Settings(BaseSettings):
     # remove claims the semantic check only *disputes* (NLI / negation signals) instead of flagging them;
     # measured to remove some correct claims on real model output, so off by default
     rag_drop_disputed: bool = False
+    feedback_dir: str = "var/feedback"  # append-only JSONL of user feedback; git-ignored
     rag_max_concurrent: int = 4
     rag_warm_on_startup: bool = False
 

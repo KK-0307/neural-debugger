@@ -20,6 +20,9 @@ RUN uv sync --frozen --no-dev --no-editable --extra neural
 COPY configs/neural.yaml configs/m4.yaml configs/
 COPY data/corpus data/corpus
 COPY data/embeddings data/embeddings
+# Milestone 5.2: official pages merged over the frozen base corpus in memory, with their own embeddings
+COPY data/corpus_supplement data/corpus_supplement
+COPY data/embeddings_rag data/embeddings_rag
 
 ENV PATH="/app/.venv/bin:$PATH" HF_HOME=/opt/hf
 # Bake the pinned embedding model used to encode queries (revision read from the same config the app uses), only
@@ -31,8 +34,9 @@ allow_patterns=['*.json', '*.txt', 'model.safetensors', '1_Pooling/*'])"
 
 # No secrets live in the image: API keys are only ever read from environment variables at run time
 # (e.g. `docker run -e GEMINI_API_KEY ...`). With no ND_LLM_PROVIDER the endpoint answers 503 llm_not_configured.
-ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 ND_RETRIEVER_DEVICE=cpu
-RUN useradd --system --no-create-home app
+ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 ND_RETRIEVER_DEVICE=cpu ND_FEEDBACK_DIR=/app/var/feedback
+RUN useradd --system --no-create-home app \
+ && mkdir -p /app/var/feedback && chown -R app /app/var
 USER app
 
 EXPOSE 8000

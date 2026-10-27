@@ -58,6 +58,10 @@ class CitationOut(BaseModel):
 class SourceOut(CitationOut):
     cited: bool
     flags: list[str]
+    excerpt: str = Field(
+        default="",
+        description="The documentation text the model was shown (so a citation can be checked)",
+    )
 
 
 class ValidationOut(BaseModel):
@@ -80,6 +84,13 @@ class TimingsOut(BaseModel):
     total_ms: float
 
 
+class EvidenceGateOut(BaseModel):
+    level: Literal["none", "weak", "ok"]
+    coverage: float = Field(
+        description="IDF-weighted share of the question's key terms found in the evidence, 0-1"
+    )
+
+
 class DebugResponse(BaseModel):
     request_id: str | None
     status: Literal["answered", "partial", "abstained", "error"]
@@ -97,6 +108,7 @@ class DebugResponse(BaseModel):
     timings: TimingsOut
     provider: str | None
     model: str | None
+    evidence_gate: EvidenceGateOut | None = None
     trace: dict[str, Any] | None = None
 
 
@@ -141,6 +153,7 @@ def to_response(ans: RAGAnswer, request_id: str | None, include_trace: bool) -> 
                 version=e.version,
                 cited=e.id in cited,
                 flags=list(e.flags),
+                excerpt=e.text,
             )
             for e in ans.evidence
         ],
@@ -160,8 +173,16 @@ def to_response(ans: RAGAnswer, request_id: str | None, include_trace: bool) -> 
         timings=TimingsOut(**vars(ans.timings)),
         provider=ans.provider,
         model=ans.model,
+        evidence_gate=_gate(ans),
         trace=ans.trace if include_trace else None,
     )
+
+
+def _gate(ans: RAGAnswer) -> EvidenceGateOut | None:
+    suff = ans.trace.get("sufficiency")
+    if not isinstance(suff, dict):
+        return None
+    return EvidenceGateOut(level=suff["level"], coverage=float(suff["coverage"]))
 
 
 _ERROR_STATUS = {

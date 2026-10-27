@@ -1,0 +1,173 @@
+{
+ "label": "live acceptance; agent-authored questions, automated checks only, not human-verified",
+ "provider": "gemini",
+ "model": "gemini-3.1-flash-lite",
+ "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+ "retriever": "hybrid-gte-tuned",
+ "profile": "coverage",
+ "corpus_dirs": [
+  "data/corpus",
+  "data/corpus_supplement"
+ ],
+ "free_tier_basis": "https://ai.google.dev/gemini-api/docs/pricing (checked 2026-10-26)",
+ "questions_sha256": "4b8298067816156576a65641144e4d1619d9c552512899e89445f7d0ddfc7308",
+ "pace_seconds": 7.0,
+ "max_requests": 45,
+ "summary": {
+  "n_items_run": 3,
+  "n_served_by_model": 3,
+  "n_infrastructure_errors": 0,
+  "requests_sent": 4,
+  "tokens": {
+   "input_tokens": 7166,
+   "output_tokens": 914
+  },
+  "answer_questions": {
+   "n": 3,
+   "answered_or_partial": 0.667,
+   "on_topic_with_citations": 0.667,
+   "false_abstentions": 1,
+   "by_framework": {
+    "python": null,
+    "pytorch": null,
+    "fastapi": 0.667
+   }
+  },
+  "json_compliance": {
+   "first_try_valid": 1.0,
+   "needed_repair": 0,
+   "unusable_after_repair": 0
+  },
+  "citations": {
+   "claims_emitted": 6,
+   "invalid_citation_ids_emitted": 0,
+   "claims_unsupported_by_lexical_check": 0,
+   "claims_dropped_no_valid_citation": 0
+  },
+  "semantic": {
+   "contradicted_removed": 0,
+   "disputed_flagged": 1,
+   "unverified_flagged": 1,
+   "unconfirmed_neutral": 4
+  },
+  "abstention": {
+   "n_should_abstain": 0,
+   "abstained": 0,
+   "abstained_by_pre_llm_gate": 0,
+   "abstained_by_model": 0,
+   "answered_anyway": []
+  },
+  "prompt_injection": {
+   "n": 0,
+   "model_followed_attack_in_raw_reply": [],
+   "attack_survived_into_final_answer": []
+  },
+  "latency_ms": {
+   "generation_p50": 8496,
+   "generation_p95": 17231,
+   "total_p50": 8531,
+   "total_p95": 17263,
+   "mean_total": 9124
+  },
+  "wall_clock_seconds": 27.4
+ },
+ "results": [
+  {
+   "id": "hf2",
+   "kind": "answer",
+   "fw": "fastapi",
+   "status": "answered",
+   "abstain_reason": null,
+   "confidence": "low",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 3,
+   "cited_sections": [
+    "fastapi/0.162.0/tutorial/dependencies/sub-dependencies#using-the-same-dependency-multiple-times",
+    "fastapi/0.162.0/tutorial/dependencies/dependencies-with-yield#early-exit-and-scope"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 17231,
+   "total_ms": 17263,
+   "tokens": {
+    "input_tokens": 2796,
+    "output_tokens": 252
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 1,
+   "unverified_claims": 0,
+   "unconfirmed_claims": 2
+  },
+  {
+   "id": "hf8",
+   "kind": "answer",
+   "fw": "fastapi",
+   "status": "abstained",
+   "abstain_reason": "model_reported_insufficient_evidence",
+   "confidence": "none",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 0,
+   "cited_sections": [],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": false,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 8496,
+   "total_ms": 8531,
+   "tokens": {
+    "input_tokens": 1814,
+    "output_tokens": 401
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 0,
+   "unverified_claims": 0,
+   "unconfirmed_claims": 0
+  },
+  {
+   "id": "hf9",
+   "kind": "answer",
+   "fw": "fastapi",
+   "status": "answered",
+   "abstain_reason": null,
+   "confidence": "medium",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 3,
+   "cited_sections": [
+    "fastapi/0.162.0/tutorial/path-params#data-validation",
+    "fastapi/0.162.0/tutorial/handling-errors#override-request-validation-exceptions",
+    "fastapi/0.162.0/tutorial/path-params#data-conversion"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 1533,
+   "total_ms": 1579,
+   "tokens": {
+    "input_tokens": 2556,
+    "output_tokens": 261
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 0,
+   "unverified_claims": 1,
+   "unconfirmed_claims": 2
+  }
+ ]
+}

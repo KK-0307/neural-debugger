@@ -1,0 +1,27 @@
+{
+ "depends_on": "rag-live-and-grounding-v1 (data/eval/m5_1_freeze.json)",
+ "files": {
+  "configs/sources_supplement.yaml": "04a50e036063760ed47ca93de571f42c15b256dc7753320ea8e66a01419fc5cf",
+  "data/corpus_supplement/chunks.jsonl": "5d78c33cb81cd5bab563d818e4aa8fc7ceb90231c83712985f868fbc7cea86d1",
+  "data/corpus_supplement/documents.jsonl": "f96fc1754dcf045c1f726d42f439c3245639b988e009db3cdca0665680fd1911",
+  "data/embeddings_rag/gte-small/embeddings.npy": "0dc55dc37b90ce5cf69a379a087edce42579bb0cf046b421b248b5a7a29decd7",
+  "data/embeddings_rag/gte-small/meta.json": "99acfa57ae5ec26ccfdabce81436866ad3ab1ba9100127881c5400258c22b39c",
+  "data/eval/rag/coverage_dev.yaml": "4f8df6af0bab66546055a957e84a1c45d4d1518653c978d6e25e87eba4c75107",
+  "data/eval/rag/heldout_gemini.yaml": "4b8298067816156576a65641144e4d1619d9c552512899e89445f7d0ddfc7308",
+  "data/eval/rag/traceback_dev.yaml": "b5c2c6c3432754b69b26e618928594a173f03b20881b688803703ee7d7aa2d4b",
+  "data/eval/results/m5_2/coverage_dev_after.json": "27870eaeba57501ff88b136d7902c04edd703a4e5503cc85220cbd6935db06b1",
+  "data/eval/results/m5_2/coverage_dev_before.json": "9098cca5bbdc5dd56ba60a674e05fd541d686a310e07e274192adebd7a9ab791",
+  "data/eval/results/m5_2/dev_regression.json": "34e3fa441b4053c3a0671b9706b748172075dbdb6943c347a491d2f90aa426b1",
+  "data/eval/results/m5_2/heldout_after/live_gemini_gemini-3.1-flash-lite.raw.json": "07de9c63ac5739d7e4aee4f527bd292faadb7220f83a14a0c541dee52d524b1c",
+  "data/eval/results/m5_2/heldout_after/live_merged_as_run.json": "e2764d4f037b22f13f7ee78b7dbad18ccb7a29d5966cc63593c13d72b4705d81",
+  "data/eval/results/m5_2/heldout_after/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json": "09af9db01c249a34259de5541d50d88eb4740cc9176a8c304e833cf965593f86",
+  "data/eval/results/m5_2/heldout_agent_review.yaml": "0c55e450b3ddcfc71cedc200083a0de7b6501708f783b9a2c1f61438d9dd281a",
+  "data/eval/results/m5_2/heldout_before/live_gemini_gemini-3.1-flash-lite.raw.json": "b3687e12e7f754f1a4f4308d28d917d70d38c70f706c195fe06ad39388008305",
+  "data/eval/results/m5_2/heldout_before/live_merged_as_run.json": "277efa4f07ff6a5a7f65e6fdf3650729b2f8f64b1c41741bda813eb794f9c7d2",
+  "data/eval/results/m5_2/heldout_before/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json": "474f1b957c0511271e9626397c938328ed659ed41f44e069483e21540c0c4a91",
+  "data/eval/results/m5_2/heldout_summary.json": "506858b7d66922d2ecf39603b32d52d02ccc7925eabefa2526360117760d3a06",
+  "data/manifests/corpus_supplement_manifest.json": "f8e7b11bb2e98d49158c95af7fef71bc7de65bb58beb376929f9b5cc0ef76fe4"
+ },
+ "freeze_id": "rag-coverage-v1",
+ "note": "Milestone 5.2: supplement corpus (official pages, merged in memory over the untouched base corpus), the held-out question set (model-generated, generated before any change and never used for tuning), the BEFORE (91521dc) and AFTER (35087b0) live runs on it, and the development diagnosis. Labels are agent-made; no human verification."
+}

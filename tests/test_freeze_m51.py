@@ -28,3 +28,15 @@ def test_m51_drift_is_detected(tmp_path: Path) -> None:
     victim = tmp_path / "data/eval/rag/grounding_adversarial.jsonl"
     victim.write_text(victim.read_text() + json.dumps({"tampered": True}) + "\n")
     assert freeze.verify_m51(tmp_path) == ["data/eval/rag/grounding_adversarial.jsonl changed"]
+
+
+@pytest.mark.skipif(not (ROOT / freeze.M52_FREEZE_PATH).exists(), reason="no M5.2 freeze file")
+def test_m52_evidence_is_intact_and_drift_is_detected(tmp_path: Path) -> None:
+    assert freeze.verify_m52(ROOT) == []
+    for rel in [*freeze.M52_FROZEN_FILES, str(freeze.M52_FREEZE_PATH)]:
+        dest = tmp_path / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(ROOT / rel, dest)
+    victim = tmp_path / "data/eval/rag/heldout_gemini.yaml"
+    victim.write_text(victim.read_text() + "# edited after the fact\n")
+    assert freeze.verify_m52(tmp_path) == ["data/eval/rag/heldout_gemini.yaml changed"]

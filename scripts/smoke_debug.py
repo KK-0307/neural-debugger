@@ -86,6 +86,37 @@ def main() -> int:
         f"OK status={body['status']} confidence={body['confidence']} citations={len(body['citations'])} "
         f"provider={body['provider']} total_ms={body['timings']['total_ms']:.0f}"
     )
+    assert body["sources"] and all(src["excerpt"] for src in body["sources"]), (
+        "sources must carry the text shown"
+    )
+
+    # the Milestone 5.2 supplement (official 3.12 'what's new') must be reachable inside the deployment
+    status, body2 = call(
+        f"{base}/api/v1/debug",
+        {
+            "question": "Was the distutils package removed from the standard library in Python 3.12?",
+            "framework": "python",
+        },
+    )
+    assert status == 200, f"expected 200, got {status}: {body2}"
+    urls = [src["url"] for src in body2["sources"]]
+    assert any("whatsnew/3.12" in u for u in urls), f"supplement corpus not served; sources: {urls}"
+    print("OK supplement corpus reachable (whatsnew/3.12 among the sources)")
+
+    # feedback: accepted, validated, and the question is not stored unless opted in
+    status, fb = call(
+        f"{base}/api/v1/feedback",
+        {
+            "request_id": body["request_id"],
+            "rating": "not_helpful",
+            "reasons": ["incomplete"],
+            "question": "private",
+        },
+    )
+    assert status == 201 and fb["stored_question"] is False, (status, fb)
+    status, bad = call(f"{base}/api/v1/feedback", {"request_id": "x", "rating": "meh"})
+    assert status == 422 and bad["error"]["code"] == "validation_error", (status, bad)
+    print("OK feedback endpoint (stored without the question; invalid input rejected)")
     return 0
 
 

@@ -1,12 +1,29 @@
 # Progress
 
-**Current milestone:** 5 / 5.1 - RAG with validated citations, live-LLM verification, semantic grounding and a
-deployable image. **Live generation was exercised with one real model** (Gemini 3.1 Flash-Lite, free tier,
-2026-10-26): 51 questions, valid JSON every time, no invalid citation ids. **The honest headline is mixed:** it answered
-80% of my own in-scope questions but **only 9 of 24 independently generated ones** (the rest are retrieval misses,
-over-abstention on verbose questions, and troubleshooting causes the reference docs do not contain). **The Docker image builds in CI and
-passes two container smoke tests, but at 2.7 GiB it is not small.** No human labelled anything. Awaiting your review; not
-proceeding to Milestone 6.
+**Current milestone:** 6 - the Neural Debugger application (with a focused coverage pass, 5.2, before it). **Built, tested and
+used in a real browser against the real backend and the real Gemini free-tier model; nobody but me has used it, and no result here
+is human-verified.** Awaiting your review; not proceeding to Milestone 7.
+
+**Milestone 5.2 in one paragraph (details: `docs/rag-coverage.md`).** On a **held-out set of 48 questions written by Gemini and
+frozen before any change** the share of in-scope questions answered rose from **11/36 (31%) to 14/36 (39%)**; all 12 out-of-scope
+questions still abstained, citation ids stayed 100% valid, and agent-reviewed answer quality was 8 good / 1 generic / 2 weak
+before and 10 / 1 / 3 after. **That gain is not statistically established** (4 questions gained, 1 lost, sign-test p = 0.375;
+PyTorch got slightly worse). What produced it: a 4-page official-documentation **supplement** merged over the untouched base
+corpus (needed because Python's `sys`, `sqlite3` and the 3.12 "what's new" were not indexed), **traceback API hints**, and an
+**evidence profile that shows the model 7 sections while the sufficiency gate keeps judging exactly what it judged before**
+(measured: letting the gate see the larger set cut out-of-scope abstention from 81% to ~70%, which the brief forbids). On the
+development set the gate blocked none of the 13 answerable questions, so its thresholds were not touched; the held-out set later
+showed it **does** over-abstain on verbose symptom questions (4 clear cases), recorded as the main remaining limitation and
+deliberately not tuned on. Query normalisation, lexical re-scoring, query decomposition and cross-encoder reranking were tried and
+rejected with numbers. GitHub issues were **not** ingested (no redistribution licence); Stack Overflow was not used.
+
+**Milestone 6 in one paragraph (details: `docs/frontend.md`).** A responsive Next.js app: paste a trace or question, optionally
+pick Python / PyTorch / FastAPI, get a status banner, likely cause, numbered fixes, copyable example code (never run), conflicts,
+what the docs did not cover, per-statement badges, citation chips that open the exact text the model was shown, an honest "how sure
+is this?" panel built only from validator counters, specific error states, local history, and a feedback form
+(question stored **only on opt-in**, secrets redacted, append-only JSONL). New `POST /api/v1/feedback`; `/debug` now also returns
+sources' excerpts, the gate and semantic fields. 30 new frontend tests + 9 backend tests; verified in the browser at desktop and
+375 px, offline provider and a live Gemini answer (3.7 s).
 
 **Milestone 5.1 in one paragraph (details: `docs/rag.md` section 11, `docs/semantic-grounding.md`).** Added a free hosted
 LLM path (Gemini through the existing OpenAI-compatible provider; env-var key, hard request cap, spacing, no fallback model),
@@ -48,7 +65,9 @@ and speed (~1 ms/query). Test pool expansion for the custom systems was post-hoc
 | 4 | Custom transformer + contrastive training | **Done**; negative result vs. baselines (`docs/ml-model.md`) |
 | 5 | RAG with validated citations (API, providers, evaluation) | **Done**; live run on one free-tier model (51 questions, agent-reviewed only) |
 | 5.1 | Live verification, semantic grounding, Docker retrieval image | **Done**; CI green on `d148b6d` incl. real image build + smoke tests |
-| - | Debugging UI, persistence, performance, beta | Not started |
+| 5.2 | Coverage pass (diagnosis, supplement corpus, traceback hints, evidence profile) | **Done locally**; modest, not significant gain on held-out (`docs/rag-coverage.md`) |
+| 6 | Debugging UI (paste, diagnose, cite, uncertainty, feedback) | **Done locally**; browser-verified by me only; not yet in CI |
+| - | Persistence, performance, beta | Not started |
 
 ## Step 1 - Milestone 2 finalised and committed
 
@@ -118,10 +137,11 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 
 | Check | Result |
 |---|---|
-| `uv run pytest` (full env, models cached) | **286 passed, 1 skipped** (the skip is the live Anthropic test; M5.1 added 35 tests: semantic stage, free-tier config, harness, Dockerfile guards, freeze) |
-| CI-equivalent env (`uv sync --locked --extra data --extra index`, no PyTorch; validates the regenerated `uv.lock`) | ruff + format clean, strict mypy clean (98 src / 41 test files), **244 passed, 9 skipped**; **GitHub Actions green on `d148b6d`** (python, frontend, docker). The first run on `a388397` was cancelled by me after I found my own CI secret-check was toothless under `set -e`; the fix is `d148b6d` |
-| `make freeze-verify` (M2 baseline + M3 + M4 + M5 + new M5.1 evidence) | intact; frozen M5 evaluation **re-run with the 5.1 code: 146 of 146 non-timing numbers identical** |
-| Frontend `lint`, `typecheck`, `npm test` (8), `npm run build` | clean (frontend untouched) |
+| `uv run pytest` (full env, models cached) | **304 passed, 1 skipped** (the skip is the live Anthropic test; 5.2 + 6 added 18) |
+| CI-equivalent env (`uv sync --locked --extra data --extra index`, no PyTorch) | ruff + format clean, strict mypy clean (101 src / 43 test files), **262 passed, 9 skipped**; **not yet pushed, so CI has not run on Milestones 5.2/6** (the Docker image with the new `COPY` paths has not been built anywhere) |
+| `make freeze-verify` (M2, M3, M4, M5, M5.1 and new M5.2 evidence) | all intact. The held-out question file's sha256 is identical to when it was generated, before any change. **Re-running the frozen M5 evaluation with today's code differs in 4 of 146 non-timing numbers** (one train answer low -> medium confidence); attributed by running the pushed 5.1 commit: the cause is a 5.1 change, 5.2 adds none (an earlier "146 of 146 identical" was true when checked and stale after the user-typed-identifier fix; docs corrected) |
+| Frontend `lint`, `typecheck`, `npm test`, `npm run build` | clean; **38 tests** (8 older + 30 new) |
+| UI in a real browser (Claude built-in browser) | example -> answer, chip -> source text, abstention view, feedback stored with `question: null`, history restore, 375 px with no overflow; a live Gemini answer through the UI in 3.7 s. One browser engine, two widths, no screen-reader or axe audit |
 | **CI Docker job** (the first real image build) | image **2,766 MiB**; no `.env`/secret-like variable/key in the image; container smoke test with a provider: `answered`, 4 citations, first request 9.6 s; without a provider: 503 `llm_not_configured` with 5 sources. Local Docker is not installed, so everything about the image is CI evidence |
 | Container simulation before CI (no Docker here): staging dir with exactly the Dockerfile's `COPY` set, fresh `uv sync --frozen --extra neural`, model baked into an isolated offline `HF_HOME`, scrubbed env, mock OpenAI-compatible server | `/api/v1/debug` -> `answered`, 4 PyTorch citations; without a provider -> informative 503 `llm_not_configured` listing 5 retrieved sources; first request 31 s (cold retriever) |
 | Secrets audit | the API key value appears in no file in the repository or in any run output; `.env` is git-ignored; a key-shaped test fixture is now assembled at runtime so secret scanners do not trip |
@@ -130,6 +150,10 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 | Test access log | M3: 4 systems x 2 judgment sets = 8; M4: 6 systems x 2 judgment sets = 12; + 1 retroactive M2 entry (21 lines); asserted by a test |
 
 ## Known issues / limitations
+
+- **Coverage (5.2):** only 39% of in-scope held-out questions are answered; the gate over-abstains on verbose symptom questions (4 clear cases); 2 of 13 development golds are still not retrieved; Python stdlib coverage is 31 modules; citation *relevance* is not guaranteed (a weakly related citation passed the checks on one held-out answer).
+- **The held-out gain is within noise** (p = 0.375) and PyTorch regressed 3 -> 2; one good answer was lost when the model was shown more evidence.
+- **UI (6):** unreviewed by any human, one browser engine, feedback is stored but nothing consumes it, no auth, no streaming, history is browser-local only.
 
 - **Labels are not human-verified**; pooling and expansion were done by the same assistant. Gains are
   measured against these labels. Human review of a sample is the main outstanding quality step.
@@ -165,6 +189,6 @@ ground truth), and anything human-verified (n = 0). Every correctness judgement 
 1. Human review of a label sample (and optionally Stack Overflow-derived labels, which need approval).
 2. Decide whether to invest further in the custom model (more/LLM-generated training data, distillation
    from a pretrained model) or use the pretrained hybrid as the retrieval backbone for RAG.
-3. Decide whether to attack retrieval recall and the gate's over-abstention on verbose questions before the UI, and whether
-   to add a troubleshooting-style source (needs your approval, e.g. Stack Overflow) to the corpus.
-4. Human review of a sample of live answers and of the semantic flags; the debugging UI and persistence (Milestone 6).
+3. A filler-aware coverage score for the gate, calibrated on a **new** development set (the held-out one is spent) and checked
+   against out-of-scope questions; more official pages for the Python standard library.
+4. Human review of a sample of live answers, semantic flags and the UI; push and let CI build the new image.
