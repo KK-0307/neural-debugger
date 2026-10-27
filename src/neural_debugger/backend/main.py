@@ -1,5 +1,7 @@
 """FastAPI application factory."""
 
+import logging
+import threading
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -21,6 +23,15 @@ from .services.demo_guard import DemoLimiter
 from .services.feedback import FeedbackStore
 from .services.rag import PipelineHolder
 
+logger = logging.getLogger(__name__)
+
+
+def _warm(app: FastAPI) -> None:
+    try:
+        app.state.rag.get()
+    except Exception as exc:  # noqa: BLE001 - logged by type only; the next request retries and reports a proper error
+        logger.error("rag warm-up failed: %s", type(exc).__name__)
+
 
 def create_app(settings: Settings | None = None, pipeline: RAGPipeline | None = None) -> FastAPI:
     settings = settings or get_settings()
@@ -30,7 +41,9 @@ def create_app(settings: Settings | None = None, pipeline: RAGPipeline | None = 
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         app.state.engine = create_db_engine(settings.database_url)
         if settings.rag_warm_on_startup:
-            app.state.rag.get()
+            # in the background: the server accepts connections (and /health answers) while the retriever loads, which is what
+            # a host that wakes the container on demand needs; a request that arrives meanwhile waits for the same build
+            threading.Thread(target=_warm, args=(app,), name="rag-warmup", daemon=True).start()
         yield
         app.state.engine.dispose()
 

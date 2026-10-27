@@ -63,3 +63,20 @@ def test_security_headers_are_set_on_api_and_site(settings: Settings, tmp_path: 
             assert r.headers["x-content-type-options"] == "nosniff"
             assert r.headers["x-frame-options"] == "DENY"
             assert r.headers["referrer-policy"]
+
+
+def test_a_failing_background_warm_up_does_not_stop_the_server(
+    settings: Settings, tmp_path: Path
+) -> None:
+    cfg = settings.model_copy(
+        update={
+            "rag_warm_on_startup": True,
+            "corpus_dir": str(tmp_path / "missing"),
+            "corpus_supplement_dirs": [],
+        }
+    )
+    with TestClient(create_app(cfg)) as c:
+        assert c.get("/health").json()[
+            "version"
+        ]  # the server is up while (and after) the warm-up fails
+        assert c.get("/api/v1/config").status_code == 200
