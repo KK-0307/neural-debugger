@@ -52,6 +52,13 @@ class FeedbackResponse(BaseModel):
     responses={503: {"model": ErrorResponse}},
 )
 def submit_feedback(body: FeedbackRequest, request: Request) -> JSONResponse | FeedbackResponse:
+    if request.app.state.settings.demo_mode == "readonly":
+        return error_response(
+            403,
+            "demo_readonly",
+            "Feedback is disabled in this read-only demo; nothing is stored.",
+            getattr(request.state, "request_id", None),
+        )
     store: FeedbackStore = request.app.state.feedback
     keep_question = bool(body.include_question and body.question)
     record = {

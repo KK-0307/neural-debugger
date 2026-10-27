@@ -29,6 +29,15 @@
         "cd \"$(git rev-parse --show-toplevel)\" && PYTHONPATH=\"$PWD/src\" ND_LLM_PROVIDER=gemini ND_LLM_MODEL=gemini-3.1-flash-lite ND_LLM_MIN_INTERVAL_SECONDS=7 ND_LLM_MAX_REQUESTS=40 ND_RAG_WARM_ON_STARTUP=true ND_FEEDBACK_DIR=/tmp/nd-feedback-demo exec uv run --no-sync uvicorn neural_debugger.backend.main:app --port 8000"
       ],
       "port": 8000
+    },
+    {
+      "name": "demo-static",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd \"$(git rev-parse --show-toplevel)/frontend/out\" && exec python3 -m http.server 3100"
+      ],
+      "port": 3100
     }
   ]
 }

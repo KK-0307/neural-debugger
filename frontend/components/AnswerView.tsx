@@ -17,10 +17,12 @@ export default function AnswerView({
   result,
   question,
   apiBaseUrl,
+  readOnly = false,
 }: {
   result: DebugResponse;
   question: string;
   apiBaseUrl?: string;
+  readOnly?: boolean;
 }) {
   const [activeSource, setActiveSource] = useState<string | null>(null);
   const [showAllCaveats, setShowAllCaveats] = useState(false);
@@ -120,7 +122,13 @@ export default function AnswerView({
           )}
 
           <UncertaintyPanel result={result} />
-          <FeedbackPanel result={result} question={question} apiBaseUrl={apiBaseUrl} />
+          {readOnly ? (
+            <p className="rounded-xl border border-dashed border-zinc-300 p-4 text-sm text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
+              Feedback is disabled in this read-only demo: nothing is stored and nothing is sent anywhere.
+            </p>
+          ) : (
+            <FeedbackPanel result={result} question={question} apiBaseUrl={apiBaseUrl} />
+          )}
         </div>
 
         <aside aria-label="Source documents" className="lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:self-start lg:overflow-y-auto">

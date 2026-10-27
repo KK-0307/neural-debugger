@@ -1,0 +1,6 @@
+# The three canonical example prompts offered by the live UI, recorded once through the real pipeline for the static demo.
+provenance: {note: "recorded for the public demo; not an evaluation set", date: "2026-10-27"}
+questions:
+  - {id: demo1, kind: answer, fw: pytorch, q: "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!"}
+  - {id: demo2, kind: answer, fw: fastapi, q: "I POST JSON to my FastAPI endpoint and get 422 Unprocessable Entity with 'Field required' for body. What is wrong?"}
+  - {id: demo3, kind: answer, fw: python, q: "RuntimeWarning: coroutine 'main' was never awaited. Why does this appear and how do I fix it?"}

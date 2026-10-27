@@ -56,6 +56,14 @@ class Settings(BaseSettings):
     # measured to remove some correct claims on real model output, so off by default
     rag_drop_disputed: bool = False
     feedback_dir: str = "var/feedback"  # append-only JSONL of user feedback; git-ignored
+    # Public read-only demo (docs/demo.md): "readonly" disables feedback, caps the question length, rate-limits per client and
+    # per day, and never logs question text. Off by default.
+    demo_mode: Literal["off", "readonly"] = "off"
+    demo_max_question_chars: int = 2000
+    demo_rate_per_minute: int = 4
+    demo_rate_per_day: int = 40
+    demo_budget_per_day: int = 150  # answers per day across all visitors
+    trust_proxy_headers: bool = False  # honour X-Forwarded-For (only behind a proxy you control)
     rag_max_concurrent: int = 4
     rag_warm_on_startup: bool = False
 

@@ -1,0 +1,2172 @@
+{
+ "meta": {
+  "model": "Gemini 3.1 Flash-Lite (free tier)",
+  "recorded_on": "2026-10-27",
+  "pipeline_commit": "339bfe9",
+  "note": "replayed recorded model replies; see docs/demo.md"
+ },
+ "examples": [
+  {
+   "id": "ex-device",
+   "title": "PyTorch: tensors on different devices",
+   "framework": "pytorch",
+   "question": "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!",
+   "note": "The headline example, and not a clean one: one statement was removed as unsupported and two are only partly supported, so confidence is low. Shown as it came out.",
+   "response": {
+    "request_id": "demo-ex-device",
+    "status": "partial",
+    "confidence": "low",
+    "diagnosis": {
+     "text": "PyTorch operations require all input tensors to reside on the same device; attempting to perform operations on tensors spread across different devices (e.g., 'cuda:0' and 'cpu') is not allowed by default and triggers this error.",
+     "citations": [
+      "E2"
+     ],
+     "support": "supported",
+     "support_score": 0.79,
+     "semantic": "unconfirmed",
+     "semantic_reason": "term coverage 0.65, identifier coverage 1.00"
+    },
+    "steps": [
+     {
+      "text": "Identify the devices of the tensors involved in the operation using the `Tensor.device` property.",
+      "citations": [
+       "E1"
+      ],
+      "support": "partial",
+      "support_score": 0.625,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.38, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [
+     {
+      "language": "python",
+      "code": "device = torch.device('cuda:0')\ntensor_a = tensor_a.to(device)\ntensor_b = tensor_b.to(device)\nresult = tensor_a + tensor_b",
+      "explanation": {
+       "text": "Explicitly move all tensors to the target device (e.g., 'cuda:0') using the `to()` method to ensure they are on the same device before computation.",
+       "citations": [
+        "E1",
+        "E2"
+       ],
+       "support": "partial",
+       "support_score": 0.64,
+       "semantic": "unconfirmed",
+       "semantic_reason": "term coverage 0.40, identifier coverage 1.00"
+      }
+     }
+    ],
+    "conflicts": [],
+    "caveats": [
+     "Limited documentation coverage: partial coverage (60%) of the key terms."
+    ],
+    "missing_information": [],
+    "citations": [
+     {
+      "id": "E2",
+      "title": "CUDA semantics",
+      "heading": "CUDA semantics",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/cuda.html#cuda-semantics",
+      "framework": "pytorch",
+      "version": "2.14"
+     },
+     {
+      "id": "E1",
+      "title": "Tensor Attributes",
+      "heading": "Tensor Attributes > torch.device",
+      "url": "https://docs.pytorch.org/docs/2.14/tensor_attributes.html#torch-device",
+      "framework": "pytorch",
+      "version": "2.14"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "Tensor Attributes",
+      "heading": "Tensor Attributes > torch.device",
+      "url": "https://docs.pytorch.org/docs/2.14/tensor_attributes.html#torch-device",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": true,
+      "flags": [],
+      "excerpt": "A `torch.device` is an object representing the device on which a `torch.Tensor` is\nor will be allocated.\n\nThe `torch.device` contains a device type (most commonly \"cpu\" or\n\"cuda\", but also potentially \"mps\", \"xpu\",\n\"xla\" or \"meta\") and optional\ndevice ordinal for the device type. If the device ordinal is not present, this object will always represent\nthe current device for the device type, even after `torch.cuda.set_device()` is called; e.g.,\na `torch.Tensor` constructed with device `'cuda'` is equivalent to `'cuda:X'` where X is\nthe result of `torch.cuda.current_device()`.\n\nA `torch.Tensor`'s device can be accessed via the `Tensor.device` property.\n\nA `torch.device` can be constructed using:\n\n- A device string, which is a string representation of the device type and optionally the device ordinal.\n- A device type and a device ordinal.\n- A device ordinal, where the current accelerator type will be used.\n\nVia a device string:\n\n```\n>>> torch.device('cuda:0')\ndevice(type='cuda', index=0)\n\n>>> torch.device('cpu')\ndevice(type='cpu')\n\n>>> torch.device('mps')\ndevice(type='mps')\n\n>>> torch.device('cuda')  # implicit index is the \"current device index\"\ndevice(type='cuda')\n```\n\nVia a device type and a device ordinal:\n\n```\n>>> torch.device('cuda', 0)\ndevice(type='cuda', index=0)\n\n>>> torch.device('mps', 0)\ndevice(type='mps', index=0)\n\n>>> torch.device('cpu', 0)\ndevice(type='cpu', index=0)\n```\n\nVia a device ordinal:\n\nNote: [...]"
+     },
+     {
+      "id": "E2",
+      "title": "CUDA semantics",
+      "heading": "CUDA semantics",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/cuda.html#cuda-semantics",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": true,
+      "flags": [],
+      "excerpt": "Created On: Jan 16, 2017 | Last Updated On: Jul 17, 2026\n\n`torch.cuda` is used to set up and run CUDA operations. It keeps track of\nthe currently selected GPU, and all CUDA tensors you allocate will by default be\ncreated on that device. The selected device can be changed with a\n`torch.cuda.device` context manager.\n\nHowever, once a tensor is allocated, you can do operations on it irrespective\nof the selected device, and the results will be always placed on the same\ndevice as the tensor.\n\nCross-GPU operations are not allowed by default, with the exception of\n`copy_()` and other methods with copy-like functionality\nsuch as `to()` and `cuda()`.\nUnless you enable peer-to-peer memory access, any attempts to launch ops on\ntensors spread across different devices will raise an error.\n\nBelow you can find a small example showcasing this:\n\n```python\ncuda = torch.device('cuda')     # Default CUDA device\ncuda0 = torch.device('cuda:0')\ncuda2 = torch.device('cuda:2')  # GPU 2 (these are 0-indexed)\n\nx = torch.tensor([1., 2.], device=cuda0)\n# x.device is device(type='cuda', index=0)\ny = torch.tensor([1., 2.]).cuda()\n# y.device is device(type='cuda', index=0)\n\nwith torch.cuda.device(1):\n    # allocates a tensor on GPU 1\n    a = torch.tensor([1., 2.], device=cuda)\n\n    # transfers a tensor from CPU to GPU 1\n    b = torch.tensor([1., 2.]).cuda()\n    # a.device and b.device are device(type='cuda', index=1) [...]"
+     },
+     {
+      "id": "E3",
+      "title": "CUDA semantics",
+      "heading": "CUDA semantics > Best practices > Device-agnostic code",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/cuda.html#device-agnostic-code",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Due to the structure of PyTorch, you may need to explicitly write\ndevice-agnostic (CPU or GPU) code; an example may be creating a new tensor as\nthe initial hidden state of a recurrent neural network.\n\nThe first step is to determine whether the GPU should be used or not. A common\npattern is to use Python's `argparse` module to read in user arguments, and\nhave a flag that can be used to disable CUDA, in combination with\n`is_available()`. In the following, `args.device` results in a\n`torch.device` object that can be used to move tensors to CPU or CUDA.\n\n```python\nimport argparse\nimport torch\n\nparser = argparse.ArgumentParser(description='PyTorch Example')\nparser.add_argument('--disable-cuda', action='store_true',\n                    help='Disable CUDA')\nargs = parser.parse_args()\nargs.device = None\nif not args.disable_cuda and torch.cuda.is_available():\n    args.device = torch.device('cuda')\nelse:\n    args.device = torch.device('cpu')\n```\n\nNote: [...]"
+     },
+     {
+      "id": "E4",
+      "title": "torch.load",
+      "heading": "torch.load > torch.load",
+      "url": "https://docs.pytorch.org/docs/2.14/generated/torch.load.html#torch.load",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```\ntorch.load(f, map_location=None, pickle_module=pickle, *, weights_only=True, mmap=None, **pickle_load_args)\n```\n\nLoads an object saved with `torch.save()` from a file.\n\nWarning:\n\n`torch.load()` uses an unpickler under the hood. Never load data from an untrusted source.\n\nSee weights_only security for more details.\n\n`torch.load()` uses Python's unpickling facilities but treats storages,\nwhich underlie tensors, specially. They are first deserialized on the\nCPU and are then moved to the device they were saved from. If this fails\n(e.g. because the run time system doesn't have certain devices), an exception\nis raised. However, storages can be dynamically remapped to an alternative\nset of devices using the `map_location` argument.\n\nIf `map_location` is a callable, it will be called once for each serialized\nstorage with two arguments: storage and location. The storage argument\nwill be the initial deserialization of the storage, residing on the CPU.\nEach serialized storage has a location tag associated with it which\nidentifies the device it was saved from, and this tag is the second\nargument passed to `map_location`. The builtin location tags are `'cpu'`\nfor CPU tensors and `'cuda:device_id'` (e.g. `'cuda:2'`) for CUDA tensors.\n`map_location` should return either `None` or a storage. If\n`map_location` returns a storage, it will be used as the final deserialized\nobject, already moved to the right device. Otherwise, `torch.load()` will [...]"
+     },
+     {
+      "id": "E5",
+      "title": "Windows FAQ",
+      "heading": "Windows FAQ > Usage (multiprocessing) > CUDA IPC operations",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/windows.html#cuda-ipc-operations",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```python\nTHCudaCheck FAIL file=torch\\csrc\\generic\\StorageSharing.cpp line=252 error=63 : OS call failed or operation not supported on this OS\n```\n\nThey are not supported on Windows. Something like doing multiprocessing on CUDA\ntensors cannot succeed, there are two alternatives for this.\n\n1. Don't use `multiprocessing`. Set the `num_worker` of `DataLoader` to zero.\n2. Share CPU tensors instead. Make sure your custom `DataSet` returns CPU tensors."
+     },
+     {
+      "id": "E6",
+      "title": "Automatic differentiation package - torch.autograd",
+      "heading": "Automatic differentiation package - torch.autograd > Autograd graph > torch.autograd.graph.save_on_cpu",
+      "url": "https://docs.pytorch.org/docs/2.14/autograd.html#torch.autograd.graph.save_on_cpu",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```\nclass torch.autograd.graph.save_on_cpu(pin_memory=False, device_type='cuda')\n```\n\nContext manager under which tensors saved by the forward pass will be stored on cpu, then retrieved for backward.\n\nWhen performing operations within this context manager, intermediary\nresults saved in the graph during the forward pass will be moved to CPU,\nthen copied back to the original device when needed for the backward pass.\nIf the graph was already on CPU, no tensor copy is performed.\n\nUse this context-manager to trade compute for GPU memory usage (e.g.\nwhen your model doesn't fit in GPU memory during training).\n\nWarning:\n\nWhen `pin_memory=True`, the GPU to CPU copy during packing is\nasynchronous. Accessing saved tensors on CPU (e.g. via\n`grad_fn._saved_self`) before the CUDA stream has finished may\nyield incorrect data. Call `torch.cuda.synchronize()` first\nif you need to read them.\n\nParameters:\n\npin_memory (bool) – If `True` tensors will be saved to CPU pinned memory\nduring packing and copied to GPU asynchronously during both\npacking and unpacking.\nDefaults to `False`.\nAlso see Use pinned memory buffers.\n\nExample: [...]"
+     },
+     {
+      "id": "E7",
+      "title": "torch.cuda",
+      "heading": "torch.cuda",
+      "url": "https://docs.pytorch.org/docs/2.14/cuda.html#module-torch.cuda",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Created On: Dec 23, 2016 | Last Updated On: Aug 08, 2026\n\nThis package adds support for CUDA tensor types.\n\nIt implements the same function as CPU tensors, but they utilize\nGPUs for computation.\n\nIt is lazily initialized, so you can always import it, and use\n`is_available()` to determine if your system supports CUDA.\n\nCUDA semantics has more details about working with CUDA.\n\n`StreamContext` | Context-manager that selects a given stream.\n`can_device_access_peer` | Check if peer access between two devices is possible.\n`check_error` | Raise an error if the result of a CUDA runtime API call is not success.\n`current_blas_handle` | Return cublasHandle_t pointer to current cuBLAS handle\n`current_solver_handle` | Return cusolverDnHandle_t pointer to current cuSOLVER handle\n`current_device` | Return the index of a currently selected device.\n`current_stream` | Return the currently selected `Stream` for a given device.\n`cudart` | Retrieves the CUDA runtime API module.\n`default_stream` | Return the default `Stream` for a given device.\n`device` | Context-manager that changes the selected device. [...]"
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 4,
+     "dropped_claims": 0,
+     "unsupported_claims": 1,
+     "partially_supported_claims": 2,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 3,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 16.48804200158338,
+     "generation_ms": 8133.0,
+     "validation_ms": 1.5676659968448803,
+     "total_ms": 8183.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "weak",
+     "coverage": 0.604,
+     "similarity": 0.914
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-422",
+   "title": "FastAPI: 422 on a JSON body",
+   "framework": "fastapi",
+   "question": "I POST JSON to my FastAPI endpoint and get 422 Unprocessable Entity with 'Field required' for body. What is wrong?",
+   "note": "Answered with medium confidence but generic: three statements are only partly supported, because the docs do not explain this particular cause.",
+   "response": {
+    "request_id": "demo-ex-422",
+    "status": "answered",
+    "confidence": "medium",
+    "diagnosis": {
+     "text": "A 422 Unprocessable Entity error with 'Field required' indicates that the request body does not match the Pydantic model schema expected by your endpoint, or the request is missing the required 'Content-Type: application/json' header.",
+     "citations": [
+      "E4",
+      "E5",
+      "E7"
+     ],
+     "support": "partial",
+     "support_score": 0.73,
+     "semantic": "unconfirmed",
+     "semantic_reason": "term coverage 0.55, identifier coverage 1.00"
+    },
+    "steps": [
+     {
+      "text": "Ensure your request includes the 'Content-Type: application/json' header, as FastAPI performs strict checking for JSON request bodies.",
+      "citations": [
+       "E7"
+      ],
+      "support": "supported",
+      "support_score": 0.871,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.79, identifier coverage 1.00"
+     },
+     {
+      "text": "Verify that the JSON structure in your request matches the fields defined in your Pydantic model.",
+      "citations": [
+       "E4",
+       "E5"
+      ],
+      "support": "partial",
+      "support_score": 0.667,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.44, identifier coverage 1.00"
+     },
+     {
+      "text": "Check if you have accidentally mixed JSON body parameters with 'Form' or 'File' parameters, which forces the request to use a different encoding (e.g., 'multipart/form-data') and prevents JSON parsing.",
+      "citations": [
+       "E3",
+       "E6"
+      ],
+      "support": "supported",
+      "support_score": 0.788,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.65, identifier coverage 1.00"
+     },
+     {
+      "text": "Use a custom exception handler for 'RequestValidationError' to inspect the exact body received by the server to debug the mismatch.",
+      "citations": [
+       "E4"
+      ],
+      "support": "partial",
+      "support_score": 0.727,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.55, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [],
+    "conflicts": [],
+    "caveats": [
+     "Limited documentation coverage: partial coverage (47%) of the key terms."
+    ],
+    "missing_information": [],
+    "citations": [
+     {
+      "id": "E4",
+      "title": "Handling Errors",
+      "heading": "Handling Errors > Override the default exception handlers > Use the `RequestValidationError` body",
+      "url": "https://fastapi.tiangolo.com/tutorial/handling-errors/#use-the-requestvalidationerror-body",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     },
+     {
+      "id": "E5",
+      "title": "Request Body",
+      "heading": "Request Body > Results",
+      "url": "https://fastapi.tiangolo.com/tutorial/body/#results",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     },
+     {
+      "id": "E7",
+      "title": "Strict Content-Type Checking",
+      "heading": "Strict Content-Type Checking",
+      "url": "https://fastapi.tiangolo.com/advanced/strict-content-type/#strict-content-type-checking",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     },
+     {
+      "id": "E3",
+      "title": "Request Files",
+      "heading": "Request Files > What is \"Form Data\"",
+      "url": "https://fastapi.tiangolo.com/tutorial/request-files/#what-is-form-data",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     },
+     {
+      "id": "E6",
+      "title": "Form Data",
+      "heading": "Form Data > About \"Form Fields\"",
+      "url": "https://fastapi.tiangolo.com/tutorial/request-forms/#about-form-fields",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "Path Operation Advanced Configuration",
+      "heading": "Path Operation Advanced Configuration > OpenAPI Extra > Custom OpenAPI content type",
+      "url": "https://fastapi.tiangolo.com/advanced/path-operation-advanced-configuration/#custom-openapi-content-type",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Using this same trick, you could use a Pydantic model to define the JSON Schema that is then included in the custom OpenAPI schema section for the *path operation*.\n\nAnd you could do this even if the data type in the request is not JSON.\n\nFor example, in this application we don't use FastAPI's integrated functionality to extract the JSON Schema from Pydantic models nor the automatic validation for JSON. In fact, we are declaring the request content type as YAML, not JSON:\n\n```python\nimport yaml\nfrom fastapi import FastAPI, HTTPException, Request\nfrom pydantic import BaseModel, ValidationError\n\napp = FastAPI()\n\n\nclass Item(BaseModel):\n    name: str\n    tags: list[str]\n\n\n@app.post(\n    \"/items/\",\n    openapi_extra={\n        \"requestBody\": {\n            \"content\": {\"application/x-yaml\": {\"schema\": Item.model_json_schema()}},\n            \"required\": True,\n        },\n    },\n)\nasync def create_item(request: Request):\n    raw_body = await request.body()\n    try:\n        data = yaml.safe_load(raw_body)\n    except yaml.YAMLError:\n        raise HTTPException(status_code=422, detail=\"Invalid YAML\")\n    try:\n        item = Item.model_validate(data)\n    except ValidationError as e:\n        raise HTTPException(status_code=422, detail=e.errors(include_url=False))\n    return item\n```\n\nNevertheless, although we are not using the default integrated functionality, we are still using a Pydantic model to manually generate the JSON Schema for the data that we want to receive in YAML. [...]"
+     },
+     {
+      "id": "E2",
+      "title": "Declare Request Example Data",
+      "heading": "Declare Request Example Data > Technical Details",
+      "url": "https://fastapi.tiangolo.com/tutorial/schema-extra-example/#technical-details",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Tip:\n\nIf you are already using FastAPI version 0.99.0 or above, you can probably skip these details.\n\nThey are more relevant for older versions, before OpenAPI 3.1.0 was available.\n\nYou can consider this a brief OpenAPI and JSON Schema history lesson. 🤓\n\nWarning:\n\nThese are very technical details about the standards JSON Schema and OpenAPI.\n\nIf the ideas above already work for you, that might be enough, and you probably don't need these details, feel free to skip them.\n\nBefore OpenAPI 3.1.0, OpenAPI used an older and modified version of JSON Schema.\n\nJSON Schema didn't have `examples`, so OpenAPI added its own `example` field to its own modified version.\n\nOpenAPI also added `example` and `examples` fields to other parts of the specification:\n\n- `Parameter Object` (in the specification) that was used by FastAPI's:\n    - `Path()`\n    - `Query()`\n    - `Header()`\n    - `Cookie()`\n- `Request Body Object`, in the field `content`, on the `Media Type Object` (in the specification) that was used by FastAPI's:\n    - `Body()`\n    - `File()`\n    - `Form()`\n\nNote:\n\nThis old OpenAPI-specific `examples` parameter is now `openapi_examples` since FastAPI `0.103.0`."
+     },
+     {
+      "id": "E3",
+      "title": "Request Files",
+      "heading": "Request Files > What is \"Form Data\"",
+      "url": "https://fastapi.tiangolo.com/tutorial/request-files/#what-is-form-data",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "The way HTML forms (``) send the data to the server normally uses a \"special\" encoding for that data, it's different from JSON.\n\nFastAPI will make sure to read that data from the right place instead of JSON.\n\nNote: Technical Details\n\nData from forms is normally encoded using the \"media type\" `application/x-www-form-urlencoded` when it doesn't include files.\n\nBut when the form includes files, it is encoded as `multipart/form-data`. If you use `File`, FastAPI will know it has to get the files from the correct part of the body.\n\nIf you want to read more about these encodings and form fields, head to the MDN web docs for `POST`.\n\nWarning:\n\nYou can declare multiple `File` and `Form` parameters in a *path operation*, but you can't also declare `Body` fields that you expect to receive as JSON, as the request will have the body encoded using `multipart/form-data` instead of `application/json`.\n\nThis is not a limitation of FastAPI, it's part of the HTTP protocol."
+     },
+     {
+      "id": "E4",
+      "title": "Handling Errors",
+      "heading": "Handling Errors > Override the default exception handlers > Use the `RequestValidationError` body",
+      "url": "https://fastapi.tiangolo.com/tutorial/handling-errors/#use-the-requestvalidationerror-body",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "The `RequestValidationError` contains the `body` it received with invalid data.\n\nYou could use it while developing your app to log the body and debug it, return it to the user, etc.\n\n```python\nfrom fastapi import FastAPI, Request\nfrom fastapi.encoders import jsonable_encoder\nfrom fastapi.exceptions import RequestValidationError\nfrom fastapi.responses import JSONResponse\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\n\n@app.exception_handler(RequestValidationError)\nasync def validation_exception_handler(request: Request, exc: RequestValidationError):\n    return JSONResponse(\n        status_code=422,\n        content=jsonable_encoder({\"detail\": exc.errors(), \"body\": exc.body}),\n    )\n\n\nclass Item(BaseModel):\n    title: str\n    size: int\n\n\n@app.post(\"/items/\")\nasync def create_item(item: Item):\n    return item\n```\n\nNow try sending an invalid item like:\n\n```JSON\n{\n  \"title\": \"towel\",\n  \"size\": \"XL\"\n}\n```\n\nYou will receive a response telling you that the data is invalid containing the received body:\n\n```JSON\n{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"body\",\n        \"size\"\n      ],\n      \"msg\": \"value is not a valid integer\",\n      \"type\": \"type_error.integer\"\n    }\n  ],\n  \"body\": {\n    \"title\": \"towel\",\n    \"size\": \"XL\"\n  }\n}\n```"
+     },
+     {
+      "id": "E5",
+      "title": "Request Body",
+      "heading": "Request Body > Results",
+      "url": "https://fastapi.tiangolo.com/tutorial/body/#results",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "With just that Python type declaration, FastAPI will:\n\n- Read the body of the request as JSON.\n- Convert the corresponding types (if needed).\n- Validate the data.\n    - If the data is invalid, it will return a nice and clear error, indicating exactly where and what was the incorrect data.\n- Give you the received data in the parameter `item`.\n    - As you declared it in the function to be of type `Item`, you will also have all the editor support (completion, etc) for all of the attributes and their types.\n- Generate JSON Schema definitions for your model, you can also use them anywhere else you like if it makes sense for your project.\n- Those schemas will be part of the generated OpenAPI schema, and used by the automatic documentation UIs."
+     },
+     {
+      "id": "E6",
+      "title": "Form Data",
+      "heading": "Form Data > About \"Form Fields\"",
+      "url": "https://fastapi.tiangolo.com/tutorial/request-forms/#about-form-fields",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "The way HTML forms (``) send the data to the server normally uses a \"special\" encoding for that data, it's different from JSON.\n\nFastAPI will make sure to read that data from the right place instead of JSON.\n\nNote: Technical Details\n\nData from forms is normally encoded using the \"media type\" `application/x-www-form-urlencoded`.\n\nBut when the form includes files, it is encoded as `multipart/form-data`. You'll read about handling files in the next chapter.\n\nYou can use `Form(media_type=\"multipart/form-data\")` to describe a multipart form in OpenAPI. Setting it on one parameter is enough when combining form parameters or models.\n\nIf you want to read more about these encodings and form fields, head to the MDN web docs for `POST`.\n\nWarning:\n\nYou can declare multiple `Form` parameters in a *path operation*, but you can't also declare `Body` fields that you expect to receive as JSON, as the request will have the body encoded using `application/x-www-form-urlencoded` instead of `application/json`.\n\nThis is not a limitation of FastAPI, it's part of the HTTP protocol."
+     },
+     {
+      "id": "E7",
+      "title": "Strict Content-Type Checking",
+      "heading": "Strict Content-Type Checking",
+      "url": "https://fastapi.tiangolo.com/advanced/strict-content-type/#strict-content-type-checking",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "By default, FastAPI uses strict `Content-Type` header checking for JSON request bodies, this means that JSON requests must include a valid `Content-Type` header (e.g. `application/json`) in order for the body to be parsed as JSON."
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 5,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 3,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 5,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 14.893625000695465,
+     "generation_ms": 9153.0,
+     "validation_ms": 1.738458999170689,
+     "total_ms": 9224.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "weak",
+     "coverage": 0.471,
+     "similarity": 0.88
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-coroutine",
+   "title": "Python: coroutine never awaited",
+   "framework": "python",
+   "question": "RuntimeWarning: coroutine 'main' was never awaited. Why does this appear and how do I fix it?",
+   "note": "Two correct fixes; two statements carry a 'partly supported' badge.",
+   "response": {
+    "request_id": "demo-ex-coroutine",
+    "status": "answered",
+    "confidence": "medium",
+    "diagnosis": {
+     "text": "This warning occurs because a coroutine function was called without being awaited or scheduled as a task, meaning the coroutine object was created but never executed.",
+     "citations": [
+      "E1",
+      "E2",
+      "E3"
+     ],
+     "support": "supported",
+     "support_score": 0.84,
+     "semantic": "unconfirmed",
+     "semantic_reason": "term coverage 0.73, identifier coverage 1.00"
+    },
+    "steps": [
+     {
+      "text": "Use the 'await' keyword when calling the coroutine to ensure it executes.",
+      "citations": [
+       "E1",
+       "E2"
+      ],
+      "support": "partial",
+      "support_score": 0.7,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.50, identifier coverage 1.00"
+     },
+     {
+      "text": "Alternatively, wrap the coroutine in 'asyncio.create_task()' to schedule it to run concurrently.",
+      "citations": [
+       "E1",
+       "E2"
+      ],
+      "support": "supported",
+      "support_score": 0.867,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.78, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [
+     {
+      "language": "python",
+      "code": "async def main():\n    await my_coroutine()",
+      "explanation": {
+       "text": "Using 'await' ensures the coroutine completes before moving to the next line.",
+       "citations": [
+        "E1",
+        "E2"
+       ],
+       "support": "partial",
+       "support_score": 0.657,
+       "semantic": "unconfirmed",
+       "semantic_reason": "term coverage 0.43, identifier coverage 1.00"
+      }
+     },
+     {
+      "language": "python",
+      "code": "async def main():\n    task = asyncio.create_task(my_coroutine())\n    await task",
+      "explanation": {
+       "text": "Using 'asyncio.create_task' schedules the coroutine to run soon.",
+       "citations": [
+        "E2"
+       ],
+       "support": "supported",
+       "support_score": 0.914,
+       "semantic": "unconfirmed",
+       "semantic_reason": "term coverage 0.86, identifier coverage 1.00"
+      }
+     }
+    ],
+    "conflicts": [],
+    "caveats": [
+     "Version note in Coroutines and Tasks: Added in version 3.11: `asyncio.TaskGroup`."
+    ],
+    "missing_information": [],
+    "citations": [
+     {
+      "id": "E1",
+      "title": "Developing with asyncio",
+      "heading": "Developing with asyncio > Detect never-awaited coroutines",
+      "url": "https://docs.python.org/3.12/library/asyncio-dev.html#detect-never-awaited-coroutines",
+      "framework": "python",
+      "version": "3.12"
+     },
+     {
+      "id": "E2",
+      "title": "Coroutines and Tasks",
+      "heading": "Coroutines and Tasks > Awaitables",
+      "url": "https://docs.python.org/3.12/library/asyncio-task.html#awaitables",
+      "framework": "python",
+      "version": "3.12"
+     },
+     {
+      "id": "E3",
+      "title": "Coroutines and Tasks",
+      "heading": "Coroutines and Tasks > Coroutines",
+      "url": "https://docs.python.org/3.12/library/asyncio-task.html#coroutines",
+      "framework": "python",
+      "version": "3.12"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "Developing with asyncio",
+      "heading": "Developing with asyncio > Detect never-awaited coroutines",
+      "url": "https://docs.python.org/3.12/library/asyncio-dev.html#detect-never-awaited-coroutines",
+      "framework": "python",
+      "version": "3.12",
+      "cited": true,
+      "flags": [],
+      "excerpt": "When a coroutine function is called, but not awaited\n(e.g. `coro()` instead of `await coro()`)\nor the coroutine is not scheduled with `asyncio.create_task()`, asyncio\nwill emit a `RuntimeWarning`:\n\n```python3\nimport asyncio\n\nasync def test():\n    print(\"never scheduled\")\n\nasync def main():\n    test()\n\nasyncio.run(main())\n```\n\nOutput:\n\n```python3\ntest.py:7: RuntimeWarning: coroutine 'test' was never awaited\n  test()\n```\n\nOutput in debug mode:\n\n```python3\ntest.py:7: RuntimeWarning: coroutine 'test' was never awaited\nCoroutine created at (most recent call last)\n  File \"../t.py\", line 9, in <module>\n    asyncio.run(main(), debug=True)\n\n  < .. >\n\n  File \"../t.py\", line 7, in main\n    test()\n  test()\n```\n\nThe usual fix is to either await the coroutine or call the\n`asyncio.create_task()` function:\n\n```python3\nasync def main():\n    await test()\n```"
+     },
+     {
+      "id": "E2",
+      "title": "Coroutines and Tasks",
+      "heading": "Coroutines and Tasks > Awaitables",
+      "url": "https://docs.python.org/3.12/library/asyncio-task.html#awaitables",
+      "framework": "python",
+      "version": "3.12",
+      "cited": true,
+      "flags": [],
+      "excerpt": "We say that an object is an awaitable object if it can be used\nin an `await` expression. Many asyncio APIs are designed to\naccept awaitables.\n\nThere are three main types of awaitable objects:\ncoroutines, Tasks, and Futures.\n\nCoroutines\n\nPython coroutines are awaitables and therefore can be awaited from\nother coroutines:\n\n```python3\nimport asyncio\n\nasync def nested():\n    return 42\n\nasync def main():\n    # Nothing happens if we just call \"nested()\".\n    # A coroutine object is created but not awaited,\n    # so it *won't run at all*.\n    nested()  # will raise a \"RuntimeWarning\".\n\n    # Let's do it differently now and await it:\n    print(await nested())  # will print \"42\".\n\nasyncio.run(main())\n```\n\nImportant:\n\nIn this documentation the term \"coroutine\" can be used for\ntwo closely related concepts:\n\n- a coroutine function: an `async def` function;\n- a coroutine object: an object returned by calling a coroutine function.\n\nTasks\n\nTasks are used to schedule coroutines concurrently.\n\nWhen a coroutine is wrapped into a Task with functions like\n`asyncio.create_task()` the coroutine is automatically\nscheduled to run soon:\n\n```python3\nimport asyncio\n\nasync def nested():\n    return 42\n\nasync def main():\n    # Schedule nested() to run soon concurrently\n    # with \"main()\".\n    task = asyncio.create_task(nested())\n\n    # \"task\" can now be used to cancel \"nested()\", or\n    # can simply be awaited to wait until it is complete:\n    await task\n\nasyncio.run(main())\n```\n\nFutures [...]"
+     },
+     {
+      "id": "E3",
+      "title": "Coroutines and Tasks",
+      "heading": "Coroutines and Tasks > Coroutines",
+      "url": "https://docs.python.org/3.12/library/asyncio-task.html#coroutines",
+      "framework": "python",
+      "version": "3.12",
+      "cited": true,
+      "flags": [],
+      "excerpt": "Source code: Lib/asyncio/coroutines.py\n\nCoroutines declared with the async/await syntax is the\npreferred way of writing asyncio applications. For example, the following\nsnippet of code prints \"hello\", waits 1 second,\nand then prints \"world\":\n\n```python3\n>>> import asyncio\n\n>>> async def main():\n...     print('hello')\n...     await asyncio.sleep(1)\n...     print('world')\n\n>>> asyncio.run(main())\nhello\nworld\n```\n\nNote that simply calling a coroutine will not schedule it to\nbe executed:\n\n```python3\n>>> main()\n<coroutine object main at 0x1053bb7c8>\n```\n\nTo actually run a coroutine, asyncio provides the following mechanisms:\n\n- The `asyncio.run()` function to run the top-level entry point \"main()\" function (see the above example.)\n- Awaiting on a coroutine. The following snippet of code will print \"hello\" after waiting for 1 second, and then print \"world\" after waiting for another 2 seconds: import asyncio import time\nasync def say_after(delay, what): await asyncio.sleep(delay) print(what)\nasync def main(): print(f\"started at {time.strftime('%X')}\")\nawait say_after(1, 'hello') await say_after(2, 'world')\nprint(f\"finished at {time.strftime('%X')}\")\nasyncio.run(main()) [...]"
+     },
+     {
+      "id": "E4",
+      "title": "Coroutines and Tasks",
+      "heading": "Coroutines and Tasks > Running in Threads > asyncio.to_thread",
+      "url": "https://docs.python.org/3.12/library/asyncio-task.html#asyncio.to_thread",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```\nasync asyncio.to_thread(func, /, *args, **kwargs)\n```\n\nAsynchronously run function func in a separate thread.\n\nAny *args and **kwargs supplied for this function are directly passed\nto func. Also, the current `contextvars.Context` is propagated,\nallowing context variables from the event loop thread to be accessed in the\nseparate thread.\n\nReturn a coroutine that can be awaited to get the eventual result of func.\n\nThis coroutine function is primarily intended to be used for executing\nIO-bound functions/methods that would otherwise block the event loop if\nthey were run in the main thread. For example:\n\n```python3\ndef blocking_io():\n    print(f\"start blocking_io at {time.strftime('%X')}\")\n    # Note that time.sleep() can be replaced with any blocking\n    # IO-bound operation, such as file operations.\n    time.sleep(1)\n    print(f\"blocking_io complete at {time.strftime('%X')}\")\n\nasync def main():\n    print(f\"started main at {time.strftime('%X')}\")\n\n    await asyncio.gather(\n        asyncio.to_thread(blocking_io),\n        asyncio.sleep(1))\n\n    print(f\"finished main at {time.strftime('%X')}\")\n\n\nasyncio.run(main())\n\n# Expected output:\n#\n# started main at 19:50:53\n# start blocking_io at 19:50:53\n# blocking_io complete at 19:50:54\n# finished main at 19:50:54\n``` [...]"
+     },
+     {
+      "id": "E5",
+      "title": "Library and Extension FAQ",
+      "heading": "Library and Extension FAQ > Threads > None of my threads seem to run: why?",
+      "url": "https://docs.python.org/3.12/faq/library.html#none-of-my-threads-seem-to-run-why",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "As soon as the main thread exits, all threads are killed. Your main thread is\nrunning too quickly, giving the threads no time to do any work.\n\nA simple fix is to add a sleep to the end of the program that's long enough for\nall the threads to finish:\n\n```python3\nimport threading, time\n\ndef thread_task(name, n):\n    for i in range(n):\n        print(name, i)\n\nfor i in range(10):\n    T = threading.Thread(target=thread_task, args=(str(i), i))\n    T.start()\n\ntime.sleep(10)  # <---------------------------!\n```\n\nBut now (on many platforms) the threads don't run in parallel, but appear to run\nsequentially, one at a time! The reason is that the OS thread scheduler doesn't\nstart a new thread until the previous thread is blocked.\n\nA simple fix is to add a tiny sleep to the start of the run function:\n\n```python3\ndef thread_task(name, n):\n    time.sleep(0.001)  # <--------------------!\n    for i in range(n):\n        print(name, i)\n\nfor i in range(10):\n    T = threading.Thread(target=thread_task, args=(str(i), i))\n    T.start()\n\ntime.sleep(10)\n```\n\nInstead of trying to guess a good delay value for `time.sleep()`,\nit's better to use some kind of semaphore mechanism. One idea is to use the\n`queue` module to create a queue object, let each thread append a token to\nthe queue when it finishes, and let the main thread read as many tokens from the\nqueue as there are threads."
+     },
+     {
+      "id": "E6",
+      "title": "3. Data model",
+      "heading": "3. Data model > 3.4. Coroutines > 3.4.2. Coroutine Objects",
+      "url": "https://docs.python.org/3.12/reference/datamodel.html#coroutine-objects",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Coroutine objects are awaitable objects.\nA coroutine's execution can be controlled by calling `__await__()` and\niterating over the result. When the coroutine has finished executing and\nreturns, the iterator raises `StopIteration`, and the exception's\n`value` attribute holds the return value. If the\ncoroutine raises an exception, it is propagated by the iterator. Coroutines\nshould not directly raise unhandled `StopIteration` exceptions.\n\nCoroutines also have the methods listed below, which are analogous to\nthose of generators (see Generator-iterator methods). However, unlike\ngenerators, coroutines do not directly support iteration.\n\nChanged in version 3.5.2: It is a `RuntimeError` to await on a coroutine more than once."
+     },
+     {
+      "id": "E7",
+      "title": "`unittest.mock` — mock object library",
+      "heading": "`unittest.mock` — mock object library > The Mock Class > unittest.mock.AsyncMock > unittest.mock.AsyncMock.assert_awaited",
+      "url": "https://docs.python.org/3.12/library/unittest.mock.html#unittest.mock.AsyncMock.assert_awaited",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```\nassert_awaited()\n```\n\nAssert that the mock was awaited at least once. Note that this is separate\nfrom the object having been called, the `await` keyword must be used:\n\n```\n>>> mock = AsyncMock()\n>>> async def main(coroutine_mock):\n...     await coroutine_mock\n...\n>>> coroutine_mock = mock()\n>>> mock.called\nTrue\n>>> mock.assert_awaited()\nTraceback (most recent call last):\n...\nAssertionError: Expected mock to have been awaited.\n>>> asyncio.run(main(coroutine_mock))\n>>> mock.assert_awaited()\n```"
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 5,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 2,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 5,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 13.495833001798019,
+     "generation_ms": 11367.0,
+     "validation_ms": 2.102415997796925,
+     "total_ms": 11415.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "ok",
+     "coverage": 1.0,
+     "similarity": 0.9
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-bytes",
+   "title": "Python: str + bytes TypeError (pasted traceback)",
+   "framework": "python",
+   "question": "Traceback (most recent call last):\n  File \"/app/api/views.py\", line 42, in process_request\n    result = process_data(request.body)\n  File \"/app/api/utils.py\", line 15, in process_data\n    return \"User: \" + data\nTypeError: can only concatenate str (not \"bytes\") to str\n\nI am getting this TypeError when trying to append a string to request data. How should I handle the incoming byte stream to ensure I am following best practices for internal string handling?",
+   "note": "A long pasted traceback with context. Judged correct.",
+   "response": {
+    "request_id": "demo-ex-bytes",
+    "status": "answered",
+    "confidence": "medium",
+    "diagnosis": {
+     "text": "The TypeError occurs because Python does not allow direct concatenation of `str` and `bytes` objects.",
+     "citations": [
+      "E1",
+      "E3"
+     ],
+     "support": "partial",
+     "support_score": 0.7,
+     "semantic": "unconfirmed",
+     "semantic_reason": "term coverage 0.50, identifier coverage 1.00"
+    },
+    "steps": [
+     {
+      "text": "Convert the `bytes` object to a `str` using the `str()` constructor with an appropriate encoding (e.g., 'utf-8') before concatenation.",
+      "citations": [
+       "E7"
+      ],
+      "support": "supported",
+      "support_score": 0.76,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.60, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [
+     {
+      "language": "python",
+      "code": "result = \"User: \" + data.decode('utf-8')",
+      "explanation": {
+       "text": "Using the `.decode()` method on the bytes object converts it to a string, allowing for safe concatenation with other strings.",
+       "citations": [
+        "E7"
+       ],
+       "support": "partial",
+       "support_score": 0.7,
+       "semantic": "unconfirmed",
+       "semantic_reason": "term coverage 0.50, identifier coverage 1.00"
+      }
+     }
+    ],
+    "conflicts": [],
+    "caveats": [
+     "Limited documentation coverage: partial coverage (48%) of the key terms."
+    ],
+    "missing_information": [
+     "The provided documentation does not explicitly define the 'best practice' for internal string handling beyond the mechanics of type conversion and concatenation."
+    ],
+    "citations": [
+     {
+      "id": "E1",
+      "title": "Built-in Types",
+      "heading": "Built-in Types > Text Sequence Type — `str` > String Methods > str.join",
+      "url": "https://docs.python.org/3.12/library/stdtypes.html#str.join",
+      "framework": "python",
+      "version": "3.12"
+     },
+     {
+      "id": "E3",
+      "title": "Built-in Types",
+      "heading": "Built-in Types > Binary Sequence Types — `bytes`, `bytearray`, `memoryview` > Bytes and Bytearray Operations > bytes.join",
+      "url": "https://docs.python.org/3.12/library/stdtypes.html#bytes.join",
+      "framework": "python",
+      "version": "3.12"
+     },
+     {
+      "id": "E7",
+      "title": "Built-in Types",
+      "heading": "Built-in Types > Text Sequence Type — `str` > str",
+      "url": "https://docs.python.org/3.12/library/stdtypes.html#str",
+      "framework": "python",
+      "version": "3.12"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "Built-in Types",
+      "heading": "Built-in Types > Text Sequence Type — `str` > String Methods > str.join",
+      "url": "https://docs.python.org/3.12/library/stdtypes.html#str.join",
+      "framework": "python",
+      "version": "3.12",
+      "cited": true,
+      "flags": [],
+      "excerpt": "```\nstr.join(iterable)\n```\n\nReturn a string which is the concatenation of the strings in iterable.\nA `TypeError` will be raised if there are any non-string values in\niterable, including `bytes` objects. The separator between\nelements is the string providing this method."
+     },
+     {
+      "id": "E2",
+      "title": "Programming FAQ",
+      "heading": "Programming FAQ > Performance > What is the most efficient way to concatenate many strings together?",
+      "url": "https://docs.python.org/3.12/faq/programming.html#what-is-the-most-efficient-way-to-concatenate-many-strings-together",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "`str` and `bytes` objects are immutable, therefore concatenating\nmany strings together is inefficient as each concatenation creates a new\nobject. In the general case, the total runtime cost is quadratic in the\ntotal string length.\n\nTo accumulate many `str` objects, the recommended idiom is to place\nthem into a list and call `str.join()` at the end:\n\n```python3\nchunks = []\nfor s in my_strings:\n    chunks.append(s)\nresult = ''.join(chunks)\n```\n\n(another reasonably efficient idiom is to use `io.StringIO`)\n\nTo accumulate many `bytes` objects, the recommended idiom is to extend\na `bytearray` object using in-place concatenation (the `+=` operator):\n\n```python3\nresult = bytearray()\nfor b in my_bytes_objects:\n    result += b\n```"
+     },
+     {
+      "id": "E3",
+      "title": "Built-in Types",
+      "heading": "Built-in Types > Binary Sequence Types — `bytes`, `bytearray`, `memoryview` > Bytes and Bytearray Operations > bytes.join",
+      "url": "https://docs.python.org/3.12/library/stdtypes.html#bytes.join",
+      "framework": "python",
+      "version": "3.12",
+      "cited": true,
+      "flags": [],
+      "excerpt": "```\nbytes.join(iterable)\n```\n\n```\nbytearray.join(iterable)\n```\n\nReturn a bytes or bytearray object which is the concatenation of the\nbinary data sequences in iterable. A `TypeError` will be raised\nif there are any values in iterable that are not bytes-like\nobjects, including `str` objects. The\nseparator between elements is the contents of the bytes or\nbytearray object providing this method."
+     },
+     {
+      "id": "E4",
+      "title": "`typing` — Support for type hints",
+      "heading": "`typing` — Support for type hints > Module contents > Special typing primitives > Building generic types and type aliases > typing.TypeVar",
+      "url": "https://docs.python.org/3.12/library/typing.html#typing.TypeVar",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```\nclass typing.TypeVar(name, *constraints, bound=None, covariant=False, contravariant=False, infer_variance=False)\n```\n\nType variable.\n\nThe preferred way to construct a type variable is via the dedicated syntax\nfor generic functions,\ngeneric classes, and\ngeneric type aliases:\n\n```python3\nclass Sequence[T]:  # T is a TypeVar\n    ...\n```\n\nThis syntax can also be used to create bounded and constrained type\nvariables:\n\n```python3\nclass StrSequence[S: str]:  # S is a TypeVar with a `str` upper bound;\n    ...                     # we can say that S is \"bounded by `str`\"\n\n\nclass StrOrBytesSequence[A: (str, bytes)]:  # A is a TypeVar constrained to str or bytes\n    ...\n```\n\nHowever, if desired, reusable type variables can also be constructed manually, like so:\n\n```python3\nT = TypeVar('T')  # Can be anything\nS = TypeVar('S', bound=str)  # Can be any subtype of str\nA = TypeVar('A', str, bytes)  # Must be exactly str or bytes\n```\n\nType variables exist primarily for the benefit of static type\ncheckers. They serve as the parameters for generic types as well\nas for generic function and type alias definitions.\nSee `Generic` for more\ninformation on generic types. Generic functions work as follows:\n\n```python3\ndef repeat[T](x: T, n: int) -> Sequence[T]:\n    \"\"\"Return a list containing n references to x.\"\"\"\n    return [x]*n\n\n\ndef print_capitalized[S: str](x: S) -> S:\n    \"\"\"Print x capitalized, and return x.\"\"\"\n    print(x.capitalize())\n    return x [...]"
+     },
+     {
+      "id": "E5",
+      "title": "`json` — JSON encoder and decoder",
+      "heading": "`json` — JSON encoder and decoder > Encoders and Decoders > json.JSONEncoder",
+      "url": "https://docs.python.org/3.12/library/json.html#json.JSONEncoder",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```\nclass json.JSONEncoder(*, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, sort_keys=False, indent=None, separators=None, default=None)\n```\n\nExtensible JSON encoder for Python data structures.\n\nSupports the following objects and types by default:\n\nPython | JSON\ndict | object\nlist, tuple | array\nstr | string\nint, float, int- & float-derived Enums | number\nTrue | true\nFalse | false\nNone | null\n\nChanged in version 3.4: Added support for int- and float-derived Enum classes.\n\nTo extend this to recognize other objects, subclass and implement a\n`default()` method with another method that returns a serializable object\nfor `o` if possible, otherwise it should call the superclass implementation\n(to raise `TypeError`).\n\nIf skipkeys is false (the default), a `TypeError` will be raised when\ntrying to encode keys that are not `str`, `int`, `float`,\n`bool` or `None`. If skipkeys is true, such items are simply skipped.\n\nIf ensure_ascii is true (the default), the output is guaranteed to\nhave all incoming non-ASCII characters escaped. If ensure_ascii is\nfalse, these characters will be output as-is.\n\nIf check_circular is true (the default), then lists, dicts, and custom\nencoded objects will be checked for circular references during encoding to\nprevent an infinite recursion (which would cause a `RecursionError`).\nOtherwise, no such check takes place. [...]"
+     },
+     {
+      "id": "E6",
+      "title": "Programming FAQ",
+      "heading": "Programming FAQ > Numbers and strings > Can I end a raw string with an odd number of backslashes?",
+      "url": "https://docs.python.org/3.12/faq/programming.html#can-i-end-a-raw-string-with-an-odd-number-of-backslashes",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "A raw string ending with an odd number of backslashes will escape the string's quote:\n\n```python3\n>>> r'C:\\this\\will\\not\\work\\'\n  File \"<stdin>\", line 1\n    r'C:\\this\\will\\not\\work\\'\n    ^\nSyntaxError: unterminated string literal (detected at line 1)\n```\n\nThere are several workarounds for this. One is to use regular strings and double\nthe backslashes:\n\n```python3\n>>> 'C:\\\\this\\\\will\\\\work\\\\'\n'C:\\\\this\\\\will\\\\work\\\\'\n```\n\nAnother is to concatenate a regular string containing an escaped backslash to the\nraw string:\n\n```python3\n>>> r'C:\\this\\will\\work' '\\\\'\n'C:\\\\this\\\\will\\\\work\\\\'\n```\n\nIt is also possible to use `os.path.join()` to append a backslash on Windows:\n\n```python3\n>>> os.path.join(r'C:\\this\\will\\work', '')\n'C:\\\\this\\\\will\\\\work\\\\'\n```\n\nNote that while a backslash will \"escape\" a quote for the purposes of\ndetermining where the raw string ends, no escaping occurs when interpreting the\nvalue of the raw string. That is, the backslash remains present in the value of\nthe raw string:\n\n```python3\n>>> r'backslash\\'preserved'\n\"backslash\\\\'preserved\"\n```\n\nAlso see the specification in the language reference."
+     },
+     {
+      "id": "E7",
+      "title": "Built-in Types",
+      "heading": "Built-in Types > Text Sequence Type — `str` > str",
+      "url": "https://docs.python.org/3.12/library/stdtypes.html#str",
+      "framework": "python",
+      "version": "3.12",
+      "cited": true,
+      "flags": [],
+      "excerpt": "```\nclass str(object='')\n```\n\n```\nclass str(object=b'', encoding='utf-8', errors='strict')\n```\n\nReturn a string version of object. If object is not\nprovided, returns the empty string. Otherwise, the behavior of `str()`\ndepends on whether encoding or errors is given, as follows.\n\nIf neither encoding nor errors is given, `str(object)` returns\n`type(object).__str__(object)`,\nwhich is the \"informal\" or nicely\nprintable string representation of object. For string objects, this is\nthe string itself. If object does not have a `__str__()`\nmethod, then `str()` falls back to returning\n`repr(object)`.\n\nIf at least one of encoding or errors is given, object should be a\nbytes-like object (e.g. `bytes` or `bytearray`). In\nthis case, if object is a `bytes` (or `bytearray`) object,\nthen `str(bytes, encoding, errors)` is equivalent to\n`bytes.decode(encoding, errors)`. Otherwise, the bytes\nobject underlying the buffer object is obtained before calling\n`bytes.decode()`. See Binary Sequence Types — bytes, bytearray, memoryview and\nBuffer Protocol for information on buffer objects.\n\nPassing a `bytes` object to `str()` without the encoding\nor errors arguments falls under the first case of returning the informal\nstring representation (see also the `-b` command-line option to\nPython). For example:\n\n```python3\n>>> str(b'Zoot!')\n\"b'Zoot!'\"\n``` [...]"
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 3,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 2,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 3,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 19.913374999305233,
+     "generation_ms": 8220.0,
+     "validation_ms": 0.8707909983058926,
+     "total_ms": 8271.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "weak",
+     "coverage": 0.476,
+     "similarity": 0.895
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-enum",
+   "title": "Python: excluding attributes from an Enum",
+   "framework": "python",
+   "question": "I'm working with a custom Enum class in Python and I need to programmatically exclude some class attributes from being treated as actual enum members. I tried adding them to a list, but they are still showing up in the iteration of my class, which is breaking my logic. I heard there is a specific 'sunder' name used to ignore certain identifiers during class creation, but I'm not sure if I should define it as a list or a string. Can you explain how to correctly implement this exclusion so that these variables remain accessible as class attributes but aren't included in the enumeration?",
+   "note": "Verbose, conversational question. Judged correct.",
+   "response": {
+    "request_id": "demo-ex-enum",
+    "status": "answered",
+    "confidence": "medium",
+    "diagnosis": {
+     "text": "To exclude class attributes from being treated as enum members, you must use the `_ignore_` sunder name, which removes the specified names from the final enumeration class after creation.",
+     "citations": [
+      "E1",
+      "E2"
+     ],
+     "support": "supported",
+     "support_score": 0.8,
+     "semantic": "unconfirmed",
+     "semantic_reason": "term coverage 0.67, identifier coverage 1.00"
+    },
+    "steps": [
+     {
+      "text": "Define a class attribute named `_ignore_` within your Enum class.",
+      "citations": [
+       "E1",
+       "E2"
+      ],
+      "support": "partial",
+      "support_score": 0.743,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.57, identifier coverage 1.00"
+     },
+     {
+      "text": "Assign the names you wish to exclude to `_ignore_` as either a list or a string.",
+      "citations": [
+       "E1"
+      ],
+      "support": "partial",
+      "support_score": 0.7,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.50, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [
+     {
+      "language": "python",
+      "code": "from enum import Enum\n\nclass MyEnum(Enum):\n    _ignore_ = ['my_var']\n    my_var = 'I am not a member'\n    MEMBER = 1",
+      "explanation": {
+       "text": "The `_ignore_` attribute ensures `my_var` is not treated as an enum member and is removed from the class after creation, while still allowing it to be defined as a class attribute.",
+       "citations": [
+        "E1",
+        "E2"
+       ],
+       "support": "partial",
+       "support_score": 0.523,
+       "semantic": "unverified",
+       "semantic_reason": "unverified: identifier not in cited text: my_var"
+      }
+     }
+    ],
+    "conflicts": [],
+    "caveats": [
+     "Version note in `enum` — Support for enumerations: Added in version 3.6: `_missing_`, `_order_`, `_generate_next_value_`",
+     "Version note in `enum` — Support for enumerations: Added in version 3.7: `_ignore_`",
+     "Limited documentation coverage: partial coverage (42%) of the key terms."
+    ],
+    "missing_information": [
+     "The provided documentation does not explicitly confirm whether attributes listed in `_ignore_` remain accessible as class attributes after the class is fully created, only that they are removed from the enumeration."
+    ],
+    "citations": [
+     {
+      "id": "E1",
+      "title": "`enum` — Support for enumerations",
+      "heading": "`enum` — Support for enumerations > Data Types > Supported `_sunder_` names",
+      "url": "https://docs.python.org/3.12/library/enum.html#supported-sunder-names",
+      "framework": "python",
+      "version": "3.12"
+     },
+     {
+      "id": "E2",
+      "title": "`enum` — Support for enumerations",
+      "heading": "`enum` — Support for enumerations > Data Types > enum.Enum > enum.Enum._ignore_",
+      "url": "https://docs.python.org/3.12/library/enum.html#enum.Enum._ignore_",
+      "framework": "python",
+      "version": "3.12"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "`enum` — Support for enumerations",
+      "heading": "`enum` — Support for enumerations > Data Types > Supported `_sunder_` names",
+      "url": "https://docs.python.org/3.12/library/enum.html#supported-sunder-names",
+      "framework": "python",
+      "version": "3.12",
+      "cited": true,
+      "flags": [],
+      "excerpt": "- `_name_` – name of the member\n- `_value_` – value of the member; can be set in `__new__`\n- `_missing_()` – a lookup function used when a value is not found; may be overridden\n- `_ignore_` – a list of names, either as a `list` or a `str`, that will not be transformed into members, and will be removed from the final class\n- `_order_` – no longer used, kept for backward compatibility (class attribute, removed during class creation)\n- `_generate_next_value_()` – used to get an appropriate value for an enum member; may be overridden\nNote For standard `Enum` classes the next value chosen is the last value seen incremented by one. For `Flag` classes the next value chosen will be the next highest power-of-two, regardless of the last value seen.\n\nAdded in version 3.6: `_missing_`, `_order_`, `_generate_next_value_`\n\nAdded in version 3.7: `_ignore_`"
+     },
+     {
+      "id": "E2",
+      "title": "`enum` — Support for enumerations",
+      "heading": "`enum` — Support for enumerations > Data Types > enum.Enum > enum.Enum._ignore_",
+      "url": "https://docs.python.org/3.12/library/enum.html#enum.Enum._ignore_",
+      "framework": "python",
+      "version": "3.12",
+      "cited": true,
+      "flags": [],
+      "excerpt": "```\n_ignore_\n```\n\n`_ignore_` is only used during creation and is removed from the\nenumeration once creation is complete.\n\n`_ignore_` is a list of names that will not become members, and whose\nnames will also be removed from the completed enumeration. See\nTimePeriod for an example."
+     },
+     {
+      "id": "E3",
+      "title": "`enum` — Support for enumerations",
+      "heading": "`enum` — Support for enumerations",
+      "url": "https://docs.python.org/3.12/library/enum.html#module-enum",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Added in version 3.4.\n\nSource code: Lib/enum.py\n\nImportant\n\nThis page contains the API reference information. For tutorial\ninformation and discussion of more advanced topics, see\n\n- Basic Tutorial\n- Advanced Tutorial\n- Enum Cookbook\n\nAn enumeration:\n\n- is a set of symbolic names (members) bound to unique values\n- can be iterated over to return its canonical (i.e. non-alias) members in definition order\n- uses call syntax to return members by value\n- uses index syntax to return members by name\n\nEnumerations are created either by using `class` syntax, or by\nusing function-call syntax:\n\n```python3\n>>> from enum import Enum\n\n>>> # class syntax\n>>> class Color(Enum):\n...     RED = 1\n...     GREEN = 2\n...     BLUE = 3\n\n>>> # functional syntax\n>>> Color = Enum('Color', [('RED', 1), ('GREEN', 2), ('BLUE', 3)])\n```\n\nEven though we can use `class` syntax to create Enums, Enums\nare not normal Python classes. See\nHow are Enums different? for more details.\n\nNote:\n\nNomenclature\n\n- The class `Color` is an enumeration (or enum)\n- The attributes `Color.RED`, `Color.GREEN`, etc., are enumeration members (or members) and are functionally constants.\n- The enum members have names and values (the name of `Color.RED` is `RED`, the value of `Color.BLUE` is `3`, etc.)"
+     },
+     {
+      "id": "E4",
+      "title": "9. Classes",
+      "heading": "9. Classes > 9.4. Random Remarks",
+      "url": "https://docs.python.org/3.12/tutorial/classes.html#random-remarks",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "If the same attribute name occurs in both an instance and in a class,\nthen attribute lookup prioritizes the instance:\n\n```python3\n>>> class Warehouse:\n...    purpose = 'storage'\n...    region = 'west'\n...\n>>> w1 = Warehouse()\n>>> print(w1.purpose, w1.region)\nstorage west\n>>> w2 = Warehouse()\n>>> w2.region = 'east'\n>>> print(w2.purpose, w2.region)\nstorage east\n```\n\nData attributes may be referenced by methods as well as by ordinary users\n(\"clients\") of an object. In other words, classes are not usable to implement\npure abstract data types. In fact, nothing in Python makes it possible to\nenforce data hiding — it is all based upon convention. (On the other hand,\nthe Python implementation, written in C, can completely hide implementation\ndetails and control access to an object if necessary; this can be used by\nextensions to Python written in C.)\n\nClients should use data attributes with care — clients may mess up invariants\nmaintained by the methods by stamping on their data attributes. Note that\nclients may add data attributes of their own to an instance object without\naffecting the validity of the methods, as long as name conflicts are avoided —\nagain, a naming convention can save a lot of headaches here.\n\nThere is no shorthand for referencing data attributes (or other methods!) from\nwithin methods. I find that this actually increases the readability of methods:\nthere is no chance of confusing local variables and instance variables when\nglancing through a method. [...]"
+     },
+     {
+      "id": "E5",
+      "title": "9. Classes",
+      "heading": "9. Classes > 9.6. Private Variables",
+      "url": "https://docs.python.org/3.12/tutorial/classes.html#private-variables",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "\"Private\" instance variables that cannot be accessed except from inside an\nobject don't exist in Python. However, there is a convention that is followed\nby most Python code: a name prefixed with an underscore (e.g. `_spam`) should\nbe treated as a non-public part of the API (whether it is a function, a method\nor a data member). It should be considered an implementation detail and subject\nto change without notice.\n\nSince there is a valid use-case for class-private members (namely to avoid name\nclashes of names with names defined by subclasses), there is limited support for\nsuch a mechanism, called name mangling. Any identifier of the form\n`__spam` (at least two leading underscores, at most one trailing underscore)\nis textually replaced with `_classname__spam`, where `classname` is the\ncurrent class name with leading underscore(s) stripped. This mangling is done\nwithout regard to the syntactic position of the identifier, as long as it\noccurs within the definition of a class.\n\nSee also:\n\nThe private name mangling specifications\nfor details and special cases.\n\nName mangling is helpful for letting subclasses override methods without\nbreaking intraclass method calls. For example:\n\n```python3\nclass Mapping:\n    def __init__(self, iterable):\n        self.items_list = []\n        self.__update(iterable)\n\n    def update(self, iterable):\n        for item in iterable:\n            self.items_list.append(item)\n\n    __update = update   # private copy of original update() method [...]"
+     },
+     {
+      "id": "E6",
+      "title": "`dataclasses` — Data Classes",
+      "heading": "`dataclasses` — Data Classes > Mutable default values",
+      "url": "https://docs.python.org/3.12/library/dataclasses.html#mutable-default-values",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Python stores default member variable values in class attributes.\nConsider this example, not using dataclasses:\n\n```python3\nclass C:\n    x = []\n    def add(self, element):\n        self.x.append(element)\n\no1 = C()\no2 = C()\no1.add(1)\no2.add(2)\nassert o1.x == [1, 2]\nassert o1.x is o2.x\n```\n\nNote that the two instances of class `C` share the same class\nvariable `x`, as expected.\n\nUsing dataclasses, if this code was valid:\n\n```python3\n@dataclass\nclass D:\n    x: list = []      # This code raises ValueError\n    def add(self, element):\n        self.x.append(element)\n```\n\nit would generate code similar to:\n\n```python3\nclass D:\n    x = []\n    def __init__(self, x=x):\n        self.x = x\n    def add(self, element):\n        self.x.append(element)\n\nassert D().x is D().x\n```\n\nThis has the same issue as the original example using class `C`.\nThat is, two instances of class `D` that do not specify a value\nfor `x` when creating a class instance will share the same copy\nof `x`. Because dataclasses just use normal Python class\ncreation they also share this behavior. There is no general way\nfor Data Classes to detect this condition. Instead, the\n`@dataclass` decorator will raise a `ValueError` if it\ndetects an unhashable default parameter. The assumption is that if\na value is unhashable, it is mutable. This is a partial solution,\nbut it does protect against many common errors.\n\nUsing default factory functions is a way to create new instances of\nmutable types as default values for fields: [...]"
+     },
+     {
+      "id": "E7",
+      "title": "Programming FAQ",
+      "heading": "Programming FAQ > Objects > My class defines __del__ but it is not called when I delete the object.",
+      "url": "https://docs.python.org/3.12/faq/programming.html#my-class-defines-del-but-it-is-not-called-when-i-delete-the-object",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "There are several possible reasons for this.\n\nThe `del` statement does not necessarily call `__del__()` – it simply\ndecrements the object's reference count, and if this reaches zero\n`__del__()` is called.\n\nIf your data structures contain circular links (e.g. a tree where each child has\na parent reference and each parent has a list of children) the reference counts\nwill never go back to zero. Once in a while Python runs an algorithm to detect\nsuch cycles, but the garbage collector might run some time after the last\nreference to your data structure vanishes, so your `__del__()` method may be\ncalled at an inconvenient and random time. This is inconvenient if you're trying\nto reproduce a problem. Worse, the order in which object's `__del__()`\nmethods are executed is arbitrary. You can run `gc.collect()` to force a\ncollection, but there are pathological cases where objects will never be\ncollected. [...]"
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 4,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 3,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 1,
+     "unconfirmed_claims": 3,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 25.949165999918478,
+     "generation_ms": 7696.0,
+     "validation_ms": 1.139125000918284,
+     "total_ms": 7771.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "weak",
+     "coverage": 0.416,
+     "similarity": 0.898
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-sampler",
+   "title": "PyTorch: sampler and shuffle are exclusive",
+   "framework": "pytorch",
+   "question": "Traceback (most recent call last):\n  File \"train.py\", line 42, in <module>\n    dataloader = DataLoader(dataset, batch_size=32, sampler=my_sampler)\n  File \"/usr/local/lib/python3.9/site-packages/torch/utils/data/dataloader.py\", line 273, in __init__\n    raise ValueError(\"sampler option is mutually exclusive with shuffle\")\nValueError: sampler option is mutually exclusive with shuffle\n\nI am trying to use a custom IterableDataset with a DataLoader, but I keep getting errors when trying to define the order of data loading. How can I control the batching and shuffling logic when my dataset doesn't have indices or keys?",
+   "note": "Error-message question. Judged correct.",
+   "response": {
+    "request_id": "demo-ex-sampler",
+    "status": "answered",
+    "confidence": "medium",
+    "diagnosis": {
+     "text": "The error occurs because the `sampler` and `shuffle` arguments are mutually exclusive in `DataLoader`, and `IterableDataset` objects are incompatible with `sampler` or `batch_sampler` arguments entirely.",
+     "citations": [
+      "E1",
+      "E2"
+     ],
+     "support": "supported",
+     "support_score": 0.88,
+     "semantic": "unconfirmed",
+     "semantic_reason": "term coverage 0.80, identifier coverage 1.00"
+    },
+    "steps": [
+     {
+      "text": "Remove the `sampler` argument from your `DataLoader` constructor, as it is not compatible with `IterableDataset`.",
+      "citations": [
+       "E1"
+      ],
+      "support": "supported",
+      "support_score": 0.8,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.67, identifier coverage 1.00"
+     },
+     {
+      "text": "Implement batching and shuffling logic directly within the `IterableDataset` by controlling the data loading order in the user-defined iterable.",
+      "citations": [
+       "E1"
+      ],
+      "support": "partial",
+      "support_score": 0.7,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.50, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [
+     {
+      "language": "python",
+      "code": "dataloader = DataLoader(dataset, batch_size=32)",
+      "explanation": {
+       "text": "For an IterableDataset, you should rely on the dataset's internal logic to yield samples or batches, rather than passing a sampler to the DataLoader.",
+       "citations": [
+        "E1",
+        "E2"
+       ],
+       "support": "partial",
+       "support_score": 0.723,
+       "semantic": "unconfirmed",
+       "semantic_reason": "term coverage 0.54, identifier coverage 1.00"
+      }
+     }
+    ],
+    "conflicts": [],
+    "caveats": [
+     "Limited documentation coverage: partial coverage (62%) of the key terms."
+    ],
+    "missing_information": [
+     "Specific implementation patterns for shuffling or batching inside an IterableDataset class."
+    ],
+    "citations": [
+     {
+      "id": "E1",
+      "title": "torch.utils.data",
+      "heading": "torch.utils.data > Data Loading Order and `Sampler`",
+      "url": "https://docs.pytorch.org/docs/2.14/data.html#data-loading-order-and-sampler",
+      "framework": "pytorch",
+      "version": "2.14"
+     },
+     {
+      "id": "E2",
+      "title": "torch.utils.data",
+      "heading": "torch.utils.data > Memory Pinning > torch.utils.data.DataLoader",
+      "url": "https://docs.pytorch.org/docs/2.14/data.html#torch.utils.data.DataLoader",
+      "framework": "pytorch",
+      "version": "2.14"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "torch.utils.data",
+      "heading": "torch.utils.data > Data Loading Order and `Sampler`",
+      "url": "https://docs.pytorch.org/docs/2.14/data.html#data-loading-order-and-sampler",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": true,
+      "flags": [],
+      "excerpt": "For iterable-style datasets, data loading order\nis entirely controlled by the user-defined iterable. This allows easier\nimplementations of chunk-reading and dynamic batch size (e.g., by yielding a\nbatched sample at each time).\n\nThe rest of this section concerns the case with\nmap-style datasets. `torch.utils.data.Sampler`\nclasses are used to specify the sequence of indices/keys used in data loading.\nThey represent iterable objects over the indices to datasets. E.g., in the\ncommon case with stochastic gradient decent (SGD), a\n`Sampler` could randomly permute a list of indices\nand yield each one at a time, or yield a small number of them for mini-batch\nSGD.\n\nA sequential or shuffled sampler will be automatically constructed based on the `shuffle` argument to a `DataLoader`.\nAlternatively, users may use the `sampler` argument to specify a\ncustom `Sampler` object that at each time yields\nthe next index/key to fetch.\n\nA custom `Sampler` that yields a list of batch\nindices at a time can be passed as the `batch_sampler` argument.\nAutomatic batching can also be enabled via `batch_size` and\n`drop_last` arguments. See\nthe next section for more details\non this.\n\nNote:\n\nNeither `sampler` nor `batch_sampler` is compatible with\niterable-style datasets, since such datasets have no notion of a key or an\nindex."
+     },
+     {
+      "id": "E2",
+      "title": "torch.utils.data",
+      "heading": "torch.utils.data > Memory Pinning > torch.utils.data.DataLoader",
+      "url": "https://docs.pytorch.org/docs/2.14/data.html#torch.utils.data.DataLoader",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": true,
+      "flags": [],
+      "excerpt": "```\nclass torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=None, sampler=None, batch_sampler=None, num_workers=0, collate_fn=None, pin_memory=False, drop_last=False, timeout=0, worker_init_fn=None, multiprocessing_context=None, generator=None, *, prefetch_factor=None, persistent_workers=False, pin_memory_device='', in_order=True)\n```\n\nData loader combines a dataset and a sampler, and provides an iterable over the given dataset.\n\nThe `DataLoader` supports both map-style and\niterable-style datasets with single- or multi-process loading, customizing\nloading order and optional automatic batching (collation) and memory pinning.\n\nSee `torch.utils.data` documentation page for more details.\n\nParameters:\n\n- dataset (Dataset) – dataset from which to load the data.\n- batch_size (int, optional) – how many samples per batch to load (default: `1`).\n- shuffle (bool, optional) – set to `True` to have the data reshuffled at every epoch (default: `False`).\n- sampler (Sampler or Iterable, optional) – defines the strategy to draw samples from the dataset. Can be any `Iterable` with `__len__` implemented. If specified, `shuffle` must not be specified.\n- batch_sampler (Sampler or Iterable, optional) – like `sampler`, but returns a batch of indices at a time. Mutually exclusive with `batch_size`, `shuffle`, `sampler`, and `drop_last`.\n- num_workers (int, optional) – how many subprocesses to use for data loading. `0` means that the data will be loaded in the main process. (default: `0`) [...]"
+     },
+     {
+      "id": "E3",
+      "title": "torch.utils.data",
+      "heading": "torch.utils.data > Memory Pinning > torch.utils.data.distributed.DistributedSampler",
+      "url": "https://docs.pytorch.org/docs/2.14/data.html#torch.utils.data.distributed.DistributedSampler",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```\nclass torch.utils.data.distributed.DistributedSampler(dataset, num_replicas=None, rank=None, shuffle=True, seed=0, drop_last=False)\n```\n\nSampler that restricts data loading to a subset of the dataset.\n\nIt is especially useful in conjunction with\n`torch.nn.parallel.DistributedDataParallel`. In such a case, each\nprocess can pass a `DistributedSampler` instance as a\n`DataLoader` sampler, and load a subset of the\noriginal dataset that is exclusive to it.\n\nNote:\n\nDataset is assumed to be of constant size and that any instance of it always\nreturns the same elements in the same order.\n\nParameters:\n\n- dataset (Dataset) – Dataset used for sampling.\n- num_replicas (int, optional) – Number of processes participating in distributed training. By default, `world_size` is retrieved from the current distributed group.\n- rank (int, optional) – Rank of the current process within `num_replicas`. By default, `rank` is retrieved from the current distributed group.\n- shuffle (bool, optional) – If `True` (default), sampler will shuffle the indices.\n- seed (int, optional) – random seed used to shuffle the sampler if `shuffle=True`. This number should be identical across all processes in the distributed group. Default: `0`.\n- drop_last (bool, optional) – if `True`, then the sampler will drop the tail of the data to make it evenly divisible across the number of replicas. If `False`, the sampler will add extra indices to make the data evenly divisible across the replicas. Default: `False`. [...]"
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 4,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 2,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 4,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 19.201375002012355,
+     "generation_ms": 7041.0,
+     "validation_ms": 1.8834999973478261,
+     "total_ms": 7105.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "weak",
+     "coverage": 0.621,
+     "similarity": 0.906
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-tf32",
+   "title": "PyTorch: numerical mismatch on Ampere GPUs",
+   "framework": "pytorch",
+   "question": "Traceback (most recent call last):\n  File \"eval.py\", line 15, in <module>\n    result = torch.matmul(a, b)\n  File \"/usr/local/lib/python3.9/site-packages/torch/_tensor.py\", line 630, in __matmul__\n    return torch.matmul(self, other)\nRuntimeError: Numerical mismatch detected in matrix multiplication\n\nI'm seeing subtle differences in output values between two different GPU environments, specifically when performing matrix multiplications. Could the hardware-level precision settings on Ampere GPUs be causing these non-deterministic results in my floating-point operations?",
+   "note": "Plausible, cites the TF32 notes. Judged reasonable.",
+   "response": {
+    "request_id": "demo-ex-tf32",
+    "status": "answered",
+    "confidence": "medium",
+    "diagnosis": {
+     "text": "Yes, hardware-level precision settings like TensorFloat-32 (TF32) on Ampere GPUs can cause numerical differences in matrix multiplications because they use reduced mantissa precision. Additionally, floating-point operations are not guaranteed to be bitwise identical across different platforms or hardware, as floating-point addition and multiplication are not associative.",
+     "citations": [
+      "E1",
+      "E2"
+     ],
+     "support": "supported",
+     "support_score": 0.85,
+     "semantic": "unconfirmed",
+     "semantic_reason": "term coverage 0.75, identifier coverage 1.00"
+    },
+    "steps": [
+     {
+      "text": "To ensure full IEEE FP32 precision for matrix multiplications and avoid TF32-related discrepancies, set the precision to 'ieee'.",
+      "citations": [
+       "E1",
+       "E3",
+       "E4"
+      ],
+      "support": "supported",
+      "support_score": 0.8,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.67, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [
+     {
+      "language": "python",
+      "code": "torch.backends.cuda.matmul.fp32_precision = \"ieee\"",
+      "explanation": {
+       "text": "This forces matrix multiplications to use standard IEEE FP32 precision instead of the lower-precision TF32 format available on Ampere and later GPUs.",
+       "citations": [
+        "E3",
+        "E4"
+       ],
+       "support": "partial",
+       "support_score": 0.72,
+       "semantic": "unconfirmed",
+       "semantic_reason": "term coverage 0.53, identifier coverage 1.00"
+      }
+     }
+    ],
+    "conflicts": [],
+    "caveats": [
+     "The user is running Python 3.9, while the provided documentation covers Python 3.12 and PyTorch 2.14.",
+     "Floating-point results are not guaranteed to be bitwise identical across different platforms, releases, or commits, even when inputs are identical.",
+     "You mentioned python 3.9; this answer is based on the indexed python 3.12 documentation and behaviour may differ.",
+     "Limited documentation coverage: partial coverage (54%) of the key terms.",
+     "The cited documentation spans several frameworks (python, pytorch); check which one your code uses."
+    ],
+    "missing_information": [],
+    "citations": [
+     {
+      "id": "E1",
+      "title": "Numerical accuracy",
+      "heading": "Numerical accuracy > TensorFloat-32 (TF32) on Nvidia Ampere (and later) devices",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/numerical_accuracy.html#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices",
+      "framework": "pytorch",
+      "version": "2.14"
+     },
+     {
+      "id": "E2",
+      "title": "Numerical accuracy",
+      "heading": "Numerical accuracy",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/numerical_accuracy.html#numerical-accuracy",
+      "framework": "pytorch",
+      "version": "2.14"
+     },
+     {
+      "id": "E3",
+      "title": "CUDA semantics",
+      "heading": "CUDA semantics > TensorFloat-32 (TF32) on Ampere (and later) devices",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/cuda.html#tensorfloat-32-tf32-on-ampere-and-later-devices",
+      "framework": "pytorch",
+      "version": "2.14"
+     },
+     {
+      "id": "E4",
+      "title": "Numerical accuracy",
+      "heading": "Numerical accuracy > TensorFloat-32 (TF32) on AMD Instinct MI300 devices",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/numerical_accuracy.html#tensorfloat-32-tf32-on-amd-instinct-mi300-devices",
+      "framework": "pytorch",
+      "version": "2.14"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "Numerical accuracy",
+      "heading": "Numerical accuracy > TensorFloat-32 (TF32) on Nvidia Ampere (and later) devices",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/numerical_accuracy.html#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": true,
+      "flags": [],
+      "excerpt": "On Ampere (and later) Nvidia GPUs, PyTorch can use TensorFloat32 (TF32) to speed up\nmathematically intensive operations, in particular matrix multiplications and convolutions.\nWhen an operation is performed using TF32 tensor cores, only the first 10 bits of the input\nmantissa are read. This may reduce accuracy and produce surprising results (e.g., multiplying\na matrix by the identity matrix may produce results that are different from the input).\nBy default, TF32 tensor cores are disabled for matrix multiplications and enabled for\nconvolutions, although most neural network workloads have the same convergence behavior when\nusing TF32 as they have with fp32.\nWe recommend enabling TF32 tensor cores for matrix multiplications with\n`torch.backends.cuda.matmul.fp32_precision = \"tf32\"` (`torch.backends.cuda.matmul.allow_tf32 = True`\nis going to be deprecated) if your network does not need full float32 precision.\nIf your network needs full float32 precision for both matrix multiplications and convolutions,\nthen TF32 tensor cores can also be disabled for convolutions with\n`torch.backends.cudnn.conv.fp32_precision = \"ieee\"` (`torch.backends.cudnn.allow_tf32 = False`\nis going to be deprecated).\n\nFor more information see TensorFloat32."
+     },
+     {
+      "id": "E2",
+      "title": "Numerical accuracy",
+      "heading": "Numerical accuracy",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/numerical_accuracy.html#numerical-accuracy",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": true,
+      "flags": [],
+      "excerpt": "Created On: May 13, 2026 | Last Updated On: Jun 01, 2026\n\nIn modern computers, floating point numbers are represented using IEEE 754 standard.\nFor more details on floating point arithmetic and IEEE 754 standard, please see\nFloating point arithmetic.\nIn particular, note that floating point provides limited accuracy (about 7 decimal digits\nfor single precision floating point numbers, about 16 decimal digits for double precision\nfloating point numbers) and that floating point addition and multiplication are not\nassociative, so the order of the operations affects the results.\nBecause of this, PyTorch is not guaranteed\nto produce bitwise identical results for floating point computations that are\nmathematically identical. Similarly, bitwise identical results are not guaranteed across\nPyTorch releases, individual commits, or different platforms. In particular, CPU and GPU\nresults can be different even for bitwise-identical inputs and even after controlling for\nthe sources of randomness."
+     },
+     {
+      "id": "E3",
+      "title": "CUDA semantics",
+      "heading": "CUDA semantics > TensorFloat-32 (TF32) on Ampere (and later) devices",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/cuda.html#tensorfloat-32-tf32-on-ampere-and-later-devices",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": true,
+      "flags": [],
+      "excerpt": "After PyTorch 2.9, we provide a new sets of APIs to control the TF32 behavior in a more fine-grained way, and\nsuggest to use the new APIs for better control.\nWe can set float32 precision per backend and per operators. We can also override the global setting for a specific operator.\n\n```python\ntorch.backends.fp32_precision = \"ieee\"\ntorch.backends.cuda.matmul.fp32_precision = \"ieee\"\ntorch.backends.cudnn.fp32_precision = \"ieee\"\ntorch.backends.cudnn.conv.fp32_precision = \"tf32\"\ntorch.backends.cudnn.rnn.fp32_precision = \"tf32\"\n```\n\nThe fp32_precision can be set to `ieee` or `tf32` for `cuda/cudnn`.\n`ieee` fp32_precision indicate that we will use `FP32` as internal computation precision.\n`tf32` fp32_precision indicate that we will allow to use `TF32` as internal computation precision.\n\nWe can override a generic setting for a specific operator if the fp32_precision is set to `ieee`.\n\n```python\ntorch.backends.cudnn.fp32_precision = \"tf32\"\ntorch.backends.cudnn.conv.fp32_precision = \"ieee\"\ntorch.backends.cudnn.rnn.fp32_precision = \"ieee\"\n```\n\nWe can also override a generic setting for a specific backend if the fp32_precision is set to `ieee`.\n\n```python\ntorch.backends.fp32_precision = \"tf32\"\ntorch.backends.cudnn.fp32_precision = \"ieee\"\ntorch.backends.cudnn.conv.fp32_precision = \"ieee\"\ntorch.backends.cudnn.rnn.fp32_precision = \"ieee\"\n```\n\nFor above 2 cases, both `torch.backends.cudnn.conv.fp32_precision` and `torch.backends.cudnn.rnn.fp32_precision`\nis overridden to `ieee`. [...]"
+     },
+     {
+      "id": "E4",
+      "title": "Numerical accuracy",
+      "heading": "Numerical accuracy > TensorFloat-32 (TF32) on AMD Instinct MI300 devices",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/numerical_accuracy.html#tensorfloat-32-tf32-on-amd-instinct-mi300-devices",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": true,
+      "flags": [],
+      "excerpt": "On AMD Instinct MI300 GPUs (gfx942, CDNA3), the `v_mfma_f32_*_xf32` matrix instructions used by hipBLASLt's TF32 path perform round-down accumulation. This is a documented property of the CDNA3 hardware. NVIDIA's TF32 implementation rounds to nearest, so a TF32 GEMM exhibits a small negative-biased error on MI300 that is absent on NVIDIA. The bias scales with `sqrt(K) * 2^-10 * |A|_inf` and reaches the low single-digit milli-units for typical random inputs; the corresponding error on NVIDIA TF32 is roughly half to a third of that.\n\nOnly operations that dispatch through hipBLASLt with TF32 enabled are affected. To run a block of code in full IEEE FP32:\n\n```python\ntorch.backends.cuda.matmul.fp32_precision = \"ieee\"\n```\n\nTo enable TF32 on supported hardware:\n\n```python\ntorch.backends.cuda.matmul.fp32_precision = \"tf32\"\n```\n\nFor a per-shape characterization of the MI300 vs NVIDIA-TF32 numerical gap, see https://github.com/jeffdaily/tf32_analysis."
+     },
+     {
+      "id": "E5",
+      "title": "Reproducibility",
+      "heading": "Reproducibility > Avoiding nondeterministic algorithms > CUDA Scaled Dot Product Attention",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/randomness.html#cuda-scaled-dot-product-attention",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "`torch.nn.functional.scaled_dot_product_attention()` (SDPA) dispatches to\nmultiple backends at runtime. Each backend has different determinism\ncharacteristics, summarized in the table below:\n\nBackend | Forward | Backward | Notes\n`SDPBackend.MATH` | Deterministic | Deterministic | Uses standard PyTorch operators (`matmul`, `softmax`). Deterministic when `torch.use_deterministic_algorithms()` is enabled.\n`SDPBackend.FLASH_ATTENTION` | Deterministic | Non-deterministic | The backward pass uses non-deterministic atomic operations by default. Setting `torch.use_deterministic_algorithms(True, warn_only=False)` enables a deterministic backward implementation.\n`SDPBackend.EFFICIENT_ATTENTION` | Deterministic | Non-deterministic | The backward pass may split work across keys (`num_splits_key > 1`) for performance, which is non-deterministic. Setting `torch.use_deterministic_algorithms(True, warn_only=False)` forces `num_splits_key = 1`, making the backward pass deterministic.\n`SDPBackend.CUDNN_ATTENTION` | Deterministic | Non-deterministic | cuDNN provides an opt-in deterministic backward for `float16` starting in cuDNN 9.18 (via set_deterministic_algorithm), but this has not yet been integrated into PyTorch. This backend is disabled when `torch.use_deterministic_algorithms(True, warn_only=False)` is set, regardless of whether inputs require gradients or the call is inside a `torch.no_grad()` context. [...]"
+     },
+     {
+      "id": "E6",
+      "title": "Design and History FAQ",
+      "heading": "Design and History FAQ > Why are floating-point calculations so inaccurate?",
+      "url": "https://docs.python.org/3.12/faq/design.html#why-are-floating-point-calculations-so-inaccurate",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Users are often surprised by results like this:\n\n```python3\n>>> 1.2 - 1.0\n0.19999999999999996\n```\n\nand think it is a bug in Python. It's not. This has little to do with Python,\nand much more to do with how the underlying platform handles floating-point\nnumbers.\n\nThe `float` type in CPython uses a C `double` for storage. A\n`float` object's value is stored in binary floating-point with a fixed\nprecision (typically 53 bits) and Python uses C operations, which in turn rely\non the hardware implementation in the processor, to perform floating-point\noperations. This means that as far as floating-point operations are concerned,\nPython behaves like many popular languages including C and Java.\n\nMany numbers that can be written easily in decimal notation cannot be expressed\nexactly in binary floating point. For example, after:\n\n```python3\n>>> x = 1.2\n```\n\nthe value stored for `x` is a (very good) approximation to the decimal value\n`1.2`, but is not exactly equal to it. On a typical machine, the actual\nstored value is:\n\n```python3\n1.0011001100110011001100110011001100110011001100110011 (binary)\n```\n\nwhich is exactly:\n\n```python3\n1.1999999999999999555910790149937383830547332763671875 (decimal)\n```\n\nThe typical precision of 53 bits provides Python floats with 15–16\ndecimal digits of accuracy.\n\nFor a fuller explanation, please see the floating-point arithmetic chapter in the Python tutorial."
+     },
+     {
+      "id": "E7",
+      "title": "Automatic Mixed Precision examples",
+      "heading": "Automatic Mixed Precision examples > Working with Multiple GPUs > DataParallel in a single process",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/amp_examples.html#dataparallel-in-a-single-process",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Even if `torch.nn.DataParallel` spawns threads to run the forward pass on each device.\nThe autocast state is propagated in each one and the following will work:\n\n```python\nmodel = MyModel()\ndp_model = nn.DataParallel(model)\n\n# Sets autocast in the main thread\nwith autocast(device_type='cuda', dtype=torch.float16):\n    # dp_model's internal threads will autocast.\n    output = dp_model(input)\n    # loss_fn also autocast\n    loss = loss_fn(output)\n```"
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 3,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 1,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 3,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 18.6284160008654,
+     "generation_ms": 6877.0,
+     "validation_ms": 2.098167002259288,
+     "total_ms": 6937.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "weak",
+     "coverage": 0.538,
+     "similarity": 0.888
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-async-db",
+   "title": "FastAPI: sync DB query inside async code",
+   "framework": "fastapi",
+   "question": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.10/site-packages/fastapi/routing.py\", line 235, in run_endpoint_function\n    return await dependant.call(**values)\n  File \"./app/services.py\", line 55, in sync_utility_function\n    data = db.query(Model).all()\n  File \"/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/query.py\", line 2800, in all\n    return list(self)\n  File \"/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/query.py\", line 2955, in __iter__\n    return self._execute_and_instances(context)\n  File \"/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/query.py\", line 2978, in _execute_and_instances\n    result = self.session.execute(query, params=self._params)\nRuntimeError: Cannot run synchronous database queries inside an async path operation without potential blocking.\n\nI have a utility function that performs synchronous database operations and I'm calling it from an async path operation. Does FastAPI automatically offload standard 'def' functions to a threadpool, or do I need to wrap these calls in a specific utility to avoid blocking the event loop?",
+   "note": "Server-log style trace. Judged correct.",
+   "response": {
+    "request_id": "demo-ex-async-db",
+    "status": "answered",
+    "confidence": "medium",
+    "diagnosis": {
+     "text": "FastAPI only automatically offloads synchronous functions to a threadpool if they are declared as path operation functions using 'def' instead of 'async def'. Your utility function is being called directly within an 'async def' path operation, which causes it to run on the event loop and block it.",
+     "citations": [
+      "E1",
+      "E2"
+     ],
+     "support": "supported",
+     "support_score": 0.791,
+     "semantic": "unconfirmed",
+     "semantic_reason": "term coverage 0.65, identifier coverage 1.00"
+    },
+    "steps": [
+     {
+      "text": "Change your path operation function from 'async def' to 'def' if it performs blocking synchronous I/O, allowing FastAPI to run it in an external threadpool.",
+      "citations": [
+       "E1",
+       "E3"
+      ],
+      "support": "supported",
+      "support_score": 0.88,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.80, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [
+     {
+      "language": "python",
+      "code": "@app.get(\"/\")\ndef read_data():\n    # Synchronous database call\n    data = db.query(Model).all()\n    return data",
+      "explanation": {
+       "text": "By using 'def' instead of 'async def', FastAPI will execute the function in an external threadpool, preventing the blocking of the event loop.",
+       "citations": [
+        "E1",
+        "E3"
+       ],
+       "support": "supported",
+       "support_score": 0.815,
+       "semantic": "unconfirmed",
+       "semantic_reason": "term coverage 0.69, identifier coverage 1.00"
+      }
+     }
+    ],
+    "conflicts": [],
+    "caveats": [
+     "Limited documentation coverage: partial coverage (52%) of the key terms."
+    ],
+    "missing_information": [
+     "The provided documentation does not contain information on specific utility functions or wrappers (like 'run_in_executor') to offload synchronous code from within an 'async def' function."
+    ],
+    "citations": [
+     {
+      "id": "E1",
+      "title": "Concurrency and async / await",
+      "heading": "Concurrency and async / await > Very Technical Details > Path operation functions",
+      "url": "https://fastapi.tiangolo.com/async/#path-operation-functions",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     },
+     {
+      "id": "E2",
+      "title": "Concurrency and async / await",
+      "heading": "Concurrency and async / await > Very Technical Details > Other utility functions",
+      "url": "https://fastapi.tiangolo.com/async/#other-utility-functions",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     },
+     {
+      "id": "E3",
+      "title": "Concurrency and async / await",
+      "heading": "Concurrency and async / await > In a hurry?",
+      "url": "https://fastapi.tiangolo.com/async/#in-a-hurry",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "Concurrency and async / await",
+      "heading": "Concurrency and async / await > Very Technical Details > Path operation functions",
+      "url": "https://fastapi.tiangolo.com/async/#path-operation-functions",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "When you declare a *path operation function* with normal `def` instead of `async def`, it is run in an external threadpool that is then awaited, instead of being called directly (as it would block the server).\n\nIf you are coming from another async framework that does not work in the way described above and you are used to defining trivial compute-only *path operation functions* with plain `def` for a tiny performance gain (about 100 nanoseconds), please note that in FastAPI the effect would be quite opposite. In these cases, it's better to use `async def` unless your *path operation functions* use code that performs blocking I/O.\n\nStill, in both situations, chances are that FastAPI will still be faster than (or at least comparable to) your previous framework."
+     },
+     {
+      "id": "E2",
+      "title": "Concurrency and async / await",
+      "heading": "Concurrency and async / await > Very Technical Details > Other utility functions",
+      "url": "https://fastapi.tiangolo.com/async/#other-utility-functions",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "Any other utility function that you call directly can be created with normal `def` or `async def` and FastAPI won't affect the way you call it.\n\nThis is in contrast to the functions that FastAPI calls for you: *path operation functions* and dependencies.\n\nIf your utility function is a normal function with `def`, it will be called directly (as you write it in your code), not in a threadpool, if the function is created with `async def` then you should `await` that function when you call it in your code.\n\n---\n\nAgain, these are very technical details that would probably be useful if you came searching for them.\n\nOtherwise, you should be good with the guidelines from the section above: In a hurry?."
+     },
+     {
+      "id": "E3",
+      "title": "Concurrency and async / await",
+      "heading": "Concurrency and async / await > In a hurry?",
+      "url": "https://fastapi.tiangolo.com/async/#in-a-hurry",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "TL;DR:\n\nIf you are using third party libraries that tell you to call them with `await`, like:\n\n```Python\nresults = await some_library()\n```\n\nThen, declare your *path operation functions* with `async def` like:\n\n```Python\n@app.get(\"/\")\nasync def read_results():\n    results = await some_library()\n    return results\n```\n\nNote:\n\nYou can only use `await` inside of functions created with `async def`.\n\n---\n\nIf you are using a third party library that communicates with something (a database, an API, the file system, etc.) and doesn't have support for using `await`, (this is currently the case for most database libraries), then declare your *path operation functions* as normally, with just `def`, like:\n\n```Python\n@app.get(\"/\")\ndef results():\n    results = some_library()\n    return results\n```\n\n---\n\nIf your application (somehow) doesn't have to communicate with anything else and wait for it to respond, use `async def`, even if you don't need to use `await` inside.\n\n---\n\nIf you just don't know, use normal `def`.\n\n---\n\nNote: You can mix `def` and `async def` in your *path operation functions* as much as you need and define each one using the best option for you. FastAPI will do the right thing with them.\n\nAnyway, in any of the cases above, FastAPI will still work asynchronously and be extremely fast.\n\nBut by following the steps above, it will be able to do some performance optimizations."
+     },
+     {
+      "id": "E4",
+      "title": "Async Tests",
+      "heading": "Async Tests > Other Asynchronous Function Calls",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/#other-asynchronous-function-calls",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "As the testing function is now asynchronous, you can now also call (and `await`) other `async` functions apart from sending requests to your FastAPI application in your tests, exactly as you would call them anywhere else in your code.\n\nTip:\n\nIf you encounter a `RuntimeError: Task attached to a different loop` when integrating asynchronous function calls in your tests (e.g. when using MongoDB's MotorClient), remember to instantiate objects that need an event loop only within async functions, e.g. an `@app.on_event(\"startup\")` callback."
+     },
+     {
+      "id": "E5",
+      "title": "Dependencies",
+      "heading": "Dependencies > To `async` or not to `async`",
+      "url": "https://fastapi.tiangolo.com/tutorial/dependencies/#to-async-or-not-to-async",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "As dependencies will also be called by FastAPI (the same as your *path operation functions*), the same rules apply while defining your functions.\n\nYou can use `async def` or normal `def`.\n\nAnd you can declare dependencies with `async def` inside of normal `def` *path operation functions*, or `def` dependencies inside of `async def` *path operation functions*, etc.\n\nIt doesn't matter. FastAPI will know what to do.\n\nNote:\n\nIf you don't know, check the Async: *\"In a hurry?\"* section about `async` and `await` in the docs."
+     },
+     {
+      "id": "E6",
+      "title": "Async Tests",
+      "heading": "Async Tests > HTTPX",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/#httpx",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Even if your FastAPI application uses normal `def` functions instead of `async def`, it is still an `async` application underneath.\n\nThe `TestClient` does some magic inside to call the asynchronous FastAPI application in your normal `def` test functions, using standard pytest. But that magic doesn't work anymore when we're using it inside asynchronous functions. By running our tests asynchronously, we can no longer use the `TestClient` inside our test functions.\n\nThe `TestClient` is based on HTTPX, and luckily, we can use it directly to test the API."
+     },
+     {
+      "id": "E7",
+      "title": "Async Tests",
+      "heading": "Async Tests",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/#async-tests",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "You have already seen how to test your FastAPI applications using the provided `TestClient`. Up to now, you have only seen how to write synchronous tests, without using `async` functions.\n\nBeing able to use asynchronous functions in your tests could be useful, for example, when you're querying your database asynchronously. Imagine you want to test sending requests to your FastAPI application and then verify that your backend successfully wrote the correct data in the database, while using an async database library.\n\nLet's look at how we can make that work."
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 3,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 0,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 3,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 26.753334001114126,
+     "generation_ms": 7850.0,
+     "validation_ms": 1.4871669991407543,
+     "total_ms": 7921.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "weak",
+     "coverage": 0.52,
+     "similarity": 0.902
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-tests",
+   "title": "FastAPI: testing async endpoints",
+   "framework": "fastapi",
+   "question": "I'm trying to write unit tests for my FastAPI endpoints that involve asynchronous database calls using Tortoise-ORM. I've been using the standard synchronous client, but it hangs whenever I try to await a database query inside a test function. How can I properly configure my test suite to support async testing without breaking the client-server communication? Could you provide a pattern for using an async test client that correctly handles the event loop?",
+   "note": "Verbose question. Judged correct.",
+   "response": {
+    "request_id": "demo-ex-tests",
+    "status": "answered",
+    "confidence": "medium",
+    "diagnosis": {
+     "text": "The standard `TestClient` is designed for synchronous test functions and its internal magic does not function when used inside `async def` test functions, which are required for awaiting asynchronous database calls.",
+     "citations": [
+      "E1",
+      "E4"
+     ],
+     "support": "supported",
+     "support_score": 0.788,
+     "semantic": "unconfirmed",
+     "semantic_reason": "term coverage 0.65, identifier coverage 1.00"
+    },
+    "steps": [
+     {
+      "text": "Define your test functions as `async def` to allow the use of `await` for asynchronous database operations.",
+      "citations": [
+       "E1",
+       "E3"
+      ],
+      "support": "partial",
+      "support_score": 0.56,
+      "semantic": "unverified",
+      "semantic_reason": "unverified: identifier not in cited text: async def"
+     },
+     {
+      "text": "Replace `TestClient` with `httpx` directly, as `TestClient` is not compatible with asynchronous test functions.",
+      "citations": [
+       "E4"
+      ],
+      "support": "supported",
+      "support_score": 0.85,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.75, identifier coverage 1.00"
+     },
+     {
+      "text": "If you encounter a `RuntimeError: Task attached to a different loop`, ensure that objects requiring an event loop are instantiated only within async functions, such as an `@app.on_event(\"startup\")` callback.",
+      "citations": [
+       "E3"
+      ],
+      "support": "supported",
+      "support_score": 0.894,
+      "semantic": "supported",
+      "semantic_reason": "term coverage 0.82, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [],
+    "conflicts": [],
+    "caveats": [
+     "Limited documentation coverage: partial coverage (36%) of the key terms."
+    ],
+    "missing_information": [
+     "The provided documentation does not contain specific code patterns or examples for configuring an asynchronous HTTPX client for FastAPI testing, nor does it provide specific integration steps for Tortoise-ORM."
+    ],
+    "citations": [
+     {
+      "id": "E1",
+      "title": "Async Tests",
+      "heading": "Async Tests",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/#async-tests",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     },
+     {
+      "id": "E4",
+      "title": "Async Tests",
+      "heading": "Async Tests > HTTPX",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/#httpx",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     },
+     {
+      "id": "E3",
+      "title": "Async Tests",
+      "heading": "Async Tests > Other Asynchronous Function Calls",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/#other-asynchronous-function-calls",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "Async Tests",
+      "heading": "Async Tests",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/#async-tests",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "You have already seen how to test your FastAPI applications using the provided `TestClient`. Up to now, you have only seen how to write synchronous tests, without using `async` functions.\n\nBeing able to use asynchronous functions in your tests could be useful, for example, when you're querying your database asynchronously. Imagine you want to test sending requests to your FastAPI application and then verify that your backend successfully wrote the correct data in the database, while using an async database library.\n\nLet's look at how we can make that work."
+     },
+     {
+      "id": "E2",
+      "title": "Testing",
+      "heading": "Testing > Using `TestClient`",
+      "url": "https://fastapi.tiangolo.com/tutorial/testing/#using-testclient",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Note:\n\nTo use `TestClient`, first install `httpx`.\n\nAdd it to your project:\n\n```console\n$ uv add httpx\n```\n\nImport `TestClient`.\n\nCreate a `TestClient` by passing your FastAPI application to it.\n\nCreate functions with a name that starts with `test_` (this is a standard `pytest` convention).\n\nUse the `TestClient` object the same way as you do with `httpx`.\n\nWrite simple `assert` statements with the standard Python expressions that you need to check (again, standard `pytest`).\n\n```python\nfrom fastapi import FastAPI\nfrom fastapi.testclient import TestClient\n\napp = FastAPI()\n\n\n@app.get(\"/\")\nasync def read_main():\n    return {\"msg\": \"Hello World\"}\n\n\nclient = TestClient(app)\n\n\ndef test_read_main():\n    response = client.get(\"/\")\n    assert response.status_code == 200\n    assert response.json() == {\"msg\": \"Hello World\"}\n```\n\nTip:\n\nNotice that the testing functions are normal `def`, not `async def`.\n\nAnd the calls to the client are also normal calls, not using `await`.\n\nThis allows you to use `pytest` directly without complications.\n\nNote: Technical Details\n\nYou could also use `from starlette.testclient import TestClient`.\n\nFastAPI provides the same `starlette.testclient` as `fastapi.testclient` just as a convenience for you, the developer. But it comes directly from Starlette.\n\nTip: [...]"
+     },
+     {
+      "id": "E3",
+      "title": "Async Tests",
+      "heading": "Async Tests > Other Asynchronous Function Calls",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/#other-asynchronous-function-calls",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "As the testing function is now asynchronous, you can now also call (and `await`) other `async` functions apart from sending requests to your FastAPI application in your tests, exactly as you would call them anywhere else in your code.\n\nTip:\n\nIf you encounter a `RuntimeError: Task attached to a different loop` when integrating asynchronous function calls in your tests (e.g. when using MongoDB's MotorClient), remember to instantiate objects that need an event loop only within async functions, e.g. an `@app.on_event(\"startup\")` callback."
+     },
+     {
+      "id": "E4",
+      "title": "Async Tests",
+      "heading": "Async Tests > HTTPX",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/#httpx",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "Even if your FastAPI application uses normal `def` functions instead of `async def`, it is still an `async` application underneath.\n\nThe `TestClient` does some magic inside to call the asynchronous FastAPI application in your normal `def` test functions, using standard pytest. But that magic doesn't work anymore when we're using it inside asynchronous functions. By running our tests asynchronously, we can no longer use the `TestClient` inside our test functions.\n\nThe `TestClient` is based on HTTPX, and luckily, we can use it directly to test the API."
+     },
+     {
+      "id": "E5",
+      "title": "Concurrency and async / await",
+      "heading": "Concurrency and async / await > `async` and `await` > Write your own async code",
+      "url": "https://fastapi.tiangolo.com/async/#write-your-own-async-code",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Starlette (and FastAPI) are based on AnyIO, which makes it compatible with both Python's standard library asyncio and Trio.\n\nIn particular, you can directly use AnyIO for your advanced concurrency use cases that require more advanced patterns in your own code.\n\nAnd even if you were not using FastAPI, you could also write your own async applications with AnyIO to be highly compatible and get its benefits (e.g. *structured concurrency*).\n\nI created another library on top of AnyIO, as a thin layer on top, to improve a bit the type annotations and get better autocompletion, inline errors, etc. It also has a friendly introduction and tutorial to help you understand and write your own async code: Asyncer. It would be particularly useful if you need to combine async code with regular (blocking/synchronous) code."
+     },
+     {
+      "id": "E6",
+      "title": "Testing WebSockets",
+      "heading": "Testing WebSockets",
+      "url": "https://fastapi.tiangolo.com/advanced/testing-websockets/#testing-websockets",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "You can use the same `TestClient` to test WebSockets.\n\nFor this, you use the `TestClient` in a `with` statement, connecting to the WebSocket:\n\n```python\nfrom fastapi import FastAPI\nfrom fastapi.testclient import TestClient\nfrom fastapi.websockets import WebSocket\n\napp = FastAPI()\n\n\n@app.get(\"/\")\nasync def read_main():\n    return {\"msg\": \"Hello World\"}\n\n\n@app.websocket(\"/ws\")\nasync def websocket(websocket: WebSocket):\n    await websocket.accept()\n    await websocket.send_json({\"msg\": \"Hello WebSocket\"})\n    await websocket.close()\n\n\ndef test_read_main():\n    client = TestClient(app)\n    response = client.get(\"/\")\n    assert response.status_code == 200\n    assert response.json() == {\"msg\": \"Hello World\"}\n\n\ndef test_websocket():\n    client = TestClient(app)\n    with client.websocket_connect(\"/ws\") as websocket:\n        data = websocket.receive_json()\n        assert data == {\"msg\": \"Hello WebSocket\"}\n```\n\nNote:\n\nFor more details, check Starlette's documentation for testing WebSockets."
+     },
+     {
+      "id": "E7",
+      "title": "Concurrency and async / await",
+      "heading": "Concurrency and async / await > In a hurry?",
+      "url": "https://fastapi.tiangolo.com/async/#in-a-hurry",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "TL;DR:\n\nIf you are using third party libraries that tell you to call them with `await`, like:\n\n```Python\nresults = await some_library()\n```\n\nThen, declare your *path operation functions* with `async def` like:\n\n```Python\n@app.get(\"/\")\nasync def read_results():\n    results = await some_library()\n    return results\n```\n\nNote:\n\nYou can only use `await` inside of functions created with `async def`.\n\n---\n\nIf you are using a third party library that communicates with something (a database, an API, the file system, etc.) and doesn't have support for using `await`, (this is currently the case for most database libraries), then declare your *path operation functions* as normally, with just `def`, like:\n\n```Python\n@app.get(\"/\")\ndef results():\n    results = some_library()\n    return results\n```\n\n---\n\nIf your application (somehow) doesn't have to communicate with anything else and wait for it to respond, use `async def`, even if you don't need to use `await` inside.\n\n---\n\nIf you just don't know, use normal `def`.\n\n---\n\nNote: You can mix `def` and `async def` in your *path operation functions* as much as you need and define each one using the best option for you. FastAPI will do the right thing with them.\n\nAnyway, in any of the cases above, FastAPI will still work asynchronously and be extremely fast.\n\nBut by following the steps above, it will be able to do some performance optimizations."
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 4,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 1,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 1,
+     "unconfirmed_claims": 2,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 25.052166001842124,
+     "generation_ms": 15234.0,
+     "validation_ms": 0.9918750001816079,
+     "total_ms": 15308.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "weak",
+     "coverage": 0.36,
+     "similarity": 0.938
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-weak",
+   "title": "FastAPI: memory growth under Gunicorn (a weak answer)",
+   "framework": "fastapi",
+   "question": "My FastAPI application is running in a multi-process environment managed by Gunicorn, and I'm noticing that my memory usage is slowly climbing over time, suggesting a leak within the worker processes. I suspect that the way I'm loading data into global variables is causing this since it seems to be duplicated across each worker. How can I effectively monitor memory usage per process to confirm if my global state is causing the bloat? What are the best practices for sharing data between these worker processes to keep the RAM usage stable?",
+   "note": "Shown on purpose. The model cited PyTorch DataLoader documentation for a FastAPI question; the validator now removes that claim and the answer is flagged low confidence.",
+   "response": {
+    "request_id": "demo-ex-weak",
+    "status": "partial",
+    "confidence": "low",
+    "diagnosis": null,
+    "steps": [
+     {
+      "text": "Monitor memory usage by observing the total RAM consumption of your application, noting that each worker process will consume an equivalent amount of memory for any data loaded into global variables.",
+      "citations": [
+       "E5"
+      ],
+      "support": "partial",
+      "support_score": 0.633,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.39, identifier coverage 1.00"
+     },
+     {
+      "text": "Adjust the number of worker processes or the number of containers based on the available system memory to ensure the total consumption does not exceed available resources.",
+      "citations": [
+       "E1"
+      ],
+      "support": "partial",
+      "support_score": 0.7,
+      "semantic": "unconfirmed",
+      "semantic_reason": "term coverage 0.50, identifier coverage 1.00"
+     }
+    ],
+    "code_suggestions": [],
+    "conflicts": [],
+    "caveats": [
+     "Limited documentation coverage: partial coverage (32%) of the key terms.",
+     "The cited documentation spans several frameworks (fastapi, pytorch); check which one your code uses."
+    ],
+    "missing_information": [
+     "The provided documentation does not contain specific tools or commands for monitoring memory usage per process (e.g., htop, ps, or memory profilers).",
+     "The provided documentation does not offer specific architectural patterns for sharing data between independent FastAPI worker processes to reduce memory usage."
+    ],
+    "citations": [
+     {
+      "id": "E5",
+      "title": "Deployments Concepts",
+      "heading": "Deployments Concepts > Replication - Processes and Memory > Memory per Process",
+      "url": "https://fastapi.tiangolo.com/deployment/concepts/#memory-per-process",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     },
+     {
+      "id": "E1",
+      "title": "FastAPI in Containers - Docker",
+      "heading": "FastAPI in Containers - Docker > Memory",
+      "url": "https://fastapi.tiangolo.com/deployment/docker/#memory",
+      "framework": "fastapi",
+      "version": "0.162.0"
+     }
+    ],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "FastAPI in Containers - Docker",
+      "heading": "FastAPI in Containers - Docker > Memory",
+      "url": "https://fastapi.tiangolo.com/deployment/docker/#memory",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "If you run a single process per container you will have a more or less well-defined, stable, and limited amount of memory consumed by each of those containers (more than one if they are replicated).\n\nAnd then you can set those same memory limits and requirements in your configurations for your container management system (for example in Kubernetes). That way it will be able to replicate the containers in the available machines taking into account the amount of memory needed by them, and the amount available in the machines in the cluster.\n\nIf your application is simple, this will probably not be a problem, and you might not need to specify hard memory limits. But if you are using a lot of memory (for example with machine learning models), you should check how much memory you are consuming and adjust the number of containers that run on each machine (and maybe add more machines to your cluster).\n\nIf you run multiple processes per container you will have to make sure that the number of processes started doesn't consume more memory than what is available."
+     },
+     {
+      "id": "E2",
+      "title": "Deployments Concepts",
+      "heading": "Deployments Concepts > Replication - Processes and Memory",
+      "url": "https://fastapi.tiangolo.com/deployment/concepts/#replication-processes-and-memory",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "With a FastAPI application, using a server program like the `fastapi` command that runs Uvicorn, running it once in one process can serve multiple clients concurrently.\n\nBut in many cases, you will want to run several worker processes at the same time."
+     },
+     {
+      "id": "E3",
+      "title": "Deployments Concepts",
+      "heading": "Deployments Concepts > Replication - Processes and Memory > Multiple Processes - An Example",
+      "url": "https://fastapi.tiangolo.com/deployment/concepts/#multiple-processes-an-example",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "In this example, there's a Manager Process that starts and controls two Worker Processes.\n\nThis Manager Process would probably be the one listening on the port in the IP. And it would transmit all the communication to the worker processes.\n\nThose worker processes would be the ones running your application, they would perform the main computations to receive a request and return a response, and they would load anything you put in variables in RAM.\n\nAnd of course, the same machine would probably have other processes running as well, apart from your application.\n\nAn interesting detail is that the percentage of the CPU used by each process can vary a lot over time, but the memory (RAM) normally stays more or less stable.\n\nIf you have an API that does a comparable amount of computations every time and you have a lot of clients, then the CPU utilization will probably *also be stable* (instead of constantly going up and down quickly)."
+     },
+     {
+      "id": "E4",
+      "title": "torch.utils.data",
+      "heading": "torch.utils.data > Single- and Multi-process Data Loading > Multi-process data loading",
+      "url": "https://docs.pytorch.org/docs/2.14/data.html#multi-process-data-loading",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Setting the argument `num_workers` as a positive integer will\nturn on multi-process data loading with the specified number of loader worker\nprocesses.\n\nWarning:\n\nAfter several iterations, the loader worker processes will consume\nthe same amount of CPU memory as the parent process for all Python\nobjects in the parent process which are accessed from the worker\nprocesses. This can be problematic if the Dataset contains a lot of\ndata (e.g., you are loading a very large list of filenames at Dataset\nconstruction time) and/or you are using a lot of workers (overall\nmemory usage is `number of workers * size of parent process`). The\nsimplest workaround is to replace Python objects with non-refcounted\nrepresentations such as Pandas, Numpy or PyArrow objects. Check out\nissue #13246\nfor more details on why this occurs and example code for how to\nworkaround these problems.\n\nIn this mode, each time an iterator of a `DataLoader`\nis created (e.g., when you call `enumerate(dataloader)`), `num_workers`\nworker processes are created. At this point, the `dataset`,\n`collate_fn`, and `worker_init_fn` are passed to each\nworker, where they are used to initialize, and fetch data. This means that\ndataset access together with its internal IO, transforms\n(including `collate_fn`) runs in the worker process. [...]"
+     },
+     {
+      "id": "E5",
+      "title": "Deployments Concepts",
+      "heading": "Deployments Concepts > Replication - Processes and Memory > Memory per Process",
+      "url": "https://fastapi.tiangolo.com/deployment/concepts/#memory-per-process",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": true,
+      "flags": [],
+      "excerpt": "Now, when the program loads things in memory, for example, a machine learning model in a variable, or the contents of a large file in a variable, all that consumes a bit of the memory (RAM) of the server.\n\nAnd multiple processes normally don't share any memory. This means that each running process has its own things, variables, and memory. And if you are consuming a large amount of memory in your code, each process will consume an equivalent amount of memory."
+     },
+     {
+      "id": "E6",
+      "title": "FastAPI in Containers - Docker",
+      "heading": "FastAPI in Containers - Docker > Replication - Number of Processes > Containers with Multiple Processes and Special Cases",
+      "url": "https://fastapi.tiangolo.com/deployment/docker/#containers-with-multiple-processes-and-special-cases",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Of course, there are special cases where you could want to have a container with several Uvicorn worker processes inside.\n\nIn those cases, you can use the `--workers` command line option to set the number of workers that you want to run:\n\n```\nFROM python:3.14\n\nWORKDIR /code\n\nCOPY ./requirements.txt /code/requirements.txt\n\nRUN pip install --no-cache-dir --upgrade -r /code/requirements.txt\n\nCOPY ./app /code/app\n\n# (1)!\nCMD [\"fastapi\", \"run\", \"app/main.py\", \"--port\", \"80\", \"--workers\", \"4\"]\n```\n\n1. Here we use the `--workers` command line option to set the number of workers to 4.\n\nHere are some examples of when that could make sense:"
+     },
+     {
+      "id": "E7",
+      "title": "torch.utils.data",
+      "heading": "torch.utils.data > Single- and Multi-process Data Loading > Multi-process data loading > Randomness in multi-process data loading",
+      "url": "https://docs.pytorch.org/docs/2.14/data.html#randomness-in-multi-process-data-loading",
+      "framework": "pytorch",
+      "version": "2.14",
+      "cited": false,
+      "flags": [],
+      "excerpt": "By default, each worker will have its PyTorch seed set to `base_seed + worker_id`,\nwhere `base_seed` is a long generated by main process using its RNG (thereby,\nconsuming a RNG state mandatorily) or a specified `generator`. However, seeds for other\nlibraries may be duplicated upon initializing workers, causing each worker to return\nidentical random numbers. (See this section in FAQ.).\n\nIn `worker_init_fn`, you may access the PyTorch seed set for each worker\nwith either `torch.utils.data.get_worker_info().seed`\nor `torch.initial_seed()`, and use it to seed other libraries before data\nloading."
+     }
+    ],
+    "abstain_reason": null,
+    "validation": {
+     "total_claims": 4,
+     "dropped_claims": 0,
+     "unsupported_claims": 2,
+     "partially_supported_claims": 2,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 2,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 20.71845799946459,
+     "generation_ms": 2541.0,
+     "validation_ms": 0.6426250001823064,
+     "total_ms": 2603.0
+    },
+    "provider": "openai_compatible",
+    "model": "gemini-3.1-flash-lite",
+    "evidence_gate": {
+     "level": "weak",
+     "coverage": 0.316,
+     "similarity": 0.883
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-miss",
+   "title": "Python: invalid logging level (a refusal that is a miss)",
+   "framework": "python",
+   "question": "Traceback (most recent call last):\n  File \"/app/main.py\", line 10, in <module>\n    logger.log(25, \"Custom event occurred\")\n  File \"/usr/local/lib/python3.11/logging/__init__.py\", line 1448, in log\n    if self.isEnabledFor(level):\n  File \"/usr/local/lib/python3.11/logging/__init__.py\", line 1759, in isEnabledFor\n    return level >= self.getEffectiveLevel()\nValueError: Invalid logging level: 25\n\nI am trying to implement a custom logging level of 25 for my application's internal auditing. Is there a safe way to register this level so it doesn't conflict with other dependencies?",
+   "note": "Shown on purpose. The system declined before calling the model although the logging documentation covers this: a known over-abstention.",
+   "response": {
+    "request_id": "demo-ex-miss",
+    "status": "abstained",
+    "confidence": "none",
+    "diagnosis": null,
+    "steps": [],
+    "code_suggestions": [],
+    "conflicts": [],
+    "caveats": [
+     "retrieved documentation covers only 14% of the question's key terms and is not close to it (similarity 0.90)"
+    ],
+    "missing_information": [
+     "No documentation found for: am, conflict, auditing, safe, invalid, register.",
+     "Try including the exact error message, the function or class involved, and which library (Python, PyTorch or FastAPI) you are using."
+    ],
+    "citations": [],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "`logging` — Logging facility for Python",
+      "heading": "`logging` — Logging facility for Python > Logger Objects > logging.Logger > logging.Logger.isEnabledFor",
+      "url": "https://docs.python.org/3.12/library/logging.html#logging.Logger.isEnabledFor",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```\nisEnabledFor(level)\n```\n\nIndicates if a message of severity level would be processed by this logger.\nThis method checks first the module-level level set by\n`logging.disable(level)` and then the logger's effective level as determined\nby `getEffectiveLevel()`."
+     },
+     {
+      "id": "E2",
+      "title": "Logging HOWTO",
+      "heading": "Logging HOWTO > Basic Logging Tutorial > Logging to a file",
+      "url": "https://docs.python.org/3.12/howto/logging.html#logging-to-a-file",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "A very common situation is that of recording logging events in a file, so let's\nlook at that next. Be sure to try the following in a newly started Python\ninterpreter, and don't just continue from the session described above:\n\n```python3\nimport logging\nlogger = logging.getLogger(__name__)\nlogging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG)\nlogger.debug('This message should go to the log file')\nlogger.info('So should this')\nlogger.warning('And this, too')\nlogger.error('And non-ASCII stuff, too, like Øresund and Malmö')\n```\n\nChanged in version 3.9: The encoding argument was added. In earlier Python versions, or if not\nspecified, the encoding used is the default value used by `open()`. While\nnot shown in the above example, an errors argument can also now be passed,\nwhich determines how encoding errors are handled. For available values and\nthe default, see the documentation for `open()`.\n\nAnd now if we open the file and look at what we have, we should find the log\nmessages:\n\n```\nDEBUG:__main__:This message should go to the log file\nINFO:__main__:So should this\nWARNING:__main__:And this, too\nERROR:__main__:And non-ASCII stuff, too, like Øresund and Malmö\n```\n\nThis example also shows how you can set the logging level which acts as the\nthreshold for tracking. In this case, because we set the threshold to\n`DEBUG`, all of the messages were printed.\n\nIf you want to set the logging level from a command-line option such as:\n\n```\n--log=INFO\n``` [...]"
+     },
+     {
+      "id": "E3",
+      "title": "Logging HOWTO",
+      "heading": "Logging HOWTO > Logging Levels",
+      "url": "https://docs.python.org/3.12/howto/logging.html#logging-levels",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "The numeric values of logging levels are given in the following table. These are\nprimarily of interest if you want to define your own levels, and need them to\nhave specific values relative to the predefined levels. If you define a level\nwith the same numeric value, it overwrites the predefined value; the predefined\nname is lost.\n\nLevel | Numeric value\n`CRITICAL` | 50\n`ERROR` | 40\n`WARNING` | 30\n`INFO` | 20\n`DEBUG` | 10\n`NOTSET` | 0\n\nLevels can also be associated with loggers, being set either by the developer or\nthrough loading a saved logging configuration. When a logging method is called\non a logger, the logger compares its own level with the level associated with\nthe method call. If the logger's level is higher than the method call's, no\nlogging message is actually generated. This is the basic mechanism controlling\nthe verbosity of logging output.\n\nLogging messages are encoded as instances of the `LogRecord`\nclass. When a logger decides to actually log an event, a\n`LogRecord` instance is created from the logging message. [...]"
+     },
+     {
+      "id": "E4",
+      "title": "`logging` — Logging facility for Python",
+      "heading": "`logging` — Logging facility for Python > Logging Levels",
+      "url": "https://docs.python.org/3.12/library/logging.html#logging-levels",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "The numeric values of logging levels are given in the following table. These are\nprimarily of interest if you want to define your own levels, and need them to\nhave specific values relative to the predefined levels. If you define a level\nwith the same numeric value, it overwrites the predefined value; the predefined\nname is lost.\n\nLevel | Numeric value | What it means / When to use it\nlogging.NOTSET | 0 | When set on a logger, indicates that ancestor loggers are to be consulted to determine the effective level. If that still resolves to `NOTSET`, then all events are logged. When set on a handler, all events are handled.\nlogging.DEBUG | 10 | Detailed information, typically only of interest to a developer trying to diagnose a problem.\nlogging.INFO | 20 | Confirmation that things are working as expected.\nlogging.WARNING | 30 | An indication that something unexpected happened, or that a problem might occur in the near future (e.g. 'disk space low'). The software is still working as expected.\nlogging.ERROR | 40 | Due to a more serious problem, the software has not been able to perform some function.\nlogging.CRITICAL | 50 | A serious error, indicating that the program itself may be unable to continue running."
+     },
+     {
+      "id": "E5",
+      "title": "`logging` — Logging facility for Python",
+      "heading": "`logging` — Logging facility for Python > LoggerAdapter Objects > logging.LoggerAdapter",
+      "url": "https://docs.python.org/3.12/library/logging.html#logging.LoggerAdapter",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "```\nclass logging.LoggerAdapter(logger, extra)\n```\n\nReturns an instance of `LoggerAdapter` initialized with an\nunderlying `Logger` instance and a dict-like object.\n\nIn addition to the above, `LoggerAdapter` supports the following\nmethods of `Logger`: `debug()`, `info()`,\n`warning()`, `error()`, `exception()`,\n`critical()`, `log()`, `isEnabledFor()`,\n`getEffectiveLevel()`, `setLevel()` and\n`hasHandlers()`. These methods have the same signatures as their\ncounterparts in `Logger`, so you can use the two types of instances\ninterchangeably.\n\nChanged in version 3.2: The `isEnabledFor()`, `getEffectiveLevel()`,\n`setLevel()` and `hasHandlers()` methods were added\nto `LoggerAdapter`. These methods delegate to the underlying logger.\n\nChanged in version 3.6: Attribute `manager` and method `_log()` were added, which\ndelegate to the underlying logger and allow adapters to be nested."
+     },
+     {
+      "id": "E6",
+      "title": "Logging HOWTO",
+      "heading": "Logging HOWTO > Logging Levels > Custom Levels",
+      "url": "https://docs.python.org/3.12/howto/logging.html#custom-levels",
+      "framework": "python",
+      "version": "3.12",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Defining your own levels is possible, but should not be necessary, as the\nexisting levels have been chosen on the basis of practical experience.\nHowever, if you are convinced that you need custom levels, great care should\nbe exercised when doing this, and it is possibly a very bad idea to define\ncustom levels if you are developing a library. That's because if multiple\nlibrary authors all define their own custom levels, there is a chance that\nthe logging output from such multiple libraries used together will be\ndifficult for the using developer to control and/or interpret, because a\ngiven numeric value might mean different things for different libraries."
+     }
+    ],
+    "abstain_reason": "insufficient_evidence",
+    "validation": {
+     "total_claims": 0,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 0,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 0,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 18.48420800160966,
+     "generation_ms": 0.0,
+     "validation_ms": 0.0,
+     "total_ms": 50.0
+    },
+    "provider": null,
+    "model": null,
+    "evidence_gate": {
+     "level": "none",
+     "coverage": 0.142,
+     "similarity": 0.903
+    },
+    "trace": null
+   }
+  },
+  {
+   "id": "ex-oos",
+   "title": "Out of scope: Kubernetes pod failure",
+   "framework": null,
+   "question": "I'm trying to deploy a new microservice to my EKS cluster, but the pod keeps stuck in 'CreateContainerConfigError' status. I’ve checked the logs, and it seems like the volume mount isn't being recognized despite my persistent volume claim being marked as 'Bound'. I’m running Kubernetes v1.28 and I've already verified the node group's IAM role has the necessary permissions to access the EBS volume. Can you help me identify why the volume isn't attaching to the node correctly?",
+   "note": "Correct refusal: Kubernetes is not in the indexed documentation.",
+   "response": {
+    "request_id": "demo-ex-oos",
+    "status": "abstained",
+    "confidence": "none",
+    "diagnosis": null,
+    "steps": [],
+    "code_suggestions": [],
+    "conflicts": [],
+    "caveats": [
+     "retrieved documentation covers only 12% of the question's key terms and is not close to it (similarity 0.82)"
+    ],
+    "missing_information": [
+     "No documentation found for: microservice, eks, pod, stuck, claim, iam.",
+     "Try including the exact error message, the function or class involved, and which library (Python, PyTorch or FastAPI) you are using."
+    ],
+    "citations": [],
+    "sources": [
+     {
+      "id": "E1",
+      "title": "FastAPI in Containers - Docker",
+      "heading": "FastAPI in Containers - Docker > Replication - Number of Processes",
+      "url": "https://fastapi.tiangolo.com/deployment/docker/#replication-number-of-processes",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "If you have a cluster of machines with Kubernetes, Docker Swarm Mode, Nomad, or another similar complex system to manage distributed containers on multiple machines, then you will probably want to handle replication at the cluster level instead of using a process manager (like Uvicorn with workers) in each container.\n\nOne of those distributed container management systems like Kubernetes normally has some integrated way of handling replication of containers while still supporting load balancing for the incoming requests. All at the cluster level.\n\nIn those cases, you would probably want to build a Docker image from scratch as explained above, installing your dependencies, and running a single Uvicorn process instead of using multiple Uvicorn workers."
+     },
+     {
+      "id": "E2",
+      "title": "FastAPI in Containers - Docker",
+      "heading": "FastAPI in Containers - Docker > Deploy the Container Image",
+      "url": "https://fastapi.tiangolo.com/deployment/docker/#deploy-the-container-image",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "After having a Container (Docker) Image there are several ways to deploy it.\n\nFor example:\n\n- With Docker Compose in a single server\n- With a Kubernetes cluster\n- With a Docker Swarm Mode cluster\n- With another tool like Nomad\n- With a cloud service that takes your container image and deploys it"
+     },
+     {
+      "id": "E3",
+      "title": "Deployments Concepts",
+      "heading": "Deployments Concepts > Previous Steps Before Starting > Examples of Previous Steps Strategies",
+      "url": "https://fastapi.tiangolo.com/deployment/concepts/#examples-of-previous-steps-strategies",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "This will depend heavily on the way you deploy your system, and it would probably be connected to the way you start programs, handling restarts, etc.\n\nHere are some possible ideas:\n\n- An \"Init Container\" in Kubernetes that runs before your app container\n- A bash script that runs the previous steps and then starts your application\n    - You would still need a way to start/restart *that* bash script, detect errors, etc.\n\nTip:\n\nI'll give you more concrete examples for doing this with containers in a future chapter: FastAPI in Containers - Docker."
+     },
+     {
+      "id": "E4",
+      "title": "FastAPI in Containers - Docker",
+      "heading": "FastAPI in Containers - Docker > Previous Steps Before Starting and Containers > Multiple Containers",
+      "url": "https://fastapi.tiangolo.com/deployment/docker/#multiple-containers",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "If you have multiple containers, probably each one running a single process (for example, in a Kubernetes cluster), then you would probably want to have a separate container doing the work of the previous steps in a single container, running a single process, before running the replicated worker containers.\n\nNote:\n\nIf you are using Kubernetes, this would probably be an Init Container.\n\nIf in your use case there's no problem in running those previous steps multiple times in parallel (for example if you are not running database migrations, but just checking if the database is ready yet), then you could also just put them in each container right before starting the main process."
+     },
+     {
+      "id": "E5",
+      "title": "Server Workers - Uvicorn with Workers",
+      "heading": "Server Workers - Uvicorn with Workers > Containers and Docker",
+      "url": "https://fastapi.tiangolo.com/deployment/server-workers/#containers-and-docker",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "In the next chapter about FastAPI in Containers - Docker I'll explain some strategies you could use to handle the other deployment concepts.\n\nI'll show you how to build your own image from scratch to run a single Uvicorn process. It is a simple process and is probably what you would want to do when using a distributed container management system like Kubernetes."
+     },
+     {
+      "id": "E6",
+      "title": "Deployments Concepts",
+      "heading": "Deployments Concepts > Replication - Processes and Memory > Examples of Replication Tools and Strategies",
+      "url": "https://fastapi.tiangolo.com/deployment/concepts/#examples-of-replication-tools-and-strategies",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "There can be several approaches to achieve this, and I'll tell you more about specific strategies in the next chapters, for example when talking about Docker and containers.\n\nThe main constraint to consider is that there has to be a single component handling the port in the public IP. And then it has to have a way to transmit the communication to the replicated processes/workers.\n\nHere are some possible combinations and strategies:\n\n- Uvicorn with `--workers`\n    - One Uvicorn process manager would listen on the IP and port, and it would start multiple Uvicorn worker processes.\n- Kubernetes and other distributed container systems\n    - Something in the Kubernetes layer would listen on the IP and port. The replication would be by having multiple containers, each with one Uvicorn process running.\n- Cloud services that handle this for you\n    - The cloud service will probably handle replication for you. It would possibly let you define a process to run, or a container image to use, in any case, it would most probably be a single Uvicorn process, and the cloud service would be in charge of replicating it.\n\nTip:\n\nDon't worry if some of these items about containers, Docker, or Kubernetes don't make a lot of sense yet.\n\nI'll tell you more about container images, Docker, Kubernetes, etc. in a future chapter: FastAPI in Containers - Docker."
+     },
+     {
+      "id": "E7",
+      "title": "Server Workers - Uvicorn with Workers",
+      "heading": "Server Workers - Uvicorn with Workers",
+      "url": "https://fastapi.tiangolo.com/deployment/server-workers/#server-workers-uvicorn-with-workers",
+      "framework": "fastapi",
+      "version": "0.162.0",
+      "cited": false,
+      "flags": [],
+      "excerpt": "Let's check back those deployment concepts from before:\n\n- Security - HTTPS\n- Running on startup\n- Restarts\n- Replication (the number of processes running)\n- Memory\n- Previous steps before starting\n\nUp to this point, with all the tutorials in the docs, you have probably been running a server program, for example, using the `fastapi` command, that runs Uvicorn, running a single process.\n\nWhen deploying applications you will probably want to have some replication of processes to take advantage of multiple cores and to be able to handle more requests.\n\nAs you saw in the previous chapter about Deployment Concepts, there are multiple strategies you can use.\n\nHere I'll show you how to use Uvicorn with worker processes using the `fastapi` command or the `uvicorn` command directly.\n\nNote:\n\nIf you are using containers, for example with Docker or Kubernetes, I'll tell you more about that in the next chapter: FastAPI in Containers - Docker.\n\nIn particular, when running on Kubernetes you will probably not want to use workers and instead run a single Uvicorn process per container, but I'll tell you about it later in that chapter."
+     }
+    ],
+    "abstain_reason": "insufficient_evidence",
+    "validation": {
+     "total_claims": 0,
+     "dropped_claims": 0,
+     "unsupported_claims": 0,
+     "partially_supported_claims": 0,
+     "contradicted_claims": 0,
+     "disputed_claims": 0,
+     "unverified_claims": 0,
+     "unconfirmed_claims": 0,
+     "invalid_citations": [],
+     "stripped_urls": 0
+    },
+    "timings": {
+     "retrieval_ms": 29.519166000682162,
+     "generation_ms": 0.0,
+     "validation_ms": 0.0,
+     "total_ms": 68.0
+    },
+    "provider": null,
+    "model": null,
+    "evidence_gate": {
+     "level": "none",
+     "coverage": 0.122,
+     "similarity": 0.825
+    },
+    "trace": null
+   }
+  }
+ ]
+}

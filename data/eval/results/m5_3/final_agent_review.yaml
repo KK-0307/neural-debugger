@@ -1,0 +1,76 @@
+label: AGENT review of the fresh final evaluation (the assistant that built the system reading outputs). Not independent, not human. Made after
+  the system was frozen at 339bfe9; no tuning followed.
+answers_before:
+  good:
+  - fp3
+  - fy5
+  - ff3
+  - ff4
+  - ff6
+  - ff11
+  - ff12
+  - ff13
+  generic_or_mixed:
+  - fy6
+  - fy8
+  - ff9
+  - ff14
+  weak: []
+answers_after:
+  good:
+  - fp3
+  - fp5
+  - fy2
+  - fy5
+  - fy13
+  - ff3
+  - ff4
+  - ff6
+  - ff11
+  - ff12
+  - ff13
+  generic_or_mixed:
+  - fy6
+  - fy8
+  - ff9
+  - ff14
+  weak:
+  - fy1
+weak_notes:
+  fy1: 'a torch.compile graph-break question answered with CUDA-graph capture material: two different topics conflated; flagged partial/low confidence'
+abstentions_after:
+  gate:
+    appropriate:
+    - fp4
+    - fp9
+    - fp10
+    - fp11
+    - ff1
+    - ff8
+    avoidable:
+    - fp2
+    - fp7
+    borderline:
+    - fp8
+    - ff5
+    - ff10
+  model:
+    appropriate:
+    - fp1
+    - fp6
+    - fp12
+    - fp13
+    - fp14
+    - fy4
+    - fy7
+    - fy11
+    - fy12
+    - fy14
+    avoidable:
+    - ff7
+    borderline:
+    - fy3
+    - fy9
+    - fy10
+    - ff2
+note_gate_scores: every avoidable or borderline gate abstention scored 0.64-0.68, just under the 0.70 threshold; not retuned (this set is spent)

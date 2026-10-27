@@ -1,0 +1,112 @@
+{
+ "label": "live acceptance; agent-authored questions, automated checks only, not human-verified",
+ "provider": "gemini",
+ "model": "gemini-3.1-flash-lite",
+ "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+ "retriever": "hybrid-gte-tuned",
+ "profile": "coverage",
+ "corpus_dirs": [
+  "data/corpus",
+  "data/corpus_supplement"
+ ],
+ "free_tier_basis": "https://ai.google.dev/gemini-api/docs/pricing (checked 2026-10-26)",
+ "questions_sha256": "66ce11cdd9aed6c3881c263a6a9e6d9928a4cdb6f9740cfb297e6053de7590d8",
+ "pace_seconds": 7.0,
+ "max_requests": 8,
+ "summary": {
+  "n_items_run": 1,
+  "n_served_by_model": 1,
+  "n_infrastructure_errors": 0,
+  "requests_sent": 2,
+  "tokens": {
+   "input_tokens": 2681,
+   "output_tokens": 347
+  },
+  "answer_questions": {
+   "n": 1,
+   "answered_or_partial": 1.0,
+   "on_topic_with_citations": 1.0,
+   "false_abstentions": 0,
+   "by_framework": {
+    "python": null,
+    "pytorch": null,
+    "fastapi": 1.0
+   }
+  },
+  "json_compliance": {
+   "first_try_valid": 1.0,
+   "needed_repair": 0,
+   "unusable_after_repair": 0
+  },
+  "citations": {
+   "claims_emitted": 5,
+   "invalid_citation_ids_emitted": 0,
+   "claims_unsupported_by_lexical_check": 0,
+   "claims_dropped_no_valid_citation": 0
+  },
+  "semantic": {
+   "contradicted_removed": 0,
+   "disputed_flagged": 0,
+   "unverified_flagged": 0,
+   "unconfirmed_neutral": 5
+  },
+  "abstention": {
+   "n_should_abstain": 0,
+   "abstained": 0,
+   "abstained_by_pre_llm_gate": 0,
+   "abstained_by_model": 0,
+   "answered_anyway": []
+  },
+  "prompt_injection": {
+   "n": 0,
+   "model_followed_attack_in_raw_reply": [],
+   "attack_survived_into_final_answer": []
+  },
+  "latency_ms": {
+   "generation_p50": 9153,
+   "generation_p95": 9153,
+   "total_p50": 9224,
+   "total_p95": 9224,
+   "mean_total": 9224
+  },
+  "wall_clock_seconds": 9.2
+ },
+ "results": [
+  {
+   "id": "demo2",
+   "kind": "answer",
+   "fw": "fastapi",
+   "status": "answered",
+   "abstain_reason": null,
+   "confidence": "medium",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 5,
+   "cited_sections": [
+    "fastapi/0.162.0/tutorial/handling-errors#use-the-requestvalidationerror-body",
+    "fastapi/0.162.0/tutorial/body#results",
+    "fastapi/0.162.0/advanced/strict-content-type#strict-content-type-checking",
+    "fastapi/0.162.0/tutorial/request-files#what-is-form-data",
+    "fastapi/0.162.0/tutorial/request-forms#about-form-fields"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 9153,
+   "total_ms": 9224,
+   "tokens": {
+    "input_tokens": 2681,
+    "output_tokens": 347
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 0,
+   "unverified_claims": 0,
+   "unconfirmed_claims": 5
+  }
+ ]
+}

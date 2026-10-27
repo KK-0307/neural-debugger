@@ -208,6 +208,14 @@ _ERROR_STATUS = {
 }
 
 
+def _client_id(request: Request, trust_proxy: bool) -> str:
+    if trust_proxy:
+        fwd = request.headers.get("x-forwarded-for", "")
+        if fwd:
+            return fwd.split(",")[0].strip()[:64]
+    return request.client.host if request.client else "unknown"
+
+
 _ERROR_MESSAGE = {
     "llm_not_configured": (
         "No LLM provider is configured on this server. Set ND_LLM_PROVIDER (anthropic, gemini or "
@@ -233,6 +241,22 @@ _ERROR_MESSAGE = {
 def debug(body: DebugRequest, request: Request) -> Any:
     holder: PipelineHolder = request.app.state.rag
     request_id = getattr(request.state, "request_id", None)
+    settings = request.app.state.settings
+    if settings.demo_mode == "readonly":
+        if len(body.question) > settings.demo_max_question_chars:
+            return error_response(
+                422,
+                "demo_question_too_long",
+                f"This public demo accepts questions up to {settings.demo_max_question_chars} characters.",
+                request_id,
+            )
+        verdict = request.app.state.demo_limiter.check(
+            _client_id(request, settings.trust_proxy_headers)
+        )
+        if not verdict.allowed:
+            limited: JSONResponse = error_response(429, verdict.code, verdict.message, request_id)
+            limited.headers["Retry-After"] = str(verdict.retry_after_s)
+            return limited
     if not holder.slots.acquire(blocking=False):
         return error_response(
             429, "busy", "Too many answers are being generated; retry shortly.", request_id
@@ -242,6 +266,7 @@ def debug(body: DebugRequest, request: Request) -> Any:
         ans = pipeline.answer(body.question, body.framework)
     finally:
         holder.slots.release()
+    # in read-only demo mode the log line carries no question text anywhere (it never did) and no client address
     logger.info(
         "debug status=%s confidence=%s reason=%s evidence=%d cited=%d total_ms=%.0f provider=%s",
         ans.status,
@@ -266,4 +291,4 @@ def debug(body: DebugRequest, request: Request) -> Any:
             details=[{"sources": sources, "reason": ans.abstain_reason}],
         )
         return resp
-    return to_response(ans, request_id, body.include_trace)
+    return to_response(ans, request_id, body.include_trace and settings.demo_mode != "readonly")

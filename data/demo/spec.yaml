@@ -1,0 +1,20 @@
+# Curated examples for the static recorded demo (docs/demo.md). Every example is a REAL recorded model run; the builder replays the
+# recorded reply through the current validators and refuses to publish an example whose replay does not reproduce the recorded
+# outcome. Chosen from DEVELOPMENT recordings and three canonical prompts, never from the frozen held-out / final evaluation sets.
+# Notes are my own (agent) judgement, not a human review.
+meta:
+  model: Gemini 3.1 Flash-Lite (free tier)
+  recorded_on: "2026-10-27"
+examples:
+  - {id: ex-device, source: demo, qid: demo1, title: "PyTorch: tensors on different devices", framework: pytorch, note: "The headline example, and not a clean one: one statement was removed as unsupported and two are only partly supported, so confidence is low. Shown as it came out."}
+  - {id: ex-422, source: demo, qid: demo2, title: "FastAPI: 422 on a JSON body", framework: fastapi, note: "Answered with medium confidence but generic: three statements are only partly supported, because the docs do not explain this particular cause."}
+  - {id: ex-coroutine, source: demo, qid: demo3, title: "Python: coroutine never awaited", framework: python, note: "Two correct fixes; two statements carry a 'partly supported' badge."}
+  - {id: ex-bytes, source: vd, qid: vd10, title: "Python: str + bytes TypeError (pasted traceback)", framework: python, note: "A long pasted traceback with context. Judged correct."}
+  - {id: ex-enum, source: vd, qid: vd9, title: "Python: excluding attributes from an Enum", framework: python, note: "Verbose, conversational question. Judged correct."}
+  - {id: ex-sampler, source: vd, qid: vd22, title: "PyTorch: sampler and shuffle are exclusive", framework: pytorch, note: "Error-message question. Judged correct."}
+  - {id: ex-tf32, source: vd, qid: vd23, title: "PyTorch: numerical mismatch on Ampere GPUs", framework: pytorch, note: "Plausible, cites the TF32 notes. Judged reasonable."}
+  - {id: ex-async-db, source: vd, qid: vd30, title: "FastAPI: sync DB query inside async code", framework: fastapi, note: "Server-log style trace. Judged correct."}
+  - {id: ex-tests, source: vd, qid: vd31, title: "FastAPI: testing async endpoints", framework: fastapi, note: "Verbose question. Judged correct."}
+  - {id: ex-weak, source: vd, qid: vd33, title: "FastAPI: memory growth under Gunicorn (a weak answer)", framework: fastapi, note: "Shown on purpose. The model cited PyTorch DataLoader documentation for a FastAPI question; the validator now removes that claim and the answer is flagged low confidence."}
+  - {id: ex-miss, source: vd, qid: vd11, title: "Python: invalid logging level (a refusal that is a miss)", framework: python, note: "Shown on purpose. The system declined before calling the model although the logging documentation covers this: a known over-abstention."}
+  - {id: ex-oos, source: vd, qid: vo37, title: "Out of scope: Kubernetes pod failure", framework: null, note: "Correct refusal: Kubernetes is not in the indexed documentation."}

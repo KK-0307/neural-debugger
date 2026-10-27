@@ -1,8 +1,26 @@
 # Progress
 
-**Current milestone:** 6 - the Neural Debugger application (with a focused coverage pass, 5.2, before it). **Built, tested and
-used in a real browser against the real backend and the real Gemini free-tier model; nobody but me has used it, and no result here
-is human-verified.** Awaiting your review; not proceeding to Milestone 7.
+**Current milestone:** 6 - the Neural Debugger application, plus a final reliability pass (5.3) and a prepared, **undeployed**
+public read-only demo. **Built, tested and used in a real browser against the real backend and the real Gemini free-tier model;
+nobody but me has used it, and no result here is human-verified.** Milestones 5.2 and 6 are pushed and CI-verified (all three
+jobs green, incl. the Docker image); the 5.3 commit and the demo work are **local only** until you approve a push. Awaiting your
+review; not proceeding to Milestone 7 and not deploying anything.
+
+**Milestone 5.3 in one paragraph (details: `docs/rag-reliability.md`).** A new development set of 48 verbose questions showed the
+evidence gate refused **18 of 36** answerable questions before the model ran, in 14 of them with the right section already shown:
+lexical coverage is length-biased (words absent from the corpus get the highest weight). The gate now also uses the dense
+similarity it already computed (`coverage + 0.5*(sim-0.80)/0.10 >= 0.70`): 18 -> 1 of 36 on the diagnosis set, and out-of-scope
+abstention went *up* on all four development out-of-scope sets. On a **fresh 54-question set frozen before any change**, in-scope
+questions answered rose **12/42 (28.6%) -> 16/42 (38.1%)** (4 gained, 0 lost, sign-test p = 0.125: **not significant**),
+12/12 out-of-scope still abstained, 0 invalid citation ids, and agent-reviewed quality went 8 good / 4 generic / 0 weak -> 11 / 4 / 1.
+Also fixed: long pasted traces polluting the retrieval query, and a valid-but-wrong-framework citation (the claim is now
+removed). Kept as documented limitations: the lexical support judge falsely rejects about a quarter of faithful paraphrases on
+synthetic pairs, and a topically adjacent page can still pass as "partly supported" (strict xfail test); several alternatives were
+tried and rejected with numbers.
+
+**Public demo (details: `docs/demo.md`).** A static recorded demo (12 real answers replay-verified against the current
+validators, no backend, no key, no feedback) and an optional `ND_DEMO_MODE=readonly` API guard (limits, feedback 403, size cap).
+**Not deployed.** Hosting and any live endpoint need your approval first.
 
 **Milestone 5.2 in one paragraph (details: `docs/rag-coverage.md`).** On a **held-out set of 48 questions written by Gemini and
 frozen before any change** the share of in-scope questions answered rose from **11/36 (31%) to 14/36 (39%)**; all 12 out-of-scope
@@ -65,8 +83,11 @@ and speed (~1 ms/query). Test pool expansion for the custom systems was post-hoc
 | 4 | Custom transformer + contrastive training | **Done**; negative result vs. baselines (`docs/ml-model.md`) |
 | 5 | RAG with validated citations (API, providers, evaluation) | **Done**; live run on one free-tier model (51 questions, agent-reviewed only) |
 | 5.1 | Live verification, semantic grounding, Docker retrieval image | **Done**; CI green on `d148b6d` incl. real image build + smoke tests |
-| 5.2 | Coverage pass (diagnosis, supplement corpus, traceback hints, evidence profile) | **Done locally**; modest, not significant gain on held-out (`docs/rag-coverage.md`) |
-| 6 | Debugging UI (paste, diagnose, cite, uncertainty, feedback) | **Done locally**; browser-verified by me only; not yet in CI |
+| 5.2 | Coverage pass (diagnosis, supplement corpus, traceback hints, evidence profile) | **Done**; modest, not significant gain on held-out (`docs/rag-coverage.md`) |
+| 5.2 (CI) | Pushed as `35087b0`, `2619602` | **CI green** (python, frontend, docker jobs; image 2,774 MiB; both smoke tests pass; supplement corpus and embeddings in the image) |
+| 5.3 | Evidence-gate reliability and citation relevance, fresh evaluation | **Done locally** (`339bfe9` + uncommitted work); gain directional, not significant (`docs/rag-reliability.md`) |
+| 6 | Debugging UI (paste, diagnose, cite, uncertainty, feedback) | **Done**; browser-verified by me only; CI green on `2619602` |
+| 6+ | Public read-only demo (static recorded + guarded API mode) | **Prepared locally, not deployed** (`docs/demo.md`) |
 | - | Persistence, performance, beta | Not started |
 
 ## Step 1 - Milestone 2 finalised and committed
@@ -137,10 +158,14 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 
 | Check | Result |
 |---|---|
-| `uv run pytest` (full env, models cached) | **304 passed, 1 skipped** (the skip is the live Anthropic test; 5.2 + 6 added 18) |
-| CI-equivalent env (`uv sync --locked --extra data --extra index`, no PyTorch) | ruff + format clean, strict mypy clean (101 src / 43 test files), **262 passed, 9 skipped**; **not yet pushed, so CI has not run on Milestones 5.2/6** (the Docker image with the new `COPY` paths has not been built anywhere) |
-| `make freeze-verify` (M2, M3, M4, M5, M5.1 and new M5.2 evidence) | all intact. The held-out question file's sha256 is identical to when it was generated, before any change. **Re-running the frozen M5 evaluation with today's code differs in 4 of 146 non-timing numbers** (one train answer low -> medium confidence); attributed by running the pushed 5.1 commit: the cause is a 5.1 change, 5.2 adds none (an earlier "146 of 146 identical" was true when checked and stale after the user-typed-identifier fix; docs corrected) |
-| Frontend `lint`, `typecheck`, `npm test`, `npm run build` | clean; **38 tests** (8 older + 30 new) |
+| `uv run pytest` (full env, models cached), 5.3 working tree | **328 passed, 1 skipped, 1 xfailed** (skip: live Anthropic test; xfail: the documented adjacent-page citation limitation); ruff, `ruff format --check`, strict mypy (102 src / 45 test files) clean |
+| CI-equivalent env (`uv sync --locked --extra data --extra index`, no PyTorch), 5.3 working tree | ruff + format clean, strict mypy clean, **286 passed, 9 skipped, 1 xfailed** |
+| **GitHub Actions on `2619602`** (run 40445143415) | python, frontend and docker jobs **all green**: 262 passed / 9 skipped, 38 frontend tests, image **2,774 MiB**, no secrets in the image, container smoke tests: provider configured -> `answered`, 4 citations, supplement corpus reachable (`whatsnew/3.12` among sources), feedback endpoint stores without the question and rejects invalid input; no provider -> informative 503. First call 10.3 s (cold retriever) |
+| CI for `339bfe9` and the demo work | **not run**: not pushed (needs your approval). Local stand-in: scrubbed-environment backend + mock OpenAI-compatible server + `scripts/smoke_debug.py` passes (answered, 4 citations, supplement reachable, feedback OK); read-only mode checked with curl (3rd request in a minute 429 with `Retry-After`, feedback 403 and nothing written, 2,500-char question 422, no question text in the log). Docker itself is not installed here, so the image is unverified for the new commit (no new `COPY` paths were added) |
+| `make freeze-verify` (M2, M3, M4, M5, M5.1, M5.2 and new M5.3 evidence) | all intact. Re-running the frozen M5 evaluation with today's code still differs in exactly **4 of 146** non-timing numbers (one train answer low -> medium confidence), caused by the 5.1 user-typed-identifier exemption; 5.2 and 5.3 add none |
+| Frontend `lint`, `typecheck`, `npm test`, `npm run build` (normal) and `NEXT_PUBLIC_DEMO_MODE=static npm run build` | clean; **44 tests** (38 + 6 for the demo); both builds succeed (static export 1.1 MB) |
+| Static demo in a real browser (no backend running) | clicking an example makes **no network request**; no text area, no feedback button, "feedback is disabled" note; source links go to the official docs; 375 px with no horizontal overflow; header copy is demo-appropriate |
+| Security (5.3) | the API key value and key-shaped patterns appear in no file of the working tree and in none of the 13 commits (all refs; the only pattern hits are an obviously fake `sk-abcdefghijklmnopqrstuv` test fixture); `.env` is git-ignored; the static export and `demo-data.json` contain neither; `npm audit` (incl. dev): 0 vulnerabilities; `pip-audit` on the locked requirements (all extras): none known |
 | UI in a real browser (Claude built-in browser) | example -> answer, chip -> source text, abstention view, feedback stored with `question: null`, history restore, 375 px with no overflow; a live Gemini answer through the UI in 3.7 s. One browser engine, two widths, no screen-reader or axe audit |
 | **CI Docker job** (the first real image build) | image **2,766 MiB**; no `.env`/secret-like variable/key in the image; container smoke test with a provider: `answered`, 4 citations, first request 9.6 s; without a provider: 503 `llm_not_configured` with 5 sources. Local Docker is not installed, so everything about the image is CI evidence |
 | Container simulation before CI (no Docker here): staging dir with exactly the Dockerfile's `COPY` set, fresh `uv sync --frozen --extra neural`, model baked into an isolated offline `HF_HOME`, scrubbed env, mock OpenAI-compatible server | `/api/v1/debug` -> `answered`, 4 PyTorch citations; without a provider -> informative 503 `llm_not_configured` listing 5 retrieved sources; first request 31 s (cold retriever) |
@@ -151,8 +176,9 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 
 ## Known issues / limitations
 
-- **Coverage (5.2):** only 39% of in-scope held-out questions are answered; the gate over-abstains on verbose symptom questions (4 clear cases); 2 of 13 development golds are still not retrieved; Python stdlib coverage is 31 modules; citation *relevance* is not guaranteed (a weakly related citation passed the checks on one held-out answer).
-- **The held-out gain is within noise** (p = 0.375) and PyTorch regressed 3 -> 2; one good answer was lost when the model was shown more evidence.
+- **Coverage (5.3):** only 38% of in-scope questions on the fresh final set are answered (Python 14%, PyTorch 43%, FastAPI 57%); the 5.3 gain (+4, p = 0.125) and the 5.2 gain (p = 0.375) are both within noise; 3 of the remaining abstentions are avoidable and 7 borderline by my own review; the gate threshold was not re-tuned on the spent final set.
+- **Citation relevance (5.3):** the lexical support judge falsely rejects about a quarter of faithful paraphrases (synthetic pairs, model-generated), and about a third of claims pointing at a topically adjacent page survive as "partly supported". Only the wrong-framework case is removed outright.
+- **Demo:** the static demo is recorded (chosen by me, labelled as such); a live endpoint is not recommended on a free key (shared quota, free-tier data use, 503s). The read-only API guard is in-memory and per process and has not been load-tested.
 - **UI (6):** unreviewed by any human, one browser engine, feedback is stored but nothing consumes it, no auth, no streaming, history is browser-local only.
 
 - **Labels are not human-verified**; pooling and expansion were done by the same assistant. Gains are

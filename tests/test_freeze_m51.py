@@ -40,3 +40,15 @@ def test_m52_evidence_is_intact_and_drift_is_detected(tmp_path: Path) -> None:
     victim = tmp_path / "data/eval/rag/heldout_gemini.yaml"
     victim.write_text(victim.read_text() + "# edited after the fact\n")
     assert freeze.verify_m52(tmp_path) == ["data/eval/rag/heldout_gemini.yaml changed"]
+
+
+@pytest.mark.skipif(not (ROOT / freeze.M53_FREEZE_PATH).exists(), reason="no M5.3 freeze file")
+def test_m53_evidence_is_intact_and_drift_is_detected(tmp_path: Path) -> None:
+    assert freeze.verify_m53(ROOT) == []
+    for rel in [*freeze.M53_FROZEN_FILES, str(freeze.M53_FREEZE_PATH)]:
+        dest = tmp_path / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(ROOT / rel, dest)
+    victim = tmp_path / "data/eval/rag/final_eval_gemini.yaml"
+    victim.write_text(victim.read_text() + "# edited after the fact\n")
+    assert freeze.verify_m53(tmp_path) == ["data/eval/rag/final_eval_gemini.yaml changed"]

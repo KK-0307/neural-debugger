@@ -25,6 +25,13 @@ and the reason each page was added are in `configs/sources_supplement.yaml`.
 ownership of what they post and other users are licensed only to use it "through the Service"; no licence to redistribute issue
 text exists, and a repository's code licence does not cover its issue threads. Stack Overflow was not used at all (no scraping), and its own content terms were not reviewed in this project. See `docs/rag-coverage.md`.
 
+## Recorded demo data (Milestone 5.3): `frontend/lib/demo-data.json`
+
+The static public demo ships 12 recorded answers. Each answer carries short excerpts of the documentation sections the model was
+shown, taken from the same three documentation sets and under the same licences as the corpus above, together with each
+excerpt's source URL (links back to the original page). Model output is Gemini 3.1 Flash-Lite (free tier) text generated for the
+questions in `data/demo/spec.yaml`. Nothing else third-party is bundled.
+
 The evaluation queries in `data/eval/` are original work of this project, except the `official_faq`
 slice whose query text is the FAQ question headings of the Python and PyTorch documentation.
 If you redistribute this corpus beyond research use, re-check each licence.

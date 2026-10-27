@@ -1,0 +1,170 @@
+{
+ "label": "live acceptance; agent-authored questions, automated checks only, not human-verified",
+ "provider": "gemini",
+ "model": "gemini-3.1-flash-lite",
+ "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+ "retriever": "hybrid-gte-tuned",
+ "profile": "coverage",
+ "corpus_dirs": [
+  "data/corpus",
+  "data/corpus_supplement"
+ ],
+ "free_tier_basis": "https://ai.google.dev/gemini-api/docs/pricing (checked 2026-10-26)",
+ "questions_sha256": "66ce11cdd9aed6c3881c263a6a9e6d9928a4cdb6f9740cfb297e6053de7590d8",
+ "pace_seconds": 7.0,
+ "max_requests": 12,
+ "summary": {
+  "n_items_run": 3,
+  "n_served_by_model": 2,
+  "n_infrastructure_errors": 1,
+  "requests_sent": 5,
+  "tokens": {
+   "input_tokens": 6069,
+   "output_tokens": 699
+  },
+  "answer_questions": {
+   "n": 3,
+   "answered_or_partial": 0.667,
+   "on_topic_with_citations": 0.667,
+   "false_abstentions": 0,
+   "by_framework": {
+    "python": 1.0,
+    "pytorch": 1.0,
+    "fastapi": 0.0
+   }
+  },
+  "json_compliance": {
+   "first_try_valid": 1.0,
+   "needed_repair": 0,
+   "unusable_after_repair": 0
+  },
+  "citations": {
+   "claims_emitted": 9,
+   "invalid_citation_ids_emitted": 0,
+   "claims_unsupported_by_lexical_check": 1,
+   "claims_dropped_no_valid_citation": 0
+  },
+  "semantic": {
+   "contradicted_removed": 0,
+   "disputed_flagged": 0,
+   "unverified_flagged": 0,
+   "unconfirmed_neutral": 8
+  },
+  "abstention": {
+   "n_should_abstain": 0,
+   "abstained": 0,
+   "abstained_by_pre_llm_gate": 0,
+   "abstained_by_model": 0,
+   "answered_anyway": []
+  },
+  "prompt_injection": {
+   "n": 0,
+   "model_followed_attack_in_raw_reply": [],
+   "attack_survived_into_final_answer": []
+  },
+  "latency_ms": {
+   "generation_p50": 11367,
+   "generation_p95": 11367,
+   "total_p50": 11415,
+   "total_p95": 11415,
+   "mean_total": 9799
+  },
+  "wall_clock_seconds": 32.2
+ },
+ "results": [
+  {
+   "id": "demo1",
+   "kind": "answer",
+   "fw": "pytorch",
+   "status": "partial",
+   "abstain_reason": null,
+   "confidence": "low",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 4,
+   "cited_sections": [
+    "pytorch/2.14/notes/cuda#cuda-semantics",
+    "pytorch/2.14/tensor_attributes#torch-device"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 1,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 8133,
+   "total_ms": 8183,
+   "tokens": {
+    "input_tokens": 3027,
+    "output_tokens": 331
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 0,
+   "unverified_claims": 0,
+   "unconfirmed_claims": 3
+  },
+  {
+   "id": "demo2",
+   "kind": "answer",
+   "fw": "fastapi",
+   "status": "error",
+   "abstain_reason": "llm_server",
+   "confidence": "none",
+   "json_first_try": null,
+   "repair_attempts": 0,
+   "claims": 0,
+   "cited_sections": [],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": false,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 12517,
+   "total_ms": 12557,
+   "tokens": {},
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 0,
+   "unverified_claims": 0,
+   "unconfirmed_claims": 0
+  },
+  {
+   "id": "demo3",
+   "kind": "answer",
+   "fw": "python",
+   "status": "answered",
+   "abstain_reason": null,
+   "confidence": "medium",
+   "json_first_try": true,
+   "repair_attempts": 0,
+   "claims": 5,
+   "cited_sections": [
+    "python/3.12/library/asyncio-dev#detect-never-awaited-coroutines",
+    "python/3.12/library/asyncio-task#awaitables",
+    "python/3.12/library/asyncio-task#coroutines"
+   ],
+   "invalid_citations": [],
+   "unsupported_claims": 0,
+   "dropped_claims": 0,
+   "on_topic": null,
+   "expected_behaviour_met": true,
+   "attack_in_raw_reply": null,
+   "attack_in_final_answer": null,
+   "generation_ms": 11367,
+   "total_ms": 11415,
+   "tokens": {
+    "input_tokens": 3042,
+    "output_tokens": 368
+   },
+   "note": "",
+   "contradicted_claims": 0,
+   "disputed_claims": 0,
+   "unverified_claims": 0,
+   "unconfirmed_claims": 5
+  }
+ ]
+}

@@ -63,3 +63,10 @@ ND_LLM_PROVIDER=extractive make dev-backend
   feedback (a JSONL file), no analytics. Feedback is stored but nothing consumes it yet.
 * The answer quality is whatever the pipeline delivers: on independently written questions it answered 39% of in-scope ones
   (`docs/rag-coverage.md`); the UI shows that honestly rather than hiding it.
+
+## Demo build (Milestone 5.3)
+
+`NEXT_PUBLIC_DEMO_MODE=static npm run build` exports a static site (`frontend/out/`) whose home page renders `DemoApp` instead of
+`DebuggerApp`: a picker over 12 recorded answers (`lib/demo-data.json`, built by `scripts/build_demo_data.py`), the same `AnswerView`
+in `readOnly` mode (feedback form replaced by a note) and no network access. Details, limits and the deployment checklist:
+[demo.md](demo.md).

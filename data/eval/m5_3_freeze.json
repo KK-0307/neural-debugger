@@ -1,0 +1,27 @@
+{
+ "depends_on": "rag-coverage-v1 (data/eval/m5_2_freeze.json)",
+ "files": {
+  "data/demo/spec.yaml": "9bdd470eca2f1ecdca9fc11ad16f6897762d2dad1bd578763501e76978393267",
+  "data/eval/rag/citation_relevance_dev.jsonl": "936664f5db86b4d57087bdce27c91ae27f308619ca5d3a1f637bd8fb4c653563",
+  "data/eval/rag/demo_examples.yaml": "66ce11cdd9aed6c3881c263a6a9e6d9928a4cdb6f9740cfb297e6053de7590d8",
+  "data/eval/rag/final_eval_gemini.yaml": "9178aacc9569520f25b27d48510ff976efe7c1b7dc6d60644b44ea40214ee9a3",
+  "data/eval/rag/verbose_dev.yaml": "34ef2c4b2e2ac8dcdee0c0ee6a5cd69a0a85780737e4fd9846266b92034717da",
+  "data/eval/results/m5_3/demo_recording/live_gemini_gemini-3.1-flash-lite.raw.json": "92733e95f3c23d3a73a7d5cb02bce977280d45d80d9d9534b2df70ce2eaaaea0",
+  "data/eval/results/m5_3/demo_recording/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json": "d6e0547a9a33d6137425f19e4e1b2336ce6fa94906ee436e5be3d13141653dc9",
+  "data/eval/results/m5_3/final_after/live_gemini_gemini-3.1-flash-lite.raw.json": "e5ed4c60e0c7fb5b341be6f21bccdd92a237fcd1f8a659205e93fc3b264f30c7",
+  "data/eval/results/m5_3/final_after/live_merged_as_run.json": "1151de069f96dc5ef7b4f1737375e641b7c45d66c7da3a289adb6851939b6700",
+  "data/eval/results/m5_3/final_after/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json": "64f8ce4574c5fb159c1bb6246a56df398139d03a39f1f24d704b2268c4e4bf6e",
+  "data/eval/results/m5_3/final_agent_review.yaml": "30750c43330262a3fb216224543dc3e17b844d7c6cadc2bbde87142d25349b90",
+  "data/eval/results/m5_3/final_before/live_gemini_gemini-3.1-flash-lite.raw.json": "11116ed4424f0fc7cf6836b7c5c8fe9e1cc9e9dec8a1fa0e3599165a9668c18f",
+  "data/eval/results/m5_3/final_before/live_merged_as_run.json": "888f9a9a601a27005bcfa63a38640e94d0975e004c1552eeba480999e84527b1",
+  "data/eval/results/m5_3/final_before/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json": "50914a4f64c2f429afdcd24467eb94402550526c1b857b5e138459733e9ad1b9",
+  "data/eval/results/m5_3/final_summary.json": "0020d77aa1c4ecc5d7194a12985b8786155bd6169e91d23f4478861367b43a8f",
+  "data/eval/results/m5_3/gate_diagnosis_after.json": "c2b164b8c3b9b90b0cd3bd3e2e7fa738e84bc65412b1bed4f3e2a9388b287986",
+  "data/eval/results/m5_3/gate_diagnosis_before.json": "90996a8d28cf2c69b387814eae30b10b562bd3e327f8a435936291bde2cf866b",
+  "data/eval/results/m5_3/gate_regression.json": "9207fa8144ac270f106ed197f6b6e0b3e631b936d403a989bae7cada15f4ef32",
+  "data/eval/results/m5_3/verbose_dev_after/live_gemini_gemini-3.1-flash-lite.raw.json": "2897b47e1fcc9779366563dd98586ccb883278afb187821f8502416e02ed7549",
+  "frontend/lib/demo-data.json": "108ab9a826e287ec966800794aa79c56d9cbff0880ad7e4a3c6648a4adec1bba"
+ },
+ "freeze_id": "rag-reliability-v1",
+ "note": "Milestone 5.3: the verbose-question development set (used to diagnose and tune the evidence gate), the fresh final evaluation set (generated before any 5.3 change, run once BEFORE and once AFTER), the citation-relevance development benchmark, gate diagnostics, and the recorded demo data. Labels are agent-made; no human verification."
+}

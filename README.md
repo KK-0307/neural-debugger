@@ -93,7 +93,12 @@ make dev-frontend                                            # http://localhost:
 ```
 
 Docs: [docs/frontend.md](docs/frontend.md) (what the UI does and what was verified), [docs/rag-coverage.md](docs/rag-coverage.md)
-(the coverage pass: diagnosis, what helped, what did not, held-out results).
+(the coverage pass: diagnosis, what helped, what did not, held-out results), [docs/rag-reliability.md](docs/rag-reliability.md)
+(the evidence-gate and citation reliability pass, with the fresh before/after evaluation).
+
+**Public demo (prepared, not deployed).** `cd frontend && NEXT_PUBLIC_DEMO_MODE=static npm run build` exports a static site with 12 recorded
+real answers: no backend, no API key, no feedback, nothing sent anywhere. `ND_DEMO_MODE=readonly` adds a rate-limited, feedback-free
+API mode for a possible live demo later. Details, limits and the deployment checklist: [docs/demo.md](docs/demo.md).
 
 ## Quick start
 
@@ -133,7 +138,7 @@ RAG with a free hosted LLM (no local weights): put `GEMINI_API_KEY=...` in the g
 
 Docs: [architecture](docs/architecture.md) · [data pipeline](docs/data-pipeline.md) ·
 [evaluation](docs/evaluation.md) · [neural retrieval](docs/neural-retrieval.md) ·
-[custom transformer](docs/ml-model.md) · [RAG](docs/rag.md) · [semantic grounding](docs/semantic-grounding.md) · [coverage pass](docs/rag-coverage.md) · [web app](docs/frontend.md) ·
+[custom transformer](docs/ml-model.md) · [RAG](docs/rag.md) · [semantic grounding](docs/semantic-grounding.md) · [coverage pass](docs/rag-coverage.md) · [reliability pass](docs/rag-reliability.md) · [web app](docs/frontend.md) · [public demo](docs/demo.md) ·
 [technical decisions](docs/technical-decisions.md).
 
 macOS note: if `import neural_debugger` fails inside `.venv`, run `chflags -R nohidden .venv` (see

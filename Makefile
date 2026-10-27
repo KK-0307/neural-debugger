@@ -53,6 +53,7 @@ freeze-verify:  ## fail if the frozen baseline (M2) or neural configuration (M3)
 	uv run python -m neural_debugger.ml.evaluation.freeze verify-m5
 	uv run python -m neural_debugger.ml.evaluation.freeze verify-m5_1
 	uv run python -m neural_debugger.ml.evaluation.freeze verify-m5_2
+	uv run python -m neural_debugger.ml.evaluation.freeze verify-m5_3
 
 embed:  ## (re)generate chunk embeddings: make embed M=gte-small
 	uv run python -m neural_debugger.ml.retrieval.embed --model $(M)

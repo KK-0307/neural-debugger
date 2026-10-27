@@ -273,6 +273,51 @@ def verify_m52(root: Path = Path(".")) -> list[str]:
     return [f + " changed" for f, h in frozen["files"].items() if now["files"].get(f) != h]
 
 
+M53_FREEZE_PATH = Path("data/eval/m5_3_freeze.json")
+M53_FROZEN_FILES = [
+    "data/eval/rag/verbose_dev.yaml",
+    "data/eval/rag/final_eval_gemini.yaml",
+    "data/eval/rag/citation_relevance_dev.jsonl",
+    "data/eval/rag/demo_examples.yaml",
+    "data/demo/spec.yaml",
+    "data/eval/results/m5_3/gate_diagnosis_before.json",
+    "data/eval/results/m5_3/gate_diagnosis_after.json",
+    "data/eval/results/m5_3/gate_regression.json",
+    "data/eval/results/m5_3/verbose_dev_after/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_3/final_before/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_3/final_before/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_3/final_before/live_merged_as_run.json",
+    "data/eval/results/m5_3/final_after/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_3/final_after/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_3/final_after/live_merged_as_run.json",
+    "data/eval/results/m5_3/final_summary.json",
+    "data/eval/results/m5_3/final_agent_review.yaml",
+    "data/eval/results/m5_3/demo_recording/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "data/eval/results/m5_3/demo_recording/rerun_infra_errors/live_gemini_gemini-3.1-flash-lite.raw.json",
+    "frontend/lib/demo-data.json",
+]
+
+
+def compute_m53(root: Path = Path(".")) -> dict[str, Any]:
+    return {
+        "freeze_id": "rag-reliability-v1",
+        "depends_on": "rag-coverage-v1 (data/eval/m5_2_freeze.json)",
+        "note": (
+            "Milestone 5.3: the verbose-question development set (used to diagnose and tune the evidence gate), the "
+            "fresh final evaluation set (generated before any 5.3 change, run once BEFORE and once AFTER), the "
+            "citation-relevance development benchmark, gate diagnostics, and the recorded demo data. Labels are "
+            "agent-made; no human verification."
+        ),
+        "files": {f: _sha(root / f) for f in M53_FROZEN_FILES},
+    }
+
+
+def verify_m53(root: Path = Path(".")) -> list[str]:
+    frozen = json.loads((root / M53_FREEZE_PATH).read_text())
+    now = compute_m53(root)
+    return [f + " changed" for f, h in frozen["files"].items() if now["files"].get(f) != h]
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument(
@@ -290,9 +335,21 @@ def main(argv: list[str] | None = None) -> int:
             "verify-m5_1",
             "create-m5_2",
             "verify-m5_2",
+            "create-m5_3",
+            "verify-m5_3",
         ],
     )
     args = ap.parse_args(argv)
+    if args.command == "create-m5_3":
+        M53_FREEZE_PATH.write_text(json.dumps(compute_m53(), indent=1, sort_keys=True) + "\n")
+        print(f"wrote {M53_FREEZE_PATH}")
+        return 0
+    if args.command == "verify-m5_3":
+        problems = verify_m53()
+        for p_ in problems:
+            print("DRIFT:", p_)
+        print("frozen M5.3 evidence intact" if not problems else f"{len(problems)} drift(s)")
+        return 1 if problems else 0
     if args.command == "create-m5_2":
         M52_FREEZE_PATH.write_text(json.dumps(compute_m52(), indent=1, sort_keys=True) + "\n")
         print(f"wrote {M52_FREEZE_PATH}")

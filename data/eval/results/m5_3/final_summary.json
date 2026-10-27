@@ -1,0 +1,116 @@
+{
+ "label": "Fresh final evaluation (54 Gemini-written questions, frozen before any 5.3 change) before vs after; agent review only",
+ "before_commit": "2619602",
+ "after_commit": "339bfe9",
+ "in_scope": {
+  "n": 42,
+  "answered_before": 12,
+  "answered_after": 16,
+  "rate_before": 0.286,
+  "rate_after": 0.381,
+  "wilson95_before": [
+   0.172,
+   0.436
+  ],
+  "wilson95_after": [
+   0.25,
+   0.532
+  ],
+  "gained": 4,
+  "lost": 0,
+  "exact_sign_test_p_two_sided": 0.125
+ },
+ "out_of_scope": {
+  "n": 12,
+  "abstained_before": 12,
+  "abstained_after": 12
+ },
+ "gate_abstentions_in_scope": {
+  "before": 21,
+  "after": 11
+ },
+ "model_declines_in_scope": {
+  "before": 9,
+  "after": 15
+ },
+ "answer_quality_agent_review": {
+  "before": {
+   "good": 8,
+   "generic_or_mixed": 4,
+   "weak": 0,
+   "n": 12
+  },
+  "after": {
+   "good": 11,
+   "generic_or_mixed": 4,
+   "weak": 1,
+   "n": 16
+  }
+ },
+ "abstentions_after_agent_review": {
+  "appropriate": 16,
+  "borderline": 7,
+  "avoidable": 3,
+  "n": 26
+ },
+ "citation_validity": {
+  "invalid_ids_before": "0/50 claims",
+  "invalid_ids_after": "0/67 claims"
+ },
+ "claims_removed_by_lexical_support": {
+  "before": "4/50",
+  "after": "5/67"
+ },
+ "semantic_flags": {
+  "before": {
+   "contradicted_removed": 1,
+   "disputed_flagged": 1,
+   "unverified_flagged": 3,
+   "unconfirmed_neutral": 39
+  },
+  "after": {
+   "contradicted_removed": 1,
+   "disputed_flagged": 1,
+   "unverified_flagged": 3,
+   "unconfirmed_neutral": 56
+  }
+ },
+ "latency_ms": {
+  "before": {
+   "generation_p50": 10590,
+   "generation_p95": 17110,
+   "total_p50": 43,
+   "total_p95": 15982,
+   "mean_total": 4474
+  },
+  "after": {
+   "generation_p50": 7432,
+   "generation_p95": 21354,
+   "total_p50": 3908,
+   "total_p95": 15432,
+   "mean_total": 5255
+  }
+ },
+ "tokens": {
+  "before": {
+   "input_tokens": 69633,
+   "output_tokens": 6493
+  },
+  "after": {
+   "input_tokens": 101525,
+   "output_tokens": 9658
+  }
+ },
+ "by_framework": {
+  "before": {
+   "python": 0.071,
+   "pytorch": 0.214,
+   "fastapi": 0.571
+  },
+  "after": {
+   "python": 0.143,
+   "pytorch": 0.429,
+   "fastapi": 0.571
+  }
+ }
+}
