@@ -1,0 +1,35 @@
+# Render Blueprint: the whole application (FastAPI + exported Next.js frontend) as ONE free web service.
+# Free plan only: 512 MB RAM, spins down after ~15 minutes without traffic, no card needed. Nothing here enables billing.
+# The Gemini key is NOT in this file: Render asks for it (sync: false) and keeps it as an encrypted environment variable.
+services:
+  - type: web
+    name: neural-debugger
+    runtime: docker
+    plan: free
+    dockerfilePath: ./docker/fullstack.Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: false   # deploy on demand, not on every push
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ND_LLM_PROVIDER
+        value: gemini
+      - key: ND_LLM_MODEL
+        value: gemini-3.1-flash-lite
+      - key: ND_LLM_API_KEY_ENV
+        value: GEMINI_API_KEY
+      - key: ND_LLM_MIN_INTERVAL_SECONDS
+        value: "7"
+      - key: ND_LLM_MAX_REQUESTS
+        value: "400"          # hard per-process cap on Gemini calls (a restart resets it)
+      - key: ND_DEMO_MODE
+        value: readonly
+      - key: ND_TRUST_PROXY_HEADERS
+        value: "true"         # behind Render's proxy only
+      - key: ND_DEMO_RATE_PER_MINUTE
+        value: "3"
+      - key: ND_DEMO_RATE_PER_DAY
+        value: "20"
+      - key: ND_DEMO_BUDGET_PER_DAY
+        value: "120"

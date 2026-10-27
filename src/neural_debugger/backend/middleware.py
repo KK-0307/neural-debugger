@@ -12,6 +12,11 @@ from .errors import error_response
 logger = logging.getLogger("neural_debugger.access")
 
 REQUEST_ID_HEADER = "X-Request-ID"
+SECURITY_HEADERS = {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+}
 
 
 async def request_context_middleware(
@@ -31,6 +36,8 @@ async def request_context_middleware(
         response = error_response(500, "internal_error", "Internal server error.", request_id)
     duration_ms = round((time.perf_counter() - start) * 1000, 2)
     response.headers[REQUEST_ID_HEADER] = request_id
+    for name, value in SECURITY_HEADERS.items():
+        response.headers.setdefault(name, value)
     logger.info(
         "request",
         extra={

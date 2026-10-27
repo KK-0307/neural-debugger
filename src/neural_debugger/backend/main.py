@@ -2,14 +2,16 @@
 
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from neural_debugger.rag import RAGPipeline
 
 from . import __version__
-from .api import debug, feedback, health
+from .api import debug, feedback, health, public
 from .config import Settings, get_settings
 from .db import create_db_engine
 from .errors import ErrorResponse, register_exception_handlers
@@ -55,6 +57,11 @@ def create_app(settings: Settings | None = None, pipeline: RAGPipeline | None = 
     app.include_router(health.router)
     app.include_router(debug.router)
     app.include_router(feedback.router)
+    app.include_router(public.router)
+    static = Path(settings.static_dir) if settings.static_dir else None
+    if static is not None and static.is_dir():
+        # mounted last: every API route above wins; unknown paths fall through to the exported site (and its 404 page)
+        app.mount("/", StaticFiles(directory=static, html=True), name="site")
     return app
 
 

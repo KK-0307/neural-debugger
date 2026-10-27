@@ -29,6 +29,11 @@ export function describeError(err: unknown, baseUrl: string = DEFAULT_API_BASE_U
         return { title: "The language model is unavailable", body: err.message, hint: "Free-tier models are rate limited and sometimes overloaded. Try again shortly.", retry: true };
       case "llm_timeout":
         return { title: "The language model took too long", body: err.message, retry: true };
+      case "demo_rate_limited":
+      case "demo_budget_exhausted":
+        return { title: "Rate limit reached", body: err.message, hint: "This public deployment shares a small free Gemini quota; try again later or run the project locally (see the README).", retry: false };
+      case "demo_question_too_long":
+        return { title: "That question is too long for the public deployment", body: err.message, retry: false };
       case "validation_error":
         return { title: "That input was not accepted", body: "Check that the question is between 3 and 20,000 characters.", retry: false };
       default:

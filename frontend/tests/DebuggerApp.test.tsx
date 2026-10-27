@@ -93,7 +93,8 @@ describe("DebuggerApp", () => {
 
   it("shows a busy server as retryable and a rate-limited model in plain words", async () => {
     let n = 0;
-    const { user } = await setup(() => {
+    const { user } = await setup((req) => {
+      if (req.path !== "/api/v1/debug") return { status: 404, body: {} };
       n += 1;
       return n === 1
         ? { status: 429, body: { error: { code: "busy", message: "Too many answers" } } }
@@ -188,5 +189,53 @@ describe("feedback", () => {
     fail = false;
     await user.click(screen.getByRole("button", { name: /Helpful/ }));
     expect(await screen.findByText(/your feedback was saved/)).toBeInTheDocument();
+  });
+});
+
+describe("public read-only deployment", () => {
+  const publicConfig = {
+    mode: "readonly",
+    llm_provider: "gemini",
+    max_question_chars: 2000,
+    rate_per_minute: 4,
+    rate_per_day: 40,
+    notice: "Your text is sent to Google's Gemini API on the free tier. Google may use free-tier prompts and responses to improve its products.",
+  };
+  const publicRouter: Router = (req) =>
+    req.path === "/api/v1/config"
+      ? { status: 200, body: publicConfig }
+      : req.path === "/api/v1/debug"
+        ? { status: 200, body: response() }
+        : { status: 403, body: { error: { code: "demo_readonly", message: "disabled" } } };
+
+  it("tells visitors about the limits and the free-tier data use before they type, and turns feedback off", async () => {
+    const { api, user } = await setup(publicRouter);
+    const notice = await screen.findByLabelText("About this public deployment");
+    expect(notice).toHaveTextContent("4 questions per minute and 40 per day");
+    expect(notice).toHaveTextContent("up to 2,000 characters");
+    expect(notice).toHaveTextContent("Google may use free-tier prompts");
+    await ask(user);
+    expect(await screen.findByRole("region", { name: "Likely cause" })).toBeInTheDocument();
+    expect(screen.getByText(/Feedback is disabled/)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Helpful/ })).not.toBeInTheDocument();
+    expect(api.requests.some((r) => r.path === "/api/v1/feedback")).toBe(false);
+  });
+
+  it("an ordinary deployment (or a server without /config) shows no notice and keeps feedback", async () => {
+    const { user } = await setup(ok);
+    await ask(user);
+    expect(await screen.findByRole("button", { name: /Helpful/ })).toBeInTheDocument();
+    expect(screen.queryByLabelText("About this public deployment")).not.toBeInTheDocument();
+  });
+
+  it("explains a rate limit instead of a generic failure", async () => {
+    const { user } = await setup((req) =>
+      req.path === "/api/v1/config"
+        ? { status: 200, body: publicConfig }
+        : { status: 429, body: { error: { code: "demo_rate_limited", message: "Too many questions; try again in 41 s." } } },
+    );
+    await ask(user);
+    expect(await screen.findByRole("alert")).toHaveTextContent("Rate limit reached");
+    expect(screen.getByRole("alert")).toHaveTextContent("try again in 41 s");
   });
 });

@@ -60,6 +60,43 @@ function isHealthResponse(v: unknown): v is HealthResponse {
   );
 }
 
+// ------------------------------------------------------------------------------------- deployment mode
+
+export type PublicConfig = {
+  mode: "off" | "readonly";
+  llm_provider: string;
+  max_question_chars: number | null;
+  rate_per_minute: number | null;
+  rate_per_day: number | null;
+  notice: string | null;
+};
+
+/** GET /api/v1/config: which mode the server runs in. Any failure means "ordinary deployment" (null); the app works without it. */
+export async function fetchPublicConfig(
+  baseUrl: string = DEFAULT_API_BASE_URL,
+  signal?: AbortSignal,
+): Promise<PublicConfig | null> {
+  try {
+    const res = await fetch(`${baseUrl}/api/v1/config`, { signal, cache: "no-store" });
+    if (!res.ok) return null;
+    const o: unknown = await res.json();
+    if (typeof o !== "object" || o === null) return null;
+    const c = o as Record<string, unknown>;
+    if (c.mode !== "off" && c.mode !== "readonly") return null;
+    const num = (v: unknown) => (typeof v === "number" ? v : null);
+    return {
+      mode: c.mode,
+      llm_provider: typeof c.llm_provider === "string" ? c.llm_provider : "",
+      max_question_chars: num(c.max_question_chars),
+      rate_per_minute: num(c.rate_per_minute),
+      rate_per_day: num(c.rate_per_day),
+      notice: typeof c.notice === "string" ? c.notice : null,
+    };
+  } catch {
+    return null;
+  }
+}
+
 // ------------------------------------------------------------------------------------- debugging API
 
 export const MAX_QUESTION_CHARS = 20000;

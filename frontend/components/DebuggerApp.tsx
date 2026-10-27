@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { DEFAULT_API_BASE_URL, askDebugger } from "@/lib/api";
+import { DEFAULT_API_BASE_URL, askDebugger, fetchPublicConfig, type PublicConfig } from "@/lib/api";
 import { addEntry, clearHistory, loadHistory, saveHistory, useHistory, type HistoryEntry } from "@/lib/history";
 import type { DebugResponse } from "@/lib/types";
 import AnswerView from "./AnswerView";
@@ -23,6 +23,15 @@ export default function DebuggerApp({ apiBaseUrl = DEFAULT_API_BASE_URL }: { api
   const [formInitial, setFormInitial] = useState<Submission | undefined>(undefined);
   const controller = useRef<AbortController | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
+  const [config, setConfig] = useState<PublicConfig | null>(null);
+
+  useEffect(() => {
+    const c = new AbortController();
+    fetchPublicConfig(apiBaseUrl, c.signal).then((cfg) => {
+      if (!c.signal.aborted) setConfig(cfg);
+    });
+    return () => c.abort();
+  }, [apiBaseUrl]);
 
   useEffect(() => {
     if (state.kind !== "loading") return;
@@ -70,6 +79,7 @@ export default function DebuggerApp({ apiBaseUrl = DEFAULT_API_BASE_URL }: { api
   return (
     <div className="space-y-8">
       <QuestionForm key={formKey} initial={formInitial} onSubmit={submit} onCancel={cancel} busy={busy} />
+      {config && <DeploymentNotice config={config} />}
 
       <div ref={resultRef} tabIndex={-1} className="space-y-4 outline-none" aria-live="polite" aria-busy={busy}>
         {state.kind === "loading" && (
@@ -83,7 +93,13 @@ export default function DebuggerApp({ apiBaseUrl = DEFAULT_API_BASE_URL }: { api
         )}
         {state.kind === "error" && <ErrorNotice error={state.error} baseUrl={apiBaseUrl} onRetry={() => submit(state.last)} />}
         {state.kind === "result" && (
-          <AnswerView key={state.key} result={state.result} question={state.question} apiBaseUrl={apiBaseUrl} />
+          <AnswerView
+            key={state.key}
+            result={state.result}
+            question={state.question}
+            apiBaseUrl={apiBaseUrl}
+            readOnly={config?.mode === "readonly"}
+          />
         )}
       </div>
 
@@ -93,5 +109,28 @@ export default function DebuggerApp({ apiBaseUrl = DEFAULT_API_BASE_URL }: { api
         onClear={clearHistory}
       />
     </div>
+  );
+}
+
+function DeploymentNotice({ config }: { config: PublicConfig }) {
+  if (config.mode !== "readonly" && !config.notice) return null;
+  return (
+    <aside
+      aria-label="About this public deployment"
+      className="space-y-1 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-100"
+    >
+      {config.mode === "readonly" && (
+        <p>
+          <strong>Public deployment on free hosting.</strong> It is shared and rate limited
+          {config.rate_per_minute !== null && config.rate_per_day !== null
+            ? ` (${config.rate_per_minute} questions per minute and ${config.rate_per_day} per day per visitor)`
+            : ""}
+          {config.max_question_chars !== null ? `; questions up to ${config.max_question_chars.toLocaleString("en-US")} characters` : ""}
+          . Feedback is turned off and nothing you type is stored by this server. The first request after a quiet period can take a
+          minute while the server wakes up.
+        </p>
+      )}
+      {config.notice && <p>{config.notice}</p>}
+    </aside>
   );
 }

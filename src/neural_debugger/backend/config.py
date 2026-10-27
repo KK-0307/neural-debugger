@@ -64,6 +64,9 @@ class Settings(BaseSettings):
     demo_rate_per_day: int = 40
     demo_budget_per_day: int = 150  # answers per day across all visitors
     trust_proxy_headers: bool = False  # honour X-Forwarded-For (only behind a proxy you control)
+    # directory of the exported Next.js frontend; when set (and present) the API serves it at "/" so one container is the
+    # whole application (docker/fullstack.Dockerfile). Empty = API only.
+    static_dir: str = ""
     rag_max_concurrent: int = 4
     rag_warm_on_startup: bool = False
 
