@@ -93,6 +93,18 @@ jobs:
             nd-backend:ci sh -c "python -m neural_debugger.rag.mock_server --port 8765 & exec uvicorn neural_debugger.backend.main:app --host 0.0.0.0 --port 8000"
           python3 scripts/smoke_debug.py http://127.0.0.1:8000 || { docker logs nd; exit 1; }
           docker rm -f nd
+      - name: Memory footprint - does the container fit a 512 MB limit (smallest free hosting tier)?
+        continue-on-error: true
+        run: |
+          docker run -d --name ndmem --memory=512m --memory-swap=512m -p 8000:8000 \
+            -e ND_LLM_PROVIDER=openai_compatible -e ND_LLM_BASE_URL=http://127.0.0.1:8765 -e ND_LLM_MODEL=mock -e ND_RAG_WARM_ON_STARTUP=true \
+            nd-backend:ci sh -c "python -m neural_debugger.rag.mock_server --port 8765 & exec uvicorn neural_debugger.backend.main:app --host 0.0.0.0 --port 8000"
+          ok=0; python3 scripts/smoke_debug.py http://127.0.0.1:8000 || ok=1
+          echo "OOMKilled: $(docker inspect -f '{{.State.OOMKilled}}' ndmem)"
+          echo "peak memory (bytes): $(docker exec ndmem sh -c 'cat /sys/fs/cgroup/memory.peak 2>/dev/null || cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes')"
+          docker stats --no-stream ndmem || true
+          docker rm -f ndmem
+          exit $ok
       - name: Smoke test - no provider configured gives an informative 503
         run: |
           docker run -d --name nd -p 8000:8000 nd-backend:ci
