@@ -1,9 +1,9 @@
 # Progress
 
-**Current milestone:** 6 - the Neural Debugger application, plus a final reliability pass (5.3) and a prepared, **undeployed**
-public read-only demo. **Built, tested and used in a real browser against the real backend and the real Gemini free-tier model;
+**Current milestone:** 6 - the Neural Debugger application, plus a final reliability pass (5.3) and a **deployed** public read-only
+full-stack application (https://neural-debugger.onrender.com). **Built, tested and used in a real browser against the real backend and the real Gemini free-tier model;
 nobody but me has used it, and no result here is human-verified.** Everything is pushed and CI is green (python, frontend and docker
-jobs, including the full-stack image run inside a 512 MB limit). Not yet published: see the release paragraph below. Awaiting your
+jobs, including the full-stack image run inside a 512 MB limit). The live site is up (release paragraph below). Awaiting your
 review; not proceeding to Milestone 7.
 
 **Note on commit hashes.** Before the repository was made public, author e-mails were scrubbed by rewriting history; hashes cited in these write-ups (e.g. `35087b0`, `339bfe9`) are the old ones: see [docs/commit-map.md](docs/commit-map.md).
@@ -16,8 +16,7 @@ limits and the free-tier data notice, `render.yaml` describes a free-plan Render
 deployed URL from outside, and CI runs the image inside a 512 MB limit (it fits: `OOMKilled=false`, 468 MB anonymous memory).
 Hosting survey: Hugging Face Docker Spaces now require a paid plan; Cloud Run / Fly.io / Oracle need a card; Render's free
 web service (512 MB, sleeps when idle, no payment method documented as required) is the only option the container fits.
-**Not deployed yet**: publishing requires the owner's GitHub (public repo) and Render sign-in and entering the Gemini key in the
-Render dashboard; nothing claims a public URL until `scripts/smoke_public.py` has passed against it.
+**Deployed by the owner on Render's free plan: https://neural-debugger.onrender.com**; `scripts/smoke_public.py --answers 3 --check-limits` passed against it on 2026-10-27 (details and what was not verified: `docs/deployment.md`).
 
 **Milestone 5.3 in one paragraph (details: `docs/rag-reliability.md`).** A new development set of 48 verbose questions showed the
 evidence gate refused **18 of 36** answerable questions before the model ran, in 14 of them with the right section already shown:
@@ -33,7 +32,7 @@ tried and rejected with numbers.
 
 **Public demo (details: `docs/demo.md`).** A static recorded demo (12 real answers replay-verified against the current
 validators, no backend, no key, no feedback) and an optional `ND_DEMO_MODE=readonly` API guard (limits, feedback 403, size cap).
-**Not deployed.** Hosting and any live endpoint need your approval first.
+The static recorded demo described here was superseded by the live full-stack deployment (`docs/deployment.md`); the static export remains as a no-backend fallback.
 
 **Milestone 5.2 in one paragraph (details: `docs/rag-coverage.md`).** On a **held-out set of 48 questions written by Gemini and
 frozen before any change** the share of in-scope questions answered rose from **11/36 (31%) to 14/36 (39%)**; all 12 out-of-scope
@@ -100,7 +99,7 @@ and speed (~1 ms/query). Test pool expansion for the custom systems was post-hoc
 | 5.2 (CI) | Pushed as `35087b0`, `2619602` | **CI green** (python, frontend, docker jobs; image 2,774 MiB; both smoke tests pass; supplement corpus and embeddings in the image) |
 | 5.3 | Evidence-gate reliability and citation relevance, fresh evaluation | **Done locally** (`339bfe9` + uncommitted work); gain directional, not significant (`docs/rag-reliability.md`) |
 | 6 | Debugging UI (paste, diagnose, cite, uncertainty, feedback) | **Done**; browser-verified by me only; CI green on `2619602` |
-| 6+ | Public read-only demo (static recorded + guarded API mode) | **Prepared locally, not deployed** (`docs/demo.md`) |
+| 6+ | Public read-only demo (static recorded + guarded API mode) | **Superseded by the live deployment** (`docs/deployment.md`); `docs/demo.md` keeps the static fallback |
 | - | Persistence, performance, beta | Not started |
 
 ## Step 1 - Milestone 2 finalised and committed

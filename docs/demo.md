@@ -1,7 +1,8 @@
 # Public read-only demo
 
-**Status: prepared and tested locally; not deployed.** Nothing has been published, no API key has been placed anywhere except the
-git-ignored `.env` on my machine, and nothing will be deployed without your explicit go-ahead (checklist in section 5).
+**Status: this describes the static recorded demo and the read-only API mode. The project's actual public deployment is the live full-stack
+application described in [deployment.md](deployment.md) (it runs this read-only mode against real Gemini); the static recorded
+export below was not published and remains a no-backend fallback.**
 
 There are two parts. The first is what I recommend publishing; the second exists for completeness and is **not** recommended for
 a first public release.

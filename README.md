@@ -12,8 +12,8 @@ A full-stack retrieval-augmented generation (RAG) project: a documentation corpu
 stack (BM25, pretrained dense, hybrid, and a from-scratch PyTorch transformer that *lost* to the baselines and is reported as
 such), a validated-citation pipeline over a free-tier LLM (Gemini), a FastAPI backend and a Next.js frontend.
 
-> **Live deployment:** not published yet. The full-stack container is built, tested in CI inside a 512 MB limit and ready for a free
-> host ([docs/deployment.md](docs/deployment.md)); run it locally in a few minutes ([Run it yourself](#run-it-yourself)).
+**Live demo: https://neural-debugger.onrender.com** (free hosting: shared, rate limited, sleeps when idle, so the first visit can take about a minute to wake;
+answers come live from Gemini 3.1 Flash-Lite on the free tier; your text is sent to Google, see [deployment](docs/deployment.md)).
 
 <p align="center">
   <img src="docs/assets/answer-python.png" alt="An answered question: likely cause, fixes with citation chips, example code, a 'how sure is this?' panel and the cited sources" width="760">
@@ -21,9 +21,9 @@ such), a validated-citation pipeline over a free-tier LLM (Gemini), a FastAPI ba
 
 | Answered, with a visible confidence panel | Declined, because the documentation does not cover it | On a phone |
 |---|---|---|
-| <img src="docs/assets/answer-python.png" width="300"> | <img src="docs/assets/abstention.png" width="300"> | <img src="docs/assets/answer-mobile.png" width="150"> |
+| <img src="docs/assets/answer-python.png" width="300"> | <img src="docs/assets/abstention.png" width="300"> | <img src="docs/assets/live-mobile.png" width="150"> |
 
-*Screenshots are the real application answering through the real backend and Gemini 3.1 Flash-Lite (free tier).*
+*Screenshots are the real application answering through the real backend and Gemini 3.1 Flash-Lite (free tier); the phone view was taken on the deployed site.*
 
 ## Why this is interesting
 

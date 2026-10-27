@@ -4,8 +4,8 @@ The live application is **one container**: the FastAPI service (retrieval, valid
 Next.js frontend, exported to static files, from the same origin (`docker/fullstack.Dockerfile`). Nothing is a recorded or mocked
 demo: every answer on the deployed site is produced live by the retrieval stack and Gemini 3.1 Flash-Lite (free tier).
 
-Status of this document: written and verified locally and in CI. The sections "What was verified" and "Live URL" say exactly what
-has and has not been checked against a public URL.
+Live: **https://neural-debugger.onrender.com** (Render free web service, deployed by the owner from `render.yaml`). The sections
+"What was verified" and "Live URL" say exactly what was checked against the public URL and what was not.
 
 ## Why a single container, and why Render
 
@@ -69,7 +69,9 @@ out-of-scope questions, so it spends no Gemini quota).
 | container inside a 512 MB limit: site, config, privacy, rate limit, retrieval answer | CI docker job, `scripts/smoke_public.py` | pass, `OOMKilled=false`, anon 468 MB |
 | full stack with **real Gemini** on a local machine (exported frontend served by FastAPI, read-only mode) | `scripts/smoke_public.py --answers 3 --check-limits` | Python answered (medium confidence, 3 citations), PyTorch partial (low confidence, 2 citations), limits enforced |
 | UI in a real browser (desktop and 375 px), notice, answer, abstention | screenshots in `docs/assets/` | as shown in the README |
-| **public URL** | not yet | see "Live URL" |
+| **public URL, from outside** (`scripts/smoke_public.py https://neural-debugger.onrender.com --answers 3 --check-limits`) | 2026-10-27 | pass: frontend + security headers, 404 page, config with free-tier notice, feedback refused (403), over-long and malformed input rejected without echo, out-of-scope question declined before the model with no trace, real answers for Python (answered, medium, 3 citations, 5.6 s), PyTorch (partial, low, 2 citations, 6.3 s) and FastAPI (answered, medium, 5 citations, 7.0 s), rate limit returns 429 with Retry-After |
+| public URL in a phone-size browser (390 px, touch) | 2026-10-27 | no horizontal overflow, deployment notice shown, an example answered, feedback hidden with the read-only note, only the site's own origin contacted (no third-party requests) |
+| fresh start | 2026-10-27 | the service was asleep: the first request returned the page after 45 s (Render's wake-up, includes loading the retriever); the following requests were fast |
 
 ## Cost and free-tier limits
 
@@ -84,5 +86,10 @@ out-of-scope questions, so it spends no Gemini quota).
 
 ## Live URL
 
-**Not deployed yet.** Publishing needs the owner's own GitHub and Render authentication (and the Gemini key entered in the Render
-dashboard); until that is done there is no public URL and nothing here claims one.
+**https://neural-debugger.onrender.com**: verified from outside on 2026-10-27 as in the table above.
+
+Not verified on the public site, and why: **Gemini error handling** (a 503 "high demand" or exhausted quota cannot be forced on
+demand; the mapping to plain-language errors is covered by the backend and frontend tests and was seen during development),
+**the per-day and global budgets** (exercising them would spend the shared quota; they are unit-tested), **memory over a long
+session** (CI shows 468 MB of 512 MB at steady state with the mock model; if Render ever kills the process, its logs say so), and
+behaviour after the 750 free hours are used up (the service is suspended until the next month).
