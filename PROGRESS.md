@@ -6,6 +6,8 @@ nobody but me has used it, and no result here is human-verified.** Everything is
 jobs, including the full-stack image run inside a 512 MB limit). Not yet published: see the release paragraph below. Awaiting your
 review; not proceeding to Milestone 7.
 
+**Note on commit hashes.** Before the repository was made public, author e-mails were scrubbed by rewriting history; hashes cited in these write-ups (e.g. `35087b0`, `339bfe9`) are the old ones: see [docs/commit-map.md](docs/commit-map.md).
+
 **Release milestone (final): packaging for the portfolio.** Pushed everything (CI green on every push; run IDs in
 `docs/portfolio.md`), rewrote the README, added `docs/deployment.md`, `docs/portfolio.md` (walkthrough script, resume bullets,
 evidence map), an MIT `LICENSE`, real-app screenshots, and made the **actual** application deployable as one free container:
