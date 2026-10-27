@@ -76,8 +76,16 @@ jobs:
           test "$size" -lt $((3 * 1024 * 1024 * 1024))
       - name: No secrets in the image
         run: |
-          ! docker run --rm --entrypoint sh nd-backend:ci -c 'ls -A /app | grep -E "^\.env"'
-          ! docker history --no-trunc nd-backend:ci | grep -iE 'api[_-]?key|secret|password'
+          # explicit `if`s: under `set -e` a failing `! pipeline` does not stop the step
+          if docker run --rm --entrypoint sh nd-backend:ci -c 'ls -A /app | grep -E "^\.env"'; then
+            echo "a .env file is inside the image"; exit 1
+          fi
+          if docker image inspect nd-backend:ci --format '{{json .Config.Env}}' | grep -iE 'api[_-]?key|secret|password|token'; then
+            echo "a secret-like variable is baked into the image environment"; exit 1
+          fi
+          if docker history --no-trunc nd-backend:ci | grep -E 'GEMINI_API_KEY|ANTHROPIC_API_KEY|AIza[0-9A-Za-z_-]{20,}'; then
+            echo "a credential name or key is in the image history"; exit 1
+          fi
       - name: Smoke test - provider configured (mock OpenAI-compatible server inside the container)
         run: |
           docker run -d --name nd -p 8000:8000 \
