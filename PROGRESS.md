@@ -2,9 +2,20 @@
 
 **Current milestone:** 6 - the Neural Debugger application, plus a final reliability pass (5.3) and a prepared, **undeployed**
 public read-only demo. **Built, tested and used in a real browser against the real backend and the real Gemini free-tier model;
-nobody but me has used it, and no result here is human-verified.** Milestones 5.2 and 6 are pushed and CI-verified (all three
-jobs green, incl. the Docker image); the 5.3 commit and the demo work are **local only** until you approve a push. Awaiting your
-review; not proceeding to Milestone 7 and not deploying anything.
+nobody but me has used it, and no result here is human-verified.** Everything is pushed and CI is green (python, frontend and docker
+jobs, including the full-stack image run inside a 512 MB limit). Not yet published: see the release paragraph below. Awaiting your
+review; not proceeding to Milestone 7.
+
+**Release milestone (final): packaging for the portfolio.** Pushed everything (CI green on every push; run IDs in
+`docs/portfolio.md`), rewrote the README, added `docs/deployment.md`, `docs/portfolio.md` (walkthrough script, resume bullets,
+evidence map), an MIT `LICENSE`, real-app screenshots, and made the **actual** application deployable as one free container:
+FastAPI serves the exported Next.js frontend (`docker/fullstack.Dockerfile`), `GET /api/v1/config` lets the UI show the public-mode
+limits and the free-tier data notice, `render.yaml` describes a free-plan Render service, `scripts/smoke_public.py` verifies a
+deployed URL from outside, and CI runs the image inside a 512 MB limit (it fits: `OOMKilled=false`, 468 MB anonymous memory).
+Hosting survey: Hugging Face Docker Spaces now require a paid plan; Cloud Run / Fly.io / Oracle need a card; Render's free
+web service (512 MB, sleeps when idle, no payment method documented as required) is the only option the container fits.
+**Not deployed yet**: publishing requires the owner's GitHub (public repo) and Render sign-in and entering the Gemini key in the
+Render dashboard; nothing claims a public URL until `scripts/smoke_public.py` has passed against it.
 
 **Milestone 5.3 in one paragraph (details: `docs/rag-reliability.md`).** A new development set of 48 verbose questions showed the
 evidence gate refused **18 of 36** answerable questions before the model ran, in 14 of them with the right section already shown:
@@ -161,7 +172,7 @@ precise (e.g. `LogBackward0`, `datetime.strftime`).
 | `uv run pytest` (full env, models cached), 5.3 working tree | **328 passed, 1 skipped, 1 xfailed** (skip: live Anthropic test; xfail: the documented adjacent-page citation limitation); ruff, `ruff format --check`, strict mypy (102 src / 45 test files) clean |
 | CI-equivalent env (`uv sync --locked --extra data --extra index`, no PyTorch), 5.3 working tree | ruff + format clean, strict mypy clean, **286 passed, 9 skipped, 1 xfailed** |
 | **GitHub Actions on `2619602`** (run 40445143415) | python, frontend and docker jobs **all green**: 262 passed / 9 skipped, 38 frontend tests, image **2,774 MiB**, no secrets in the image, container smoke tests: provider configured -> `answered`, 4 citations, supplement corpus reachable (`whatsnew/3.12` among sources), feedback endpoint stores without the question and rejects invalid input; no provider -> informative 503. First call 10.3 s (cold retriever) |
-| CI for `339bfe9` and the demo work | **not run**: not pushed (needs your approval). Local stand-in: scrubbed-environment backend + mock OpenAI-compatible server + `scripts/smoke_debug.py` passes (answered, 4 citations, supplement reachable, feedback OK); read-only mode checked with curl (3rd request in a minute 429 with `Retry-After`, feedback 403 and nothing written, 2,500-char question 422, no question text in the log). Docker itself is not installed here, so the image is unverified for the new commit (no new `COPY` paths were added) |
+| CI for `339bfe9` and the demo work | **green** once pushed (runs listed in `docs/portfolio.md`; the old local stand-in is kept for the record): scrubbed-environment backend + mock OpenAI-compatible server + `scripts/smoke_debug.py` passes (answered, 4 citations, supplement reachable, feedback OK); read-only mode checked with curl (3rd request in a minute 429 with `Retry-After`, feedback 403 and nothing written, 2,500-char question 422, no question text in the log). Docker itself is not installed here, so the image is unverified for the new commit (no new `COPY` paths were added) |
 | `make freeze-verify` (M2, M3, M4, M5, M5.1, M5.2 and new M5.3 evidence) | all intact. Re-running the frozen M5 evaluation with today's code still differs in exactly **4 of 146** non-timing numbers (one train answer low -> medium confidence), caused by the 5.1 user-typed-identifier exemption; 5.2 and 5.3 add none |
 | Frontend `lint`, `typecheck`, `npm test`, `npm run build` (normal) and `NEXT_PUBLIC_DEMO_MODE=static npm run build` | clean; **44 tests** (38 + 6 for the demo); both builds succeed (static export 1.1 MB) |
 | Static demo in a real browser (no backend running) | clicking an example makes **no network request**; no text area, no feedback button, "feedback is disabled" note; source links go to the official docs; 375 px with no horizontal overflow; header copy is demo-appropriate |

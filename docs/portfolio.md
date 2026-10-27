@@ -17,7 +17,7 @@ Screen: the app, desktop width, light theme. Have the PyTorch example and one ou
 | 0:50 | type the Kubernetes question, **Diagnose** | "Now something the docs don't cover." |
 | 0:55 | abstention view | "It declines, before calling the model, and shows the closest pages. On a fresh 54-question set it declined 12 of 12 out-of-scope questions." |
 | 1:05 | switch to the README results table | "I measured everything: hybrid retrieval beat BM25 on dev, my from-scratch transformer lost and I report that, and the latest improvement, 28 to 38 percent of questions answered, is not statistically significant. The README says so." |
-| 1:15 | end on the repo/CI badge | "FastAPI, Next.js, Docker, 334 backend tests, CI that smoke-tests the container." |
+| 1:15 | end on the repo/CI badge | "FastAPI, Next.js, Docker, 335 backend tests, CI that smoke-tests the container." |
 
 Recording tips: use the committed screenshots as a fallback if the free-tier model is slow (answers can take 10-30 s; cut the
 wait in editing, do not speed up the screen so it looks instant). If the model returns a 503 "high demand", retry; it is a
@@ -28,7 +28,7 @@ free-tier behaviour the UI handles with a plain-language error.
 **Backend / software engineering**
 - Built and shipped a full-stack debugging assistant (FastAPI, Next.js, Docker) that answers Python, PyTorch and FastAPI errors from
   4,995 documentation chunks with machine-validated citations: 0 invalid citation ids across 67 answered claims on a fresh
-  54-question evaluation, 334 backend and 47 frontend tests, strict typing, and a CI pipeline that builds the images and
+  54-question evaluation, 335 backend and 47 frontend tests, strict typing, and a CI pipeline that builds the images and
   smoke-tests the container inside a 512 MB memory limit.
 
 **Backend / production safeguards**
@@ -58,7 +58,7 @@ model-written": interviewers ask.
 | 12/12 out-of-scope declined; 12/42 → 16/42 answered; 0 invalid ids in 67 claims; quality 11/4/1 | `data/eval/results/m5_3/final_summary.json`, raw replies in `final_before/` and `final_after/`, [rag-reliability.md](rag-reliability.md) |
 | Gate: 18 → 1 of 36 verbose answerable refusals | `data/eval/results/m5_3/gate_diagnosis_before.json`, `gate_diagnosis_after.json`, `gate_regression.json` |
 | p = 0.125 (not significant) | exact sign test on 4 gained / 0 lost, `final_summary.json` |
-| 334 Python tests, 47 frontend tests | CI run logs (GitHub Actions), `make check` |
+| 335 Python tests, 47 frontend tests | CI run logs (GitHub Actions), `make check` |
 | Container fits a 512 MB limit | CI step "Full-stack container inside a 512 MB limit" (OOMKilled false); step summary of the run |
 | Free-tier latency p50 7.4 s / p95 21 s generation | `final_summary.json` (`latency_ms.after`), the free tier varies |
 | Evaluation sets and results unchanged since recorded | `data/eval/*_freeze.json`, `make freeze-verify` |

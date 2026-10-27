@@ -112,7 +112,7 @@ out-of-scope refusals went *up* on all four development sets. [Details and negat
 
 | | |
 |---|---|
-| Python tests | 334 passed in the full environment (+1 skipped live-Anthropic test, +1 strict `xfail` documenting a known limitation); `ruff`, `ruff format`, strict `mypy` clean |
+| Python tests | 335 passed in the full environment (+1 skipped live-Anthropic test, +1 strict `xfail` documenting a known limitation); `ruff`, `ruff format`, strict `mypy` clean |
 | Frontend | 47 tests against a real local HTTP server; `eslint`, `tsc` clean; normal and static builds |
 | CI (GitHub Actions) | python, frontend and docker jobs; the Docker job builds the images, smoke-tests the containers (answer, citations, supplement corpus, privacy rules) and runs the full-stack image **inside a 512 MB memory limit** (it fit, OOM-killed: false) |
 | Security | key never in the repo or history (scanned), no secrets in images (checked in CI), `npm audit` and `pip-audit` clean at release, validation errors never echo user input, access logs hold no question text |
